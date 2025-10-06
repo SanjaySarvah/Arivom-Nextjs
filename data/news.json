@@ -12,5 +12,77 @@
     "category": "politics",
     "excerpt": "Recent events shaping the world stage.",
     "content": "Detailed political analysis..."
+  },
+   {
+    "id": 3,
+    "title": "Tech Innovation 2025",
+    "category": "technologysss",
+    "excerpt": "A look at this year's biggest tech trends.",
+    "content": "Full article content about 2025 technology."
+  },
+  {
+    "id": 4,
+    "title": "Global Politics Update",
+    "category": "politicssss",
+    "excerpt": "Recent events shaping the world stage.",
+    "content": "Detailed political analysis..."
+  },
+   {
+    "id": 5,
+    "title": "Tech Innovation 2025",
+    "category": "technologyss",
+    "excerpt": "A look at this year's biggest tech trends.",
+    "content": "Full article content about 2025 technology."
+  },
+  {
+    "id": 6,
+    "title": "Global Politics Update",
+    "category": "politicsss",
+    "excerpt": "Recent events shaping the world stage.",
+    "content": "Detailed political analysis..."
+  },
+   {
+    "id": 7,
+    "title": "Tech Innovation 2025",
+    "category": "technologys",
+    "excerpt": "A look at this year's biggest tech trends.",
+    "content": "Full article content about 2025 technology."
+  },
+  {
+    "id": 8,
+    "title": "Global Politics Update",
+    "category": "politicss",
+    "excerpt": "Recent events shaping the world stage.",
+    "content": "Detailed political analysis..."
+  }
+  ,
+   {
+    "id": 9,
+    "title": "Tech Innovation 2025",
+    "category": "technologysssss",
+    "excerpt": "A look at this year's biggest tech trends.",
+    "content": "Full article content about 2025 technology."
+  },
+  {
+    "id": 10,
+    "title": "Global Politics Update",
+    "category": "politicssssss",
+    "excerpt": "Recent events shaping the world stage.",
+    "content": "Detailed political analysis..."
+  }
+   ,
+   {
+    "id": 11,
+    "title": "Tech Innovation 2025",
+    "category": "techn",
+    "excerpt": "A look at this year's biggest tech trends.",
+    "content": "Full article content about 2025 technology."
+  },
+  {
+    "id": 12,
+    "title": "Global Politics Update",
+    "category": "poli",
+    "excerpt": "Recent events shaping the world stage.",
+    "content": "Detailed political analysis..."
   }
 ]
