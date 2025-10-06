@@ -1,15 +1,16 @@
 [
   {
     "id": 1,
-    "title": "React vs Next.js \u2014 What to Choose in 2025",
-    "excerpt": "A comparison of frameworks for modern web apps...",
-    "content": "Full article content here.",
-    "category":"tn"
+    "title": "Tech Innovation 2025",
+    "category": "tn",
+    "excerpt": "A look at this year's biggest tech trends.",
+    "content": "Full article content about 2025 technology."
   },
   {
     "id": 2,
-    "title": "Design Systems 101",
-    "excerpt": "How to build a scalable design system...",
-    "content": "Design systems deep dive."
+    "title": "Global Politics Update",
+    "category": "pn",
+    "excerpt": "Recent events shaping the world stage.",
+    "content": "Detailed political analysis..."
   }
 ]

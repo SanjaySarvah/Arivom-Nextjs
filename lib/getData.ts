@@ -12,7 +12,7 @@ export type NewsItem = {
 export type ArticleItem = {
   id: number
   title: string
-  category?: string // optional, in case you don’t use category in articles
+  category: string   // make it required if you want all articles categorized
   excerpt: string
   content: string
 }
@@ -28,7 +28,7 @@ export const getNewsById = (id: number): NewsItem | undefined =>
 export const getAllArticles = (): ArticleItem[] => articles as ArticleItem[]
 
 export const getArticleByCategory = (cat: string): ArticleItem[] =>
-  (articles as ArticleItem[]).filter(a => a.category?.toLowerCase() === cat.toLowerCase())
+  (articles as ArticleItem[]).filter(a => a.category.toLowerCase() === cat.toLowerCase())
 
 export const getArticleById = (id: number): ArticleItem | undefined =>
   (articles as ArticleItem[]).find(a => a.id === id)

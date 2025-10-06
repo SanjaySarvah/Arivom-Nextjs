@@ -5,7 +5,7 @@ export default function ArticlesPage() {
   const articles = getAllArticles()
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-6">Articlesssssss</h1>
+      <h1 className="text-3xl font-bold mb-6">Articles</h1>
       <CardList items={articles} linkBase="/articles" />
     </div>
   )

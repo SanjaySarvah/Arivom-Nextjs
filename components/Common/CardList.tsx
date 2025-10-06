@@ -32,8 +32,8 @@ export default function CardList({
           className="group relative rounded-2xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 hover:-translate-y-1 border border-gray-100"
         >
           <CardItem item={item} linkBase={linkBase} />
-          {/* optional gradient overlay or hover detail */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 rounded-2xl"></div>
+          
+          <div className="absolute "></div>
         </div>
       ))}
     </div>
