@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Tech Innovation 2025",
+    "category": "technology",
+    "excerpt": "A look at this year's biggest tech trends.",
+    "content": "Full article content about 2025 technology."
+  },
+  {
+    "id": 2,
+    "title": "Global Politics Update",
+    "category": "politics",
+    "excerpt": "Recent events shaping the world stage.",
+    "content": "Detailed political analysis..."
+  }
+]
