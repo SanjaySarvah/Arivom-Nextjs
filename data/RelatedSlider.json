@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "title": "Next.js 13 App Router Guide",
+    "category": "Web Development",
+    "excerpt": "Learn how to build a modern web app with Next.js 13 App Router, layouts, and server components.",
+    "thumbnail": "/images/nextjs-guide.jpg",
+    "author": "Sanjay G.M.",
+    "readTime": "8 min read",
+    "publishedAt": "2025-10-06"
+  },
+  {
+    "id": 2,
+    "title": "Tailwind CSS Tips & Tricks",
+    "category": "CSS",
+    "excerpt": "Boost your productivity with these essential Tailwind CSS techniques for responsive design.",
+    "thumbnail": "/images/tailwind-tips.jpg",
+    "author": "Arivom Team",
+    "readTime": "5 min read",
+    "publishedAt": "2025-10-05"
+  },
+  {
+    "id": 3,
+    "title": "TypeScript Best Practices",
+    "category": "Programming",
+    "excerpt": "Discover the best TypeScript patterns and practices for scalable and maintainable code.",
+    "thumbnail": "/images/typescript.jpg",
+    "author": "Sanjay G.M.",
+    "readTime": "7 min read",
+    "publishedAt": "2025-10-04"
+  },
+  {
+    "id": 4,
+    "title": "React 18 Features You Must Know",
+    "category": "React",
+    "excerpt": "Explore React 18 new features like concurrent rendering, transitions, and suspense.",
+    "thumbnail": "/images/react18.jpg",
+    "author": "Arivom Team",
+    "readTime": "6 min read",
+    "publishedAt": "2025-10-03"
+  },
+  {
+    "id": 5,
+    "title": "Building a REST API with Node.js",
+    "category": "Backend",
+    "excerpt": "Step-by-step guide to creating a RESTful API using Node.js, Express, and TypeScript.",
+    "thumbnail": "/images/nodejs-api.jpg",
+    "author": "Sanjay G.M.",
+    "readTime": "10 min read",
+    "publishedAt": "2025-10-02"
+  },
+  {
+    "id": 6,
+    "title": "Mastering Git and GitHub",
+    "category": "Tools",
+    "excerpt": "Learn essential Git commands and GitHub workflows for effective version control.",
+    "thumbnail": "/images/git-github.jpg",
+    "author": "Arivom Team",
+    "readTime": "5 min read",
+    "publishedAt": "2025-10-01"
+  }
+]
