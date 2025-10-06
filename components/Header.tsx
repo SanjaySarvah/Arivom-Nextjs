@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation"; // ✅ Import usePathname
 import logo from "@/public/assets/logos/arivom-logo-latest.svg";
 import {
   FaAmazon,
@@ -92,6 +93,7 @@ const mockCategories: Category[] = [
 
 const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname(); // ✅ Get current path
 
   const socialLinks = [
     { icon: <FaFacebookF size={18} />, color: "hover:text-blue-600", label: "Facebook" },
@@ -223,11 +225,16 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
           </div>
 
           {/* Center Column (6/12): Navigation */}
+          {/* Center Column (6/12): Navigation */}
           <div className="col-span-6 flex justify-center center-nav">
             <nav>
               <ul className="flex gap-6 text-sm font-semibold items-center">
                 <li>
-                  <Link href="/" className="flex items-center gap-2 text-gray-800 hover:text-blue-600">
+                  <Link
+                    href="/"
+                    className={`flex items-center gap-2 ${pathname === "/" ? "text-[#e43131]" : "text-gray-800 hover:text-[#e43131]"
+                      }`}
+                  >
                     <FaHome size={14} />
                     Home
                   </Link>
@@ -235,7 +242,10 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
                 <li>
                   <Link
                     href="/news"
-                    className="flex items-center gap-2 text-gray-800 hover:text-blue-600"
+                    className={`flex items-center gap-2 ${pathname.startsWith("/news")
+                        ? "text-[#e43131]"
+                        : "text-gray-800 hover:text-[#e43131]"
+                      }`}
                   >
                     <FaRegNewspaper size={14} />
                     News
@@ -244,7 +254,10 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
                 <li>
                   <Link
                     href="/articles"
-                    className="flex items-center gap-2 text-gray-800 hover:text-blue-600"
+                    className={`flex items-center gap-2 ${pathname.startsWith("/articles")
+                        ? "text-[#e43131]"
+                        : "text-gray-800 hover:text-[#e43131]"
+                      }`}
                   >
                     <FaBook size={14} />
                     Articles
@@ -254,10 +267,9 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
             </nav>
           </div>
 
+
           {/* Right Column (3/12): Placeholder / Future use */}
-          <div className="col-span-3 flex justify-end">
-            {/* Placeholder for future icons, buttons, or ads */}
-          </div>
+          <div className="col-span-3 flex justify-end">{/* Future use */}</div>
         </div>
       </div>
 
