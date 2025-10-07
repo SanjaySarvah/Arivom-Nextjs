@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ClientLayoutWrapper>
           {/* ✅ Common Layout Components */}
           <Header />
-          <Navbar />
+      
 
           {/* ✅ Main Content */}
           <main className="w-full py-8">{children}</main>

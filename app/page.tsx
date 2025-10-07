@@ -18,7 +18,7 @@ export default function Home() {
 
           {/* Related Slider */}
           <div className="mb-8">
-            <RelatedSlider title="Related Articles" items={related} linkBase="/articles" />
+            <RelatedSlider title="Related Articles" items={related} linkBase="/news" />
           </div>
 
           {/* News Cards */}
