@@ -224,7 +224,7 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
       {/* Desktop Navigation - Split 3 Columns */}
       <div className="hidden xl:flex border-t border-gray-200 bg-white h-[80px]">
         <div className="grid grid-cols-12 items-center w-full max-w-[1320px] mx-auto px-[15px]">
-          {/* Left Column (3/12): ARTICLES Button */}
+       
           <div className="col-span-3 flex items-center">
             <div className="relative group flex-shrink-0">
               <button className="flex items-center gap-2 text-white bg-[#0c74d6] px-[14px] py-[16px] rounded-md text-sm font-medium hover:bg-[#0a66be]">
@@ -287,7 +287,7 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
             </div>
           </div>
 
-          {/* Center Column (6/12): Navigation */}
+    
           <div className="col-span-6 flex justify-center center-nav">
             <nav>
               <ul className="flex gap-6 text-sm font-semibold items-center">
