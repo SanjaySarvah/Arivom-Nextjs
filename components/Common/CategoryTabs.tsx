@@ -12,7 +12,6 @@ interface CategoryTabsProps {
 export default function CategoryTabs({ items, baseLink, label }: CategoryTabsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [categories, setCategories] = useState<{ category: string; tname: string }[]>([]);
-  const [active, setActive] = useState<string>("");
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -25,7 +24,6 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
     );
 
     setCategories(uniqueCats);
-    if (uniqueCats.length > 0) setActive(uniqueCats[0].category);
 
     const handleResize = () => setIsMobile(window.innerWidth < 640);
     handleResize();
@@ -46,59 +44,58 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
   };
 
   return (
-    <div className="w-full bg-white px-0 sm:px-8 lg:px-16">
-      <div className="flex flex-col items-center gap-3 px-0 sm:px-8 overflow-hidden">
-        <div className="flex items-center w-full">
- 
-          <span className="hidden sm:inline text-lg font-bold text-gray-700 whitespace-nowrap">
+    <div className="w-full bg-gray-50 border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center gap-3 h-12">
+          {/* Label */}
+          <span className="text-red-600 font-bold text-sm whitespace-nowrap">
             {label}
           </span>
 
-          {!isMobile && (
-            <button
-              onClick={scrollLeft}
-              className="flex-shrink-0 m-2 md:m-5 bg-gray-100 hover:bg-gray-200 rounded-full p-3 shadow-md transition-all hidden md:flex items-center justify-center"
-              aria-label="Scroll left"
-            >
-              &#10094;
-            </button>
-          )}
+          {/* Left Arrow */}
+          <button
+            onClick={scrollLeft}
+            className="flex-shrink-0 text-gray-600 hover:text-gray-900 transition-colors"
+            aria-label="Scroll left"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
 
+          {/* Scrollable Tabs Container */}
           <div
             ref={containerRef}
-            className="flex-1 flex overflow-x-auto scrollbar-hide whitespace-nowrap scroll-smooth bg-gray-100 py-2 sm:py-4"
+            className="flex-1 flex overflow-x-auto overflow-y-hidden scrollbar-hide whitespace-nowrap scroll-smooth"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             onScroll={isMobile ? handleScroll : undefined}
           >
             {categories.map(({ category, tname }, index) => (
               <span key={category} className="flex items-center">
                 <Link
                   href={`${baseLink}/category/${category.toLowerCase()}`}
-                  className={`px-2 sm:px-4 py-2 text-sm font-medium transition-all duration-300 ${
-                    active === category
-                      ? "text-black px-4 hover:text-blue-600 hover:border-b-2 border-blue-600"
-                      : "text-gray-600 hover:text-blue-600 hover:border-b-2 border-blue-600 "
-                  }`}
-                  onClick={() => setActive(category)}
+                  className="px-4 py-3 text-sm font-medium text-gray-700 hover:text-gray-900 transition-all duration-300"
                 >
                   {tname}
                 </Link>
 
                 {index !== categories.length - 1 && (
-                  <span className="text-gray-400 px-1">|</span>
+                  <span className="text-gray-300 px-1">|</span>
                 )}
               </span>
             ))}
           </div>
 
-          {!isMobile && (
-            <button
-              onClick={scrollRight}
-              className="flex-shrink-0 m-2 md:m-5 bg-gray-100 hover:bg-gray-200 rounded-full p-3 shadow-md transition-all hidden md:flex items-center justify-center"
-              aria-label="Scroll right"
-            >
-              &#10095;
-            </button>
-          )}
+          {/* Right Arrow */}
+          <button
+            onClick={scrollRight}
+            className="flex-shrink-0 text-gray-600 hover:text-gray-900 transition-colors"
+            aria-label="Scroll right"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
