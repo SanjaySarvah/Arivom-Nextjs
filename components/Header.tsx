@@ -11,7 +11,6 @@ import {
   FaInstagram,
   FaPinterestP,
   FaTiktok,
-  FaTwitter,
   FaHome,
   FaRegNewspaper,
   FaBook,
@@ -19,6 +18,8 @@ import {
   FaPhone,
 } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
+import CommonFooter from "./CommonFooter";
+import DetailFooter from "./Common/DetailViews/DetailFooter";
 
 interface Category {
   id: number;
@@ -100,12 +101,12 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
   const pathname = usePathname();
 
   const socialLinks = [
-    { icon: <FaFacebookF size={18} />, color: "hover:text-blue-600", label: "Facebook" },
-    { icon: <FaTwitter size={18} />, color: "hover:text-sky-500", label: "Twitter" },
-    { icon: <FaInstagram size={18} />, color: "hover:text-pink-500", label: "Instagram" },
-    { icon: <FaTiktok size={18} />, color: "hover:text-gray-900", label: "TikTok" },
-    { icon: <FaAmazon size={18} />, color: "hover:text-orange-500", label: "Amazon" },
-    { icon: <FaPinterestP size={18} />, color: "hover:text-red-500", label: "Pinterest" },
+    { icon: <FaFacebookF size={16} />, color: "hover:text-blue-600", label: "Facebook" },
+    { icon: <RiTwitterXFill size={16} />, color: "hover:text-gray-900", label: "X" },
+    { icon: <FaInstagram size={16} />, color: "hover:text-pink-500", label: "Instagram" },
+    { icon: <FaTiktok size={16} />, color: "hover:text-gray-900", label: "TikTok" },
+    { icon: <FaAmazon size={16} />, color: "hover:text-orange-500", label: "Amazon" },
+    { icon: <FaPinterestP size={16} />, color: "hover:text-red-500", label: "Pinterest" },
   ];
 
   const toggleCategory = (categoryId: number) => {
@@ -146,7 +147,7 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
         }
       `}</style>
       {/* Top Section */}
-      <div className="py-5 max-w-[1320px] px-[15px] mx-auto">
+      <div className="py-3 max-w-[1320px] px-[15px] mx-auto">
         {/* Desktop View - Grid 3 columns */}
         <div className="hidden xl:grid grid-cols-3 items-center">
           {/* Left: Social Icons */}
@@ -333,60 +334,31 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
       </div>
 
       {/* Bottom Sticky Navigation - Only visible below 1024px and outside menu */}
-      <div className="xl:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
-        <div className="flex justify-around items-center py-3 px-2">
-          <Link 
-            href="/" 
-            className={`flex flex-col items-center gap-1 ${pathname === "/" ? "text-red-500" : "text-gray-600"}`}
-          >
-            <FaHome size={20} />
-            <span className="text-xs font-medium">Home</span>
-          </Link>
-          <Link 
-            href="/news" 
-            className={`flex flex-col items-center gap-1 ${pathname.startsWith("/news") ? "text-red-500" : "text-gray-600"}`}
-          >
-            <FaRegNewspaper size={20} />
-            <span className="text-xs font-medium">News</span>
-          </Link>
-          <Link 
-            href="/articles" 
-            className={`flex flex-col items-center gap-1 ${pathname.startsWith("/articles") ? "text-red-500" : "text-gray-600"}`}
-          >
-            <FaBook size={20} />
-            <span className="text-xs font-medium">Articles</span>
-          </Link>
-          <button 
-            className="flex flex-col items-center gap-1 text-gray-600"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            <span className="text-xs font-medium">Join Us</span>
-          </button>
-          <button 
-            className="flex flex-col items-center gap-1 text-gray-600"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-            <span className="text-xs font-medium">Share</span>
-          </button>
-        </div>
-      </div>
+      {/* Show DetailFooter on detail pages (news/[id], articles/[id]), otherwise show CommonFooter */}
+      {pathname.match(/\/(news|articles)\/[^\/]+$/) ? (
+        <DetailFooter />
+      ) : (
+        <CommonFooter />
+      )}
 
       {/* Mobile Menu Overlay */}
-      {menuOpen && (
-        <div className="xl:hidden fixed inset-0 z-50 bg-black bg-opacity-50" onClick={() => setMenuOpen(false)}>
-          {/* Mobile Menu Sidebar */}
-          <div 
-            className="w-[320px] max-w-[85vw] bg-white h-full fixed top-0 right-0 transform transition-transform ease-in-out duration-300 shadow-2xl overflow-y-auto scrollbar-hide"
-            onClick={(e) => e.stopPropagation()}
-          >
+      <div
+        className={`xl:hidden fixed inset-0 z-50 bg-black transition-all duration-300 ease-in-out ${
+          menuOpen ? 'bg-opacity-50 visible' : 'bg-opacity-0 invisible'
+        }`}
+        onClick={() => setMenuOpen(false)}
+      >
+        {/* Mobile Menu Sidebar */}
+        <div
+          className={`w-[320px] max-w-[85vw] bg-white h-full fixed top-0 left-0 shadow-2xl overflow-y-auto scrollbar-hide transition-transform duration-300 ease-in-out ${
+            menuOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+          onClick={(e) => e.stopPropagation()}
+        >
             {/* Close Button (First Row) */}
-            <div className="flex justify-start p-6 pb-3">
+            <div className="flex justify-start p-3 pb-3">
               <button
-                className="p-2 text-3xl text-gray-600 hover:text-gray-900 transition"
+                className="p-1 text-3xl text-gray-600 hover:text-gray-900 transition"
                 onClick={() => setMenuOpen(false)}
                 aria-label="Close menu"
               >
@@ -395,13 +367,13 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
             </div>
 
             {/* Logo (Second Row) */}
-            <div className="flex justify-center px-6 pb-6 border-b border-gray-200">
+            <div className="flex justify-center px-6 border-b border-gray-200">
               <Link href="/" onClick={() => setMenuOpen(false)}>
                 <Image
                   src={logoSrc ?? logo}
                   alt="Arivom Logo"
-                  width={180}
-                  height={72}
+                  width={280}
+                  height={112}
                   className="object-contain"
                 />
               </Link>
@@ -486,13 +458,13 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
               {/* Need Help Section */}
               <div className="text-left space-y-3">
                 <h3 className="text-lg font-semibold text-gray-900">Need Help?</h3>
-                <div className="flex items-left justify-left gap-2 text-gray-700">
+                <div className="flex items-left justify-left gap-2 text-gray-700 text-[15.42px]">
                   <FaEnvelope size={14} className="text-gray-500" />
                   <a href="mailto:support@arivom.com" className="text-sm hover:text-blue-600">
                     support@arivom.com
                   </a>
                 </div>
-                <div className="flex items-left justify-left gap-2 text-gray-700">
+                <div className="flex items-left justify-left gap-2 text-gray-700 text-[15.42px]">
                   <FaPhone size={14} className="text-gray-500" />
                   <a href="tel:+917667298398" className="text-sm hover:text-blue-600">
                     +91 7667298398
@@ -501,7 +473,7 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
               </div>
 
               {/* Legal Links */}
-              <div className="text-left text-sm space-y-1">
+              <div className="text-left text-sm space-y-1 text-[17.75px]">
                 <div>
                   <Link href="/terms" className="text-gray-700 hover:text-blue-600" onClick={() => setMenuOpen(false)}>
                     Terms & Conditions
@@ -541,7 +513,6 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
             </div>
           </div>
         </div>
-      )}
     </header>
   );
 };
