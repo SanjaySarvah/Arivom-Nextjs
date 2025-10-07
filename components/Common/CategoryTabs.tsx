@@ -48,7 +48,8 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
   };
 
   return (
-    <div className="w-full bg-white ">
+   <div className="w-full bg-white px-0 sm:px-8 lg:px-16 ">
+
       {/* Main Wrapper - remove extra padding on mobile */}
       <div className="flex flex-col items-center gap-3 px-0 sm:px-8 overflow-hidden">
         {/* Top Row */}
@@ -69,27 +70,33 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
             </button>
           )}
 
-          {/* Category Container */}
-          <div
-            ref={containerRef}
-            className="flex-1 flex gap-4 overflow-x-auto scrollbar-hide whitespace-nowrap scroll-smooth bg-gray-100 rounded-lg p-2 sm:p-4"
-            onScroll={isMobile ? handleScroll : undefined}
-          >
-            {categories.map((cat) => (
-              <Link
-                key={cat}
-                href={`${baseLink}/category/${cat.toLowerCase()}`}
-                className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 ${
-                  active === cat
-                    ? "text-black border-b-2 border-blue-600"
-                    : "text-gray-600 hover:text-blue-600 hover:border-b-2 border-transparent"
-                }`}
-                onClick={() => setActive(cat)}
-              >
-                {cat}
-              </Link>
-            ))}
-          </div>
+        <div
+  ref={containerRef}
+  className="flex-1 flex overflow-x-auto scrollbar-hide whitespace-nowrap scroll-smooth bg-gray-100 p-2 sm:p-4"
+  onScroll={isMobile ? handleScroll : undefined}
+>
+  {categories.map((cat, index) => (
+    <span key={cat} className="flex items-center">
+  <Link
+  href={`${baseLink}/category/${cat.toLowerCase()}`}
+  className={`px-4 sm:px-2 py-2 text-sm font-medium transition-all duration-300 ${
+    active === cat
+      ? "text-black border-b-2 border-blue-600" // Active tab style
+      : "text-gray-600 hover:text-blue-600 hover:border-b-2 border-transparent" // Inactive tab style
+  }`}
+  onClick={() => setActive(cat)}
+>
+  {cat}
+</Link>
+
+      {/* Add separator except after last item */}
+      {index !== categories.length - 1 && (
+        <span className="text-gray-400 px-1">|</span>
+      )}
+    </span>
+  ))}
+</div>
+
 
           {/* Right Arrow (hidden on mobile) */}
           {!isMobile && (
@@ -103,24 +110,7 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
           )}
         </div>
 
-        {/* Dots for Mobile */}
-        {isMobile && (
-          <div className="flex justify-center items-center gap-2 mt-1">
-            {Array.from({
-              length: Math.ceil(
-                (containerRef.current?.scrollWidth || 1) /
-                  (containerRef.current?.clientWidth || 1)
-              ),
-            }).map((_, i) => (
-              <span
-                key={i}
-                className={`w-2.5 h-2.5 rounded-full transition-all ${
-                  i === activeIndex ? "bg-blue-600 scale-110" : "bg-gray-300"
-                }`}
-              />
-            ))}
-          </div>
-        )}
+     
       </div>
     </div>
   );

@@ -2,7 +2,6 @@
 
 import { getAllArticles } from "@/lib/getData";
 import CardList from "@/components/Common/CardList";
-import CategoryTabs from "@/components/Common/CategoryTabs";
 
 export default function ArticlesPage() {
   const articles = getAllArticles();
@@ -17,8 +16,7 @@ export default function ArticlesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="w-full px-4 sm:px-6 md:px-10 lg:px-16 py-8">
-        {/* Category Tabs */}
-        <CategoryTabs items={articles} baseLink="/articles" label="ARTICLES" />
+
 
         {/* Header */}
         <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">

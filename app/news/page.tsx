@@ -17,7 +17,7 @@ export default function NewsPage() {
 
   return (
     <div>
-        <CategoryTabs items={news} baseLink="/news" label="NEWS" />
+        
    
     <div className="min-h-screen ">
       <div className="w-full px-4 sm:px-6 md:px-10 lg:px-16 ">
