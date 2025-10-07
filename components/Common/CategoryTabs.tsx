@@ -79,9 +79,9 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
     <span key={cat} className="flex items-center">
   <Link
   href={`${baseLink}/category/${cat.toLowerCase()}`}
-  className={`px-4 sm:px-2 py-2 text-sm font-medium transition-all duration-300 ${
+  className={`px-2 sm:px-4 py-2 text-sm font-medium transition-all duration-300 ${
     active === cat
-      ? "text-black border-b-2 border-blue-600" // Active tab style
+      ? "text-black border-b-2 border-blue-600 px-4" // Active tab style
       : "text-gray-600 hover:text-blue-600 hover:border-b-2 border-transparent" // Inactive tab style
   }`}
   onClick={() => setActive(cat)}
