@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation"; // ✅ Import usePathname
+import { usePathname } from "next/navigation";
 import logo from "@/public/assets/logos/arivom-logo-latest.svg";
 import {
   FaAmazon,
@@ -15,7 +15,10 @@ import {
   FaHome,
   FaRegNewspaper,
   FaBook,
+  FaEnvelope,
+  FaPhone,
 } from "react-icons/fa";
+import { RiTwitterXFill } from "react-icons/ri";
 
 interface Category {
   id: number;
@@ -93,7 +96,8 @@ const mockCategories: Category[] = [
 
 const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const pathname = usePathname(); // ✅ Get current path
+  const [expandedCategory, setExpandedCategory] = useState<number | null>(null);
+  const pathname = usePathname();
 
   const socialLinks = [
     { icon: <FaFacebookF size={18} />, color: "hover:text-blue-600", label: "Facebook" },
@@ -104,57 +108,115 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
     { icon: <FaPinterestP size={18} />, color: "hover:text-red-500", label: "Pinterest" },
   ];
 
+  const toggleCategory = (categoryId: number) => {
+    setExpandedCategory(expandedCategory === categoryId ? null : categoryId);
+  };
+
+  // Toggle body scroll when menu opens/closes
+  React.useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [menuOpen]);
+
   return (
     <header className="w-full border-b border-gray-200 bg-white shadow-sm">
+      <style jsx global>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          width: 6px;
+        }
+        .scrollbar-hide::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .scrollbar-hide::-webkit-scrollbar-thumb {
+          background: #d1d5db;
+          border-radius: 3px;
+        }
+        .scrollbar-hide::-webkit-scrollbar-thumb:hover {
+          background: #9ca3af;
+        }
+        .scrollbar-hide {
+          scrollbar-width: thin;
+          scrollbar-color: #d1d5db transparent;
+        }
+      `}</style>
       {/* Top Section */}
-      <div className="grid grid-cols-3 items-center py-5 max-w-[1320px] px-[15px] mx-auto">
-        {/* Left: Social Icons */}
-        <div className="hidden xl:flex gap-2">
-          {socialLinks.map(({ icon, color, label }, idx) => (
-            <a
-              key={idx}
-              href="#"
-              aria-label={label}
-              className={`w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 ${color} transition-colors duration-300`}
-            >
-              {icon}
-            </a>
-          ))}
+      <div className="py-5 max-w-[1320px] px-[15px] mx-auto">
+        {/* Desktop View - Grid 3 columns */}
+        <div className="hidden xl:grid grid-cols-3 items-center">
+          {/* Left: Social Icons */}
+          <div className="flex gap-2">
+            {socialLinks.map(({ icon, color, label }, idx) => (
+              <a
+                key={idx}
+                href="#"
+                aria-label={label}
+                className={`w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 ${color} transition-colors duration-300`}
+              >
+                {icon}
+              </a>
+            ))}
+          </div>
+
+          {/* Center: Logo */}
+          <div className="flex justify-center">
+            <Link href="/">
+              <Image
+                src={logoSrc ?? logo}
+                alt="Arivom Logo"
+                width={144}
+                height={57}
+                className="object-contain"
+                priority
+              />
+            </Link>
+          </div>
+
+          {/* Right: Auth Buttons */}
+          <div className="flex justify-end gap-3">
+            <button className="px-4 py-2 border border-blue-600 text-blue-600 rounded-md text-sm font-semibold hover:bg-blue-50 transition">
+              Sign In
+            </button>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-semibold hover:bg-blue-700 transition">
+              Sign Up
+            </button>
+          </div>
         </div>
 
-        {/* Center: Logo */}
-        <div className="flex justify-center">
-          <Link href="/">
-            <Image
-              src={logoSrc ?? logo}
-              alt="Arivom Logo"
-              width={144}
-              height={57}
-              className="object-contain"
-              priority
-            />
-          </Link>
-        </div>
-
-        {/* Right: Auth Buttons */}
-        <div className="hidden md:flex justify-end gap-3">
-          <button className="px-4 py-2 border border-blue-600 text-blue-600 rounded-md text-sm font-semibold hover:bg-blue-50 transition">
-            Sign In
-          </button>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-semibold hover:bg-blue-700 transition">
-            Sign Up
-          </button>
-        </div>
-
-        {/* Mobile Menu Toggle */}
-        <div className="xl:hidden flex justify-end md:hidden">
+        {/* Mobile/Tablet View - Below 1024px */}
+        <div className="xl:hidden flex items-center justify-between">
+          {/* Left: Hamburger Menu */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 border rounded-md text-gray-700 hover:bg-gray-100"
+            className="p-2 text-gray-700 hover:bg-gray-100 rounded-md"
             aria-label="Toggle menu"
           >
-            ☰
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
           </button>
+
+          {/* Center: Logo */}
+          <div className="flex justify-center flex-1">
+            <Link href="/">
+              <Image
+                src={logoSrc ?? logo}
+                alt="Arivom Logo"
+                width={144}
+                height={57}
+                className="object-contain"
+                priority
+              />
+            </Link>
+          </div>
+
+          {/* Right: Empty space for balance */}
+          <div className="w-10"></div>
         </div>
       </div>
 
@@ -225,15 +287,13 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
           </div>
 
           {/* Center Column (6/12): Navigation */}
-          {/* Center Column (6/12): Navigation */}
           <div className="col-span-6 flex justify-center center-nav">
             <nav>
               <ul className="flex gap-6 text-sm font-semibold items-center">
                 <li>
                   <Link
                     href="/"
-                    className={`flex items-center gap-2 ${pathname === "/" ? "text-[#e43131]" : "text-gray-800 hover:text-[#e43131]"
-                      }`}
+                    className={`flex items-center gap-2 ${pathname === "/" ? "text-[#e43131]" : "text-gray-800 hover:text-[#e43131]"} `}
                   >
                     <FaHome size={14} />
                     Home
@@ -267,29 +327,219 @@ const Header: React.FC<HeaderProps> = ({ logoSrc }) => {
             </nav>
           </div>
 
-
-          {/* Right Column (3/12): Placeholder / Future use */}
+          {/* Right Column (3/12): Placeholder */}
           <div className="col-span-3 flex justify-end">{/* Future use */}</div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Bottom Sticky Navigation - Only visible below 1024px and outside menu */}
+      <div className="xl:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
+        <div className="flex justify-around items-center py-3 px-2">
+          <Link 
+            href="/" 
+            className={`flex flex-col items-center gap-1 ${pathname === "/" ? "text-red-500" : "text-gray-600"}`}
+          >
+            <FaHome size={20} />
+            <span className="text-xs font-medium">Home</span>
+          </Link>
+          <Link 
+            href="/news" 
+            className={`flex flex-col items-center gap-1 ${pathname.startsWith("/news") ? "text-red-500" : "text-gray-600"}`}
+          >
+            <FaRegNewspaper size={20} />
+            <span className="text-xs font-medium">News</span>
+          </Link>
+          <Link 
+            href="/articles" 
+            className={`flex flex-col items-center gap-1 ${pathname.startsWith("/articles") ? "text-red-500" : "text-gray-600"}`}
+          >
+            <FaBook size={20} />
+            <span className="text-xs font-medium">Articles</span>
+          </Link>
+          <button 
+            className="flex flex-col items-center gap-1 text-gray-600"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            <span className="text-xs font-medium">Join Us</span>
+          </button>
+          <button 
+            className="flex flex-col items-center gap-1 text-gray-600"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+            <span className="text-xs font-medium">Share</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu Overlay */}
       {menuOpen && (
-        <div className="xl:hidden border-t bg-white">
-          <ul className="flex flex-col p-4 space-y-2 text-sm">
-            {["Explore", "Entertainment", "Technology", "Sports", "Health", "Business", "Travel"].map(
-              (tab) => (
-                <li key={tab}>
-                  <button
-                    onClick={() => setMenuOpen(false)}
-                    className="w-full text-left px-2 py-1 hover:bg-gray-100 rounded"
-                  >
-                    {tab}
-                  </button>
-                </li>
-              )
-            )}
-          </ul>
+        <div className="xl:hidden fixed inset-0 z-50 bg-black bg-opacity-50" onClick={() => setMenuOpen(false)}>
+          {/* Mobile Menu Sidebar */}
+          <div 
+            className="w-[320px] max-w-[85vw] bg-white h-full fixed top-0 right-0 transform transition-transform ease-in-out duration-300 shadow-2xl overflow-y-auto scrollbar-hide"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Close Button (First Row) */}
+            <div className="flex justify-start p-6 pb-3">
+              <button
+                className="p-2 text-3xl text-gray-600 hover:text-gray-900 transition"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Logo (Second Row) */}
+            <div className="flex justify-center px-6 pb-6 border-b border-gray-200">
+              <Link href="/" onClick={() => setMenuOpen(false)}>
+                <Image
+                  src={logoSrc ?? logo}
+                  alt="Arivom Logo"
+                  width={180}
+                  height={72}
+                  className="object-contain"
+                />
+              </Link>
+            </div>
+
+            {/* Navigation Links */}
+            <div className="py-4">
+              <Link 
+                href="/" 
+                className="flex items-center justify-between px-6 py-4 text-lg font-medium text-gray-800 hover:bg-gray-50 border-b border-gray-100"
+                onClick={() => setMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link 
+                href="/news" 
+                className="flex items-center justify-between px-6 py-4 text-lg font-medium text-gray-800 hover:bg-gray-50 border-b border-gray-100"
+                onClick={() => setMenuOpen(false)}
+              >
+                <span>News</span>
+                <span className="text-2xl font-light">+</span>
+              </Link>
+              
+              {/* Articles with Expandable Categories */}
+              <div className="border-b border-gray-100">
+                <button 
+                  onClick={() => toggleCategory(0)}
+                  className="flex items-center justify-between w-full px-6 py-4 text-lg font-medium text-gray-800 hover:bg-gray-50"
+                >
+                  <span>Articles</span>
+                  <span className="text-2xl font-light transition-transform duration-200" style={{ transform: expandedCategory === 0 ? 'rotate(45deg)' : 'rotate(0deg)' }}>+</span>
+                </button>
+                
+                {/* Categories Submenu */}
+                {expandedCategory === 0 && (
+                  <div className="bg-gray-50">
+                    {mockCategories.map((category) => (
+                      <div key={category.id}>
+                        <button
+                          onClick={() => toggleCategory(category.id)}
+                          className="flex items-center justify-between w-full px-8 py-3 text-base text-gray-700 hover:bg-gray-100"
+                        >
+                          <span>{category.title}</span>
+                          {category.children && (
+                            <svg
+                              className="w-4 h-4 transition-transform duration-200"
+                              style={{ transform: expandedCategory === category.id ? 'rotate(90deg)' : 'rotate(0deg)' }}
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="2"
+                              viewBox="0 0 24 24"
+                            >
+                              <path d="M9 5l7 7-7 7" />
+                            </svg>
+                          )}
+                        </button>
+                        
+                        {/* Subcategories */}
+                        {category.children && expandedCategory === category.id && (
+                          <div className="bg-white">
+                            {category.children.map((child) => (
+                              <Link
+                                key={child.id}
+                                href={`/articles/${child.slug}`}
+                                className="block px-12 py-3 text-sm text-gray-600 hover:bg-gray-50"
+                                onClick={() => setMenuOpen(false)}
+                              >
+                                {child.title}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Footer Section */}
+            <div className="border-t border-gray-200 p-6 space-y-6">
+              {/* Need Help Section */}
+              <div className="text-left space-y-3">
+                <h3 className="text-lg font-semibold text-gray-900">Need Help?</h3>
+                <div className="flex items-left justify-left gap-2 text-gray-700">
+                  <FaEnvelope size={14} className="text-gray-500" />
+                  <a href="mailto:support@arivom.com" className="text-sm hover:text-blue-600">
+                    support@arivom.com
+                  </a>
+                </div>
+                <div className="flex items-left justify-left gap-2 text-gray-700">
+                  <FaPhone size={14} className="text-gray-500" />
+                  <a href="tel:+917667298398" className="text-sm hover:text-blue-600">
+                    +91 7667298398
+                  </a>
+                </div>
+              </div>
+
+              {/* Legal Links */}
+              <div className="text-left text-sm space-y-1">
+                <div>
+                  <Link href="/terms" className="text-gray-700 hover:text-blue-600" onClick={() => setMenuOpen(false)}>
+                    Terms & Conditions
+                  </Link>
+                </div>
+                <div>
+                  <Link href="/privacy" className="text-gray-700 hover:text-blue-600" onClick={() => setMenuOpen(false)}>
+                    Privacy Policy
+                  </Link>
+                </div>
+              </div>
+
+              {/* Social Icons */}
+              <div className="flex justify-center gap-6 pb-6">
+                <a 
+                  href="#" 
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 hover:bg-blue-600 hover:text-white transition-all duration-300"
+                  aria-label="Facebook"
+                >
+                  <FaFacebookF size={18} />
+                </a>
+                <a 
+                  href="#" 
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 hover:bg-black hover:text-white transition-all duration-300"
+                  aria-label="X (Twitter)"
+                >
+                  <RiTwitterXFill size={18} />
+                </a>
+                <a 
+                  href="#" 
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-700 hover:bg-gradient-to-br hover:from-purple-600 hover:to-pink-500 hover:text-white transition-all duration-300"
+                  aria-label="Instagram"
+                >
+                  <FaInstagram size={18} />
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </header>
