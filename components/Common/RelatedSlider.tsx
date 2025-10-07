@@ -5,8 +5,8 @@ import Link from "next/link"
 import { Swiper, SwiperSlide } from "swiper/react"
 import { Navigation } from "swiper/modules"
 import "swiper/css"
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "swiper/css/navigation"
-import { FaUser, FaCalendarAlt, FaClock } from "react-icons/fa";
 
 type Item = {
   id: number
@@ -27,9 +27,6 @@ interface Props {
   items: Item[]
   linkBase: string
 }
-{/* Helper function */}
-const capitalize = (text: string) =>
-  text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 
 const RelatedSlider: FC<Props> = ({ title, items, linkBase }) => {
   const [maxHeight, setMaxHeight] = useState<number>(0)
@@ -159,13 +156,12 @@ const RelatedSlider: FC<Props> = ({ title, items, linkBase }) => {
                       <div className="p-6 flex-1 flex flex-col justify-between h-full">
                         <div className="flex-1">
                           <div className="mb-2">
-                           <span className="inline-block px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded mr-2">
-  {capitalize(item.category)}
-</span>
-<span className="text-xs text-gray-500">
-  {capitalize(item.subcategory)}
-</span>
-
+                            <span className="inline-block px-2 py-1 bg-red-100 text-red-800 text-xs font-medium rounded mr-2">
+                              {item.category}
+                            </span>
+                            <span className="text-xs text-gray-500 capitalize">
+                              {item.subcategory}
+                            </span>
                           </div>
                           <h3 className="font-bold text-lg mb-3 line-clamp-2 leading-tight group-hover:text-blue-600 transition-colors">
                             {item.title}
@@ -174,26 +170,11 @@ const RelatedSlider: FC<Props> = ({ title, items, linkBase }) => {
                             {item.content}
                           </p>
                         </div>
-              
-<div className="flex items-center gap-4 text-sm text-gray-500">
-  {/* Author */}
-  <span className="flex items-center gap-1">
-    <FaUser className="text-gray-400" />
-    <span className="font-medium">{item.author}</span>
-  </span>
-
-  {/* Date */}
-  <span className="flex items-center gap-1">
-    <FaCalendarAlt className="text-gray-400" />
-    <span>{new Date(item.created_at).toLocaleDateString()}</span>
-  </span>
-
-  {/* Days ago */}
-  <span className="flex items-center gap-1">
-    <FaClock className="text-gray-400" />
-    <span>{item.days_ago} days ago</span>
-  </span>
-</div>
+                        <div className="flex items-center justify-between text-xs text-gray-500 pt-4 border-t border-gray-100">
+                          <span className="font-medium">{item.author}</span>
+                          <span>{new Date(item.created_at).toLocaleDateString()}</span>
+                          <span>{item.days_ago} days ago</span>
+                        </div>
                       </div>
                     </div>
                   </Link>
@@ -202,34 +183,18 @@ const RelatedSlider: FC<Props> = ({ title, items, linkBase }) => {
             ))}
           </Swiper>
 
-{/* Left Arrow — half outside (hidden on mobile) */}
-<button
-  className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 bg-white border border-gray-300 rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:bg-gray-50 transition-colors hidden md:flex"
+    <button
+  className="swiper-button-prev absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-300 rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:bg-gray-50 transition-colors translate-x-[-50%] hidden md:flex"
 >
-  <svg
-    className="w-6 h-6 text-gray-600"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-  </svg>
+  <FiChevronLeft className="w-6 h-6 text-gray-600" />
 </button>
 
 {/* Right Arrow — half outside (hidden on mobile) */}
 <button
-  className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-20 bg-white border border-gray-300 rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:bg-gray-50 transition-colors hidden md:flex"
+  className="swiper-button-next absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white border border-gray-300 rounded-full w-12 h-12 flex items-center justify-center shadow-md hover:bg-gray-50 transition-colors translate-x-[50%] hidden md:flex"
 >
-  <svg
-    className="w-6 h-6 text-gray-600"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-  </svg>
+  <FiChevronRight className="w-6 h-6 text-gray-600" />
 </button>
-
         </div>
       </div>
 

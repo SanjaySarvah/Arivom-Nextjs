@@ -1,16 +1,603 @@
 [
   {
     "id": 1,
-    "title": "Tech Innovation 2025",
-    "category": "tn",
-    "excerpt": "A look at this year's biggest tech trends.",
-    "content": "Full article content about 2025 technology."
+    "title": "இந்தியாவின் புதிய செயற்கைக்கோள் 2025ல் வெற்றிகரமாக ஏவப்பட்டது: விண்வெளி ஆராய்ச்சியில் புதிய பருவம் மற்றும் தொழில்நுட்ப முன்னேற்றங்கள்",
+    "category": "Science&Space",
+    "tname": "அறிவியல் & விண்வெளி",
+    "subcategory": "செயற்கைக்கோள் தொழில்நுட்பம்",
+    "excerpt": "இந்திய விண்வெளி ஆய்வகம் 2025ல் புதிய செயற்கைக்கோளைக் களம் இறக்கியது.",
+    "content": "இந்தியாவின் புதிய செயற்கைக்கோள் இன்று காலை திருவனந்தபுரம் விண்வெளி மையத்தில் வெற்றிகரமாக ஏவப்பட்டது. இந்த முயற்சி நாட்டின் விண்வெளி ஆராய்ச்சி திறன்களை உலகளவில் மேலும் உயர்த்தும் என விஞ்ஞானிகள் தெரிவித்துள்ளனர்.\n\nசெயற்கைக்கோள் உயர் தீர்மான கேமரா மற்றும் சென்சார் உபகரணங்களைக் கொண்டுள்ளது. இது 24 மணி நேர கண்காணிப்பை வழங்கும் திறன் பெற்றது. இதன் மூலம் புவியியல் மாற்றங்கள், இயற்கை பேரழிவுகள் மற்றும் வானிலை மாறுபாடுகளை முன்கூட்டியே கணிக்க முடியும்.\n\nஅதே நேரத்தில், செயற்கைக்கோள் ஆராய்ச்சி மாணவர்களுக்கு பயிற்சி மற்றும் தொழில்நுட்ப மேம்பாட்டில் உதவும். பிரதமர் இதனை பாராட்டி, நாட்டின் அறிவியல் முன்னேற்றத்தில் புதிய சாதனை எனக் கூறியுள்ளார்.",
+    "image": "https://picsum.photos/seed/201/400/200",
+    "author": "Aravind Kumar",
+    "slug": "india-satellite-launch-2025",
+    "created_at": "2025-02-10T09:30:00Z",
+    "days_ago": 15,
+    "likes": 145,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Priya Sharma",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/10.jpg",
+        "comment": "Proud moment for India!",
+        "sub_comments": [
+          {
+            "UserName": "Rahul Iyer",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/11.jpg",
+            "comment": "ISRO never fails to inspire us!"
+          }
+        ]
+      }
+    ]
   },
   {
     "id": 2,
-    "title": "Global Politics Update",
-    "category": "pn",
-    "excerpt": "Recent events shaping the world stage.",
-    "content": "Detailed political analysis..."
+    "title": "தமிழ்நாடு அரசு 2030க்குள் 100% பசுமை ஆற்றல் இலக்கை அடைவதற்கான புதிய மின்சார திட்டம் அறிவிப்பு",
+    "category": "Environment",
+    "tname": "சுற்றுச்சூழல்",
+    "subcategory": "பசுமை ஆற்றல்",
+    "excerpt": "தமிழ்நாடு அரசு புதிய பசுமை ஆற்றல் திட்டத்தை வெளியிட்டது.",
+    "content": "தமிழ்நாடு அரசு 2030க்குள் முழு மாநிலத்தையும் பசுமை ஆற்றலால் இயக்கும் புதிய திட்டத்தை அறிவித்துள்ளது. இது சூரிய மற்றும் காற்றாலை மின்சாரம் உற்பத்தியை விரிவுபடுத்தும்.\n\nபுதிய திட்டம் சுற்றுச்சூழல் பாதுகாப்பில் முக்கிய பங்காற்றும். மின்சார பயன்பாட்டில் குறைவான கார்பன் வெளியீடு ஏற்படும் என அதிகாரிகள் கூறியுள்ளனர்.\n\nமேலும், அரசு பொதுமக்கள் மற்றும் தொழில்துறை நிறுவனங்களுக்கு பசுமை ஆற்றல் பயன்பாட்டை ஊக்குவிக்கும் திட்டங்களை அறிவித்து, நீண்ட கால சுற்றுச்சூழல் பாதுகாப்புக்கு உதவுகிறது.",
+    "image": "https://picsum.photos/seed/202/400/200",
+    "author": "Meenakshi Ramesh",
+    "slug": "tamilnadu-green-energy-2030",
+    "created_at": "2025-02-12T10:00:00Z",
+    "days_ago": 13,
+    "likes": 120,
+    "totalComments": 2,
+    "comments": [
+      {
+        "UserName": "Vikram Raj",
+        "ProfileImage": "https://randomuser.me/api/portraits/men/12.jpg",
+        "comment": "Good move towards sustainability!",
+        "sub_comments": [
+          {
+            "UserName": "Divya Nair",
+            "ProfileImage": "https://randomuser.me/api/portraits/women/13.jpg",
+            "comment": "Tamil Nadu is setting an example for others."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "சென்னை மெட்ரோ விரிவாக்கம் 2025: புதிய 10 நிலையங்கள் திறப்பு மற்றும் போக்குவரத்து மேம்பாடு",
+    "category": "Urban Development",
+    "tname": "நகர வளர்ச்சி",
+    "subcategory": "மெட்ரோ போக்குவரத்து",
+    "excerpt": "சென்னை மெட்ரோ சேவை விரிவாக்கம் விரைவில் தொடங்கவுள்ளது.",
+    "content": "சென்னை மெட்ரோவின் இரண்டாவது கட்ட விரிவாக்கப் பணிகள் இறுதிக்கட்டத்தை எட்டியுள்ளது. புதிய 10 நிலையங்கள் 2025 ஏப்ரல் மாதம் திறக்கப்பட உள்ளன.\n\nஇந்த விரிவாக்கம் 30 கிலோமீட்டர் தூரத்தை உள்ளடக்கியது. தினமும் 5 இலட்சம் பயணிகள் பயன்பெறும் என்று மதிப்பிடப்பட்டுள்ளது. புதிய நிலையங்கள் நகர போக்குவரத்து நெரிசலை குறைக்கும் முக்கிய பங்காற்றும்.\n\nபாதைகள் சுற்றுச்சூழலுக்கு குறைந்த தாக்கத்தை ஏற்படுத்தும் வகையில் வடிவமைக்கப்பட்டுள்ளன. பயணிகள் வசதி, பாதுகாப்பு மற்றும் நேர்த்தியான போக்குவரத்து சேவை ஆகியவற்றில் புதிய முன்னேற்றங்கள் ஏற்படும்.",
+    "image": "https://picsum.photos/seed/203/400/200",
+    "author": "Dinesh Balan",
+    "slug": "chennai-metro-expansion-2025",
+    "created_at": "2025-02-14T11:00:00Z",
+    "days_ago": 11,
+    "likes": 132,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Anita Rao",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/14.jpg",
+        "comment": "This is great news for commuters!",
+        "sub_comments": [
+          {
+            "UserName": "Karthik Menon",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/15.jpg",
+            "comment": "Traffic congestion will finally ease up!"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "இந்திய கிரிக்கெட் அணி உலகக் கோப்பை 2025க்கு தயாராகிறது: புதிய வீரர்கள் சேர்க்கை மற்றும் பயிற்சிப் பயணம்",
+    "category": "Sports",
+    "tname": "விளையாட்டு",
+    "subcategory": "கிரிக்கெட்",
+    "excerpt": "உலகக் கோப்பை தயாரிப்பில் இந்திய அணி புதிய முகங்களுடன் முன்னேறுகிறது.",
+    "content": "இந்திய கிரிக்கெட் அணியின் 2025 உலகக் கோப்பை அணிக்கு புதிய வீரர்கள் தேர்வு செய்யப்பட்டுள்ளனர். இளம் திறமையாளர்கள் அணியில் இடத்தை நிலைநிறுத்தும் வாய்ப்பு பெற்றுள்ளனர்.\n\nபயிற்சியாளர்கள் தீவிரமாக பயிற்சியை நடத்தி வருகிறார்கள். புதிய வீரர்கள் முன்னணி போட்டிகளில் தங்கள் திறமைகளை வெளிப்படுத்துவர். இது அணியின் ஒருங்கிணைப்பையும் வலுப்படுத்தும்.\n\nஅணியின் கேப்டன் மற்றும் நிர்வாகம் ஒற்றுமையும் ஒழுக்கமும் முக்கியம் என கூறியுள்ளனர். ரசிகர்கள் உற்சாகத்துடன் அணியை ஆதரித்து வருகின்றனர்.",
+    "image": "https://picsum.photos/seed/204/400/200",
+    "author": "Vetrivel Anand",
+    "slug": "india-cricket-worldcup-2025",
+    "created_at": "2025-02-15T08:30:00Z",
+    "days_ago": 10,
+    "likes": 150,
+    "totalComments": 4,
+    "comments": [
+      {
+        "UserName": "Ravi Krishnan",
+        "ProfileImage": "https://randomuser.me/api/portraits/men/16.jpg",
+        "comment": "Can’t wait to see the new talents!",
+        "sub_comments": [
+          {
+            "UserName": "Neha Pillai",
+            "ProfileImage": "https://randomuser.me/api/portraits/women/17.jpg",
+            "comment": "Hope they bring the trophy home!"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "சினிமா துறையில் புதிய மாற்றம்: 2025ல் வெளிவரவுள்ள தமிழ் படங்கள் OTT தளங்களில் ஒரே நேரத்தில் வெளியீடு",
+    "category": "Entertainment",
+    "tname": "திரையுலகம்",
+    "subcategory": "OTT வெளியீடுகள்",
+    "excerpt": "தமிழ் சினிமா வெளியீட்டில் OTT தளங்களின் பங்கு அதிகரிக்கிறது.",
+    "content": "தமிழ் திரைப்படத் துறை 2025 முதல் புதிய OTT வெளியீட்டு மாதிரியை பின்பற்றவுள்ளது. இப்படங்களின் வெளியீடு திரையரங்கிலும் OTT தளங்களிலும் ஒரே நேரத்தில் நடைபெறும்.\n\nதிரைப்பட தயாரிப்பாளர்கள் இதனை வரவேற்றுள்ளனர். இது பார்வையாளர்களுக்கு வசதியான அணுகலை வழங்கும் என தெரிவிக்கப்பட்டுள்ளது. சிறிய நகரங்களில் உள்ள ரசிகர்களும் புதிய படங்களை உடனடியாக காண வாய்ப்பு பெறுவார்கள்.\n\nஇந்த மாற்றம் தொழில்நுட்ப வளர்ச்சியுடன் இணைந்து தமிழ் சினிமாவை புதிய உயரத்துக்கு கொண்டு செல்லும் என விமர்சகர்கள் கூறியுள்ளனர். எதிர்காலத்தில் இப்படங்களின் வருவாய் மற்றும் ரசிகர் அடையாளம் மேலும் விரிவடையும் என எதிர்பார்க்கப்படுகிறது.",
+    "image": "https://picsum.photos/seed/205/400/200",
+    "author": "Lakshmi Narayan",
+    "slug": "tamil-cinema-ott-release-2025",
+    "created_at": "2025-02-16T09:15:00Z",
+    "days_ago": 9,
+    "likes": 180,
+    "totalComments": 5,
+    "comments": [
+      {
+        "UserName": "Manoj Patel",
+        "ProfileImage": "https://randomuser.me/api/portraits/men/18.jpg",
+        "comment": "OTT releases are game changers!",
+        "sub_comments": [
+          {
+            "UserName": "Ritika Sinha",
+            "ProfileImage": "https://randomuser.me/api/portraits/women/19.jpg",
+            "comment": "It helps audiences across small towns too."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "புதுச்சேரி பல்கலைக்கழகத்தில் 2025ல் நவீன ஆராய்ச்சி மையம் திறப்பு: மாணவர்கள் மற்றும் விஞ்ஞானிகளுக்கு புதிய வாய்ப்புகள்",
+    "category": "Education",
+    "tname": "கல்வி",
+    "subcategory": "ஆராய்ச்சி மையங்கள்",
+    "excerpt": "புதுச்சேரி பல்கலைக்கழகத்தில் புதிய ஆராய்ச்சி மையம் திறக்கப்படுகிறது.",
+    "content": "புதுச்சேரி பல்கலைக்கழகத்தில் 2025ல் புதிய நவீன ஆராய்ச்சி மையம் திறக்கப்பட உள்ளது. இது மாணவர்களுக்கு முன்னணி ஆராய்ச்சி வாய்ப்புகளை வழங்கும் முக்கிய நடவடிக்கை ஆகும்.\n\nமையத்தில் உயர் தொழில்நுட்ப கருவிகள் மற்றும் ஆய்வுக் கூடங்கள் உருவாக்கப்பட்டுள்ளன. மாணவர்கள் மற்றும் ஆசிரியர்கள் இணைந்து புதிய ஆராய்ச்சிகளை மேற்கொள்ள முடியும்.\n\nஇந்த மையம் தேசிய மற்றும் உலகளாவிய ஆராய்ச்சி தரத்துக்கு இணங்கும் வகையில் செயல்படும். மாணவர்கள் தொழில்நுட்ப திறன்களை மேம்படுத்துவதிலும், புதிய கண்டுபிடிப்புகளை உருவாக்குவதிலும் இது உதவும்.",
+    "image": "https://picsum.photos/seed/206/400/200",
+    "author": "Ramesh Kumar",
+    "slug": "pondicherry-research-center-2025",
+    "created_at": "2025-02-17T10:00:00Z",
+    "days_ago": 8,
+    "likes": 125,
+    "totalComments": 2,
+    "comments": [
+      {
+        "UserName": "Anjali Mehta",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/20.jpg",
+        "comment": "Excited to see the innovations!",
+        "sub_comments": [
+          {
+            "UserName": "Suresh Patil",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/21.jpg",
+            "comment": "A great opportunity for young researchers."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "மும்பையில் 2025ல் தொடங்கும் புதிய智慧 நகர திட்டம்: சுற்றுச்சூழல் மற்றும் போக்குவரத்துக்கு புதிய தீர்வுகள்",
+    "category": "Urban Development",
+    "tname": "நகர வளர்ச்சி",
+    "subcategory": "சார்பட்ட திட்டங்கள்",
+    "excerpt": "மும்பையில் புதிய智慧 நகர திட்டம் விரைவில் தொடங்குகிறது.",
+    "content": "மும்பை மாநகராட்சி 2025ல் '智慧 நகர' திட்டத்தை தொடங்கவுள்ளது. இந்த திட்டம் நகரத்தின் போக்குவரத்து, மின்சாரம் மற்றும் பாதுகாப்பு ஆகியவற்றை நவீன தொழில்நுட்பத்துடன் ஒருங்கிணைக்கும்.\n\nதிட்டத்தில் சான்றிதழ் பெற்ற நவீன சென்சார்கள் மற்றும் கணினி கண்காணிப்பு மையங்கள் அமைக்கப்படும். இது நகர் மக்கள் மற்றும் சுற்றுச்சூழலுக்கு சிறந்த அனுகல்களை வழங்கும்.\n\nஇந்த திட்டம் நகரின் நீண்ட கால வளர்ச்சியை மேம்படுத்தும். பொதுமக்கள் வாழ்வாதாரத் தரம் உயர்வடையும் என்றும் நிர்வாகம் கூறியுள்ளது.",
+    "image": "https://picsum.photos/seed/207/400/200",
+    "author": "Sathish Kumar",
+    "slug": "mumbai-smart-city-2025",
+    "created_at": "2025-02-18T11:00:00Z",
+    "days_ago": 7,
+    "likes": 140,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Neha Sharma",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/22.jpg",
+        "comment": "Smart cities are the future!",
+        "sub_comments": [
+          {
+            "UserName": "Amit Verma",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/23.jpg",
+            "comment": "Looking forward to visiting the city."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "பெங்களூருவில் 2025ல் நடக்கும் புதிய தொழில்நுட்ப மாநாடு: AI, Robotics மற்றும் விண்வெளி ஆராய்ச்சி பங்குகள்",
+    "category": "Technology",
+    "tname": "தொழில்நுட்பம்",
+    "subcategory": "AI & Robotics",
+    "excerpt": "பெங்களூருவில் நடைபெறவுள்ள தொழில்நுட்ப மாநாடு தகவல் வெளியிடப்பட்டது.",
+    "content": "பெங்களூருவில் 2025ல் புதிய தொழில்நுட்ப மாநாடு நடைபெற உள்ளது. இதில் AI, ரோபோட்டிக்ஸ் மற்றும் விண்வெளி ஆராய்ச்சி தொடர்பான பங்குகள் பிரதானமாக இருக்கும்.\n\nமாநாட்டில் தேசிய மற்றும் சர்வதேச நிபுணர்கள் புதிய கண்டுபிடிப்புகளை மற்றும் தொழில்நுட்பங்களை பகிர்ந்து கொள்வார்கள். இதில் மாணவர்கள், ஆராய்ச்சியாளர்கள் மற்றும் தொழில் வல்லுநர்கள் கலந்து கொள்வார்கள்.\n\nஇந்த மாநாடு தொழில்நுட்ப வளர்ச்சியில் இந்தியாவின் முன்னணி நிலையை மேலும் வலுப்படுத்தும். புதிய வேலை வாய்ப்புகள் மற்றும் ஆராய்ச்சி திட்டங்கள் உருவாகும் என எதிர்பார்க்கப்படுகிறது.",
+    "image": "https://picsum.photos/seed/208/400/200",
+    "author": "Anand Raghavan",
+    "slug": "bengaluru-tech-conference-2025",
+    "created_at": "2025-02-19T09:00:00Z",
+    "days_ago": 6,
+    "likes": 155,
+    "totalComments": 4,
+    "comments": [
+      {
+        "UserName": "Rohit Sharma",
+        "ProfileImage": "https://randomuser.me/api/portraits/men/24.jpg",
+        "comment": "Looking forward to the tech insights!",
+        "sub_comments": [
+          {
+            "UserName": "Ananya Gupta",
+            "ProfileImage": "https://randomuser.me/api/portraits/women/25.jpg",
+            "comment": "Hope it inspires young innovators."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "கோவை மாவட்டத்தில் 2025ல் தொடங்கும் புதிய விவசாய தொழில்நுட்ப மையம்: விவசாயிகள் மற்றும் ஆராய்ச்சியாளர்களுக்கு நவீன தீர்வுகள்",
+    "category": "Agriculture",
+    "tname": "விவசாயம்",
+    "subcategory": "விவசாய தொழில்நுட்பம்",
+    "excerpt": "கோவை மாவட்டத்தில் புதிய விவசாய மையம் திறக்கப்படுகிறது.",
+    "content": "கோவை மாவட்டத்தில் 2025ல் புதிய விவசாய தொழில்நுட்ப மையம் தொடங்கவுள்ளது. இதன் மூலம் விவசாயிகள் நவீன தொழில்நுட்பங்களை பயன்படுத்தி விளைச்சல் வளர்ச்சியை அதிகரிக்க முடியும்.\n\nமையத்தில் உயர் தர பயிற்சி வகுப்புகள் மற்றும் ஆய்வுக் கூடங்கள் ஏற்பாடு செய்யப்படுள்ளன. விவசாயிகள் மற்றும் மாணவர்கள் ஒன்றிணைந்து புதிய விதைகள் மற்றும் பயிர்கள் தொடர்பான ஆராய்ச்சிகளை மேற்கொள்வார்கள்.\n\nஇந்த மையம் விவசாயத்தில் தொழில்நுட்ப முன்னேற்றத்தை ஊக்குவித்து, நிலைத்த வளர்ச்சிக்கான புதிய வாய்ப்புகளை உருவாக்கும் என அதிகாரிகள் கூறியுள்ளனர்.",
+    "image": "https://picsum.photos/seed/209/400/200",
+    "author": "Pradeep Nair",
+    "slug": "coimbatore-agri-tech-center-2025",
+    "created_at": "2025-02-20T10:30:00Z",
+    "days_ago": 5,
+    "likes": 135,
+    "totalComments": 2,
+    "comments": [
+      {
+        "UserName": "Sonia Kapoor",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/26.jpg",
+        "comment": "Exciting initiative for farmers!",
+        "sub_comments": [
+          {
+            "UserName": "Deepak Reddy",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/27.jpg",
+            "comment": "This will modernize agriculture in the region."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "கேரளாவில் 2025ல் புதிய சுற்றுலா வாரியம் நிறுவப்பட்டது: சுற்றுலா வளர்ச்சிக்கான புதிய திட்டங்கள் மற்றும் வாய்ப்புகள்",
+    "category": "Tourism",
+    "tname": "சுற்றுலா",
+    "subcategory": "சுற்றுலா வளர்ச்சி",
+    "excerpt": "கேரளாவில் புதிய சுற்றுலா வாரியம் நிறுவப்பட்டது.",
+    "content": "கேரளா அரசு 2025ல் புதிய சுற்றுலா வாரியத்தை நிறுவியுள்ளது. இது மாநிலத்தின் சுற்றுலா வளர்ச்சியை மேம்படுத்தும் முக்கிய முன்னெச்சரிக்கை ஆகும்.\n\nவரவேற்பு மற்றும் சுற்றுலா திட்டங்களில் புதிய தொழில்நுட்பங்கள் மற்றும் வசதிகள் அறிமுகப்படுத்தப்படுகின்றன. சுற்றுலா துறை பயணிகள் மற்றும் கைத்தொழிலாளர்களுக்கு உதவும் வகையில் செயல்படும்.\n\nஇந்த வாரியம் சுற்றுலா வருமானத்தை அதிகரித்து, மாநிலத்தின் பொருளாதார வளர்ச்சியை மேம்படுத்தும் என எதிர்பார்க்கப்படுகிறது. சுற்றுலா துறை பாதுகாப்பு மற்றும் சுற்றுச்சூழல் பாதுகாப்பிலும் முக்கிய பங்கு வகிக்கும்.",
+    "image": "https://picsum.photos/seed/210/400/200",
+    "author": "Nithin Menon",
+    "slug": "kerala-tourism-board-2025",
+    "created_at": "2025-02-21T11:00:00Z",
+    "days_ago": 4,
+    "likes": 160,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Isha Sharma",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/28.jpg",
+        "comment": "Kerala tourism is getting stronger!",
+        "sub_comments": [
+          {
+            "UserName": "Raghav Singh",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/29.jpg",
+            "comment": "Excited to see new tourist attractions."
+          }
+        ]
+      }
+    ]
+  },
+  
+  {
+    "id": 11,
+    "title": "சென்னை ஐ.டி. நிறுவனங்கள் 2025ல் புதிய செயற்கை நுண்ணறிவு திட்டங்களை அறிமுகப்படுத்துகின்றன: தொழில்நுட்ப வளர்ச்சி மற்றும் வேலை வாய்ப்புகள்",
+    "category": "Technology",
+    "tname": "தொழில்நுட்பம்",
+    "subcategory": "AI & Machine Learning",
+    "excerpt": "சென்னை நகரின் ஐ.டி. துறையில் AI திட்டங்கள் விரைவில் செயல்பட உள்ளன.",
+    "content": "சென்னை நகரில் உள்ள முக்கிய ஐ.டி. நிறுவனங்கள் 2025ல் புதிய செயற்கை நுண்ணறிவு (AI) திட்டங்களை அறிமுகப்படுத்த உள்ளன. இந்த முயற்சி தொழில்நுட்ப வளர்ச்சியை வேகமாகக் கூட்டும்.\n\nஇந்த திட்டங்கள், பெரும் தரவு (Big Data) மற்றும் மேஷின் லெர்னிங் பயன்பாடுகளை உள்ளடக்கியவை. நிறுவனங்கள் நவீன தீர்வுகளை வழங்கும் திறன் பெற்றவர்கள் மற்றும் AI நிபுணர்களை வேலைக்கு அழைக்கும்.\n\nஇந்த நடவடிக்கை தொழில் வளர்ச்சியை ஊக்குவித்து, இளம் திறமைகளுக்கு புதிய வேலை வாய்ப்புகளை உருவாக்கும். Chennai ஐ.டி. துறை உலகளவில் முன்னணி இடத்தை பெறும் என எதிர்பார்க்கப்படுகிறது.",
+    "image": "https://picsum.photos/seed/211/400/200",
+    "author": "Suresh Menon",
+    "slug": "chennai-ai-projects-2025",
+    "created_at": "2025-02-22T09:00:00Z",
+    "days_ago": 3,
+    "likes": 145,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Kavya Rao",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/30.jpg",
+        "comment": "Exciting AI developments in Chennai!",
+        "sub_comments": [
+          {
+            "UserName": "Ajay Kumar",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/31.jpg",
+            "comment": "Looking forward to innovative solutions."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "title": "கேரளாவில் புதிய பசுமை வீடுகள் திட்டம் 2025ல் தொடக்கம்: சுற்றுச்சூழல் நட்பு வாழ்விடம் உருவாக்குதல்",
+    "category": "Environment",
+    "tname": "சுற்றுச்சூழல்",
+    "subcategory": "பசுமை கட்டிடங்கள்",
+    "excerpt": "கேரளாவில் பசுமை வீடுகள் திட்டம் செயல்பட தொடங்குகிறது.",
+    "content": "கேரளா அரசு 2025ல் புதிய பசுமை வீடுகள் திட்டத்தை தொடங்கியுள்ளது. இந்த திட்டம் சுற்றுச்சூழலுக்கு நட்பு வாழ்விடங்களை உருவாக்கும் நோக்கில் அமைக்கப்பட்டுள்ளது.\n\nவீடுகள் சூரிய பலகைகள், ரீசைக்கிளிங் சாதனங்கள் மற்றும் நீர் சேமிப்பு தொழில்நுட்பங்களைக் கொண்டிருக்கும். இதனால் மின்சாரம் மற்றும் வளங்களைச் சிறந்த முறையில் பயன்படுத்த முடியும்.\n\nபுதிய பசுமை வீடுகள் பொதுமக்களுக்கு சுகாதாரமான மற்றும் பாதுகாப்பான வாழ்விடங்களை வழங்கும். இது மாநிலத்தில் நீடித்த வளர்ச்சியை ஊக்குவிக்கும் என அதிகாரிகள் தெரிவித்துள்ளனர்.",
+    "image": "https://picsum.photos/seed/212/400/200",
+    "author": "Anjali Menon",
+    "slug": "kerala-green-homes-2025",
+    "created_at": "2025-02-23T10:00:00Z",
+    "days_ago": 2,
+    "likes": 130,
+    "totalComments": 2,
+    "comments": [
+      {
+        "UserName": "Rohan Iyer",
+        "ProfileImage": "https://randomuser.me/api/portraits/men/32.jpg",
+        "comment": "Green homes are the future!",
+        "sub_comments": [
+          {
+            "UserName": "Shreya Nair",
+            "ProfileImage": "https://randomuser.me/api/portraits/women/33.jpg",
+            "comment": "Environment-friendly initiatives are amazing."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "title": "புதுவையில் 2025ல் புதிய சுற்றுலா வளர்ச்சி மையம் திறப்பு: சுற்றுலா துறை முன்னேற்றங்கள் மற்றும் பயணிகள் வசதி",
+    "category": "Tourism",
+    "tname": "சுற்றுலா",
+    "subcategory": "சுற்றுலா வளர்ச்சி",
+    "excerpt": "புதுவையில் புதிய சுற்றுலா மையம் திறக்கப்பட உள்ளது.",
+    "content": "புதுவை அரசு 2025ல் புதிய சுற்றுலா வளர்ச்சி மையத்தை திறக்கவுள்ளது. இந்த மையம் மாநில சுற்றுலாவை மேம்படுத்த முக்கிய பங்காற்றும்.\n\nமையத்தில் பயணிகள் தகவல் மையங்கள், வழிகாட்டி சேவைகள் மற்றும் வசதிகள் அமைக்கப்படும். இதனால் சுற்றுலா பயணிகள் சிறந்த அனுபவத்தை பெறுவர்.\n\nமாநிலத்தின் வருமானம் மற்றும் வேலை வாய்ப்புகள் அதிகரிக்கும். புதிய சுற்றுலா திட்டங்கள் சுற்றுச்சூழலை பாதுகாப்பில் வைக்கவும் உதவும் என அதிகாரிகள் கூறியுள்ளனர்.",
+    "image": "https://picsum.photos/seed/213/400/200",
+    "author": "Vikram Reddy",
+    "slug": "pondicherry-tourism-center-2025",
+    "created_at": "2025-02-24T11:30:00Z",
+    "days_ago": 2,
+    "likes": 120,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Priya Singh",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/34.jpg",
+        "comment": "Excited to visit the new center!",
+        "sub_comments": [
+          {
+            "UserName": "Arjun Sharma",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/35.jpg",
+            "comment": "Tourism facilities are improving greatly."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "title": "ஹைதராபாத்தில் 2025ல் தொடங்கும் புதிய தொழிற்சாலை மாநாடு: தொழில் வளர்ச்சி மற்றும் தொழிலாளர் நலன்",
+    "category": "Business",
+    "tname": "வணிகம்",
+    "subcategory": "தொழிற்சாலை வளர்ச்சி",
+    "excerpt": "ஹைதராபாத் தொழிற்சாலை மாநாடு புதிய திட்டங்களை அறிவிக்கிறது.",
+    "content": "ஹைதராபாத் நகரில் 2025ல் புதிய தொழிற்சாலை மாநாடு நடைபெற உள்ளது. இதில் தொழில்துறை முன்னேற்றங்கள் மற்றும் புதிய தொழில் வாய்ப்புகள் வெளிப்படுவாக அறிவிக்கப்படும்.\n\nமாநாட்டில் தேசிய மற்றும் சர்வதேச நிறுவனர்கள் கலந்து கொள்ளுவர். தொழிலாளர் நலன் மற்றும் தொழிற்சாலை மேம்பாட்டு திட்டங்கள் அறிமுகப்படுத்தப்படும்.\n\nஇந்த மாநாடு தொழிற்சாலை வளர்ச்சியை ஊக்குவித்து, உள்ளூர் பொருளாதார முன்னேற்றத்திற்கு உதவும். தொழிலாளர்களுக்கும் புதிய வேலை வாய்ப்புகள் உருவாகும் என எதிர்பார்க்கப்படுகிறது.",
+    "image": "https://picsum.photos/seed/214/400/200",
+    "author": "Raghav Menon",
+    "slug": "hyderabad-industry-conference-2025",
+    "created_at": "2025-02-25T10:00:00Z",
+    "days_ago": 1,
+    "likes": 135,
+    "totalComments": 2,
+    "comments": [
+      {
+        "UserName": "Simran Kaur",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/36.jpg",
+        "comment": "Looking forward to the industrial insights!",
+        "sub_comments": [
+          {
+            "UserName": "Rohit Verma",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/37.jpg",
+            "comment": "Great initiative for local industries."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "title": "சென்னை யூனிவர்சிட்டியில் 2025ல் தொடங்கும் புதிய ஆராய்ச்சி திட்டம்: வானியல் மற்றும் சுற்றுச்சூழல் ஆராய்ச்சியில் முன்னேற்றம்",
+    "category": "Education",
+    "tname": "கல்வி",
+    "subcategory": "ஆராய்ச்சி திட்டங்கள்",
+    "excerpt": "சென்னை பல்கலைக்கழகத்தில் புதிய ஆராய்ச்சி திட்டம் அறிமுகப்படுத்தப்படுகிறது.",
+    "content": "சென்னை பல்கலைக்கழகத்தில் 2025ல் புதிய வானியல் மற்றும் சுற்றுச்சூழல் ஆராய்ச்சி திட்டம் தொடங்க உள்ளது. இந்த திட்டம் புதிய கண்டுபிடிப்புகளையும் தொழில்நுட்ப மேம்பாட்டையும் ஊக்குவிக்கும்.\n\nமாணவர்கள் மற்றும் ஆசிரியர்கள் இணைந்து வானியல் மாதிரிகள், சுற்றுச்சூழல் கணக்குகள் மற்றும் தரவு சேகரிப்பு பணிகளை மேற்கொள்வார்கள். இதன் மூலம் மாணவர்களின் ஆராய்ச்சி திறன்கள் மேம்படும்.\n\nஇந்த திட்டம் இந்தியாவின் ஆராய்ச்சி தரத்தை உயர்த்தும். அரசு மற்றும் தனியார் அமைப்புகள் இதனை முழுமையாக ஆதரிக்கும் என தெரிவிக்கப்பட்டுள்ளது.",
+    "image": "https://picsum.photos/seed/215/400/200",
+    "author": "Anirudh Ramesh",
+    "slug": "chennai-university-research-2025",
+    "created_at": "2025-02-26T09:30:00Z",
+    "days_ago": 1,
+    "likes": 150,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Isha Patel",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/38.jpg",
+        "comment": "Research initiatives are impressive!",
+        "sub_comments": [
+          {
+            "UserName": "Karan Gupta",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/39.jpg",
+            "comment": "This will inspire young scientists."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "title": "புதுச்சேரியில் 2025ல் திறக்கப்படும் புதிய தொழில்நுட்ப பூங்கா: மாணவர்கள் மற்றும் ஆராய்ச்சியாளர்களுக்கு புதிய வாய்ப்புகள்",
+    "category": "Science&Technology",
+    "tname": "அறிவியல் & தொழில்நுட்பம்",
+    "subcategory": "புதுமையான கண்டுபிடிப்புகள்",
+    "excerpt": "புதுச்சேரியில் புதிய தொழில்நுட்ப பூங்கா திறக்கப்படுகிறது.",
+    "content": "புதுச்சேரி அரசு 2025ல் புதிய தொழில்நுட்ப பூங்காவை திறக்க உள்ளது. இது மாணவர்கள் மற்றும் ஆராய்ச்சியாளர்களுக்கு புதிய வாய்ப்புகளை வழங்கும்.\n\nபூங்காவில் புதிய கண்டுபிடிப்புகள் மற்றும் தொழில்நுட்ப சாதனங்கள் குறித்த செயல்பாடுகள் நடக்கும். பயிற்சிகள் மற்றும் கைத்தொழில் பயிற்சிகள் வழியாக மாணவர்கள் நேரடியாக தொழில்நுட்பத்தை அனுபவிப்பார்கள்.\n\nஇந்த பூங்கா புதிய கண்டுபிடிப்புகளை ஊக்குவித்து, புதுமையான தொழில்நுட்ப வளர்ச்சிக்கு உதவும். இடம் சுற்றுச்சூழலுக்கு பாதுகாப்பான முறையில் வடிவமைக்கப்பட்டுள்ளது.",
+    "image": "https://picsum.photos/seed/216/400/200",
+    "author": "Raghunath Iyer",
+    "slug": "pondicherry-tech-park-2025",
+    "created_at": "2025-02-27T10:00:00Z",
+    "days_ago": 1,
+    "likes": 140,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Meera Sharma",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/40.jpg",
+        "comment": "Innovative tech park for students!",
+        "sub_comments": [
+          {
+            "UserName": "Arjun Nair",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/41.jpg",
+            "comment": "A great initiative for hands-on learning."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "title": "மும்பையில் 2025ல் தொடங்கும் புதிய ரயில் சேவை: நகர போக்குவரத்தில் புதிய வசதி மற்றும் சேவை விரிவாக்கம்",
+    "category": "Urban Development",
+    "tname": "நகர வளர்ச்சி",
+    "subcategory": "போக்குவரத்து சேவை",
+    "excerpt": "மும்பையில் புதிய ரயில் சேவை விரைவில் தொடங்குகிறது.",
+    "content": "மும்பை மாநகராட்சி 2025ல் புதிய ரயில் சேவையை அறிமுகப்படுத்த உள்ளது. இது நகரப் போக்குவரத்தில் புதிய வசதிகளை வழங்கும்.\n\nபுதிய ரயில்கள் அதிகபட்ச பயணிகளுக்கு சுகாதாரமான மற்றும் நேர்த்தியான பயண அனுபவத்தை வழங்கும். பயணிகள் நேரம் சேமிப்பில் முக்கிய பங்கு வகிக்கும்.\n\nசேவை நகரின் போக்குவரத்து நெரிசலை குறைத்து, சுற்றுச்சூழலுக்கு குறைந்த தாக்கத்தை ஏற்படுத்தும். பயணிகள் பாதுகாப்பும் முக்கியமாக கருதப்பட்டுள்ளது.",
+    "image": "https://picsum.photos/seed/217/400/200",
+    "author": "Vishal Kumar",
+    "slug": "mumbai-rail-service-2025",
+    "created_at": "2025-02-28T11:00:00Z",
+    "days_ago": 0,
+    "likes": 155,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Ananya Singh",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/42.jpg",
+        "comment": "Much needed improvement for commuters!",
+        "sub_comments": [
+          {
+            "UserName": "Rohan Kapoor",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/43.jpg",
+            "comment": "This will reduce traffic congestion."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "title": "கோயம்புத்தூரில் 2025ல் திறக்கும் புதிய விவசாய சந்தை மையம்: விவசாயிகளுக்கான நேரடி விற்பனை மற்றும் வருவாய் உயர்வு",
+    "category": "Agriculture",
+    "tname": "விவசாயம்",
+    "subcategory": "விவசாய சந்தைகள்",
+    "excerpt": "கோயம்புத்தூரில் புதிய விவசாய சந்தை மையம் திறக்கிறது.",
+    "content": "கோயம்புத்தூர் மாவட்டத்தில் 2025ல் புதிய விவசாய சந்தை மையம் தொடங்க உள்ளது. இது விவசாயிகளுக்கான நேரடி விற்பனை வாய்ப்புகளை உருவாக்கும்.\n\nமையத்தில் புதிய வசதிகள் மற்றும் கையடக்க தொழில்நுட்பங்கள் அமைக்கப்படுகின்றன. விவசாயிகள் தங்கள் பயிர்களை நேரடியாக விற்க முடியும்.\n\nஇந்த மையம் விவசாய வருவாயை அதிகரித்து, விவசாயிகளின் வாழ்வாதாரத்தை மேம்படுத்தும். மாநிலத்தின் பொருளாதார வளர்ச்சிக்கும் இது முக்கிய பங்காற்றும்.",
+    "image": "https://picsum.photos/seed/218/400/200",
+    "author": "Prakash Reddy",
+    "slug": "coimbatore-agri-market-2025",
+    "created_at": "2025-03-01T09:30:00Z",
+    "days_ago": 0,
+    "likes": 130,
+    "totalComments": 2,
+    "comments": [
+      {
+        "UserName": "Shalini Menon",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/44.jpg",
+        "comment": "Farmers will greatly benefit from this!",
+        "sub_comments": [
+          {
+            "UserName": "Rahul Sharma",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/45.jpg",
+            "comment": "Direct sales is a game changer."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "title": "திருவண்ணாமலையில் 2025ல் புதிய சுற்றுலா மற்றும் கலை மையம்: பாரம்பரியக் கலை வளர்ச்சி மற்றும் சுற்றுலா முன்னேற்றம்",
+    "category": "Tourism",
+    "tname": "சுற்றுலா",
+    "subcategory": "கலை மற்றும் பாரம்பரியம்",
+    "excerpt": "திருவண்ணாமலையில் புதிய சுற்றுலா மையம் திறக்கப்படுகிறது.",
+    "content": "திருவண்ணாமலையில் 2025ல் புதிய சுற்றுலா மற்றும் கலை மையம் திறக்கப்படும். இந்த மையம் பாரம்பரியக் கலை மற்றும் பண்பாட்டை பாதுகாப்பதில் முக்கிய பங்கு வகிக்கும்.\n\nமையத்தில் கலை அரங்குகள், கலைவாணிகள் பயிற்சி வகுப்புகள் மற்றும் பாரம்பரிய கலைக் கண்காட்சிகள் நடத்தப்படும். சுற்றுலா பயணிகள் புதிய அனுபவங்களை பெற முடியும்.\n\nஇந்த மையம் மாநில சுற்றுலாவை மேம்படுத்தி வருவாய் அதிகரிக்கும். இளம் கலைஞர்களின் திறன்கள் வெளிப்படும் வாய்ப்புகளை வழங்கும்.",
+    "image": "https://picsum.photos/seed/219/400/200",
+    "author": "Hari Prasad",
+    "slug": "tiruvannamalai-tourism-art-center-2025",
+    "created_at": "2025-03-02T10:00:00Z",
+    "days_ago": 0,
+    "likes": 145,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Neha Kapoor",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/46.jpg",
+        "comment": "Amazing initiative for local artists!",
+        "sub_comments": [
+          {
+            "UserName": "Amit Sharma",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/47.jpg",
+            "comment": "Tourists will love this cultural hub."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "title": "கொரோனா பிறகு இந்தியாவில் 2025ல் தொடங்கும் புதிய மருத்துவ ஆராய்ச்சி மையங்கள்: பொதுமக்கள் ஆரோக்கியம் மற்றும் முன்னேற்ற மருத்துவ திட்டங்கள்",
+    "category": "Health",
+    "tname": "ஆரோக்கியம்",
+    "subcategory": "மருத்துவ ஆராய்ச்சி",
+    "excerpt": "இந்தியாவில் புதிய மருத்துவ ஆராய்ச்சி மையங்கள் 2025ல் திறக்கப்பட உள்ளன.",
+    "content": "இந்திய அரசு 2025ல் புதிய மருத்துவ ஆராய்ச்சி மையங்களை தொடங்குகிறது. இது பொதுமக்களின் ஆரோக்கியம் மற்றும் புதிய மருத்துவ கண்டுபிடிப்புகளுக்கு உதவும்.\n\nமையங்களில் உயர் தொழில்நுட்ப ஆய்வுக் கூடங்கள் மற்றும் மருத்துவ ஆய்வுகள் நடைபெறும். மருத்துவர்கள் மற்றும் ஆராய்ச்சியாளர்கள் இணைந்து புதிய மருந்துகள் மற்றும் சிகிச்சை முறைகளை உருவாக்குவர்.\n\nஇந்த முயற்சி இந்திய மருத்துவ தரத்தை உயர்த்தி, மக்கள் ஆரோக்கியத்தை மேம்படுத்தும். உலகளாவிய மருத்துவ ஆராய்ச்சி வளர்ச்சியிலும் இது முக்கிய பங்கு வகிக்கும்.",
+    "image": "https://picsum.photos/seed/220/400/200",
+    "author": "Manish Reddy",
+    "slug": "india-medical-research-center-2025",
+    "created_at": "2025-03-03T11:30:00Z",
+    "days_ago": 0,
+    "likes": 160,
+    "totalComments": 4,
+    "comments": [
+      {
+        "UserName": "Isha Verma",
+        "ProfileImage": "https://randomuser.me/api/portraits/women/48.jpg",
+        "comment": "Medical research is crucial for public health!",
+        "sub_comments": [
+          {
+            "UserName": "Rohit Patel",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/49.jpg",
+            "comment": "Looking forward to innovative healthcare solutions."
+          }
+        ]
+      }
+    ]
   }
 ]

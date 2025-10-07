@@ -1,3 +1,4 @@
+//app/articles/[id]/page.tsx
 import { getNewsById } from '../../../lib/getData'
 import DetailView from '../../../components/Common/DetailView'
 

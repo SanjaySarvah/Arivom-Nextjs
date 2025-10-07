@@ -229,23 +229,3 @@ export default function DetailView({ data }: DetailViewProps) {
     </div>
   );
 }
-
-// Example usage:
-// <DetailView 
-//   data={{
-//     title: "தமிழ்நாட்டில் 25 சுங்கச்சாவடிகளில் இன்று நள்ளிரவு முதல் கட்டண உயர்வு அமலுக்கு வருகிறது",
-//     content: "Your article content here...",
-//     image: "/path/to/image.jpg",
-//     category: "தமிழகம்",
-//     author: {
-//       name: "admin",
-//       role: "Author at Our Blog"
-//     },
-//     stats: {
-//       likes: 0,
-//       views: 2340,
-//       comments: 0
-//     },
-//     date: "August 31, 2025 (1 month ago)"
-//   }}
-// />
