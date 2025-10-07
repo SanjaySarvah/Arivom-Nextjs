@@ -5,6 +5,6 @@ type Props = { params: { id: string } }
 
 export default function NewsDetail({ params }: Props) {
   const item = getNewsById(Number(params.id))
-  if(!item) return <p>Newssssss not found</p>
+  if(!item) return <p>News not found</p>
   return <DetailView data={item} />
 }

@@ -1,12 +1,14 @@
 "use client";
 
 import { getAllNews } from "@/lib/getData";
+
 import CardList from "@/components/Common/CardList";
 import Link from "next/link";
 import CategoryTabs from "@/components/Common/CategoryTabs";
 
 export default function NewsPage() {
   const news = getAllNews();
+
   const categories = Array.from(new Set(news.map((n) => n.category)));
 
   // Helper to capitalize first letter
@@ -14,29 +16,14 @@ export default function NewsPage() {
     word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="w-full px-4 sm:px-6 md:px-10 lg:px-16 py-8">
-   
+    <div>
         <CategoryTabs items={news} baseLink="/news" label="NEWS" />
+   
+    <div className="min-h-screen ">
+      <div className="w-full px-4 sm:px-6 md:px-10 lg:px-16 ">
+   
+      
 
-        {/* <section className="my-8">
-          <h2 className="text-xl md:text-2xl font-semibold mb-4 text-gray-700">
-            Categories
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            {categories.map((cat) => (
-              <Link
-                key={cat}
-                href={`/news/category/${cat}`}
-                className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 capitalize transition"
-              >
-                {capitalize(cat)}
-              </Link>
-            ))}
-          </div>
-        </section> */}
-
-        {/* All News Section */}
         <section className="py-10">
           <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-800">
@@ -59,5 +46,6 @@ export default function NewsPage() {
         </section>
       </div>
     </div>
+     </div>
   );
 }

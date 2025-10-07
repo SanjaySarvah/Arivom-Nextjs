@@ -37,7 +37,7 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
     containerRef.current?.scrollBy({ left: 250, behavior: "smooth" });
   };
 
-  // Track current "page" for mobile dots
+  // Track scroll position for mobile dots
   const handleScroll = () => {
     if (containerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
@@ -48,12 +48,13 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
   };
 
   return (
-    <div className="w-full bg-white py-4">
-      <div className="flex flex-col items-center gap-3 px-4 sm:px-8 overflow-hidden">
+    <div className="w-full bg-white ">
+      {/* Main Wrapper - remove extra padding on mobile */}
+      <div className="flex flex-col items-center gap-3 px-0 sm:px-8 overflow-hidden">
         {/* Top Row */}
         <div className="flex items-center gap-4 w-full">
-          {/* Label */}
-          <span className="text-lg font-bold text-gray-700 whitespace-nowrap">
+          {/* Label — hidden on mobile */}
+          <span className="hidden sm:inline text-lg font-bold text-gray-700 whitespace-nowrap">
             {label}
           </span>
 
@@ -68,20 +69,20 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
             </button>
           )}
 
-          {/* Scrollable Tabs */}
+          {/* Category Container */}
           <div
             ref={containerRef}
-            className="flex-1 flex gap-4 overflow-x-auto scrollbar-hide whitespace-nowrap scroll-smooth"
+            className="flex-1 flex gap-4 overflow-x-auto scrollbar-hide whitespace-nowrap scroll-smooth bg-gray-100 rounded-lg p-2 sm:p-4"
             onScroll={isMobile ? handleScroll : undefined}
           >
             {categories.map((cat) => (
               <Link
                 key={cat}
                 href={`${baseLink}/category/${cat.toLowerCase()}`}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-all duration-300 ${
                   active === cat
-                    ? "bg-blue-600 text-white shadow-md"
-                    : "bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-600"
+                    ? "text-black border-b-2 border-blue-600"
+                    : "text-gray-600 hover:text-blue-600 hover:border-b-2 border-transparent"
                 }`}
                 onClick={() => setActive(cat)}
               >
