@@ -11,14 +11,13 @@ export default function Home() {
   const news = getAllNews().slice(0, 10)
   const articles = getAllArticles().slice(0, 3)
 return (
-    <div className="min-h-screen ">
-      <div className="max-w-[90rem] mx-auto  sm:px-8 lg:px-12 ">
-        <section className="mb-14">
-          <div className="mb-8">
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 py-6">
+        <section className="mb-8 lg:mb-14">
+          <div className="mb-6 lg:mb-8">
             <RelatedSlider title="முக்கிய செய்திகள்" items={related} linkBase="/news" />
           </div>
 
-          {/* <CardList items={news} linkBase="/news" /> */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
             {/* Left Column - 8/12 width on desktop */}
             <div className="lg:col-span-8">
@@ -34,16 +33,17 @@ return (
 
             {/* Right Column - 4/12 width on desktop */}
             <div className="lg:col-span-4">
-              <div className="lg:sticky lg:top-4 space-y-6">
+              <div className="space-y-6">
                 <PopularNews />
                 <PopularArticles />
                 <Updates />
               </div>
             </div>
           </div>
-        </section> 
-        <section className="mb-14">
-          <h2 className="text-3xl font-bold mb-6 text-gray-800">Recent Articles</h2>
+        </section>
+
+        <section className="mb-8 lg:mb-14">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-gray-800">Recent Articles</h2>
           <CardList items={articles} linkBase="/articles" />
         </section>
       </div>

@@ -7,7 +7,7 @@ type NewsItem = {
   id: number
   title: string
   category: string
-  subcategory: string
+  subcategory?: string
   excerpt: string
   content: string
   image: string
@@ -120,9 +120,11 @@ const SectionwiseImportantNews: FC<Props> = ({
                       <span className="inline-block px-2 py-0.5 bg-red-600 text-white text-xs font-semibold rounded">
                         {item.category}
                       </span>
-                      <span className="text-xs text-blue-600 font-medium uppercase">
-                        {item.subcategory}
-                      </span>
+                      {item.subcategory && (
+                        <span className="text-xs text-blue-600 font-medium uppercase">
+                          {item.subcategory}
+                        </span>
+                      )}
                     </div>
 
                     {/* Title */}
