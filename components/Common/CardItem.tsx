@@ -1,9 +1,20 @@
-import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import Link from "next/link";
+import { notFound } from "next/navigation";
 
-export default function CardItem({ item, linkBase }: { item: any; linkBase: string }) {
+interface CardItemProps {
+  item: {
+    id: number | string;
+    title: string;
+    excerpt: string;
+    // add any other fields you use, e.g.:
+    // image?: string;
+  };
+  linkBase: string;
+}
+
+export default function CardItem({ item, linkBase }: CardItemProps) {
   if (!item) {
-    notFound() 
+    notFound();
   }
 
   return (
@@ -17,5 +28,5 @@ export default function CardItem({ item, linkBase }: { item: any; linkBase: stri
         <span className="text-blue-600 cursor-pointer">Read More →</span>
       </Link>
     </div>
-  )
+  );
 }

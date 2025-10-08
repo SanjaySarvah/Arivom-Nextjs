@@ -1,16 +1,23 @@
-import CardItem from "./CardItem"
-import { notFound } from "next/navigation"
+import CardItem from "./CardItem";
+import { notFound } from "next/navigation";
 
-export default function CardList({
-  items,
-  linkBase,
-}: {
-  items: any[]
-  linkBase: string
-}) {
- 
+interface Item {
+  id: number | string;
+  title: string;
+  excerpt: string;
+  // Optional fields if you have them:
+  // category?: string;
+  // image?: string;
+}
+
+interface CardListProps {
+  items: Item[];
+  linkBase: string;
+}
+
+export default function CardList({ items, linkBase }: CardListProps) {
   if (!items || items.length === 0) {
-    notFound()
+    notFound();
   }
 
   return (
@@ -24,5 +31,5 @@ export default function CardList({
         </div>
       ))}
     </div>
-  )
+  );
 }

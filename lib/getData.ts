@@ -1,9 +1,6 @@
 import news from '../data/news.json'
 import articles from '../data/articles.json'
 
-// --------------------
-// Type Definitions
-// --------------------
 export type Comment = {
   UserName: string
   ProfileImage: string
