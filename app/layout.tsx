@@ -3,10 +3,23 @@
 import "./globals.css";
 import { usePathname } from "next/navigation";
 import { getAllNews, getAllArticles } from "@/lib/getData";
-import Header from "@/components/Header";
+import Header from "../components/Header";
 import Footer from "@/components/Footer";
 import ClientLayoutWrapper from "@/components/Common/ClientLayoutWrapper";
 import CategoryTabs from "@/components/Common/CategoryTabs";
+import { Kumbh_Sans, Noto_Sans_Tamil } from "next/font/google";
+
+const kumbhSans = Kumbh_Sans({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-kumbh",
+});
+
+const notoSansTamil = Noto_Sans_Tamil({
+  subsets: ["tamil"],
+  display: "swap",
+  variable: "--font-tamil",
+});
 
 const news = getAllNews();
 const articles = getAllArticles();
@@ -14,22 +27,20 @@ const articles = getAllArticles();
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Show correct tabs depending on route
+  // Determine which tab to show
   const showNewsTab =
     pathname === "/" || pathname === "/news" || pathname.startsWith("/news/category");
   const showArticlesTab =
     pathname === "/articles" || pathname.startsWith("/articles/category");
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${kumbhSans.variable} ${notoSansTamil.variable}`}>
       <body className="bg-gray-50 text-gray-800">
         <ClientLayoutWrapper>
           <Header />
 
-          {/* Category tabs section */}
-          {showNewsTab && (
-            <CategoryTabs items={news} baseLink="/news" label="NEWS" />
-          )}
+          {/* Show category tabs based on route */}
+          {showNewsTab && <CategoryTabs items={news} baseLink="/news" label="NEWS" />}
           {showArticlesTab && (
             <CategoryTabs items={articles} baseLink="/articles" label="ARTICLES" />
           )}
