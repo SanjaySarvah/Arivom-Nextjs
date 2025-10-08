@@ -10,33 +10,28 @@ interface PopularArticle {
 const popularArticlesData: PopularArticle[] = [
   {
     id: 1,
-    title: 'தமிழகம்',
-    count: 17
+    title: 'தமிழ்நாடு அரசு',
+    count: 0
   },
   {
     id: 2,
-    title: 'இந்தியா',
+    title: 'அறிவியல்',
     count: 1
   },
   {
     id: 3,
-    title: 'உலகம்',
-    count: 1
+    title: 'ஆரோக்கியம்',
+    count: 0
   },
   {
     id: 4,
-    title: 'வேலை வாய்ப்புகள்',
+    title: 'டெம்பாஸ்',
     count: 0
   },
   {
     id: 5,
-    title: 'விளையாட்டு',
-    count: 0
-  },
-  {
-    id: 6,
-    title: 'பொழுதுபோக்கு',
-    count: 0
+    title: 'தமிழ் பாரம்பரியம்',
+    count: 4
   }
 ];
 
@@ -46,7 +41,7 @@ const PopularArticles: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200 bg-gray-50">
         <h2 className="text-lg md:text-xl font-bold text-blue-600">
-          Popular News
+          Popular Articles
         </h2>
         <Link
           href="/popular"
@@ -67,7 +62,7 @@ const PopularArticles: React.FC = () => {
               <div className="flex items-center gap-3">
                 {/* Newspaper Icon */}
                 <svg
-                  className="w-4 h-4 text-red-500 flex-shrink-0"
+                  className="w-5 h-5 text-green-600 flex-shrink-0"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -78,13 +73,13 @@ const PopularArticles: React.FC = () => {
                 </svg>
 
                 {/* Title */}
-                <span className="text-gray-800 font-medium group-hover:text-blue-600 transition-colors text-sm">
+                <span className="text-gray-700 font-normal group-hover:text-blue-600 transition-colors text-sm md:text-base">
                   {article.title}
                 </span>
               </div>
 
               {/* Count Badge */}
-              <span className="bg-gray-100 text-gray-700 px-2.5 py-0.5 rounded-full text-xs font-semibold min-w-[2rem] text-center flex-shrink-0">
+              <span className="bg-white text-gray-600 px-2 py-0.5 rounded text-xs font-normal min-w-[1.5rem] text-center flex-shrink-0">
                 {article.count}
               </span>
             </Link>

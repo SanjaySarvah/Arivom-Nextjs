@@ -5,7 +5,8 @@ import { getAllNews } from "@/lib/getData";
 import CardList from "@/components/Common/CardList";
 import Link from "next/link";
 import CategoryTabs from "@/components/Common/CategoryTabs";
-
+import RelatedSlider from "@/components/Common/RelatedSlider";
+import related from "@/data/RelatedSlider.json"
 export default function NewsPage() {
   const news = getAllNews();
 
@@ -27,7 +28,7 @@ export default function NewsPage() {
         <section className="py-10">
           <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-800">
-              All News
+              All Newsssss
             </h2>
             <div className="flex items-center gap-3 w-full sm:w-auto">
               <input
@@ -42,7 +43,10 @@ export default function NewsPage() {
           </div>
 
           {/* Full Width Cards */}
-          <CardList items={news} linkBase="/news" />
+          {/* <CardList items={news} linkBase="/news" /> */}
+             <div className="mb-8">
+            <RelatedSlider title="முக்கிய செய்திகள்" items={related} linkBase="/news" />
+          </div>
         </section>
       </div>
     </div>
