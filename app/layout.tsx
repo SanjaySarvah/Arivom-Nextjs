@@ -3,7 +3,7 @@
 import "./globals.css";
 import { usePathname } from "next/navigation";
 import { getAllNews, getAllArticles } from "@/lib/getData";
-import Header from "../components/Header";
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ClientLayoutWrapper from "@/components/Common/ClientLayoutWrapper";
 import CategoryTabs from "@/components/Common/CategoryTabs";
@@ -14,7 +14,7 @@ const articles = getAllArticles();
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Determine which tab to show
+  // Show correct tabs depending on route
   const showNewsTab =
     pathname === "/" || pathname === "/news" || pathname.startsWith("/news/category");
   const showArticlesTab =
@@ -26,8 +26,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ClientLayoutWrapper>
           <Header />
 
-          {/* Show category tabs based on route */}
-          {showNewsTab && <CategoryTabs items={news} baseLink="/news" label="NEWS" />}
+          {/* Category tabs section */}
+          {showNewsTab && (
+            <CategoryTabs items={news} baseLink="/news" label="NEWS" />
+          )}
           {showArticlesTab && (
             <CategoryTabs items={articles} baseLink="/articles" label="ARTICLES" />
           )}

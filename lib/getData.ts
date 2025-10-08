@@ -12,7 +12,7 @@ export type NewsItem = {
   id: number
   title: string
   category: string
-  tname:string
+  tname: string
   subcategory: string
   excerpt: string
   content: string
@@ -23,7 +23,6 @@ export type NewsItem = {
   days_ago: number
   likes?: number
   totalComments?: number
-  
   comments?: Comment[]
 }
 
@@ -31,6 +30,7 @@ export type ArticleItem = {
   id: number
   title: string
   category: string
+  tname?: string        // ✅ Added optional tname here
   subcategory: string
   excerpt: string
   content: string
