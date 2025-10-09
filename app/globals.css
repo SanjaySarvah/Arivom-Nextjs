@@ -129,11 +129,6 @@ p {
 }
 
 
-/* Hover effect */
-a:hover {
-  color: #1d4ed8; /* Tailwind blue-700 */
-  text-decoration: underline;
-}
 
 
 
