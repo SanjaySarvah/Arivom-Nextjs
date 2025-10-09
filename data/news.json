@@ -627,8 +627,43 @@
       }
     ]
   },
-  {
+    {
     "id": 20,
+    "title": "தமிழகத்தில் 2025ல் பசுமை மற்றும் சுற்றுச்சூழல் பாதுகாப்பு திட்டங்கள்: வனப்பகுதிகள், காற்றழுத்த கண்காணிப்பு மற்றும் நீர் சேமிப்பு",
+    "category": "environment",
+    "tname":"சுற்றுச்சூழல்",
+    "subcategory": "பசுமை திட்டங்கள்",
+    "excerpt": "தமிழக அரசு புதிய பசுமை மற்றும் சுற்றுச்சூழல் பாதுகாப்பு திட்டங்களை அறிவித்துள்ளது.",
+    "content": "தமிழக அரசு வனப்பகுதிகளை மீண்டும் வளமானது செய்யும் வகையில் பல பசுமை திட்டங்களை அறிமுகம் செய்கிறது. இதில் காற்றழுத்த கண்காணிப்பு மற்றும் நீர் சேமிப்பு முறைமைகள் அடங்கும்.\n\nஇந்த திட்டங்கள் கிராமப்புற மக்களுக்கு வேலை வாய்ப்புகளை உருவாக்கும்.",
+    "image": "https://picsum.photos/seed/107/400/200",
+    "author": "Kavya Ramesh",
+    "slug": "tamilnadu-environment-2025",
+    "created_at": "2025-02-13T09:30:00Z",
+    "days_ago": 18,
+    "likes": 85,
+    "totalComments": 3,
+    "comments": [
+      {
+        "UserName": "Vikram Joshi",
+        "ProfileImage": "https://randomuser.me/api/portraits/men/31.jpg",
+        "comment": "Green initiatives are very promising.",
+        "sub_comments": [
+          {
+            "UserName": "Anjali Sharma",
+            "ProfileImage": "https://randomuser.me/api/portraits/women/32.jpg",
+            "comment": "Yes, this will improve rural employment and ecology."
+          },
+          {
+            "UserName": "Raghav Patel",
+            "ProfileImage": "https://randomuser.me/api/portraits/men/33.jpg",
+            "comment": "Hope the plans are executed properly."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 21,
     "title": "திருவண்ணாமலை மாவட்டத்தில் 2025ல் திறக்கப்படும் சுற்றுலா மற்றும் சுற்றுச்சூழல் மையம்: Eco-Tourism, Trekking Trails மற்றும் Nature Camps",
     "category":"Tourism",
     "tname": "சுற்றுச்சூழல் & சுற்றுலா",
