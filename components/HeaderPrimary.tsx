@@ -1,85 +1,122 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import Image from "next/image";
-import logo from "@/public/assets/logos/arivom-logo-latest.svg";
-import { FaFacebookF, FaInstagram, FaTiktok, FaPinterestP, FaAmazon } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaTiktok,
+  FaPinterestP,
+  FaAmazon,
+  FaSearch,
+  FaBell,
+} from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 
-interface HeaderPrimaryProps {
-  logoSrc?: string;
-}
+const HeaderPrimary: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
 
-const HeaderPrimary: React.FC<HeaderPrimaryProps> = ({ logoSrc }) => {
   const socialLinks = [
-    { icon: <FaFacebookF size={16} />, color: "hover:text-blue-600", label: "Facebook" },
-    { icon: <RiTwitterXFill size={16} />, color: "hover:text-gray-900", label: "X" },
-    { icon: <FaInstagram size={16} />, color: "hover:text-pink-500", label: "Instagram" },
-    { icon: <FaTiktok size={16} />, color: "hover:text-gray-900", label: "TikTok" },
-    { icon: <FaAmazon size={16} />, color: "hover:text-orange-500", label: "Amazon" },
-    { icon: <FaPinterestP size={16} />, color: "hover:text-red-500", label: "Pinterest" },
+    { icon: <FaFacebookF size={14} />, color: "hover:text-blue-600", label: "Facebook" },
+    { icon: <RiTwitterXFill size={14} />, color: "hover:text-gray-900", label: "X" },
+    { icon: <FaInstagram size={14} />, color: "hover:text-pink-500", label: "Instagram" },
+    { icon: <FaTiktok size={14} />, color: "hover:text-gray-900", label: "TikTok" },
+    { icon: <FaAmazon size={14} />, color: "hover:text-orange-500", label: "Amazon" },
+    { icon: <FaPinterestP size={14} />, color: "hover:text-red-500", label: "Pinterest" },
   ];
 
+  const breakingNews = [
+    "Breaking: Global Summit Reaches Climate Agreement",
+    "Stock Markets Hit Record High",
+    "New Tech Innovation Revolutionizes Healthcare",
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <div className="py-3 max-w-[1320px] px-[15px] mx-auto">
-      {/* Desktop View */}
-      <div className="hidden xl:grid grid-cols-3 items-center">
-        {/* Left: Social Icons */}
-        <div className="flex gap-2">
-          {socialLinks.map(({ icon, color, label }, idx) => (
-            <a
-              key={idx}
-              href="#"
-              aria-label={label}
-              className={`w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 ${color} transition-colors duration-300`}
-            >
-              {icon}
-            </a>
-          ))}
-        </div>
-
-        {/* Center: Logo */}
-        <div className="flex justify-center">
-          <Link href="/">
-            <Image
-              src={logoSrc ?? logo}
-              alt="Arivom Logo"
-              width={144}
-              height={57}
-              className="object-contain"
-              priority
-            />
-          </Link>
-        </div>
-
-        {/* Right: Auth Buttons */}
-        <div className="flex justify-end gap-3">
-          <button className="px-4 py-2 border border-blue-600 text-blue-600 rounded-md text-sm font-semibold hover:bg-blue-50 transition">
-            Sign In
-          </button>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-semibold hover:bg-blue-700 transition">
-            Sign Up
-          </button>
+    <>
+      {/* Breaking News Bar */}
+      <div className="bg-gradient-to-r from-red-600 to-orange-500 text-white py-2 hidden xl:block">
+        <div className="max-w-[1320px] px-[15px] mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-3 overflow-hidden flex-1">
+            <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-full whitespace-nowrap shrink-0">
+              <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+              <span className="text-sm font-bold">LIVE</span>
+            </div>
+            <div className="flex items-center gap-6 animate-marquee whitespace-nowrap">
+              {breakingNews.map((news, i) => (
+                <React.Fragment key={i}>
+                  <span className="text-sm">{news}</span>
+                  {i < breakingNews.length - 1 && <span className="text-sm">•</span>}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+          <div className="text-xs opacity-90 whitespace-nowrap ml-4">
+            {new Date().toLocaleDateString("en-US", {
+              weekday: "long",
+              month: "short",
+              day: "numeric",
+            })}
+          </div>
         </div>
       </div>
 
-      {/* Mobile View */}
-      <div className="xl:hidden flex items-center justify-between">
-        <div className="flex justify-center flex-1">
-          <Link href="/">
-            <Image
-              src={logoSrc ?? logo}
-              alt="Arivom Logo"
-              width={144}
-              height={57}
-              className="object-contain"
-              priority
-            />
-          </Link>
+      {/* Main Header */}
+      <div
+        className={`hidden xl:block transition-all duration-300 ${
+          isScrolled ? "py-2 shadow-sm" : "py-3"
+        }`}
+      >
+        <div className="max-w-[1320px] px-[15px] mx-auto flex items-center justify-between">
+          {/* Left: Social Icons */}
+          <div className="flex items-center gap-2 min-w-[250px]">
+            {socialLinks.map(({ icon, color, label }, idx) => (
+              <a
+                key={idx}
+                href="#"
+                aria-label={label}
+                className={`w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-600 ${color} transition-all duration-300 hover:scale-110`}
+              >
+                {icon}
+              </a>
+            ))}
+          </div>
+
+          {/* Center: Search Bar (Perfectly Centered) */}
+          <div className="flex-1 flex justify-center">
+            <div className="relative w-full max-w-md">
+              <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:shadow-lg">
+                <FaSearch className="w-4 h-4 text-gray-500 mr-2" />
+                <input
+                  type="text"
+                  placeholder="Search news, topics, articles..."
+                  className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Notification + Buttons */}
+          <div className="flex items-center justify-end gap-3 min-w-[250px]">
+            <button className="p-2 rounded-full hover:bg-gray-100 transition-colors relative">
+              <FaBell className="w-5 h-5 text-gray-600" />
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+
+            <button className="px-4 py-2 border border-blue-600 text-blue-600 rounded-md text-sm font-semibold hover:bg-blue-50 transition-all duration-300 hover:shadow-md">
+              Sign In
+            </button>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-semibold hover:bg-blue-700 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">
+              Sign Up
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

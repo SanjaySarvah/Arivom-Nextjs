@@ -1,29 +1,30 @@
-"use client"
+"use client";
 
-import { FC } from "react"
-import Link from "next/link"
+import { FC } from "react";
+import Link from "next/link";
 
 type NewsItem = {
-  id: number
-  title: string
-  category: string
-  subcategory: string
-  excerpt: string
-  content: string
-  image: string
-  author: string
-  slug: string
-  created_at: string
-  days_ago: number
-}
+  id: number;
+  title: string;
+  category: string;
+  subcategory?: string;
+  
+  excerpt: string;
+  content: string;
+  image: string;
+  author: string;
+  slug: string;
+  created_at: string;
+  days_ago: number;
+};
 
 interface Props {
-  title: string
-  subtitle?: string
-  categoryLabel: string
-  items: NewsItem[]
-  linkBase: string
-  viewAllLink?: string
+  title: string;
+  subtitle?: string;
+  categoryLabel: string;
+  items: NewsItem[];
+  linkBase: string;
+  viewAllLink?: string;
 }
 
 const SectionwiseImportantNews: FC<Props> = ({
@@ -32,14 +33,14 @@ const SectionwiseImportantNews: FC<Props> = ({
   categoryLabel,
   items,
   linkBase,
-  viewAllLink
+  viewAllLink,
 }) => {
-  if (!items || items.length === 0) return null
+  if (!items || items.length === 0) return null;
 
-  const displayItems = items.slice(0, 5)
+  const displayItems = items.slice(0, 5);
 
   return (
-    <section className="bg-white">
+    <section className="bg-white py-8">
       <div>
         {/* Header Section */}
         <div className="mb-4 md:mb-6">
@@ -49,17 +50,16 @@ const SectionwiseImportantNews: FC<Props> = ({
                 {title}
               </h2>
               {subtitle && (
-                <p className="text-xs md:text-sm text-gray-600">
-                  {subtitle}
-                </p>
+                <p className="text-xs md:text-sm text-gray-600">{subtitle}</p>
               )}
             </div>
+
             {viewAllLink && (
               <Link
                 href={viewAllLink}
                 className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium text-xs md:text-sm border-2 border-blue-600 hover:border-blue-700 px-3 py-1.5 rounded-full transition-all hover:bg-blue-50 whitespace-nowrap"
               >
-                View all &rarr;
+                View all →
               </Link>
             )}
           </div>
@@ -80,18 +80,20 @@ const SectionwiseImportantNews: FC<Props> = ({
               href={`${linkBase}/${item.id}`}
               className="block group"
             >
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 group-hover:border-blue-300">
+              <article className="flex flex-col sm:flex-row gap-3 md:gap-4 bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 group-hover:border-blue-300">
                 {/* Image Section */}
                 <div className="relative w-full sm:w-48 md:w-56 lg:w-64 h-40 sm:h-auto flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-700">
                   <img
                     src={item.image}
-                    alt={item.title}
+                    alt={item.title || "News Image"}
                     className="w-full h-full object-cover"
                   />
 
                   {/* Arivom Badge */}
                   <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded">
-                    <span className="text-blue-600 font-bold text-xs">Arivom</span>
+                    <span className="text-blue-600 font-bold text-xs">
+                      Arivom
+                    </span>
                   </div>
 
                   {/* 24H Badge */}
@@ -99,7 +101,7 @@ const SectionwiseImportantNews: FC<Props> = ({
                     24H
                   </div>
 
-                  {/* ARIVOM NEWS Overlay */}
+                  {/* Overlay Branding */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <div className="text-center">
                       <div className="text-white font-bold text-xl md:text-2xl opacity-90">
@@ -120,9 +122,11 @@ const SectionwiseImportantNews: FC<Props> = ({
                       <span className="inline-block px-2 py-0.5 bg-red-600 text-white text-xs font-semibold rounded">
                         {item.category}
                       </span>
-                      <span className="text-xs text-blue-600 font-medium uppercase">
-                        {item.subcategory}
-                      </span>
+                      {item.subcategory && (
+                        <span className="text-xs text-blue-600 font-medium uppercase">
+                          {item.subcategory}
+                        </span>
+                      )}
                     </div>
 
                     {/* Title */}
@@ -130,37 +134,37 @@ const SectionwiseImportantNews: FC<Props> = ({
                       {item.title}
                     </h3>
 
-                    {/* Excerpt/Content */}
+                    {/* Excerpt */}
                     <p className="text-xs md:text-sm text-gray-700 leading-relaxed line-clamp-2 mb-2">
-                      {item.content}
+                      {item.content || item.excerpt}
                     </p>
                   </div>
 
                   {/* Footer Meta */}
-                  <div className="flex items-center gap-2 text-xs text-gray-500 pt-2 border-t border-gray-100">
+                  <footer className="flex items-center gap-2 text-xs text-gray-500 pt-2 border-t border-gray-100">
                     <span className="flex items-center gap-1">
-                      <span>&#9998;</span>
-                      <span className="font-medium">{item.author}</span>
+                      ✍️ <span className="font-medium">{item.author}</span>
                     </span>
                     <span className="flex items-center gap-1">
-                      <span>&#128336;</span>
+                      🕒
                       <span className="hidden sm:inline">
-                        {new Date(item.created_at).toLocaleDateString('en-US', {
-                          month: 'long',
-                          day: 'numeric',
-                          year: 'numeric'
-                        })}{' '}
+                        {new Date(item.created_at).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
                       </span>
-                      <span>({item.days_ago} month ago)</span>
+                      <span>({item.days_ago} days ago)</span>
                     </span>
-                  </div>
+                  </footer>
                 </div>
-              </div>
+              </article>
             </Link>
           ))}
         </div>
       </div>
 
+      {/* Line clamp styling */}
       <style jsx>{`
         .line-clamp-2 {
           display: -webkit-box;
@@ -170,7 +174,7 @@ const SectionwiseImportantNews: FC<Props> = ({
         }
       `}</style>
     </section>
-  )
-}
+  );
+};
 
-export default SectionwiseImportantNews
+export default SectionwiseImportantNews;

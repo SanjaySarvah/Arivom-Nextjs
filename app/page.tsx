@@ -6,6 +6,7 @@ import SectionwiseImportantNews from '@/components/Common/SectionwiseImportantNe
 import PopularArticles from '@/components/Common/DetailViews/PopularArticles'
 import PopularNews from '@/components/Common/DetailViews/PopularNews'
 import Updates from '@/components/Common/DetailViews/Updates'
+import MasonryGrid from '@/components/News/Masonry'
 
 export default function Home() {
   const news = getAllNews().slice(0, 10)
@@ -46,6 +47,12 @@ return (
           <h2 className="text-3xl font-bold mb-6 text-gray-800">Recent Articles</h2>
           <CardList items={articles} linkBase="/articles" />
         </section>
+      <section>
+         <MasonryGrid 
+        items={articles} 
+        title="All Stories" 
+      />
+      </section>
       </div>
     </div>
   )
