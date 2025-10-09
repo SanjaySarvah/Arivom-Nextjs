@@ -4,14 +4,15 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { 
-  FaHome, 
-  FaRegNewspaper, 
-  FaBook, 
+import {
+  FaHome,
+  FaRegNewspaper,
+  FaBook,
   FaSearch,
   FaBars,
   FaTimes,
-  FaChevronDown
+  FaChevronDown,
+  FaUser,
 } from "react-icons/fa";
 import logo from "@/public/assets/logos/arivom-logo-latest.svg";
 
@@ -20,6 +21,7 @@ const HeaderSecondary: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isArticlesDropdownOpen, setIsArticlesDropdownOpen] = useState(false);
+   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -37,14 +39,14 @@ const HeaderSecondary: React.FC = () => {
       active: pathname === "/"
     },
     {
-      name: "News", 
+      name: "News",
       href: "/news",
       icon: FaRegNewspaper,
       active: pathname.startsWith("/news")
     },
     {
       name: "Articles",
-      href: "/articles", 
+      href: "/articles",
       icon: FaBook,
       active: pathname.startsWith("/articles")
     }
@@ -62,12 +64,11 @@ const HeaderSecondary: React.FC = () => {
   return (
     <>
       {/* Main Navigation Bar */}
-      <div className={`bg-white border-b border-gray-200 transition-all duration-300 ${
-        isScrolled ? "shadow-lg sticky top-0 z-40" : "shadow-sm"
-      }`}>
+      <div className={`bg-white transition-all duration-300 ${isScrolled ? "shadow-lg sticky top-0 z-40" : "shadow-sm"
+        }`}>
         <div className="max-w-[1320px] mx-auto px-[15px]">
           <div className="flex items-center justify-between h-16">
-            
+
             {/* Left: Navigation Links */}
             <div className="flex items-center gap-2">
               {/* Mobile Menu Button */}
@@ -84,11 +85,10 @@ const HeaderSecondary: React.FC = () => {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
-                      item.active
+                    className={`flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${item.active
                         ? "text-red-600 bg-red-50 border-b-2 border-red-600"
                         : "text-gray-700 hover:text-red-600 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     <item.icon size={14} />
                     {item.name}
@@ -113,7 +113,7 @@ const HeaderSecondary: React.FC = () => {
                   </div>
                   <div className="hidden lg:block border-l border-gray-300 pl-3">
                     <div className="text-xs text-gray-500 font-medium leading-tight">
-                      Trusted News<br/>Global Coverage
+                      Trusted News<br />Global Coverage
                     </div>
                   </div>
                 </div>
@@ -124,20 +124,20 @@ const HeaderSecondary: React.FC = () => {
             <div className="flex items-center gap-4">
               {/* Articles Dropdown Button */}
               <div className="relative hidden md:block">
-               <button
-  onMouseEnter={() => setIsArticlesDropdownOpen(true)}
-  onMouseLeave={() => setIsArticlesDropdownOpen(false)}
-  className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 hover:shadow-lg transition-all duration-300 hover:scale-105"
->
-  <FaBook className="w-4 h-4" />
-  ARTICLES
-  <FaChevronDown className="w-3 h-3 transition-transform duration-300" />
-</button>
+                <button
+                  onMouseEnter={() => setIsArticlesDropdownOpen(true)}
+                  onMouseLeave={() => setIsArticlesDropdownOpen(false)}
+                  className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 hover:shadow-lg transition-all duration-300 hover:scale-105"
+                >
+                  <FaBook className="w-4 h-4" />
+                  ARTICLES
+                  <FaChevronDown className="w-3 h-3 transition-transform duration-300" />
+                </button>
 
 
                 {/* Dropdown Menu */}
                 {isArticlesDropdownOpen && (
-                  <div 
+                  <div
                     className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-xl z-50 min-w-[200px]"
                     onMouseEnter={() => setIsArticlesDropdownOpen(true)}
                     onMouseLeave={() => setIsArticlesDropdownOpen(false)}
@@ -157,15 +157,36 @@ const HeaderSecondary: React.FC = () => {
                 )}
               </div>
 
-              {/* Mobile Articles Button */}
-              <Link
-                href="/articles"
-                className="md:hidden flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold"
-              >
-                <FaBook className="w-4 h-4" />
-                <span className="hidden sm:inline">ARTICLES</span>
-              </Link>
+            <div className="relative md:hidden">
+      {/* Mobile Profile Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-semibold focus:outline-none"
+      >
+        <FaUser className="w-4 h-4" />
+        <span className="hidden sm:inline">PROFILE</span>
+      </button>
 
+      {/* Dropdown */}
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+          <Link
+            href="/signin"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            onClick={() => setIsOpen(false)}
+          >
+            Sign In
+          </Link>
+          <Link
+            href="/signup"
+            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+            onClick={() => setIsOpen(false)}
+          >
+            Sign Up
+          </Link>
+        </div>
+      )}
+    </div>
               {/* Search Button - Mobile */}
               <button className="xl:hidden p-2 rounded-full hover:bg-gray-100 transition-colors">
                 <FaSearch className="w-5 h-5 text-gray-600" />
@@ -200,11 +221,10 @@ const HeaderSecondary: React.FC = () => {
                     key={item.name}
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-semibold transition-colors duration-200 ${
-                      item.active
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-semibold transition-colors duration-200 ${item.active
                         ? "text-red-600 bg-red-50"
                         : "text-gray-700 hover:text-red-600 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     <item.icon size={16} />
                     {item.name}
