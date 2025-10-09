@@ -54,15 +54,16 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
   };
 
   return (
-    <section className="py-12 md:py-6">
+    <section className="">
       <div className="container mx-auto relative">
         {/* Title */}
-        <div className="text-center mb-6">
-          <div className="inline-flex items-center gap-3">
-            <div className="w-2 h-8 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full"></div>
-            <h2 className="text-2xl md:text-4xl font-bold">{title}</h2>
-          </div>
-        </div>
+       <div className="mb-6 text-left md:text-center">
+  <div className="flex md:inline-flex items-center gap-3">
+    <div className="w-2 h-8 bg-blue-600 rounded-full"></div>
+    <h2 className="text-2xl md:text-4xl font-bold">{title}</h2>
+  </div>
+</div>
+
 
         {/* Slider */}
         <div className="relative w-full">

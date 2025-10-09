@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -11,20 +11,26 @@ import {
   FaAmazon,
   FaSearch,
   FaBell,
+  FaPause,
+  FaPlay,
 } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
-import { HiMenu, HiX } from "react-icons/hi";
-
-// Replace with your logo import or path
-import logo from "@/public/assets/arivom-logo-latest.png"; // ✅ Update path to your logo
+import { HiX } from "react-icons/hi";
+import logo from "@/public/assets/arivom-logo-latest.png";
 
 const HeaderPrimary: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [newsExpanded, setNewsExpanded] = useState(false);
   const [articlesExpanded, setArticlesExpanded] = useState(false);
+  
+  // Marquee states
+  const [isPaused, setIsPaused] = useState(false);
+  const [marqueeSpeed, setMarqueeSpeed] = useState(40); // Lower = faster
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStartX, setDragStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
-  // Example categories — replace with dynamic values if available
   const newsCategories = ["Politics", "Business", "Tech", "Health"];
   const articlesCategories = ["Education", "Lifestyle", "Science"];
 
@@ -45,7 +51,15 @@ const HeaderPrimary: React.FC = () => {
     "Breaking: Global Summit Reaches Climate Agreement",
     "Stock Markets Hit Record High",
     "New Tech Innovation Revolutionizes Healthcare",
+    "Sports Update: Team India Wins Series 3-1",
+    "Education Reform Bill Passes Parliament",
+    "AI Startups Surge in Investment Worldwide",
+    "Local Hero Saves Child from Floodwaters",
+    "SpaceX Successfully Launches New Rocket",
+    "New Electric Car Breaks Efficiency Record",
   ];
+
+  const marqueeRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -53,25 +67,117 @@ const HeaderPrimary: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Manual sliding functionality
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!marqueeRef.current) return;
+    
+    setIsDragging(true);
+    setIsPaused(true);
+    setDragStartX(e.pageX - marqueeRef.current.offsetLeft);
+    setScrollLeft(marqueeRef.current.scrollLeft);
+    
+    // Change cursor to grabbing
+    marqueeRef.current.style.cursor = 'grabbing';
+    marqueeRef.current.style.userSelect = 'none';
+  };
+
+  const handleMouseLeave = () => {
+    if (!marqueeRef.current) return;
+    
+    setIsDragging(false);
+    marqueeRef.current.style.cursor = 'grab';
+    marqueeRef.current.style.removeProperty('user-select');
+    
+    // Only resume if not manually paused
+    if (!isPaused) {
+      setTimeout(() => setIsPaused(false), 1000);
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (!marqueeRef.current) return;
+    
+    setIsDragging(false);
+    marqueeRef.current.style.cursor = 'grab';
+    marqueeRef.current.style.removeProperty('user-select');
+    
+    // Only resume if not manually paused
+    if (!isPaused) {
+      setTimeout(() => setIsPaused(false), 1000);
+    }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !marqueeRef.current) return;
+    
+    e.preventDefault();
+    const x = e.pageX - marqueeRef.current.offsetLeft;
+    const walk = (x - dragStartX) * 2; // Scroll-fast factor
+    marqueeRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  const togglePlayPause = () => {
+    setIsPaused(!isPaused);
+  };
+
+  const increaseSpeed = () => {
+    setMarqueeSpeed(prev => Math.max(10, prev - 10)); // Lower number = faster
+  };
+
+  const decreaseSpeed = () => {
+    setMarqueeSpeed(prev => Math.min(100, prev + 10)); // Higher number = slower
+  };
+
   return (
     <>
       {/* 🔴 Breaking News Bar */}
       <div className="bg-gradient-to-r from-red-600 to-orange-500 text-white py-2 hidden xl:block">
         <div className="max-w-[1320px] px-[15px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3 overflow-hidden flex-1">
+            {/* LIVE Badge */}
             <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-full whitespace-nowrap shrink-0">
               <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-              <span className="text-sm font-bold">LIVE</span>
+              <span className="text-sm font-bold">Latest</span>
             </div>
-            <div className="flex items-center gap-6 animate-marquee whitespace-nowrap">
-              {breakingNews.map((news, i) => (
-                <React.Fragment key={i}>
-                  <span className="text-sm">{news}</span>
-                  {i < breakingNews.length - 1 && <span className="text-sm">•</span>}
-                </React.Fragment>
-              ))}
+
+            {/* Enhanced Marquee with Controls */}
+            <div className="relative flex-1 overflow-hidden group">
+              {/* Marquee Container */}
+              <div
+                ref={marqueeRef}
+                className="overflow-x-auto whitespace-nowrap scrollbar-hide cursor-grab active:cursor-grabbing"
+                onMouseDown={handleMouseDown}
+                onMouseLeave={handleMouseLeave}
+                onMouseUp={handleMouseUp}
+                onMouseMove={handleMouseMove}
+              >
+                <div 
+                  className={`inline-flex gap-6 px-4 ${
+                    !isPaused && !isDragging ? 'animate-marquee' : ''
+                  }`}
+                  style={{
+                    animationDuration: `${marqueeSpeed}s`,
+                    animationPlayState: isPaused || isDragging ? 'paused' : 'running'
+                  }}
+                >
+                  {breakingNews.concat(breakingNews).map((news, i) => (
+                    <React.Fragment key={i}>
+                      <span className="text-sm font-medium hover:underline transition-all duration-200 min-w-max">
+                        {news}
+                      </span>
+                      {i < breakingNews.length * 2 - 1 && (
+                        <span className="text-sm opacity-70">•</span>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
+
+       
             </div>
           </div>
+
+          {/* Date */}
           <div className="text-xs opacity-90 whitespace-nowrap ml-4">
             {new Date().toLocaleDateString("en-US", {
               weekday: "long",
