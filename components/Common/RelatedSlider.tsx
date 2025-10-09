@@ -9,24 +9,11 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import { FiChevronLeft, FiChevronRight, FiClock, FiUser } from "react-icons/fi";
-
-type Item = {
-  id: number;
-  title: string;
-  category: string;
-  subcategory: string;
-  excerpt: string;
-  content: string;
-  image: string;
-  author: string;
-  slug: string;
-  created_at: string;
-  days_ago: number;
-};
+import { NewsItem, ArticleItem } from "@/lib/getData";
 
 interface Props {
   title: string;
-  items: Item[];
+  items: NewsItem[] | ArticleItem[];
   linkBase: string;
 }
 
@@ -172,7 +159,7 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                         </div>
                         <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
                           <span className="text-gray-900 font-bold text-xs uppercase tracking-wide">
-                            {item.category}
+                            {item.tname || item.category}
                           </span>
                         </div>
                       </div>

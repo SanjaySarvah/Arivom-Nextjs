@@ -1,21 +1,13 @@
 "use client";
 
-import { getAllNews, getAllArticles, transformToGeneralPost } from "@/lib/getData";
+import { getAllNews, transformToGeneralPost } from "@/lib/getData";
 import RelatedSlider from "@/components/Common/RelatedSlider";
-import related from "@/data/RelatedSlider.json"
 import SectionwiseImportantNews from "@/components/Common/SectionwiseImportantNews";
 import Sidebar from "@/components/Common/Sidebar";
 import GeneralPost from "@/components/Common/GeneralPost";
 export default function NewsPage() {
   const news = getAllNews();
-  const articles = getAllArticles();
-  const articlesForDisplay = transformToGeneralPost(articles);
-
-  const categories = Array.from(new Set(news.map((n) => n.category)));
-
-  // Helper to capitalize first letter
-  const capitalize = (word: string) =>
-    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  const newsForDisplay = transformToGeneralPost(news);
 
   return (
     <div>
@@ -46,7 +38,7 @@ export default function NewsPage() {
           {/* Full Width Cards */}
           {/* <CardList items={news} linkBase="/news" /> */}
              <div className="mb-8">
-            <RelatedSlider title="முக்கிய செய்திகள்" items={related} linkBase="/news" />
+            <RelatedSlider title="முக்கிய செய்திகள்" items={news} linkBase="/news" />
           </div>
         
 
@@ -70,9 +62,9 @@ export default function NewsPage() {
           </div>
           <div className="mt-12">
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
-              கட்டுரைகள்
+              மேலும் செய்திகள்
             </h2>
-            <GeneralPost posts={articlesForDisplay} initialDisplayCount={9} loadMoreCount={9} linkBase="/articles" />
+            <GeneralPost posts={newsForDisplay} initialDisplayCount={9} loadMoreCount={9} linkBase="/news" />
           </div>
         </section>
       </div>

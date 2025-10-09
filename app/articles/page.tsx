@@ -1,22 +1,13 @@
 "use client";
 
-import { getAllArticles, getAllNews, transformToGeneralPost } from "@/lib/getData";
+import { getAllArticles, transformToGeneralPost } from "@/lib/getData";
 import Sidebar from "@/components/Common/Sidebar";
 import RelatedSlider from "@/components/Common/RelatedSlider";
-import related from "@/data/RelatedSlider.json"
 import SectionwiseImportantNews from "@/components/Common/SectionwiseImportantNews";
 import GeneralPost from "@/components/Common/GeneralPost";
 export default function ArticlesPage() {
   const articles = getAllArticles();
-  const news = getAllNews();
-  const newsForDisplay = transformToGeneralPost(news);
-
-  // Extract unique categories from articles
-  const categories = Array.from(new Set(articles.map((a) => a.category)));
-
-  // Helper to capitalize the first letter
-  const capitalize = (word: string) =>
-    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+  const articlesForDisplay = transformToGeneralPost(articles);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -24,7 +15,7 @@ export default function ArticlesPage() {
 
 
         {/* Header */}
-        <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+        {/* <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
           <h1 className="text-2xl md:text-3xl font-semibold text-gray-800">
             All Articles
           </h1>
@@ -38,9 +29,9 @@ export default function ArticlesPage() {
               Search
             </button>
           </div>
-        </div>
+        </div> */}
         <div className="mb-8">
-          <RelatedSlider title="முக்கிய செய்திகள்" items={related} linkBase="/articles" />
+          <RelatedSlider title="முக்கிய கட்டுரைகள்" items={articles} linkBase="/articles" />
         </div>
         {/* Articles List with Sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
@@ -62,12 +53,12 @@ export default function ArticlesPage() {
           </div>
         </div>
 
-        {/* News Section */}
+        {/* More Articles Section */}
         <div className="mt-12">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
-            செய்திகள்
+            மேலும் கட்டுரைகள்
           </h2>
-          <GeneralPost posts={newsForDisplay} initialDisplayCount={9} loadMoreCount={9} linkBase="/news" />
+          <GeneralPost posts={articlesForDisplay} initialDisplayCount={9} loadMoreCount={9} linkBase="/articles" />
         </div>
       </div>
     </div>
