@@ -124,15 +124,16 @@ const HeaderSecondary: React.FC = () => {
             <div className="flex items-center gap-4">
               {/* Articles Dropdown Button */}
               <div className="relative hidden md:block">
-                <button
-                  onMouseEnter={() => setIsArticlesDropdownOpen(true)}
-                  onMouseLeave={() => setIsArticlesDropdownOpen(false)}
-                  className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg text-sm font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
-                >
-                  <FaBook className="w-4 h-4" />
-                  ARTICLES
-                  <FaChevronDown className="w-3 h-3 transition-transform duration-300" />
-                </button>
+               <button
+  onMouseEnter={() => setIsArticlesDropdownOpen(true)}
+  onMouseLeave={() => setIsArticlesDropdownOpen(false)}
+  className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg text-sm font-semibold hover:bg-blue-700 hover:shadow-lg transition-all duration-300 hover:scale-105"
+>
+  <FaBook className="w-4 h-4" />
+  ARTICLES
+  <FaChevronDown className="w-3 h-3 transition-transform duration-300" />
+</button>
+
 
                 {/* Dropdown Menu */}
                 {isArticlesDropdownOpen && (

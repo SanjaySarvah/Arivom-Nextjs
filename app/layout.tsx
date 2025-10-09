@@ -39,11 +39,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ClientLayoutWrapper>
           <Header />
 
-          {/* Show category tabs based on route */}
-          {showNewsTab && <CategoryTabs items={news} baseLink="/news" label="NEWS" />}
-          {showArticlesTab && (
-            <CategoryTabs items={articles} baseLink="/articles" label="ARTICLES" />
-          )}
+          {/* Show category tabs based on route - Sticky */}
+          <div className="sticky top-0 z-40 bg-white shadow-md">
+            {showNewsTab && <CategoryTabs items={news} baseLink="/news" label="NEWS" />}
+            {showArticlesTab && (
+              <CategoryTabs items={articles} baseLink="/articles" label="ARTICLES" />
+            )}
+          </div>
 
           <main className="w-full">{children}</main>
 

@@ -28,18 +28,7 @@ export default function NewspaperLayout({ items }: Props) {
   return (
     <section className="py-12 bg-white">
       <div className="max-w-7xl mx-auto ">
-        {/* Newspaper Header */}
-        <div className="text-center border-b-2 border-gray-900 pb-6 mb-8">
-          <h1 className="text-5xl md:text-7xl font-black text-gray-900 mb-2 tracking-tight">
-            DAILY NEWS
-          </h1>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between text-sm text-gray-600">
-            <span>Today's Edition • {new Date().toLocaleDateString('en-US', { 
-              weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
-            })}</span>
-            <span>Vol. 124 • No. 45</span>
-          </div>
-        </div>
+  
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Main Story - Left Column */}
