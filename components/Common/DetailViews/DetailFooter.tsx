@@ -23,7 +23,7 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
         {/* Home */}
         <Link
           href="/"
-          className="flex flex-col items-center gap-1 text-red-500 hover:text-red-600 transition-colors"
+          className="flex flex-col items-center gap-1 text-[#2ecc71] hover:text-[#27ae60] transition-colors"
         >
           <FaHome size={24} />
           <span className="text-xs font-medium">Home</span>
@@ -32,7 +32,7 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
         {/* Like */}
         <button
           onClick={onLike}
-          className="flex flex-col items-center gap-1 text-gray-600 hover:text-red-500 transition-colors"
+          className="flex flex-col items-center gap-1 text-gray-600 hover:text-[#2ecc71] transition-colors"
         >
           <FaHeart size={24} />
           <span className="text-sm font-semibold">{likeCount}</span>

@@ -43,8 +43,8 @@ export default function PopularNews({ categories }: PopularNewsProps) {
           >
             <div className="flex items-center gap-3">
               {/* Newspaper Icon */}
-              <div className="w-8 h-8 bg-red-50 rounded flex items-center justify-center flex-shrink-0">
-                <Newspaper className="w-5 h-5 text-red-600" />
+              <div className="w-8 h-8 bg-emerald-50 rounded flex items-center justify-center flex-shrink-0">
+                <Newspaper className="w-5 h-5 text-[#2ecc71]" />
               </div>
               
               {/* Category Name */}

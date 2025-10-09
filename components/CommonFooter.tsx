@@ -20,7 +20,7 @@ const CommonFooter: React.FC<CommonFooterProps> = ({ onJoinClick, onShareClick }
         <Link
           href="/"
           className={`flex flex-col items-center gap-1 ${
-            pathname === "/" ? "text-red-500" : "text-gray-600"
+            pathname === "/" ? "text-[#2ecc71]" : "text-gray-600"
           }`}
         >
           <FaHome size={20} />
@@ -31,7 +31,7 @@ const CommonFooter: React.FC<CommonFooterProps> = ({ onJoinClick, onShareClick }
         <Link
           href="/news"
           className={`flex flex-col items-center gap-1 ${
-            pathname.startsWith("/news") ? "text-red-500" : "text-gray-600"
+            pathname.startsWith("/news") ? "text-[#2ecc71]" : "text-gray-600"
           }`}
         >
           <FaRegNewspaper size={20} />
@@ -42,7 +42,7 @@ const CommonFooter: React.FC<CommonFooterProps> = ({ onJoinClick, onShareClick }
         <Link
           href="/articles"
           className={`flex flex-col items-center gap-1 ${
-            pathname.startsWith("/articles") ? "text-red-500" : "text-gray-600"
+            pathname.startsWith("/articles") ? "text-[#2ecc71]" : "text-gray-600"
           }`}
         >
           <FaBook size={20} />

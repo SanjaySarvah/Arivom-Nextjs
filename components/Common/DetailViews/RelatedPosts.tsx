@@ -74,7 +74,7 @@ const RelatedPosts: React.FC = () => {
                 <div className="md:w-2/3 flex flex-col justify-center">
                   {/* Categories */}
                   <div className="flex gap-3 mb-3">
-                    <span className="bg-red-600 text-white px-4 py-1 rounded text-sm font-medium">
+                    <span className="bg-[#2ecc71] text-white px-4 py-1 rounded text-sm font-medium">
                       {post.category}
                     </span>
                     <span className="text-blue-600 font-medium text-sm flex items-center">
@@ -83,7 +83,7 @@ const RelatedPosts: React.FC = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-2xl font-bold mb-3 text-gray-900 hover:text-red-600 transition-colors">
+                  <h3 className="text-2xl font-bold mb-3 text-gray-900 hover:text-[#2ecc71] transition-colors">
                     {post.title}
                   </h3>
 

@@ -90,16 +90,16 @@ const SectionwiseImportantNews: FC<Props> = ({
                   />
 
                   {/* Arivom Badge */}
-                  <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded">
+                  {/* <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded">
                     <span className="text-blue-600 font-bold text-xs">
                       Arivom
                     </span>
-                  </div>
+                  </div> */}
 
                   {/* 24H Badge */}
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-red-600 text-white px-3 py-1 rounded text-xs font-bold shadow-lg">
+                  {/* <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-red-600 text-white px-3 py-1 rounded text-xs font-bold shadow-lg">
                     24H
-                  </div>
+                  </div> */}
 
                   {/* Overlay Branding */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -119,7 +119,7 @@ const SectionwiseImportantNews: FC<Props> = ({
                   <div>
                     {/* Category Tags */}
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="inline-block px-2 py-0.5 bg-red-600 text-white text-xs font-semibold rounded">
+                      <span className="inline-block px-2 py-0.5 bg-[#2ecc71] text-white text-xs font-semibold rounded">
                         {item.category}
                       </span>
                       {item.subcategory && (

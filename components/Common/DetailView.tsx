@@ -69,7 +69,7 @@ export default function DetailView({ data }: DetailViewProps) {
 
                 {/* Category Badge */}
                 <div className="mb-4">
-                  <span className="inline-block px-4 py-1 bg-red-600 text-white text-sm font-medium rounded">
+                  <span className="inline-block px-4 py-1 bg-[#2ecc71] text-white text-sm font-medium rounded">
                     {category}
                   </span>
                   {data.category === 'தமிழகம்' && (
@@ -87,7 +87,7 @@ export default function DetailView({ data }: DetailViewProps) {
                 {/* Author and Date */}
                 <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-200">
                   <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <User className="w-4 h-4 text-orange-500" />
+                    <User className="w-4 h-4 text-[#2ecc71]" />
                     <span>{author.name}</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm text-gray-600">
@@ -166,7 +166,7 @@ export default function DetailView({ data }: DetailViewProps) {
                 <div className="grid grid-cols-3 gap-4 text-center">
                   {/* Likes */}
                   <div className="flex flex-col items-center">
-                    <Heart className="w-6 h-6 text-red-500 mb-2" />
+                    <Heart className="w-6 h-6 text-[#2ecc71] mb-2" />
                     <span className="text-2xl font-bold text-gray-900">{stats.likes}</span>
                   </div>
                   

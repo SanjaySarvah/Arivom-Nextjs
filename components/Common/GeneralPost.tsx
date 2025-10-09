@@ -57,7 +57,7 @@ export default function GeneralPost({
                 className="object-cover group-hover:scale-110 transition-transform duration-300"
               />
               {/* Badge */}
-              <div className="absolute top-4 left-4 flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
+              <div className="absolute top-4 left-4 flex items-center gap-2 bg-gradient-to-r from-[#2ecc71] to-[#27ae60] text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
                 <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
                 {post.badge}
               </div>

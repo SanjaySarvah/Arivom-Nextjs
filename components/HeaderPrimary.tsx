@@ -9,10 +9,10 @@ import {
   FaTiktok,
   FaPinterestP,
   FaAmazon,
-  FaSearch,
-  FaBell,
   FaPause,
   FaPlay,
+  FaUser,
+  FaChevronDown,
 } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import { HiX } from "react-icons/hi";
@@ -23,13 +23,16 @@ const HeaderPrimary: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [newsExpanded, setNewsExpanded] = useState(false);
   const [articlesExpanded, setArticlesExpanded] = useState(false);
-  
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
   // Marquee states
   const [isPaused, setIsPaused] = useState(false);
   const [marqueeSpeed, setMarqueeSpeed] = useState(40); // Lower = faster
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartX, setDragStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
+
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const newsCategories = ["Politics", "Business", "Tech", "Health"];
   const articlesCategories = ["Education", "Lifestyle", "Science"];
@@ -43,8 +46,8 @@ const HeaderPrimary: React.FC = () => {
     { icon: <RiTwitterXFill size={14} />, color: "hover:text-gray-900", label: "X" },
     { icon: <FaInstagram size={14} />, color: "hover:text-pink-500", label: "Instagram" },
     { icon: <FaTiktok size={14} />, color: "hover:text-gray-900", label: "TikTok" },
-    { icon: <FaAmazon size={14} />, color: "hover:text-orange-500", label: "Amazon" },
-    { icon: <FaPinterestP size={14} />, color: "hover:text-red-500", label: "Pinterest" },
+    { icon: <FaAmazon size={14} />, color: "hover:text-[#2ecc71]", label: "Amazon" },
+    { icon: <FaPinterestP size={14} />, color: "hover:text-[#2ecc71]", label: "Pinterest" },
   ];
 
   const breakingNews = [
@@ -65,6 +68,18 @@ const HeaderPrimary: React.FC = () => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Manual sliding functionality
@@ -131,18 +146,18 @@ const HeaderPrimary: React.FC = () => {
   return (
     <>
       {/* 🔴 Breaking News Bar */}
-      <div className="bg-gradient-to-r from-red-600 to-orange-500 text-white py-2 hidden xl:block">
+      {/* <div className="bg-gradient-to-r from-[#1a8f52] via-[#2ecc71] to-[#27ae60] text-white py-2 hidden xl:block">
         <div className="max-w-[1320px] px-[15px] mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3 overflow-hidden flex-1">
-            {/* LIVE Badge */}
+           
             <div className="flex items-center gap-2 bg-black/20 px-3 py-1 rounded-full whitespace-nowrap shrink-0">
               <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
               <span className="text-sm font-bold">Latest</span>
             </div>
 
-            {/* Enhanced Marquee with Controls */}
+           
             <div className="relative flex-1 overflow-hidden group">
-              {/* Marquee Container */}
+             
               <div
                 ref={marqueeRef}
                 className="overflow-x-auto whitespace-nowrap scrollbar-hide cursor-grab active:cursor-grabbing"
@@ -177,7 +192,7 @@ const HeaderPrimary: React.FC = () => {
             </div>
           </div>
 
-          {/* Date */}
+        
           <div className="text-xs opacity-90 whitespace-nowrap ml-4">
             {new Date().toLocaleDateString("en-US", {
               weekday: "long",
@@ -186,7 +201,7 @@ const HeaderPrimary: React.FC = () => {
             })}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* 🟢 Main Header */}
       <div
@@ -196,7 +211,7 @@ const HeaderPrimary: React.FC = () => {
       >
         <div className="max-w-[1320px] px-[15px] mx-auto flex items-center justify-between">
           {/* Left: Social Icons */}
-          <div className="flex items-center gap-2 min-w-[250px]">
+          <div className="hidden lg:flex items-center gap-2 min-w-[200px]">
             {socialLinks.map(({ icon, color, label }, idx) => (
               <a
                 key={idx}
@@ -209,33 +224,86 @@ const HeaderPrimary: React.FC = () => {
             ))}
           </div>
 
-          {/* Center: Search */}
-          <div className="flex-1 flex justify-center">
-            <div className="relative w-full max-w-md">
-              <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-500 focus-within:shadow-lg">
-                <FaSearch className="w-4 h-4 text-gray-500 mr-2" />
-                <input
-                  type="text"
-                  placeholder="Search news, topics, articles..."
-                  className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
-                />
-              </div>
-            </div>
+          {/* Center: Logo */}
+          <div className="flex justify-center flex-1 lg:flex-none">
+            <Link href="/" className="group">
+              <Image
+                src={logo}
+                alt="Arivom Logo"
+                width={180}
+                height={72}
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
+                priority
+              />
+            </Link>
           </div>
 
-          {/* Right: Actions */}
-          <div className="flex items-center justify-end gap-3 min-w-[250px]">
-            <button className="p-2 rounded-full hover:bg-gray-100 transition-colors relative">
-              <FaBell className="w-5 h-5 text-gray-600" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-            </button>
+          {/* Right: User Profile Dropdown */}
+          <div className="flex items-center justify-end min-w-[200px]">
+            {/* User Profile Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="flex items-center gap-2 px-2 py-1.5 hover:bg-emerald-50 rounded-lg transition-all duration-300 group"
+              >
+                {/* Avatar */}
+                <div className="relative">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center text-white font-semibold shadow-md group-hover:shadow-lg transition-all duration-300">
+                    <FaUser className="w-4 h-4" />
+                  </div>
+                  <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#2ecc71] border-2 border-white rounded-full"></span>
+                </div>
 
-            <button className="px-4 py-2 border border-blue-600 text-blue-600 rounded-md text-sm font-semibold hover:bg-blue-50 transition-all duration-300 hover:shadow-md">
-              Sign In
-            </button>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-semibold hover:bg-blue-700 transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5">
-              Sign Up
-            </button>
+                {/* Name Only */}
+                <div className="text-left hidden md:block">
+                  <p className="text-sm font-semibold text-gray-800">Arivom</p>
+                </div>
+
+                {/* Dropdown Icon */}
+                <FaChevronDown
+                  className={`w-2.5 h-2.5 text-gray-500 transition-transform duration-300 hidden md:block ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {/* Dropdown Menu */}
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-fadeIn">
+                  {/* User Info */}
+                  <div className="px-3 py-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border-b border-gray-100">
+                    <p className="text-sm font-semibold text-gray-800">Arivom</p>
+                    <p className="text-[11px] text-gray-600">Admin</p>
+                    <p className="text-[11px] text-gray-500 mt-0.5">arivom@mail.com</p>
+                  </div>
+
+                  {/* Menu Items */}
+                  <div className="py-1.5">
+                    <Link
+                      href="/signin"
+                      className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <span className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center">
+                        <FaUser className="w-3 h-3 text-[#1a8f52]" />
+                      </span>
+                      <span className="font-medium text-xs">Sign In</span>
+                    </Link>
+
+                    <Link
+                      href="/signup"
+                      className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <span className="w-7 h-7 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
+                        <FaUser className="w-3 h-3 text-white" />
+                      </span>
+                      <span className="font-medium text-xs">Sign Up</span>
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -259,17 +327,17 @@ const HeaderPrimary: React.FC = () => {
           }`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between p-5 border-b border-gray-200">
+          <div className="flex items-center justify-between p-5 border-b-2 border-[#2ecc71]">
             <button
               onClick={toggleMenu}
-              className="p-1 hover:bg-gray-100 rounded transition-colors"
+              className="p-1 hover:bg-emerald-50 rounded transition-colors"
             >
-              <HiX className="w-7 h-7 text-gray-700" />
+              <HiX className="w-7 h-7 text-gray-700 hover:text-[#2ecc71]" />
             </button>
           </div>
 
           {/* Logo */}
-          <div className="px-5 py-8 border-b border-gray-100">
+          <div className="px-5 py-8 border-b border-emerald-100">
             <Image
               src={logo}
               alt="Arivom Logo"
@@ -279,22 +347,59 @@ const HeaderPrimary: React.FC = () => {
             />
           </div>
 
+          {/* User Profile Section - Mobile */}
+          <div className="px-5 py-4 bg-gradient-to-r from-emerald-50 to-green-50 border-b border-emerald-100">
+            <div className="flex items-center gap-3">
+              {/* Avatar */}
+              <div className="relative">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center text-white font-semibold shadow-md">
+                  <FaUser className="w-6 h-6" />
+                </div>
+                <span className="absolute bottom-0 right-0 w-3 h-3 bg-[#2ecc71] border-2 border-white rounded-full"></span>
+              </div>
+
+              {/* Name and Designation */}
+              <div className="flex-1">
+                <p className="text-base font-semibold text-gray-800">John Doe</p>
+                <p className="text-sm text-gray-600">Editor</p>
+              </div>
+            </div>
+
+            {/* Auth Buttons - Mobile */}
+            <div className="mt-4 flex gap-2">
+              <Link
+                href="/signin"
+                className="flex-1 px-4 py-2 border-2 border-[#2ecc71] text-[#1a8f52] rounded-lg text-sm font-semibold hover:bg-emerald-100 transition-all duration-300 text-center"
+                onClick={toggleMenu}
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/signup"
+                className="flex-1 px-4 py-2 bg-gradient-to-r from-[#2ecc71] to-[#27ae60] text-white rounded-lg text-sm font-semibold hover:from-[#27ae60] hover:to-[#2ecc71] transition-all duration-300 text-center"
+                onClick={toggleMenu}
+              >
+                Sign Up
+              </Link>
+            </div>
+          </div>
+
           {/* Drawer Content */}
           <div className="flex-1 overflow-y-auto">
             <nav className="py-2">
               <Link
                 href="/"
-                className="flex items-center justify-between px-5 py-4 text-gray-800 hover:bg-gray-50 text-base font-medium"
+                className="flex items-center justify-between px-5 py-4 text-gray-800 hover:bg-emerald-50 hover:text-[#1a8f52] text-base font-medium border-l-4 border-transparent hover:border-[#2ecc71] transition-all"
                 onClick={toggleMenu}
               >
                 Home
               </Link>
 
               {/* News Menu */}
-              <div className="border-t border-gray-100">
+              <div className="border-t border-emerald-100">
                 <button
                   onClick={toggleNews}
-                  className="flex items-center justify-between w-full px-5 py-4 text-gray-800 hover:bg-gray-50 text-base font-medium"
+                  className="flex items-center justify-between w-full px-5 py-4 text-gray-800 hover:bg-emerald-50 hover:text-[#1a8f52] text-base font-medium border-l-4 border-transparent hover:border-[#2ecc71] transition-all"
                 >
                   <span>News</span>
                   <span
@@ -306,7 +411,7 @@ const HeaderPrimary: React.FC = () => {
                   </span>
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 bg-gray-50 ${
+                  className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${
                     newsExpanded ? "max-h-96" : "max-h-0"
                   }`}
                 >
@@ -315,7 +420,7 @@ const HeaderPrimary: React.FC = () => {
                       <Link
                         key={idx}
                         href={`/news/category/${category.toLowerCase()}`}
-                        className="block px-8 py-2.5 text-sm text-gray-700 hover:bg-white hover:text-blue-600"
+                        className="block px-8 py-2.5 text-sm text-gray-700 hover:bg-white hover:text-[#2ecc71] border-l-4 border-transparent hover:border-[#2ecc71] transition-all"
                         onClick={toggleMenu}
                       >
                         {category}
@@ -326,10 +431,10 @@ const HeaderPrimary: React.FC = () => {
               </div>
 
               {/* Articles Menu */}
-              <div className="border-t border-gray-100">
+              <div className="border-t border-emerald-100">
                 <button
                   onClick={toggleArticles}
-                  className="flex items-center justify-between w-full px-5 py-4 text-gray-800 hover:bg-gray-50 text-base font-medium"
+                  className="flex items-center justify-between w-full px-5 py-4 text-gray-800 hover:bg-emerald-50 hover:text-[#1a8f52] text-base font-medium border-l-4 border-transparent hover:border-[#2ecc71] transition-all"
                 >
                   <span>Articles</span>
                   <span
@@ -341,7 +446,7 @@ const HeaderPrimary: React.FC = () => {
                   </span>
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 bg-gray-50 ${
+                  className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${
                     articlesExpanded ? "max-h-64" : "max-h-0"
                   }`}
                 >
@@ -350,7 +455,7 @@ const HeaderPrimary: React.FC = () => {
                       <Link
                         key={idx}
                         href={`/articles/category/${category.toLowerCase()}`}
-                        className="block px-8 py-2.5 text-sm text-gray-700 hover:bg-white hover:text-blue-600"
+                        className="block px-8 py-2.5 text-sm text-gray-700 hover:bg-white hover:text-[#2ecc71] border-l-4 border-transparent hover:border-[#2ecc71] transition-all"
                         onClick={toggleMenu}
                       >
                         {category}

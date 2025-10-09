@@ -36,9 +36,9 @@ export default function Updates({ categories }: UpdatesProps) {
     const colorMap: { [key: string]: string } = {
       pink: 'bg-pink-500 hover:bg-pink-600',
       blue: 'bg-blue-600 hover:bg-blue-700',
-      red: 'bg-red-600 hover:bg-red-700',
-      green: 'bg-green-600 hover:bg-green-700',
-      orange: 'bg-orange-500 hover:bg-orange-600',
+      red: 'bg-[#2ecc71] hover:bg-[#27ae60]',
+      green: 'bg-[#2ecc71] hover:bg-[#27ae60]',
+      orange: 'bg-[#2ecc71] hover:bg-[#27ae60]',
     };
     return colorMap[color] || 'bg-gray-600 hover:bg-gray-700';
   };

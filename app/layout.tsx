@@ -34,20 +34,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     pathname === "/articles" || pathname.startsWith("/articles/category");
 
   return (
-    <html lang="en" className={`${kumbhSans.variable} ${notoSansTamil.variable}`}>
-      <body className="bg-gray-50 text-gray-800">
+    <html lang="en" className={`${kumbhSans.variable} ${notoSansTamil.variable} overflow-x-hidden`}>
+      <body className="bg-gray-50 text-gray-800 overflow-x-hidden">
         <ClientLayoutWrapper>
           <Header />
 
           {/* Show category tabs based on route - Sticky */}
-          <div className="sticky top-0 z-40 bg-white shadow-md">
+          <div className="sticky top-0 z-40 bg-white shadow-md overflow-hidden">
             {showNewsTab && <CategoryTabs items={news} baseLink="/news" label="NEWS" />}
             {showArticlesTab && (
               <CategoryTabs items={articles} baseLink="/articles" label="ARTICLES" />
             )}
           </div>
 
-          <main className="w-full">{children}</main>
+          <main className="w-full overflow-x-hidden">{children}</main>
 
           <Footer />
         </ClientLayoutWrapper>

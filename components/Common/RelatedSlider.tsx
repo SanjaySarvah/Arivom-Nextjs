@@ -10,6 +10,7 @@ import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import { FiChevronLeft, FiChevronRight, FiClock, FiUser } from "react-icons/fi";
 import { NewsItem, ArticleItem } from "@/lib/getData";
+import { FaFire } from "react-icons/fa";
 
 interface Props {
   title: string;
@@ -150,24 +151,19 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                           alt={item.title}
                           className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
-                        <div className="absolute top-4 left-4">
-                          <div className="flex items-center gap-2 bg-gradient-to-r from-orange-500 to-red-500 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg">
-                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-                            TRENDING
-                          </div>
-                        </div>
-                        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
-                          <span className="text-gray-900 font-bold text-xs uppercase tracking-wide">
-                            {item.tname || item.category}
-                          </span>
-                        </div>
                       </div>
 
                       <div className="p-5 md:p-6 flex-1 flex flex-col">
+                        <div className="mb-2">
+                          <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                            {item.tname || item.category}
+                          </span>
+                        </div>
+
                         <h3 className="font-bold text-lg md:text-xl mb-3 line-clamp-2 leading-tight text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
                           {item.title}
                         </h3>
+
                         <div className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
                           {item.excerpt || item.content}
                         </div>

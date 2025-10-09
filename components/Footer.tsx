@@ -67,7 +67,7 @@ const Footer = () => {
               <FaInstagram className="w-5 h-5 hover:text-pink-500 transition-colors"/>
             </a>
             <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-              <FaYoutube className="w-5 h-5 hover:text-red-600 transition-colors"/>
+              <FaYoutube className="w-5 h-5 hover:text-[#2ecc71] transition-colors"/>
             </a>
             <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
               <FaLinkedinIn className="w-5 h-5 hover:text-blue-700 transition-colors"/>
