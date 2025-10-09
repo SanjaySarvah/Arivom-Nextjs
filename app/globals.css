@@ -83,3 +83,58 @@ body {
   animation: marquee 50s linear infinite;
   will-change: transform;
 }
+h1 {
+  font-size: 2rem;       
+  line-height: 2.5rem;      
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+
+h2 {
+  font-size: 2rem;      /* 24px */
+  font-weight: 600;
+
+}
+
+h3 {
+  font-size: 1.25rem;     /* 20px */
+  line-height: 1.75rem;   /* 28px */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+h4, h5, h6 {
+  font-size: 1.125rem;    /* 18px */
+  line-height: 1.5rem;    /* 24px */
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Paragraphs */
+p {
+  font-size: 1rem;        /* 16px */
+  line-height: 1.75rem;   /* 28px */
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+/* Small / description text */
+.small-text,
+.description {
+  font-size: 0.875rem;    /* 14px */
+  line-height: 1.5rem;    /* 24px */
+  font-weight: 400;
+  color: #6b7280;         /* Tailwind gray-500 */
+}
+
+
+/* Hover effect */
+a:hover {
+  color: #1d4ed8; /* Tailwind blue-700 */
+  text-decoration: underline;
+}
+
+
+
+
