@@ -1,14 +1,20 @@
-import { getAllNews, getAllArticles } from '../lib/getData'
+"use client";
+
+import { getAllNews, getAllArticles, transformToGeneralPost } from '../lib/getData'
 import CardList from '../components/Common/CardList'
 import related from "@/data/RelatedSlider.json"
 import RelatedSlider from "@/components/Common/RelatedSlider"
 import SectionwiseImportantNews from '@/components/Common/SectionwiseImportantNews'
 import Sidebar from '@/components/Common/Sidebar'
 import MasonryGrid from '@/components/News/Masonry'
+import GeneralPost from '@/components/Common/GeneralPost'
 
 export default function Home() {
   const news = getAllNews().slice(0, 10)
   const articles = getAllArticles().slice(0, 3)
+  const allNews = getAllNews()
+  const allArticles = getAllArticles()
+  const allPosts = transformToGeneralPost([...allNews, ...allArticles])
 return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 py-6">
@@ -41,10 +47,19 @@ return (
           <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-gray-800">Recent Articles</h2>
           <CardList items={articles} linkBase="/articles" />
         </section>
+
+        {/* All Posts Section */}
+        <section className="mb-8 lg:mb-14">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6 text-gray-800">
+            அனைத்து பதிவுகள்
+          </h2>
+          <GeneralPost posts={allPosts} initialDisplayCount={9} loadMoreCount={9} linkBase="/news" />
+        </section>
+
       <section>
-         <MasonryGrid 
-        items={articles} 
-       
+         <MasonryGrid
+        items={articles}
+
       />
       </section>
       </div>

@@ -143,3 +143,32 @@ export const searchItems = (query: string): (NewsItem | ArticleItem)[] => {
 
   return [...newsResults, ...articleResults];
 };
+
+// --------------------
+// TRANSFORM FOR GENERALPOST COMPONENT
+// --------------------
+export type GeneralPostItem = {
+  id: number;
+  title: string;
+  description: string;
+  category: string;
+  author: string;
+  date: string;
+  image: string;
+  badge: string;
+};
+
+export const transformToGeneralPost = (
+  items: (NewsItem | ArticleItem)[]
+): GeneralPostItem[] => {
+  return items.map((item) => ({
+    id: item.id,
+    title: item.title,
+    description: item.excerpt,
+    category: item.category,
+    author: item.author,
+    date: item.created_at,
+    image: item.image,
+    badge: item.days_ago <= 1 ? "TRENDING" : item.days_ago <= 3 ? "HOT" : "NEWS",
+  }));
+};

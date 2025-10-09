@@ -1,16 +1,15 @@
 "use client";
 
-import { getAllNews } from "@/lib/getData";
-
-import CardList from "@/components/Common/CardList";
-import Link from "next/link";
-import CategoryTabs from "@/components/Common/CategoryTabs";
+import { getAllNews, getAllArticles, transformToGeneralPost } from "@/lib/getData";
 import RelatedSlider from "@/components/Common/RelatedSlider";
 import related from "@/data/RelatedSlider.json"
 import SectionwiseImportantNews from "@/components/Common/SectionwiseImportantNews";
 import Sidebar from "@/components/Common/Sidebar";
+import GeneralPost from "@/components/Common/GeneralPost";
 export default function NewsPage() {
   const news = getAllNews();
+  const articles = getAllArticles();
+  const articlesForDisplay = transformToGeneralPost(articles);
 
   const categories = Array.from(new Set(news.map((n) => n.category)));
 
@@ -28,7 +27,7 @@ export default function NewsPage() {
       
 
         <section className="py-10">
-          <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+          {/* <div className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
             <h2 className="text-2xl md:text-3xl font-semibold text-gray-800">
               All Newsssss
             </h2>
@@ -42,7 +41,7 @@ export default function NewsPage() {
                 Search
               </button>
             </div>
-          </div>
+          </div> */}
 
           {/* Full Width Cards */}
           {/* <CardList items={news} linkBase="/news" /> */}
@@ -68,6 +67,12 @@ export default function NewsPage() {
             <div className="lg:col-span-4">
               <Sidebar />
             </div>
+          </div>
+          <div className="mt-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+              கட்டுரைகள்
+            </h2>
+            <GeneralPost posts={articlesForDisplay} initialDisplayCount={9} loadMoreCount={9} linkBase="/articles" />
           </div>
         </section>
       </div>

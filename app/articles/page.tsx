@@ -1,13 +1,15 @@
 "use client";
 
-import { getAllArticles } from "@/lib/getData";
-import CardList from "@/components/Common/CardList";
+import { getAllArticles, getAllNews, transformToGeneralPost } from "@/lib/getData";
 import Sidebar from "@/components/Common/Sidebar";
 import RelatedSlider from "@/components/Common/RelatedSlider";
 import related from "@/data/RelatedSlider.json"
 import SectionwiseImportantNews from "@/components/Common/SectionwiseImportantNews";
+import GeneralPost from "@/components/Common/GeneralPost";
 export default function ArticlesPage() {
   const articles = getAllArticles();
+  const news = getAllNews();
+  const newsForDisplay = transformToGeneralPost(news);
 
   // Extract unique categories from articles
   const categories = Array.from(new Set(articles.map((a) => a.category)));
@@ -58,6 +60,14 @@ export default function ArticlesPage() {
           <div className="lg:col-span-4">
             <Sidebar />
           </div>
+        </div>
+
+        {/* News Section */}
+        <div className="mt-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
+            செய்திகள்
+          </h2>
+          <GeneralPost posts={newsForDisplay} initialDisplayCount={9} loadMoreCount={9} linkBase="/news" />
         </div>
       </div>
     </div>

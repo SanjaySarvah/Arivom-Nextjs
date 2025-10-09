@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "title": "தமிழகத்தில் 2025ல் தொழில்நுட்ப கல்வி விரிவாக்கம்: AI, Robotics...",
+    "description": "தமிழக பள்ளிகள் மற்றும் கல்லூரிகளில் தொழில்நுட்ப பயிற்சிகள் விரிவாக்கம்.",
+    "category": "கல்வி",
+    "author": "Kiran Reddy",
+    "date": "Feb 23, 2025",
+    "image": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=800&h=600&fit=crop",
+    "badge": "TRENDING"
+  },
+  {
+    "id": 2,
+    "title": "சென்னையில் புதிய மெட்ரோ ரயில் பாதை திறப்பு",
+    "description": "சென்னை மெட்ரோ ரயிலின் புதிய பாதை மார்ச் மாதம் திறக்கப்படும்.",
+    "category": "போக்குவரத்து",
+    "author": "Rajesh Kumar",
+    "date": "Feb 22, 2025",
+    "image": "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=800&h=600&fit=crop",
+    "badge": "TRENDING"
+  },
+  {
+    "id": 3,
+    "title": "தமிழகத்தில் வேளாண் சீர்திருத்தங்கள்",
+    "description": "விவசாயிகளுக்கு புதிய மானியங்கள் மற்றும் நவீன தொழில்நுட்பங்கள்.",
+    "category": "வேளாண்மை",
+    "author": "Priya Sharma",
+    "date": "Feb 21, 2025",
+    "image": "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=800&h=600&fit=crop",
+    "badge": "HOT"
+  },
+  {
+    "id": 4,
+    "title": "இந்திய கிரிக்கெட் அணி சாம்பியன்ஷிப் வெற்றி",
+    "description": "இந்தியா ஆஸ்திரேலியாவை தோற்கடித்து சாம்பியன் பட்டம் வென்றது.",
+    "category": "விளையாட்டு",
+    "author": "Sanjay Kumar",
+    "date": "Feb 20, 2025",
+    "image": "https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&h=600&fit=crop",
+    "badge": "BREAKING"
+  },
+  {
+    "id": 5,
+    "title": "தமிழ் சினிமாவில் புதிய தொழில்நுட்பம்",
+    "description": "ஹாலிவுட் தரத்தில் தமிழ் திரைப்படங்கள் தயாரிப்பு.",
+    "category": "பொழுதுபோக்கு",
+    "author": "Kamal Hassan",
+    "date": "Feb 19, 2025",
+    "image": "https://images.unsplash.com/photo-1574267432644-f610fa409b4d?w=800&h=600&fit=crop",
+    "badge": "TRENDING"
+  },
+  {
+    "id": 6,
+    "title": "சுற்றுச்சூழல் பாதுகாப்பு திட்டங்கள்",
+    "description": "தமிழகத்தில் பசுமை இந்தியா திட்டம் செயல்படுத்தப்படுகிறது.",
+    "category": "சுற்றுச்சூழல்",
+    "author": "Divya Menon",
+    "date": "Feb 18, 2025",
+    "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=800&h=600&fit=crop",
+    "badge": "ECO"
+  },
+  {
+    "id": 7,
+    "title": "சுகாதாரத் துறையில் முன்னேற்றம்",
+    "description": "அனைத்து மாவட்டங்களிலும் புதிய மருத்துவமனைகள் திறப்பு.",
+    "category": "சுகாதாரம்",
+    "author": "Dr. Anand",
+    "date": "Feb 17, 2025",
+    "image": "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=600&fit=crop",
+    "badge": "HEALTH"
+  },
+  {
+    "id": 8,
+    "title": "ஸ்டார்ட்அப் இந்தியா: தமிழக தொழில்முனைவோர்",
+    "description": "தமிழகத்தில் 500க்கும் மேற்பட்ட புதிய ஸ்டார்ட்அப்கள்.",
+    "category": "தொழில்",
+    "author": "Arun Prakash",
+    "date": "Feb 16, 2025",
+    "image": "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=600&fit=crop",
+    "badge": "BUSINESS"
+  },
+  {
+    "id": 9,
+    "title": "தமிழ் இலக்கியத்தில் புதிய சாதனைகள்",
+    "description": "உலக அளவில் தமிழ் எழுத்தாளர்கள் விருதுகள் பெறுகின்றனர்.",
+    "category": "இலக்கியம்",
+    "author": "Vasanth Kumar",
+    "date": "Feb 15, 2025",
+    "image": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=600&fit=crop",
+    "badge": "CULTURE"
+  },
+  {
+    "id": 10,
+    "title": "தமிழகத்தில் டிஜிட்டல் கல்வி புரட்சி",
+    "description": "அனைத்து பள்ளிகளிலும் டேப்லெட் விநியோகம் தொடக்கம்.",
+    "category": "கல்வி",
+    "author": "Lakshmi Narayan",
+    "date": "Feb 14, 2025",
+    "image": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop",
+    "badge": "EDUCATION"
+  },
+  {
+    "id": 11,
+    "title": "புதுப்பிக்கத்தக்க எரிசக்தி முயற்சிகள்",
+    "description": "தமிழகம் சூரிய சக்தி உற்பத்தியில் முன்னணியில்.",
+    "category": "எரிசக்தி",
+    "author": "Suresh Babu",
+    "date": "Feb 13, 2025",
+    "image": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&h=600&fit=crop",
+    "badge": "GREEN"
+  },
+  {
+    "id": 12,
+    "title": "சுற்றுலா துறையில் புதிய முயற்சிகள்",
+    "description": "தமிழகத்தின் பாரம்பரிய தலங்களுக்கு சர்வதேச அங்கீகாரம்.",
+    "category": "சுற்றுலா",
+    "author": "Meena Kumari",
+    "date": "Feb 12, 2025",
+    "image": "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=600&fit=crop",
+    "badge": "TRAVEL"
+  }
+]
