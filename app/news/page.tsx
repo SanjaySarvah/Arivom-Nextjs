@@ -7,6 +7,8 @@ import Link from "next/link";
 import CategoryTabs from "@/components/Common/CategoryTabs";
 import RelatedSlider from "@/components/Common/RelatedSlider";
 import related from "@/data/RelatedSlider.json"
+import SectionwiseImportantNews from "@/components/Common/SectionwiseImportantNews";
+import Sidebar from "@/components/Common/Sidebar";
 export default function NewsPage() {
   const news = getAllNews();
 
@@ -46,6 +48,26 @@ export default function NewsPage() {
           {/* <CardList items={news} linkBase="/news" /> */}
              <div className="mb-8">
             <RelatedSlider title="முக்கிய செய்திகள்" items={related} linkBase="/news" />
+          </div>
+        
+
+         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+            {/* Left Column - 8/12 width on desktop */}
+            <div className="lg:col-span-8">
+              <SectionwiseImportantNews
+                items={news}
+                linkBase="/news"
+                title="பிரிவு வாரியாக முக்கிய செய்திகள்"
+                subtitle="ஒவ்வொரு பிரிவிலும் இருந்து கேர்நெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
+                categoryLabel="தமிழகம்"
+                viewAllLink="/news"
+              />
+            </div>
+
+            {/* Right Column - 4/12 width on desktop */}
+            <div className="lg:col-span-4">
+              <Sidebar />
+            </div>
           </div>
         </section>
       </div>

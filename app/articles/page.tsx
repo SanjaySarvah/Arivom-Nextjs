@@ -2,7 +2,10 @@
 
 import { getAllArticles } from "@/lib/getData";
 import CardList from "@/components/Common/CardList";
-
+import Sidebar from "@/components/Common/Sidebar";
+import RelatedSlider from "@/components/Common/RelatedSlider";
+import related from "@/data/RelatedSlider.json"
+import SectionwiseImportantNews from "@/components/Common/SectionwiseImportantNews";
 export default function ArticlesPage() {
   const articles = getAllArticles();
 
@@ -34,9 +37,28 @@ export default function ArticlesPage() {
             </button>
           </div>
         </div>
+        <div className="mb-8">
+          <RelatedSlider title="முக்கிய செய்திகள்" items={related} linkBase="/articles" />
+        </div>
+        {/* Articles List with Sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+          {/* Main Content - 8/12 width */}
+          <div className="lg:col-span-8">
+            <SectionwiseImportantNews
+                items={articles}
+                linkBase="/articles"
+                title="பிரிவு வாரியாக முக்கிய செய்திகள்"
+                subtitle="ஒவ்வொரு பிரிவிலும் இருந்து கேர்நெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
+                categoryLabel="தமிழகம்"
+                viewAllLink="/articles"
+              />
+          </div>
 
-        {/* Articles List */}
-        <CardList items={articles} linkBase="/articles" />
+          {/* Sidebar - 4/12 width */}
+          <div className="lg:col-span-4">
+            <Sidebar />
+          </div>
+        </div>
       </div>
     </div>
   );

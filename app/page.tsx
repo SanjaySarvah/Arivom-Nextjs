@@ -3,9 +3,7 @@ import CardList from '../components/Common/CardList'
 import related from "@/data/RelatedSlider.json"
 import RelatedSlider from "@/components/Common/RelatedSlider"
 import SectionwiseImportantNews from '@/components/Common/SectionwiseImportantNews'
-import PopularArticles from '@/components/Common/DetailViews/PopularArticles'
-import PopularNews from '@/components/Common/DetailViews/PopularNews'
-import Updates from '@/components/Common/DetailViews/Updates'
+import Sidebar from '@/components/Common/Sidebar'
 import MasonryGrid from '@/components/News/Masonry'
 
 export default function Home() {
@@ -34,11 +32,7 @@ return (
 
             {/* Right Column - 4/12 width on desktop */}
             <div className="lg:col-span-4">
-              <div className="space-y-6">
-                <PopularNews />
-                <PopularArticles />
-                <Updates />
-              </div>
+              <Sidebar />
             </div>
           </div>
         </section>
