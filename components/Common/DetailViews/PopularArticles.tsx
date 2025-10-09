@@ -40,9 +40,9 @@ const PopularArticles: React.FC = () => {
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200 bg-gray-50">
-        <h2 className="text-lg md:text-xl font-bold text-blue-600">
+        <h3 className="text-blue-600">
           Popular Articles
-        </h2>
+        </h3>
         <Link
           href="/popular"
           className="text-blue-600 hover:text-blue-700 font-medium text-xs md:text-sm flex items-center gap-1 border-2 border-blue-600 hover:border-blue-700 rounded-full px-3 py-1 hover:bg-blue-50 transition-all whitespace-nowrap"

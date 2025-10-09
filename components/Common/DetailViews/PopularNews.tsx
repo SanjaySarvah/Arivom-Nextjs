@@ -27,7 +27,7 @@ export default function PopularNews({ categories }: PopularNewsProps) {
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
       {/* Header */}
       <div className="flex items-center justify-between p-6 border-b border-gray-200">
-        <h2 className="text-2xl font-bold text-blue-600">Popular News</h2>
+        <h3 className="text-blue-600">Popular News</h3>
         <button className="flex items-center gap-2 px-4 py-2 text-blue-600 border border-blue-600 rounded-full hover:bg-blue-50 transition-colors text-sm font-medium">
           View all
           <ArrowRight className="w-4 h-4" />
