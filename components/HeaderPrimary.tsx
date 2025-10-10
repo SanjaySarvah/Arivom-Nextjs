@@ -45,8 +45,8 @@ const HeaderPrimary: React.FC = () => {
     { icon: <FaFacebookF size={14} />, color: "hover:text-blue-600", label: "Facebook" },
     { icon: <RiTwitterXFill size={14} />, color: "hover:text-gray-900", label: "X" },
     { icon: <FaInstagram size={14} />, color: "hover:text-pink-500", label: "Instagram" },
-    { icon: <FaTiktok size={14} />, color: "hover:text-gray-900", label: "TikTok" },
-    { icon: <FaAmazon size={14} />, color: "hover:text-[#2ecc71]", label: "Amazon" },
+    // { icon: <FaTiktok size={14} />, color: "hover:text-gray-900", label: "TikTok" },
+    // { icon: <FaAmazon size={14} />, color: "hover:text-[#2ecc71]", label: "Amazon" },
     { icon: <FaPinterestP size={14} />, color: "hover:text-[#2ecc71]", label: "Pinterest" },
   ];
 
@@ -269,7 +269,7 @@ const HeaderPrimary: React.FC = () => {
 
               {/* Dropdown Menu */}
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-50 animate-fadeIn">
+                <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-[100] animate-fadeIn">
                   {/* User Info */}
                   <div className="px-3 py-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border-b border-gray-100">
                     <p className="text-sm font-semibold text-gray-800">Arivom</p>

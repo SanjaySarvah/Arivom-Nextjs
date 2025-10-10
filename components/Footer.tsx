@@ -60,9 +60,9 @@ const Footer = () => {
             <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
               <FaFacebookF className="w-5 h-5 hover:text-blue-600 transition-colors"/>
             </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            {/* <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
               <FaTwitter className="w-5 h-5 hover:text-blue-400 transition-colors"/>
-            </a>
+            </a> */}
             <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <FaInstagram className="w-5 h-5 hover:text-pink-500 transition-colors"/>
             </a>

@@ -22,6 +22,8 @@ const HeaderSecondary: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isArticlesDropdownOpen, setIsArticlesDropdownOpen] = useState(false);
+  const [isMobileNewsExpanded, setIsMobileNewsExpanded] = useState(false);
+  const [isMobileArticlesExpanded, setIsMobileArticlesExpanded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -43,6 +45,14 @@ const HeaderSecondary: React.FC = () => {
       icon: FaBook,
       active: pathname.startsWith("/articles"),
     },
+  ];
+
+  const newsCategories = [
+    { name: "All News", href: "/news" },
+    { name: "Politics", href: "/news/category/politics" },
+    { name: "Business", href: "/news/category/business" },
+    { name: "Technology", href: "/news/category/tech" },
+    { name: "Health", href: "/news/category/health" },
   ];
 
   const articleCategories = [
@@ -102,7 +112,7 @@ const HeaderSecondary: React.FC = () => {
 
                 {isArticlesDropdownOpen && (
                   <div
-                    className="absolute left-0 top-full mt-1 bg-white border-2 border-emerald-100 rounded-lg shadow-xl z-50 min-w-[200px]"
+                    className="absolute left-0 top-full mt-1 bg-white border-2 border-emerald-100 rounded-lg shadow-xl z-[100] min-w-[200px]"
                     onMouseEnter={() => setIsArticlesDropdownOpen(true)}
                     onMouseLeave={() => setIsArticlesDropdownOpen(false)}
                   >
@@ -164,7 +174,7 @@ const HeaderSecondary: React.FC = () => {
                 </button>
 
                 {isProfileDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 bg-white border-2 border-emerald-100 rounded-lg shadow-xl z-50 min-w-[160px]">
+                  <div className="absolute right-0 top-full mt-2 bg-white border-2 border-emerald-100 rounded-lg shadow-xl z-[100] min-w-[160px]">
                     <div className="p-1.5">
                       <Link
                         href="/login"
@@ -192,73 +202,110 @@ const HeaderSecondary: React.FC = () => {
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div
-          className="xl:hidden fixed inset-0 bg-black/50 z-50"
+          className="xl:hidden fixed inset-0 bg-black/50 z-[100]"
           onClick={() => setIsMobileMenuOpen(false)}
         >
           <div
             className="bg-white w-80 h-full transform transition-transform duration-300"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-6 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-gray-900">Menu</h2>
+            <div className="p-4 border-b-2 border-[#2ecc71] flex items-center justify-between">
+              <Image
+                src={logo}
+                alt="Arivom Logo"
+                width={140}
+                height={56}
+                className="object-contain"
+              />
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="p-2 rounded-lg hover:bg-emerald-50 transition-colors"
               >
-                <FaTimes size={18} />
+                <FaTimes size={20} className="text-gray-700" />
               </button>
             </div>
 
-            <div className="p-4">
+            <div className="p-4 overflow-y-auto flex-1">
               {/* Main Navigation Mobile */}
-              <nav className="space-y-2 mb-6">
-                {mainNavigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg text-base font-semibold transition-colors duration-200 border-l-4 ${
-                      item.active
-                        ? "text-[#1a8f52] bg-emerald-50 border-[#2ecc71]"
-                        : "text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
+              <nav className="space-y-1">
+                {/* Home */}
+                <Link
+                  href="/"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3 text-base font-medium transition-all duration-200 border-l-4 ${
+                    pathname === "/"
+                      ? "text-[#1a8f52] bg-emerald-50 border-[#2ecc71]"
+                      : "text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
+                  }`}
+                >
+                  <FaHome size={16} />
+                  Home
+                </Link>
+
+                {/* News with submenu */}
+                <div className="border-t border-gray-100">
+                  <button
+                    onClick={() => setIsMobileNewsExpanded(!isMobileNewsExpanded)}
+                    className="w-full flex items-center justify-between px-4 py-3 text-base font-medium transition-all duration-200 border-l-4 text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
+                  >
+                    <div className="flex items-center gap-3">
+                      <FaRegNewspaper size={16} />
+                      News
+                    </div>
+                    <FaChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isMobileNewsExpanded ? "rotate-180" : ""}`} />
+                  </button>
+                  <div
+                    className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${
+                      isMobileNewsExpanded ? "max-h-96" : "max-h-0"
                     }`}
                   >
-                    <item.icon size={16} />
-                    {item.name}
-                  </Link>
-                ))}
+                    <div className="py-2">
+                      {newsCategories.map((category) => (
+                        <Link
+                          key={category.name}
+                          href={category.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block px-8 py-2.5 text-sm text-gray-700 hover:bg-white hover:text-[#2ecc71] border-l-4 border-transparent hover:border-[#2ecc71] transition-all"
+                        >
+                          {category.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Articles with submenu */}
+                <div className="border-t border-gray-100">
+                  <button
+                    onClick={() => setIsMobileArticlesExpanded(!isMobileArticlesExpanded)}
+                    className="w-full flex items-center justify-between px-4 py-3 text-base font-medium transition-all duration-200 border-l-4 text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
+                  >
+                    <div className="flex items-center gap-3">
+                      <FaBook size={16} />
+                      Articles
+                    </div>
+                    <FaChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${isMobileArticlesExpanded ? "rotate-180" : ""}`} />
+                  </button>
+                  <div
+                    className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${
+                      isMobileArticlesExpanded ? "max-h-96" : "max-h-0"
+                    }`}
+                  >
+                    <div className="py-2">
+                      {articleCategories.map((category) => (
+                        <Link
+                          key={category.name}
+                          href={category.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className="block px-8 py-2.5 text-sm text-gray-700 hover:bg-white hover:text-[#2ecc71] border-l-4 border-transparent hover:border-[#2ecc71] transition-all"
+                        >
+                          {category.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </nav>
-
-              {/* Article Categories Mobile */}
-              <div className="border-t border-emerald-100 pt-4">
-                <h3 className="text-sm font-semibold text-[#1a8f52] mb-3 px-2">
-                  Article Categories
-                </h3>
-                <div className="space-y-1">
-                  {articleCategories.map((category) => (
-                    <Link
-                      key={category.name}
-                      href={category.href}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      className="block px-4 py-2.5 text-sm text-gray-600 hover:text-[#2ecc71] hover:bg-emerald-50 rounded-lg transition-colors duration-200 border-l-4 border-transparent hover:border-[#2ecc71]"
-                    >
-                      {category.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-
-              {/* Mobile Search */}
-              <div className="border-t border-emerald-100 pt-4 mt-4">
-                <div className="flex items-center bg-emerald-50 rounded-lg px-4 py-3 focus-within:ring-2 focus-within:ring-[#2ecc71] transition-all">
-                  <FaSearch className="w-4 h-4 text-[#2ecc71] mr-3" />
-                  <input
-                    type="text"
-                    placeholder="Search..."
-                    className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </div>

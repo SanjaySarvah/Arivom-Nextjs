@@ -54,12 +54,11 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
 
   return (
     <div
-      className={`w-full transition-all duration-300 border-b border-gray-200 ${
+      className={`w-full transition-all duration-300 ${
         isSticky
-          ? "sticky top-[64px] z-50 bg-white/95 backdrop-blur-md shadow-md"
+          ? "bg-white/95 backdrop-blur-md"
           : "bg-gray-50"
       }`}
-      style={{ WebkitBackdropFilter: "blur(8px)" }}
     >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center gap-3 h-12">
