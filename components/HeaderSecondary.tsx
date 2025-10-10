@@ -31,8 +31,18 @@ const HeaderSecondary: React.FC = () => {
 
   const mainNavigation = [
     { name: "Home", href: "/", icon: FaHome, active: pathname === "/" },
-    { name: "News", href: "/news", icon: FaRegNewspaper, active: pathname.startsWith("/news") },
-    { name: "Articles", href: "/articles", icon: FaBook, active: pathname.startsWith("/articles") },
+    {
+      name: "News",
+      href: "/news",
+      icon: FaRegNewspaper,
+      active: pathname.startsWith("/news"),
+    },
+    {
+      name: "Articles",
+      href: "/articles",
+      icon: FaBook,
+      active: pathname.startsWith("/articles"),
+    },
   ];
 
   const articleCategories = [
@@ -64,20 +74,19 @@ const HeaderSecondary: React.FC = () => {
                 {isMobileMenuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
               </button>
 
-     {/* Logo - visible only in mobile view */}
-<div className="flex justify-center flex-1 xl:hidden">
-  <Link href="/" className="group flex items-center">
-    <Image
-      src={logo}
-      alt="Arivom Logo"
-      width={140}
-      height={56}
-      className="object-contain transition-transform duration-300 group-hover:scale-105"
-      priority
-    />
-  </Link>
-</div>
-
+              {/* Logo (mobile view only) */}
+              <div className="flex justify-center flex-1 xl:hidden">
+                <Link href="/" className="group flex items-center">
+                  <Image
+                    src={logo}
+                    alt="Arivom Logo"
+                    width={140}
+                    height={56}
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
+                    priority
+                  />
+                </Link>
+              </div>
 
               {/* Articles Dropdown (Desktop) */}
               <div className="relative hidden xl:block">
@@ -114,7 +123,7 @@ const HeaderSecondary: React.FC = () => {
             </div>
 
             {/* Center Navigation (Desktop) */}
-            <nav className="hidden xl:flex items-center justify-center gap-1">
+            <nav className="hidden xl:flex items-center justify-center gap-1 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
               {mainNavigation.map((item) => (
                 <Link
                   key={item.name}
@@ -133,7 +142,7 @@ const HeaderSecondary: React.FC = () => {
 
             {/* Right Section */}
             <div className="flex items-center gap-3">
-              {/* Search Desktop */}
+              {/* Search (Desktop) */}
               <div className="hidden xl:block relative">
                 <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2ecc71] focus-within:shadow-md min-w-[280px]">
                   <FaSearch className="w-3.5 h-3.5 text-gray-500 mr-2" />

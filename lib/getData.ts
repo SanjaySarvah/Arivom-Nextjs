@@ -1,5 +1,6 @@
 import news from "../data/news.json";
 import articles from "../data/articles.json";
+import newsvideos from "../data/newsvideos.json"; // ✅ NEW import
 
 // --------------------
 // Type Definitions
@@ -15,7 +16,7 @@ export type NewsItem = {
   id: number;
   title: string;
   category: string;
-  tname?: string; // optional Tamil name
+  tname?: string;
   subcategory?: string;
   excerpt: string;
   content: string;
@@ -33,12 +34,31 @@ export type ArticleItem = {
   id: number;
   title: string;
   category: string;
-  tname?: string; // optional Tamil name
+  tname?: string;
   subcategory?: string;
-  subsubcategory?: string; // ✅ NEW field for deeper hierarchy
+  subsubcategory?: string;
   excerpt: string;
   content: string;
   image: string;
+  author: string;
+  slug: string;
+  created_at: string;
+  days_ago: number;
+  likes?: number;
+  totalComments?: number;
+  comments?: Comment[];
+};
+
+// ✅ NEW: News Video Type
+export type NewsVideoItem = {
+  id: number;
+  title: string;
+  category: string;
+  tname?: string;
+  excerpt: string;
+  content: string;
+  videoUrl: string;
+  thumbnail: string;
   author: string;
   slug: string;
   created_at: string;
@@ -110,21 +130,50 @@ export const getLatestArticles = (limit?: number): ArticleItem[] => {
 };
 
 // --------------------
+// NEWS VIDEOS ACCESSORS ✅
+// --------------------
+export const getAllNewsVideos = (): NewsVideoItem[] =>
+  newsvideos as NewsVideoItem[];
+
+export const getNewsVideoByCategory = (cat: string): NewsVideoItem[] =>
+  (newsvideos as NewsVideoItem[]).filter(
+    (v) => v.category.toLowerCase() === cat.toLowerCase()
+  );
+
+export const getNewsVideoById = (id: number): NewsVideoItem | undefined =>
+  (newsvideos as NewsVideoItem[]).find((v) => v.id === id);
+
+export const getNewsVideoBySlug = (slug: string): NewsVideoItem | undefined =>
+  (newsvideos as NewsVideoItem[]).find((v) => v.slug === slug);
+
+export const getLatestNewsVideos = (limit?: number): NewsVideoItem[] => {
+  const sorted = (newsvideos as NewsVideoItem[]).sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+  return limit ? sorted.slice(0, limit) : sorted;
+};
+
+// --------------------
 // UTILITY FUNCTIONS
 // --------------------
 export const getItemsByAuthor = (
   author: string
-): (NewsItem | ArticleItem)[] => {
+): (NewsItem | ArticleItem | NewsVideoItem)[] => {
   const newsByAuthor = (news as NewsItem[]).filter((n) =>
     n.author.toLowerCase().includes(author.toLowerCase())
   );
   const articlesByAuthor = (articles as ArticleItem[]).filter((a) =>
     a.author.toLowerCase().includes(author.toLowerCase())
   );
-  return [...newsByAuthor, ...articlesByAuthor];
+  const videosByAuthor = (newsvideos as NewsVideoItem[]).filter((v) =>
+    v.author.toLowerCase().includes(author.toLowerCase())
+  );
+  return [...newsByAuthor, ...articlesByAuthor, ...videosByAuthor];
 };
 
-export const searchItems = (query: string): (NewsItem | ArticleItem)[] => {
+export const searchItems = (
+  query: string
+): (NewsItem | ArticleItem | NewsVideoItem)[] => {
   const searchLower = query.toLowerCase();
 
   const newsResults = (news as NewsItem[]).filter(
@@ -141,7 +190,14 @@ export const searchItems = (query: string): (NewsItem | ArticleItem)[] => {
       a.excerpt.toLowerCase().includes(searchLower)
   );
 
-  return [...newsResults, ...articleResults];
+  const videoResults = (newsvideos as NewsVideoItem[]).filter(
+    (v) =>
+      v.title.toLowerCase().includes(searchLower) ||
+      v.content.toLowerCase().includes(searchLower) ||
+      v.excerpt.toLowerCase().includes(searchLower)
+  );
+
+  return [...newsResults, ...articleResults, ...videoResults];
 };
 
 // --------------------
@@ -159,7 +215,7 @@ export type GeneralPostItem = {
 };
 
 export const transformToGeneralPost = (
-  items: (NewsItem | ArticleItem)[]
+  items: (NewsItem | ArticleItem | NewsVideoItem)[]
 ): GeneralPostItem[] => {
   return items.map((item) => ({
     id: item.id,
@@ -168,7 +224,7 @@ export const transformToGeneralPost = (
     category: item.category,
     author: item.author,
     date: item.created_at,
-    image: item.image,
+    image: "thumbnail" in item ? item.thumbnail : (item as any).image,
     badge: item.days_ago <= 1 ? "TRENDING" : item.days_ago <= 3 ? "HOT" : "NEWS",
   }));
 };

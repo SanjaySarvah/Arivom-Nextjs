@@ -7,6 +7,7 @@ import RelatedSlider from "@/components/Common/RelatedSlider"
 import SectionwiseImportantNews from '@/components/Common/SectionwiseImportantNews'
 import Sidebar from '@/components/Common/Sidebar'
 import MasonryGrid from '@/components/News/Masonry'
+import MagazineLayout from '@/components/News/MagazineLayout';
 
 export default function Home() {
   const news = getAllNews().slice(0, 10)
@@ -18,7 +19,8 @@ return (
           <div className="mb-6 lg:mb-8">
             <RelatedSlider title="முக்கிய செய்திகள்" items={related} linkBase="/news" />
           </div>
-
+  <MasonryGrid />
+          <MagazineLayout/>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
             {/* Left Column - 8/12 width on desktop */}
             <div className="lg:col-span-8">
@@ -45,7 +47,9 @@ return (
         </section>
 
         <section>
-          <MasonryGrid items={articles} />
+        
+
+
         </section>
       </div>
     </div>

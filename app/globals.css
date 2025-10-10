@@ -103,13 +103,14 @@ h1 {
   line-height: 2.5rem;      
   font-weight: 600;
   letter-spacing: -0.02em;
+    color: #0a0a0a;
 }
 
 
 h2 {
   font-size: 2rem;      /* 24px */
   font-weight: 600;
-
+  color: #0a0a0a;
 }
 
 h3 {
@@ -117,6 +118,7 @@ h3 {
   line-height: 1.75rem;   /* 28px */
   font-weight: 600;
   margin-bottom: 0.5rem;
+  color: #0a0a0a;
 }
 
 h4, h5, h6 {

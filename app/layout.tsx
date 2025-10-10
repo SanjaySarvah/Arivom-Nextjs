@@ -34,21 +34,42 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     pathname === "/articles" || pathname.startsWith("/articles/category");
 
   return (
-    <html lang="en" className={`${kumbhSans.variable} ${notoSansTamil.variable} overflow-x-hidden`}>
+    <html
+      lang="en"
+      className={`${kumbhSans.variable} ${notoSansTamil.variable} overflow-x-hidden`}
+    >
       <body className="bg-gray-50 text-gray-800 overflow-x-hidden">
         <ClientLayoutWrapper>
+          {/* ---------------- HEADER ---------------- */}
           <Header />
 
-          {/* Show category tabs based on route - Sticky */}
-          <div className="sticky top-0 z-40 bg-white shadow-md overflow-hidden">
-            {showNewsTab && <CategoryTabs items={news} baseLink="/news" label="NEWS" />}
-            {showArticlesTab && (
-              <CategoryTabs items={articles} baseLink="/articles" label="ARTICLES" />
-            )}
-          </div>
+          {/* ---------------- STICKY CATEGORY TABS ---------------- */}
+          {(showNewsTab || showArticlesTab) && (
+            <div
+              className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200"
+              style={{ WebkitBackdropFilter: "blur(8px)" }}
+            >
+              {showNewsTab && (
+                <CategoryTabs
+                  items={news}
+                  baseLink="/news"
+                  label="NEWS"
+                />
+              )}
+              {showArticlesTab && (
+                <CategoryTabs
+                  items={articles}
+                  baseLink="/articles"
+                  label="ARTICLES"
+                />
+              )}
+            </div>
+          )}
 
-          <main className="w-full overflow-x-hidden">{children}</main>
+          {/* ---------------- MAIN CONTENT ---------------- */}
+          <main className="w-full overflow-x-hidden min-h-screen">{children}</main>
 
+          {/* ---------------- FOOTER ---------------- */}
           <Footer />
         </ClientLayoutWrapper>
       </body>

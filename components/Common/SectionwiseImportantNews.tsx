@@ -40,7 +40,7 @@ const SectionwiseImportantNews: FC<Props> = ({
   const displayItems = items.slice(0, 5);
 
   return (
-    <section className="bg-white py-8">
+    <section className="py-8">
       <div>
         {/* Header Section */}
         <div className="mb-4 md:mb-6">

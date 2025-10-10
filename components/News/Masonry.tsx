@@ -28,12 +28,12 @@ export default function NewsPortalLayout() {
 
   // 🔝 Featured Article
   const featured = filteredNews[0]
-  const gridItems = filteredNews.slice(1, 7)
+  const gridItems = filteredNews.slice(1, 5)
   const sidebarItems = filteredNews.slice(7, 13)
 
   return (
-    <section className="py-10 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4">
+    <section className=" bg-gray-50">
+      <div className="max-w-7xl ">
     
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
