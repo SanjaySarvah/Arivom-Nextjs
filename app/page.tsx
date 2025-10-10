@@ -8,6 +8,7 @@ import SectionwiseImportantNews from '@/components/Common/SectionwiseImportantNe
 import Sidebar from '@/components/Common/Sidebar'
 import MasonryGrid from '@/components/News/Masonry'
 import MagazineLayout from '@/components/News/MagazineLayout';
+import TrendingCards from '@/components/Common/TrendingCards';
 
 export default function Home() {
   const news = getAllNews().slice(0, 10)
@@ -16,6 +17,7 @@ return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 py-6">
         <section className="mb-8 lg:mb-14">
+          <TrendingCards title={'Trending News'} items={related} linkBase="/news" />
           <div className="mb-6 lg:mb-8">
             <RelatedSlider title="முக்கிய செய்திகள்" items={related} linkBase="/news" />
           </div>
