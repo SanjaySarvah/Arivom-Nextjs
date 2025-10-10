@@ -54,16 +54,23 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
 
   return (
     <div
-      className={`w-full transition-all duration-300 ${
-        isSticky
+      className={`w-full transition-all duration-300 ${isSticky
           ? "bg-white/95 backdrop-blur-md"
           : "bg-gray-50"
-      }`}
+        }`}
     >
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex items-center gap-3 h-12">
           {/* Label */}
-          <span className="text-red-600 font-bold text-sm whitespace-nowrap">
+          <span className="text-green-500 font-bold text-sm whitespace-nowrap
+                px-3 py-1 rounded-lg 
+                bg-gradient-to-r from-green-500/10 to-emerald-500/10
+                border border-green-500/20
+                hover:from-green-500/20 hover:to-emerald-500/20
+                hover:border-green-500/40
+                hover:scale-105 hover:shadow-lg hover:shadow-green-500/25
+                transition-all duration-300 ease-in-out
+                cursor-pointer">
             {label}
           </span>
 
@@ -102,11 +109,10 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
                 <Link
                   key={category}
                   href={`${baseLink}/category/${category.toLowerCase()}`}
-                  className={`relative px-4 py-3 text-sm font-medium transition-all duration-300 whitespace-nowrap ${
-                    isActive
+                  className={`relative px-4 py-3 text-sm font-medium transition-all duration-300 whitespace-nowrap ${isActive
                       ? "text-[#2ecc71] border-b-2 border-[#2ecc71]"
                       : "text-gray-700 hover:text-[#2ecc71]"
-                  }`}
+                    }`}
                 >
                   {tname || category}
                 </Link>

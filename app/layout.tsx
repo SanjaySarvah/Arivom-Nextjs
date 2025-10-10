@@ -4,6 +4,7 @@ import "./globals.css";
 import { usePathname } from "next/navigation";
 import { getAllNews, getAllArticles } from "@/lib/getData";
 import Header from "../components/Header";
+import HeaderSecondary from "../components/HeaderSecondary";
 import Footer from "@/components/Footer";
 import ClientLayoutWrapper from "@/components/Common/ClientLayoutWrapper";
 import CategoryTabs from "@/components/Common/CategoryTabs";
@@ -36,42 +37,50 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`${kumbhSans.variable} ${notoSansTamil.variable} overflow-x-hidden`}
+      className={`${kumbhSans.variable} ${notoSansTamil.variable}`}
     >
-      <body className="bg-gray-50 text-gray-800 overflow-x-hidden">
-        <ClientLayoutWrapper>
-          {/* ---------------- HEADER ---------------- */}
-          <Header />
+      <body className="bg-gray-50 text-gray-800">
+        <div>
+          <ClientLayoutWrapper>
+            {/* ---------------- HEADER FIRST ROW ---------------- */}
+            <Header />
 
-          {/* ---------------- STICKY CATEGORY TABS ---------------- */}
-          {(showNewsTab || showArticlesTab) && (
-            <div
-              className="sticky top-0 xl:top-[64px] z-40 bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200"
-              style={{ WebkitBackdropFilter: "blur(8px)" }}
-            >
-              {showNewsTab && (
-                <CategoryTabs
-                  items={news}
-                  baseLink="/news"
-                  label="NEWS"
-                />
-              )}
-              {showArticlesTab && (
-                <CategoryTabs
-                  items={articles}
-                  baseLink="/articles"
-                  label="ARTICLES"
-                />
+            {/* ---------------- STICKY HEADER SECONDARY + CATEGORY TABS ---------------- */}
+            <div className="sticky top-0 z-50 bg-white shadow-md">
+              {/* Second Row Navigation */}
+              <HeaderSecondary />
+
+              {/* Category Tabs */}
+              {(showNewsTab || showArticlesTab) && (
+                <div
+                  className="bg-white/95 backdrop-blur-sm border-t border-gray-200"
+                  style={{ WebkitBackdropFilter: "blur(8px)" }}
+                >
+                  {showNewsTab && (
+                    <CategoryTabs
+                      items={news}
+                      baseLink="/news"
+                      label="NEWS"
+                    />
+                  )}
+                  {showArticlesTab && (
+                    <CategoryTabs
+                      items={articles}
+                      baseLink="/articles"
+                      label="ARTICLES"
+                    />
+                  )}
+                </div>
               )}
             </div>
-          )}
 
-          {/* ---------------- MAIN CONTENT ---------------- */}
-          <main className="w-full overflow-x-hidden min-h-screen">{children}</main>
+            {/* ---------------- MAIN CONTENT ---------------- */}
+            <main className="w-full min-h-screen">{children}</main>
 
-          {/* ---------------- FOOTER ---------------- */}
-          <Footer />
-        </ClientLayoutWrapper>
+            {/* ---------------- FOOTER ---------------- */}
+            <Footer />
+          </ClientLayoutWrapper>
+        </div>
       </body>
     </html>
   );

@@ -273,35 +273,35 @@ const HeaderPrimary: React.FC = () => {
                   {/* User Info */}
                   <div className="px-3 py-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border-b border-gray-100">
                     <p className="text-sm font-semibold text-gray-800">Arivom</p>
-                    <p className="text-[11px] text-gray-600">Admin</p>
-                    <p className="text-[11px] text-gray-500 mt-0.5">arivom@mail.com</p>
+                    <p className="text-[8px] text-gray-600">Admin</p>
+                    <p className="text-[8px] text-gray-500 mt-0.5">arivom@mail.com</p>
                   </div>
 
                   {/* Menu Items */}
-                  <div className="py-1.5">
-                    <Link
-                      href="/signin"
-                      className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      <span className="w-7 h-7 rounded-full bg-emerald-100 flex items-center justify-center">
-                        <FaUser className="w-3 h-3 text-[#1a8f52]" />
-                      </span>
-                      <span className="font-medium text-xs">Sign In</span>
-                    </Link>
+                 <div className="py-1.5">
+  <Link
+    href="/signin"
+    className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+    onClick={() => setIsDropdownOpen(false)}
+  >
+    <span className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
+      <FaUser className="w-2.5 h-2.5 text-[#1a8f52]" />
+    </span>
+    <span className="font-medium text-[11px]">Sign In</span>
+  </Link>
 
-                    <Link
-                      href="/signup"
-                      className="flex items-center gap-2.5 px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
-                      onClick={() => setIsDropdownOpen(false)}
-                    >
-                      <span className="w-7 h-7 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
-                        <FaUser className="w-3 h-3 text-white" />
-                      </span>
-                      <span className="font-medium text-xs">Sign Up</span>
-                    </Link>
-                  </div>
-                </div>
+  <Link
+    href="/signup"
+    className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+    onClick={() => setIsDropdownOpen(false)}
+  >
+    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
+      <FaUser className="w-2.5 h-2.5 text-white" />
+    </span>
+    <span className="font-medium text-[11px]">Sign Up</span>
+  </Link>
+</div>
+</div>
               )}
             </div>
           </div>

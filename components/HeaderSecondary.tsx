@@ -67,11 +67,7 @@ const HeaderSecondary: React.FC = () => {
   return (
     <>
       {/* Header Wrapper */}
-      <div
-        className={`bg-white transition-all duration-300 ${
-          isScrolled ? "shadow-lg sticky top-0 z-50" : "shadow-sm"
-        }`}
-      >
+      <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1320px] mx-auto px-[15px]">
           <div className="relative flex items-center justify-between h-16">
             {/* Left Section */}
