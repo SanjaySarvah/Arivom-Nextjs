@@ -13,7 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
-import { FiChevronLeft, FiChevronRight, FiClock, FiUser } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiClock, FiUser, FiHeart, FiBookmark, FiShare2 } from "react-icons/fi";
 import { NewsItem, ArticleItem } from "@/lib/getData";
 
 interface Props {
@@ -152,34 +152,59 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                         {item.content}
                       </div>
 
-                      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                        <div className="flex items-center gap-3 text-xs text-gray-500">
-                          <span className="flex items-center gap-1.5">
-                            <FiUser
-                              className="w-3 h-3"
-                              style={{ color: "var(--primary-color)" }}
-                            />
-                            <span className="font-medium">{item.author}</span>
-                          </span>
-                          <span className="flex items-center gap-1.5">
-                            <FiClock
-                              className="w-3 h-3"
-                              style={{ color: "var(--secondary-color)" }}
-                            />
-                            <span>{formatDate(item.created_at)}</span>
-                          </span>
-                        </div>
+                      {/* Author and Date Row */}
+                      <div className="flex items-center justify-between mb-4 text-sm">
+                        <span className="flex items-center gap-2">
+                          <FiUser className="w-4 h-4" style={{ color: "var(--tertiary)" }} />
+                          <span style={{ color: "var(--tertiary)" }}>{item.author}</span>
+                        </span>
+                        <span className="flex items-center gap-2">
+                          <FiClock className="w-4 h-4" style={{ color: "var(--tertiary)" }} />
+                          <span style={{ color: "var(--tertiary)" }}>{formatDate(item.created_at)}</span>
+                        </span>
+                      </div>
 
+                      {/* Action Buttons Row */}
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            // Like functionality
+                          }}
+                          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300"
+                          aria-label="Like"
+                        >
+                          <FiHeart className="w-5 h-5" style={{ color: "var(--tertiary)" }} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            // Save functionality
+                          }}
+                          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300"
+                          aria-label="Save"
+                        >
+                          <FiBookmark className="w-5 h-5" style={{ color: "var(--tertiary)" }} />
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.preventDefault();
+                            // Share functionality
+                          }}
+                          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300"
+                          aria-label="Share"
+                        >
+                          <FiShare2 className="w-5 h-5" style={{ color: "var(--tertiary)" }} />
+                        </button>
+                        <div className="flex-1"></div>
                         <div
-                          className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300"
+                          className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                           style={{
-                            backgroundColor:
-                              "color-mix(in srgb, var(--primary-color) 15%, white)",
+                            backgroundColor: "var(--tertiary)",
                           }}
                         >
                           <FiChevronRight
-                            className="w-4 h-4 transition-colors duration-300"
-                            style={{ color: "var(--primary-color)" }}
+                            className="w-5 h-5 text-white"
                           />
                         </div>
                       </div>

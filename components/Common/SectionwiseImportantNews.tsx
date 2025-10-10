@@ -2,6 +2,8 @@
 
 import { FC } from "react";
 import Link from "next/link";
+import { Heart, Bookmark, Share2, User } from "lucide-react";
+import { FiClock, FiChevronRight } from "react-icons/fi";
 
 type NewsItem = {
   id: number;
@@ -75,31 +77,18 @@ const SectionwiseImportantNews: FC<Props> = ({
         {/* News Cards */}
         <div className="space-y-4 md:space-y-5">
           {displayItems.map((item) => (
-            <Link
+            <article
               key={item.id}
-              href={`${linkBase}/${item.id}`}
-              className="block group"
+              className="flex flex-col sm:flex-row gap-3 md:gap-4 bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 group"
             >
-              <article className="flex flex-col sm:flex-row gap-3 md:gap-4 bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 group-hover:border-blue-300">
-                {/* Image Section */}
-                <div className="relative w-full sm:w-48 md:w-56 lg:w-64 h-40 sm:h-auto flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-700">
+              {/* Image Section */}
+              <div className="relative w-full sm:w-48 md:w-56 lg:w-64 h-40 sm:h-auto flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-700">
+                <Link href={`${linkBase}/${item.id}`}>
                   <img
                     src={item.image}
                     alt={item.title || "News Image"}
                     className="w-full h-full object-cover"
                   />
-
-                  {/* Arivom Badge */}
-                  {/* <div className="absolute top-2 left-2 bg-white/90 backdrop-blur-sm px-2 py-0.5 rounded">
-                    <span className="text-blue-600 font-bold text-xs">
-                      Arivom
-                    </span>
-                  </div> */}
-
-                  {/* 24H Badge */}
-                  {/* <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-red-600 text-white px-3 py-1 rounded text-xs font-bold shadow-lg">
-                    24H
-                  </div> */}
 
                   {/* Overlay Branding */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -112,24 +101,63 @@ const SectionwiseImportantNews: FC<Props> = ({
                       </div>
                     </div>
                   </div>
+                </Link>
+              </div>
+
+              {/* Content Section */}
+              <div className="flex-1 p-3 md:p-4 flex flex-col justify-between min-h-[140px] sm:min-h-0">
+                {/* Header: User Icon + Name (Left) | Date (Right) */}
+                <div className="flex items-center justify-between mb-3">
+                  {/* Left: User Icon + Name */}
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: "var(--tertiary)" }}
+                    >
+                      <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                    </div>
+                    <span className="text-xs sm:text-sm font-semibold text-gray-900">
+                      {item.author || 'Rohan Mehta'}
+                    </span>
+                  </div>
+
+                  {/* Right: Date */}
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <FiClock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    <span className="hidden sm:inline">
+                      {new Date(item.created_at).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
+                    <span className="sm:hidden">
+                      {new Date(item.created_at).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                  </div>
                 </div>
 
-                {/* Content Section */}
-                <div className="flex-1 p-3 md:p-4 flex flex-col justify-between min-h-[140px] sm:min-h-0">
-                  <div>
-                    {/* Category Tags */}
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="inline-block px-2 py-0.5 bg-[#2ecc71] text-white text-xs font-semibold rounded">
-                        {item.category}
+                <div className="flex-1">
+                  {/* Category Tags */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span
+                      className="inline-block px-2 py-0.5 text-white text-xs font-semibold rounded"
+                      style={{ backgroundColor: "var(--tertiary)" }}
+                    >
+                      {item.category}
+                    </span>
+                    {item.subcategory && (
+                      <span className="text-xs text-blue-600 font-medium uppercase">
+                        {item.subcategory}
                       </span>
-                      {item.subcategory && (
-                        <span className="text-xs text-blue-600 font-medium uppercase">
-                          {item.subcategory}
-                        </span>
-                      )}
-                    </div>
+                    )}
+                  </div>
 
-                    {/* Title */}
+                  {/* Title */}
+                  <Link href={`${linkBase}/${item.id}`}>
                     <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
                       {item.title}
                     </h3>
@@ -138,28 +166,60 @@ const SectionwiseImportantNews: FC<Props> = ({
                     <p className="text-xs md:text-sm text-gray-700 leading-relaxed line-clamp-2 mb-2">
                       {item.content || item.excerpt}
                     </p>
-                  </div>
-
-                  {/* Footer Meta */}
-                  <footer className="flex items-center gap-2 text-xs text-gray-500 pt-2 border-t border-gray-100">
-                    <span className="flex items-center gap-1">
-                      ✍️ <span className="font-medium">{item.author}</span>
-                    </span>
-                    <span className="flex items-center gap-1">
-                      🕒
-                      <span className="hidden sm:inline">
-                        {new Date(item.created_at).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </span>
-                      <span>({item.days_ago} days ago)</span>
-                    </span>
-                  </footer>
+                  </Link>
                 </div>
-              </article>
-            </Link>
+
+                {/* Action Buttons Footer */}
+                <div className="flex items-center gap-2 sm:gap-3 mt-3 pt-3 border-t border-gray-100">
+                  {/* Like Button */}
+                  <button
+                    className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-200 hover:border-red-500 hover:bg-red-50 transition-all group/like"
+                    aria-label="Like"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 group-hover/like:text-red-500 transition-colors" />
+                  </button>
+
+                  {/* Bookmark Button */}
+                  <button
+                    className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all group/bookmark"
+                    aria-label="Bookmark"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Bookmark className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 group-hover/bookmark:text-blue-500 transition-colors" />
+                  </button>
+
+                  {/* Share Button */}
+                  <button
+                    className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border transition-all group/share"
+                    style={{ borderColor: 'var(--tertiary)' }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--tertiary-light, #d4edda)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }}
+                    aria-label="Share"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <Share2
+                      className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors"
+                      style={{ color: 'var(--tertiary)' }}
+                    />
+                  </button>
+
+                  {/* Next/Arrow Button */}
+                  <Link
+                    href={`${linkBase}/${item.id}`}
+                    className="ml-auto flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full text-white transition-all hover:scale-110"
+                    style={{ backgroundColor: "var(--tertiary)" }}
+                    aria-label="Read more"
+                  >
+                    <FiChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </Link>
+                </div>
+              </div>
+            </article>
           ))}
         </div>
       </div>

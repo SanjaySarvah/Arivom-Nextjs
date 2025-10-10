@@ -3,7 +3,8 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { FiUser, FiClock, FiChevronRight } from "react-icons/fi";
+import { FiClock, FiChevronRight } from "react-icons/fi";
+import { Heart, Bookmark, Share2, User } from "lucide-react";
 import { getLatestNews, transformToGeneralPost } from "@/lib/getData";
 
 // ✅ Helper for date formatting
@@ -104,13 +105,32 @@ const NewsGrid: React.FC = () => {
       {/* 🔹 Bottom Grid Section */}
       <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {gridStories.map((item) => (
-          <Link
+          <div
             key={item.id}
-            href={`/news/${item.id}`}
-            className="block h-full group relative cursor-pointer"
+            className="bg-white rounded-2xl overflow-hidden transition-all duration-500 h-full flex flex-col group hover:shadow-lg transform border border-gray-200"
           >
-            <div className="bg-white rounded-2xl overflow-hidden transition-all duration-500 h-full flex flex-col group-hover:scale-[1.02] transform border border-gray-200 backdrop-blur-sm">
-              {/* Image */}
+            {/* Header: User Icon + Name (Left) | Date (Right) */}
+            <div className="flex items-center justify-between px-5 pt-4 pb-3">
+              {/* Left: User Icon + Name */}
+              <div className="flex items-center gap-2">
+                <div
+                  className="w-8 h-8 rounded-full flex items-center justify-center"
+                  style={{ backgroundColor: "var(--tertiary)" }}
+                >
+                  <User className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-sm font-semibold text-gray-900">{item.author || 'Rohan Mehta'}</span>
+              </div>
+
+              {/* Right: Date */}
+              <div className="flex items-center gap-1 text-xs text-gray-500">
+                <FiClock className="w-3.5 h-3.5" />
+                <span>{formatDate(item.date)}</span>
+              </div>
+            </div>
+
+            {/* Image */}
+            <Link href={`/news/${item.id}`} className="block">
               <div className="relative h-48 md:h-56 w-full overflow-hidden">
                 <Image
                   src={item.image}
@@ -119,46 +139,83 @@ const NewsGrid: React.FC = () => {
                   className="object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
               </div>
+            </Link>
 
-              {/* Content */}
-              <div className="p-5 md:p-6 flex-1 flex flex-col">
-                {/* Category */}
-                <div className="mb-2">
-                  <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
-                    {item.tname || item.category}
-                  </span>
-                </div>
+            {/* Content */}
+            <div className="p-5 md:p-6 flex-1 flex flex-col">
+              {/* Category */}
+              <div className="mb-2">
+                <span
+                  className="inline-block text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide"
+                  style={{ backgroundColor: "var(--tertiary)" }}
+                >
+                  {item.category}
+                </span>
+              </div>
 
-                {/* Title */}
+              {/* Title */}
+              <Link href={`/news/${item.id}`}>
                 <h3 className="font-bold text-lg md:text-xl mb-3 line-clamp-2 leading-tight text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
                   {item.title}
                 </h3>
 
                 {/* Description */}
                 <div className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                  {item.description || item.excerpt || item.content}
+                  {item.description}
                 </div>
+              </Link>
 
-                {/* Footer */}
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div className="flex items-center gap-3 text-xs text-gray-500">
-                    <span className="flex items-center gap-1.5">
-                      <FiUser className="w-3 h-3 text-blue-500" />
-                      <span className="font-medium">{item.author}</span>
-                    </span>
-                    <span className="flex items-center gap-1.5">
-                      <FiClock className="w-3 h-3 text-purple-500" />
-                      <span>{formatDate(item.created_at || item.date)}</span>
-                    </span>
-                  </div>
+              {/* Action Buttons Footer */}
+              <div className="flex items-center gap-3 mt-auto pt-4 border-t border-gray-100">
+                {/* Like Button */}
+                <button
+                  className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 hover:border-red-500 hover:bg-red-50 transition-all group/like"
+                  aria-label="Like"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Heart className="w-4 h-4 text-gray-600 group-hover/like:text-red-500 transition-colors" />
+                </button>
 
-                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-500 transition-colors duration-300">
-                    <FiChevronRight className="w-4 h-4 text-blue-500 group-hover:text-white transition-colors duration-300" />
-                  </div>
-                </div>
+                {/* Bookmark Button */}
+                <button
+                  className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all group/bookmark"
+                  aria-label="Bookmark"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Bookmark className="w-4 h-4 text-gray-600 group-hover/bookmark:text-blue-500 transition-colors" />
+                </button>
+
+                {/* Share Button */}
+                <button
+                  className="flex items-center justify-center w-9 h-9 rounded-full border transition-all group/share"
+                  style={{ borderColor: 'var(--tertiary)' }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = 'var(--tertiary-light, #d4edda)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                  }}
+                  aria-label="Share"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <Share2
+                    className="w-4 h-4 transition-colors"
+                    style={{ color: 'var(--tertiary)' }}
+                  />
+                </button>
+
+                {/* Next/Arrow Button */}
+                <Link
+                  href={`/news/${item.id}`}
+                  className="ml-auto flex items-center justify-center w-9 h-9 rounded-full text-white transition-all hover:scale-110"
+                  style={{ backgroundColor: "var(--tertiary)" }}
+                  aria-label="Read more"
+                >
+                  <FiChevronRight className="w-5 h-5" />
+                </Link>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </div>

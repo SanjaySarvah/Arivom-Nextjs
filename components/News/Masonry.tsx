@@ -1,7 +1,7 @@
 "use client"
 import { FiTrendingUp } from "react-icons/fi";
 import { FiChevronLeft, FiChevronRight, FiClock, FiUser, FiTag } from "react-icons/fi";
-
+import { Heart, Bookmark, Share2, User } from "lucide-react";
 
 import { useState, useMemo } from "react"
 import Link from "next/link"
@@ -84,44 +84,113 @@ export default function NewsPortalLayout() {
             {/* 🔹 Grid Stories */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {gridItems.map((item) => (
-                <Link key={item.id} href={`/news/${item.id}`} className="group">
-                  <div className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition">
+                <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition group">
+                  {/* Header: User Icon + Name (Left) | Date (Right) */}
+                  <div className="flex items-center justify-between px-4 pt-4 pb-2">
+                    {/* Left: User Icon + Name */}
+                    <div className="flex items-center gap-2">
+                      <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: "var(--tertiary)" }}
+                      >
+                        <User className="w-4 h-4 text-white" />
+                      </div>
+                      <span className="text-sm font-semibold text-gray-900">{item.author || 'Rohan Mehta'}</span>
+                    </div>
+
+                    {/* Right: Date */}
+                    <div className="flex items-center gap-1 text-xs text-gray-500">
+                      <FiClock className="w-3.5 h-3.5" />
+                      <span>{new Date(item.date || Date.now()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                    </div>
+                  </div>
+
+                  {/* Image */}
+                  <Link href={`/news/${item.id}`}>
                     <img
                       src={item.image}
                       alt={item.title}
                       className="h-48 w-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
+                  </Link>
 
-                    <div className="p-4">
-                      {/* Trending and Category row */}
-                      <div className="flex justify-between items-center mb-2">
-                        {/* Trending badge - left */}
-                        <div
-                          className="flex items-center gap-1 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md"
-                          style={{ backgroundColor: "var(--secondary)" }}
-                        >
-                          <FiTrendingUp className="w-3 h-3" />
-                          <span>Trending</span>
-                        </div>
-
-
-                        {/* Category badge - right */}
-                        <span className="inline-block bg-[#2ecc71] text-white text-xs font-semibold rounded px-2 py-0.5" style={{ backgroundColor: "var(--tertiary)" }}>
-                          {item.category}
-                        </span>
+                  <div className="p-4">
+                    {/* Trending and Category row */}
+                    <div className="flex justify-between items-center mb-2">
+                      {/* Trending badge - left */}
+                      <div
+                        className="flex items-center gap-1 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md"
+                        style={{ backgroundColor: "var(--secondary)" }}
+                      >
+                        <FiTrendingUp className="w-3 h-3" />
+                        <span>Trending</span>
                       </div>
 
+                      {/* Category badge - right */}
+                      <span className="inline-block bg-[#2ecc71] text-white text-xs font-semibold rounded px-2 py-0.5" style={{ backgroundColor: "var(--tertiary)" }}>
+                        {item.category}
+                      </span>
+                    </div>
+
+                    <Link href={`/news/${item.id}`}>
                       <h3 className="font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600">
                         {item.title}
                       </h3>
                       <p className="text-gray-600 text-sm mt-2 line-clamp-2">
                         {item.description}
                       </p>
+                    </Link>
+
+                    {/* Bottom Action Buttons */}
+                    <div className="flex items-center gap-3 mt-4 pt-3 border-t border-gray-100">
+                      {/* Like Button */}
+                      <button
+                        className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 hover:border-red-500 hover:bg-red-50 transition-all group/like"
+                        aria-label="Like"
+                      >
+                        <Heart className="w-4 h-4 text-gray-600 group-hover/like:text-red-500 transition-colors" />
+                      </button>
+
+                      {/* Bookmark Button */}
+                      <button
+                        className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all group/bookmark"
+                        aria-label="Bookmark"
+                      >
+                        <Bookmark className="w-4 h-4 text-gray-600 group-hover/bookmark:text-blue-500 transition-colors" />
+                      </button>
+
+                      {/* Share Button */}
+                      <button
+                        className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 transition-all group/share"
+                        style={{
+                          borderColor: 'var(--tertiary-hover, #27ae60)',
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = 'var(--tertiary-light, #d4edda)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'transparent';
+                        }}
+                        aria-label="Share"
+                      >
+                        <Share2
+                          className="w-4 h-4 transition-colors"
+                          style={{ color: 'var(--tertiary, #2ecc71)' }}
+                        />
+                      </button>
+
+                      {/* Next/Arrow Button */}
+                      <Link
+                        href={`/news/${item.id}`}
+                        className="ml-auto flex items-center justify-center w-9 h-9 rounded-full text-white transition-all hover:scale-110"
+                        style={{ backgroundColor: "var(--tertiary)" }}
+                        aria-label="Read more"
+                      >
+                        <FiChevronRight className="w-5 h-5" />
+                      </Link>
                     </div>
                   </div>
-                </Link>
-
-
+                </div>
               ))}
             </div>
           </div>
