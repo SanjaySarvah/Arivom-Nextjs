@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiClock, FiChevronRight } from "react-icons/fi";
 import { Heart, Bookmark, Share2, User } from "lucide-react";
+import { FiUser, FiClock, FiChevronRight } from "react-icons/fi";
+import { ArrowRight } from 'lucide-react'
+
 import { getLatestNews, transformToGeneralPost } from "@/lib/getData";
 
 // ✅ Helper for date formatting
@@ -30,8 +33,48 @@ const NewsGrid: React.FC = () => {
   const gridStories = newsItems.slice(3, 9);
 
   return (
-    <div className="max-w-7xl py-8">
+    <div className="py-8">
       {/* 🔹 Top Section */}
+
+
+
+
+
+<div className="mb-8 text-left">
+  <div className="flex items-center gap-4">
+    {/* Heading Section */}
+    <div className="flex items-center gap-3">
+      <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
+      <div className="flex flex-col">
+        <span className="text-sm font-semibold text-green-600 uppercase tracking-wider">
+          News
+        </span>
+        <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+          dvjvdcuig
+        </h2>
+      </div>
+    </div>
+
+    {/* Divider Line */}
+    <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
+
+     <button className="relative px-6 py-2 font-semibold rounded-lg border-2 border-green-500 text-green-600 overflow-hidden transition-all duration-300 group flex items-center gap-2">
+      <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+        View All
+      </span>
+      <ArrowRight className="relative z-10 w-4 h-4 transition-colors duration-300 group-hover:text-white" />
+      <span className="absolute inset-0 bg-green-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
+    </button>
+
+  </div>
+</div>
+
+
+
+
+
+
+
       <div className="grid md:grid-cols-3 gap-6">
         {/* Left — Big Story */}
         <Link
