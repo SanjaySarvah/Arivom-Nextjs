@@ -47,7 +47,7 @@ const NewsGrid: React.FC = () => {
           </div>
 
           <div className="mt-4">
-            <h2 className="text-3xl font-bold leading-tight text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
+            <h2 className=" font-bold leading-tight text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
               {mainStory.title}
             </h2>
             <p className="text-gray-700 mt-2 text-lg line-clamp-3">

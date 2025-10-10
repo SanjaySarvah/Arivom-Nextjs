@@ -48,15 +48,20 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
   };
 
   return (
-    <section >
+    <section>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        {/* Section Title */}
         <div className="mb-6 text-left md:text-center">
           <div className="flex md:inline-flex items-center gap-3">
-            <div className="w-2 h-8 bg-blue-600 rounded-full"></div>
+            <div
+              className="w-2 h-8 rounded-full"
+              style={{ backgroundColor: "var(--primary-color)" }}
+            ></div>
             <h2 className="text-2xl md:text-4xl font-bold">{title}</h2>
           </div>
         </div>
 
+        {/* Slider */}
         <div className="relative w-full">
           <Swiper
             modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
@@ -69,30 +74,10 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
               pauseOnMouseEnter: true,
             }}
             breakpoints={{
-              0: {
-                slidesPerView: 1,
-                spaceBetween: 16,
-                centeredSlides: true,
-                effect: "slide",
-              },
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 24,
-                centeredSlides: false,
-                effect: "coverflow",
-              },
-              1024: {
-                slidesPerView: 2.5,
-                spaceBetween: 24,
-                centeredSlides: false,
-                effect: "coverflow",
-              },
-              1280: {
-                slidesPerView: 3,
-                spaceBetween: 24,
-                centeredSlides: false,
-                effect: "coverflow",
-              },
+              0: { slidesPerView: 1, spaceBetween: 16, centeredSlides: true },
+              768: { slidesPerView: 2, spaceBetween: 24 },
+              1024: { slidesPerView: 2.5, spaceBetween: 24 },
+              1280: { slidesPerView: 3, spaceBetween: 24 },
             }}
             navigation={
               !isMobile
@@ -106,7 +91,7 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
               clickable: true,
               el: ".swiper-pagination-custom",
               renderBullet: (index, className) =>
-                `<span class="${className} !w-2 !h-2 !bg-gray-400 !rounded-full !mx-1"></span>`,
+                `<span class="${className} !w-2 !h-2 !rounded-full !mx-1" style="background-color: var(--secondary-color);"></span>`,
             }}
             onInit={(swiper) => {
               if (!isMobile) {
@@ -139,12 +124,21 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                     {/* Content */}
                     <div className="p-5 md:p-6 flex-1 flex flex-col">
                       <div className="mb-2">
-                        <span className="inline-block bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                        <span
+                          className="inline-block px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide"
+                          style={{
+                            backgroundColor: "color-mix(in srgb, var(--primary-color) 15%, white)",
+                            color: "var(--primary-color)",
+                          }}
+                        >
                           {item.tname || item.category}
                         </span>
                       </div>
 
-                      <h3 className="font-bold text-lg md:text-xl mb-3 line-clamp-2 leading-tight text-gray-900 group-hover:text-blue-700 transition-colors duration-300">
+                      <h3
+                        className="font-bold text-lg md:text-xl mb-3 line-clamp-2 leading-tight group-hover:underline transition-colors duration-300"
+                        style={{ color: "var(--foreground)" }}
+                      >
                         {item.title}
                       </h3>
 
@@ -156,17 +150,32 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                       <div className="flex items-center justify-between pt-4 border-t border-gray-100">
                         <div className="flex items-center gap-3 text-xs text-gray-500">
                           <span className="flex items-center gap-1.5">
-                            <FiUser className="w-3 h-3 text-blue-500" />
+                            <FiUser
+                              className="w-3 h-3"
+                              style={{ color: "var(--primary-color)" }}
+                            />
                             <span className="font-medium">{item.author}</span>
                           </span>
                           <span className="flex items-center gap-1.5">
-                            <FiClock className="w-3 h-3 text-purple-500" />
+                            <FiClock
+                              className="w-3 h-3"
+                              style={{ color: "var(--secondary-color)" }}
+                            />
                             <span>{formatDate(item.created_at)}</span>
                           </span>
                         </div>
 
-                        <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-500 transition-colors duration-300">
-                          <FiChevronRight className="w-4 h-4 text-blue-500 group-hover:text-white transition-colors duration-300" />
+                        <div
+                          className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300"
+                          style={{
+                            backgroundColor:
+                              "color-mix(in srgb, var(--primary-color) 15%, white)",
+                          }}
+                        >
+                          <FiChevronRight
+                            className="w-4 h-4 transition-colors duration-300"
+                            style={{ color: "var(--primary-color)" }}
+                          />
                         </div>
                       </div>
                     </div>
@@ -176,20 +185,30 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
             ))}
           </Swiper>
 
+          {/* Navigation Arrows */}
           {!isMobile && (
             <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center pointer-events-none z-20">
               <button
                 ref={navigationPrevRef}
-                className="pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center shadow-xl hover:bg-blue-500 hover:border-blue-500 hover:scale-110 transition-all duration-300 -ml-6"
+                className="pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 -ml-6"
+                style={{
+                  "--hover-bg": "var(--primary-color)",
+                } as React.CSSProperties}
               >
-                <FiChevronLeft className="w-6 h-6 text-gray-700 hover:text-white transition-colors" />
+                <FiChevronLeft
+                  className="w-6 h-6 transition-colors"
+                  style={{ color: "var(--foreground)" }}
+                />
               </button>
 
               <button
                 ref={navigationNextRef}
-                className="pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center shadow-xl hover:bg-blue-500 hover:border-blue-500 hover:scale-110 transition-all duration-300 -mr-6"
+                className="pointer-events-auto bg-white/90 backdrop-blur-md border border-gray-200 rounded-full w-10 h-10 md:w-12 md:h-12 flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 -mr-6"
               >
-                <FiChevronRight className="w-6 h-6 text-gray-700 hover:text-white transition-colors" />
+                <FiChevronRight
+                  className="w-6 h-6 transition-colors"
+                  style={{ color: "var(--foreground)" }}
+                />
               </button>
             </div>
           )}

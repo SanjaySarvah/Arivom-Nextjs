@@ -26,12 +26,24 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-.text-style{
+
+
+
+/* Common text */
+.text-style {
   font-size: 18px;
-    line-height: 40px;
-    font-weight: 600;
+  line-height: 40px;
+  font-weight: 600;
 }
 
+/* Center Navigation Text */
+.center-nav li {
+  font-size: 18px;
+  line-height: 40px;
+  font-weight: 600;
+}
+
+/* Loader */
 .loader-container {
   display: flex;
   flex-direction: column;
@@ -54,21 +66,17 @@ body {
     transform: rotate(360deg);
   }
 }
-.center-nav li {
-  font-size: 18px;
-    line-height: 40px;
-    font-weight: 600;
-}
 
-/* globals.css or tailwind.css */
+/* Scrollbar Hide */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 .scrollbar-hide {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
+/* Marquee */
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -77,13 +85,13 @@ body {
     transform: translateX(-50%);
   }
 }
-
 .animate-marquee {
   display: inline-flex;
   animation: marquee 50s linear infinite;
   will-change: transform;
 }
 
+/* Fade In Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -94,59 +102,89 @@ body {
     transform: translateY(0);
   }
 }
-
 .animate-fadeIn {
   animation: fadeIn 0.2s ease-out;
 }
+
+/* Headings (Desktop defaults) */
 h1 {
-  font-size: 2rem;       
-  line-height: 2.5rem;      
+  font-size: 2rem; /* 32px */
+  line-height: 2.5rem;
   font-weight: 600;
   letter-spacing: -0.02em;
-    color: #0a0a0a;
+  color: #0a0a0a;
 }
 
-
 h2 {
-  font-size: 2rem;      /* 24px */
+  font-size: 1.75rem; /* 28px */
   font-weight: 600;
   color: #0a0a0a;
 }
 
 h3 {
-  font-size: 1.25rem;     /* 20px */
-  line-height: 1.75rem;   /* 28px */
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.75rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: #0a0a0a;
 }
 
 h4, h5, h6 {
-  font-size: 1.125rem;    /* 18px */
-  line-height: 1.5rem;    /* 24px */
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.5rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
 /* Paragraphs */
 p {
-  font-size: 1rem;        /* 16px */
-  line-height: 1.75rem;   /* 28px */
+  font-size: 1rem; /* 16px */
+  line-height: 1.75rem;
   font-weight: 400;
   margin-bottom: 1rem;
 }
 
-/* Small / description text */
+/* Small Text */
 .small-text,
 .description {
-  font-size: 0.875rem;    /* 14px */
-  line-height: 1.5rem;    /* 24px */
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5rem;
   font-weight: 400;
-  color: #6b7280;         /* Tailwind gray-500 */
+  color: #6b7280;
 }
 
+/* ✅ Mobile Responsive Font Sizes */
+@media (max-width: 768px) {
+  .text-style,
+  .center-nav li {
+    font-size: 14px;
+    line-height: 28px;
+  }
 
+  h1 {
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem;
+  }
 
+  h2 {
+    font-size: 1.25rem; /* 20px */
+  }
 
+  h3 {
+    font-size: 1.125rem; /* 18px */
+  }
 
+  h4, h5, h6 {
+    font-size: 1rem; /* 16px */
+  }
 
+  p {
+    font-size: 0.9375rem; /* 15px */
+    line-height: 1.5rem;
+  }
+
+  .small-text,
+  .description {
+    font-size: 0.8125rem; /* 13px */
+  }
+}

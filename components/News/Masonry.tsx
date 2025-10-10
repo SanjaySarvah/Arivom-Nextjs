@@ -50,12 +50,12 @@ export default function NewsPortalLayout() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                   <div className="absolute bottom-0 p-6 text-white">
-                    <span className="bg-blue-600 text-xs uppercase px-3 py-1 rounded font-bold">
+                    <span className="text-xs uppercase px-3 py-1 rounded font-bold">
                       {featured.category}
                     </span>
-                    <h1 className="text-3xl md:text-4xl font-bold mt-3 mb-2 leading-tight group-hover:text-blue-300 transition">
+                    <h3 className="text-3xl md:text-4xl font-bold mt-3 mb-2 leading-tight transition">
                       {featured.title}
-                    </h1>
+                    </h3>
                     <p className="text-blue-100 text-base md:text-lg line-clamp-2">
                       {featured.description}
                     </p>
