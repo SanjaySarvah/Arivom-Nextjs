@@ -128,11 +128,15 @@ h2 {
 }
 
 h3 {
-  font-size: 1.25rem; /* 20px */
-  line-height: 1.75rem;
+  font-size: 1.2rem; /* 20px */
+  line-height: 1.8rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: #0a0a0a;
+  
+}
+h3:hover{
+  color:#017BFF;
 }
 
 h4, h5, h6 {

@@ -106,7 +106,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
   return (
     <section className="py-8">
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto ">
         {/* Title */}
         <div className="mb-8 text-left">
           <div className="flex items-center gap-4">

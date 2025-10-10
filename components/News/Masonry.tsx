@@ -32,11 +32,11 @@ export default function NewsPortalLayout() {
   // 🔝 Featured Article
   const featured = filteredNews[0]
   const gridItems = filteredNews.slice(1, 5)
-  const sidebarItems = filteredNews.slice(7, 17)
+  const sidebarItems = filteredNews.slice(7, 16)
 
   return (
     <section className=" bg-gray-50">
-      <div className="max-w-7xl ">
+      <div >
 
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -65,9 +65,13 @@ export default function NewsPortalLayout() {
                       {featured.category}
                     </span>
 
-                    <h2 className="text-2xl md:text-4xl font-bold mt-3 mb-2 leading-tight group-hover:text-blue-300 transition text-white !text-white">
-                      {featured.title}
-                    </h2>
+     <h3
+  className="mt-3 mb-2 leading-tight transition-colors duration-300 text-white! hover:text-[var(--secondary)]"
+>
+  {featured.title}
+</h3>
+
+
 
                     <p className="text-blue-100 text-base md:text-lg line-clamp-2">
                       {featured.description}
@@ -155,7 +159,7 @@ export default function NewsPortalLayout() {
 
 
 
-              <div className="space-y-3">
+              <div className="space-y-4">
                 {sidebarItems.map((item) => (
                   <Link
                     key={item.id}
@@ -178,10 +182,10 @@ export default function NewsPortalLayout() {
                       {/* Content */}
                       <div className="flex flex-col justify-between flex-1">
                         {/* Title */}
-                        <h4 className="font-semibold text-gray-800 text-sm line-clamp-2 transition-colors 
+                        <h3 className="font-semibold text-gray-800 text-sm line-clamp-2 transition-colors 
                      group-hover:text-[var(--primary-color)]">
                           {item.title}
-                        </h4>
+                        </h3>
 
                         {/* Meta Info */}
                         <div className="flex flex-wrap items-center gap-3 mt-2 text-xs text-gray-500">
