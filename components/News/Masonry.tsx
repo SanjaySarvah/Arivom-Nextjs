@@ -126,9 +126,35 @@ export default function NewsPortalLayout() {
           <div className="lg:col-span-4 space-y-10">
             {/* Trending Stories */}
             <div>
-              <h2 className="text-lg font-bold border-b-2 border-blue-600 pb-2 mb-4 text-gray-800">
+              {/* <h2 className="text-lg font-bold border-b-2 border-blue-600 pb-2 mb-4 text-gray-800">
                 Trending Now
-              </h2>
+              </h2> */}
+
+
+
+
+    <div className="mb-8 text-left">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div 
+                className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"
+              ></div>
+              <div className="flex flex-col">
+                <span className="text-sm font-semibold text-green-600 uppercase tracking-wider">
+                  News
+                </span>
+                <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                 Trending Now
+                </h2>
+              </div>
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
+          </div>
+        </div>
+
+
+
+
               <div className="space-y-3">
                 {sidebarItems.map((item) => (
                   <Link

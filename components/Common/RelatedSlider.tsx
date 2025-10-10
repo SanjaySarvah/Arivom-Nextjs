@@ -60,16 +60,34 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
   return (
     <section>
       <div className="mx-auto relative">
-      
+{/*       
     <div className="mb-6 text-left md:text-center">
   <div className="flex md:inline-flex items-center gap-3">
-    {/* Left Bar */}
+
     <div className="w-2 h-8 bg-[#2ECC71] rounded-full md:mx-auto md:inline-block"></div>
-    
-    {/* Title */}
+ 
     <h1 className="text-4xl font-bold">{title}</h1>
   </div>
-</div>
+</div> */}
+
+    <div className="mb-8 text-left">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div 
+                className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"
+              ></div>
+              <div className="flex flex-col">
+                <span className="text-sm font-semibold text-green-600 uppercase tracking-wider">
+                  News
+                </span>
+                <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                  {title}
+                </h2>
+              </div>
+            </div>
+            <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
+          </div>
+        </div>
 
 
         {/* Slider */}

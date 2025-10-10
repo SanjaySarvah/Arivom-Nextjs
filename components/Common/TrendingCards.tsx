@@ -122,7 +122,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
   return (
     <section className="py-8">
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto ">
         {/* Section Title with Design */}
         <div className="mb-8 text-left">
           <div className="flex items-center gap-4">
@@ -213,52 +213,42 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                           </div>
                         </div>
 
-                        {/* Action Icons - Bottom */}
-                        <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                          <div className="flex items-center gap-4">
-                            <button
-                              onClick={(e) => toggleLike(item.id, e)}
-                              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                                likedItems.has(item.id) 
-                                  ? 'bg-red-50 text-red-600 border border-red-200' 
-                                  : 'bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100'
-                              }`}
-                            >
-                              <FiHeart className={`w-4 h-4 ${likedItems.has(item.id) ? 'fill-current' : ''}`} />
-                              <span className="text-sm font-medium">Like</span>
-                            </button>
-                            
-                            <button
-                              onClick={(e) => toggleSave(item.id, e)}
-                              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${
-                                savedItems.has(item.id) 
-                                  ? 'bg-blue-50 text-blue-600 border border-blue-200' 
-                                  : 'bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100'
-                              }`}
-                            >
-                              <FiBookmark className={`w-4 h-4 ${savedItems.has(item.id) ? 'fill-current' : ''}`} />
-                              <span className="text-sm font-medium">Save</span>
-                            </button>
-                            
-                            <button
-                              onClick={(e) => handleShare(item, e)}
-                              className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 text-gray-600 border border-gray-200 hover:bg-gray-100 transition-all duration-300"
-                            >
-                              <FiShare2 className="w-4 h-4" />
-                              <span className="text-sm font-medium">Share</span>
-                            </button>
-                          </div>
+                    {/* 🔹 Dummy Action Icons - Bottom */}
+<div className="flex items-center justify-between pt-3 border-t border-gray-100">
+  <div className="flex items-center gap-2">
+    {/* ❤️ Like */}
+    <button
+      className="p-2 rounded-full bg-gray-50 text-gray-600 hover:bg-gray-100 transition-all duration-300"
+    >
+      <FiHeart className="w-4 h-4" />
+    </button>
 
-                          <Link
-                            href={`${linkBase}/${item.id}`}
-                            className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:bg-green-600 group"
-                            style={{
-                              backgroundColor: "color-mix(in srgb, var(--primary-color) 15%, white)",
-                            }}
-                          >
-                            <FiChevronRight className="w-6 h-6 text-green-600 group-hover:text-white transition-colors duration-300" />
-                          </Link>
-                        </div>
+    {/* 🔖 Save */}
+    <button
+      className="p-2 rounded-full bg-gray-50 text-gray-600 hover:bg-gray-100 transition-all duration-300"
+    >
+      <FiBookmark className="w-4 h-4" />
+    </button>
+
+    {/* 📤 Share */}
+    <button
+      className="p-2 rounded-full bg-gray-50 text-gray-600 hover:bg-gray-100 transition-all duration-300"
+    >
+      <FiShare2 className="w-4 h-4" />
+    </button>
+  </div>
+
+  {/* ➡️ Next Link */}
+  <div
+    className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 hover:scale-110 hover:bg-green-600 group cursor-pointer"
+    style={{
+      backgroundColor: "color-mix(in srgb, var(--primary-color) 15%, white)",
+    }}
+  >
+    <FiChevronRight className="w-4 h-4 text-green-600 group-hover:text-white transition-colors duration-300" />
+  </div>
+</div>
+
                       </div>
                     </div>
                   </SwiperSlide>
@@ -341,49 +331,42 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                       </div>
                     </div>
 
-                    {/* Action Icons - Bottom */}
-                    <div className="flex items-center justify-between pt-3 border-t border-gray-100">
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={(e) => toggleLike(item.id, e)}
-                          className={`p-2 rounded-full transition-all duration-300 ${
-                            likedItems.has(item.id) 
-                              ? 'bg-red-50 text-red-600' 
-                              : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                          }`}
-                        >
-                          <FiHeart className={`w-4 h-4 ${likedItems.has(item.id) ? 'fill-current' : ''}`} />
-                        </button>
-                        
-                        <button
-                          onClick={(e) => toggleSave(item.id, e)}
-                          className={`p-2 rounded-full transition-all duration-300 ${
-                            savedItems.has(item.id) 
-                              ? 'bg-blue-50 text-blue-600' 
-                              : 'bg-gray-50 text-gray-600 hover:bg-gray-100'
-                          }`}
-                        >
-                          <FiBookmark className={`w-4 h-4 ${savedItems.has(item.id) ? 'fill-current' : ''}`} />
-                        </button>
-                        
-                        <button
-                          onClick={(e) => handleShare(item, e)}
-                          className="p-2 rounded-full bg-gray-50 text-gray-600 hover:bg-gray-100 transition-all duration-300"
-                        >
-                          <FiShare2 className="w-4 h-4" />
-                        </button>
-                      </div>
+                 {/* 🔹 Dummy Action Icons - Bottom */}
+<div className="flex items-center justify-between pt-3 border-t border-gray-100">
+  <div className="flex items-center gap-2">
+    {/* ❤️ Like */}
+    <button
+      className="p-2 rounded-full bg-gray-50 text-gray-600 hover:bg-gray-100 transition-all duration-300"
+    >
+      <FiHeart className="w-4 h-4" />
+    </button>
 
-                      <Link
-                        href={`${linkBase}/${item.id}`}
-                        className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 hover:scale-110 hover:bg-green-600 group"
-                        style={{
-                          backgroundColor: "color-mix(in srgb, var(--primary-color) 15%, white)",
-                        }}
-                      >
-                        <FiChevronRight className="w-4 h-4 text-green-600 group-hover:text-white transition-colors duration-300" />
-                      </Link>
-                    </div>
+    {/* 🔖 Save */}
+    <button
+      className="p-2 rounded-full bg-gray-50 text-gray-600 hover:bg-gray-100 transition-all duration-300"
+    >
+      <FiBookmark className="w-4 h-4" />
+    </button>
+
+    {/* 📤 Share */}
+    <button
+      className="p-2 rounded-full bg-gray-50 text-gray-600 hover:bg-gray-100 transition-all duration-300"
+    >
+      <FiShare2 className="w-4 h-4" />
+    </button>
+  </div>
+
+  {/* ➡️ Next Link */}
+  <div
+    className="w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 hover:scale-110 hover:bg-green-600 group cursor-pointer"
+    style={{
+      backgroundColor: "color-mix(in srgb, var(--primary-color) 15%, white)",
+    }}
+  >
+    <FiChevronRight className="w-4 h-4 text-green-600 group-hover:text-white transition-colors duration-300" />
+  </div>
+</div>
+
                   </div>
                 </div>
               ))}
