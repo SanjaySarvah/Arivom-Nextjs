@@ -13,6 +13,8 @@ import {
   FaTimes,
   FaChevronDown,
   FaUserCircle,
+  FaArrowRight,
+  FaBookOpen,
 } from "react-icons/fa";
 import logo from "@/public/assets/arivom-logo-latest.png";
 
@@ -95,37 +97,63 @@ const HeaderSecondary: React.FC = () => {
               </div>
 
               {/* Articles Dropdown (Desktop) */}
-              <div className="relative hidden xl:block">
-                <button
-                  onMouseEnter={() => setIsArticlesDropdownOpen(true)}
-                  onMouseLeave={() => setIsArticlesDropdownOpen(false)}
-                  className="flex items-center gap-1.5 px-5 py-2.5 bg-gradient-to-r from-[#2ecc71] to-[#27ae60] text-white rounded-lg text-sm font-semibold hover:from-[#27ae60] hover:to-[#2ecc71] hover:shadow-lg transition-all duration-300 hover:scale-105 shadow-md"
-                >
-                  <FaBook className="w-3.5 h-3.5" />
-                  Articles
-                  <FaChevronDown className="w-3 h-3 transition-transform duration-300" />
-                </button>
+             {/* Desktop Version */}
+  <div className="relative hidden lg:block">
+    <button
+      onMouseEnter={() => setIsArticlesDropdownOpen(true)}
+      onMouseLeave={() => setIsArticlesDropdownOpen(false)}
+      className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#2ecc71] to-[#27ae60] text-white rounded-xl text-sm font-semibold hover:from-[#27ae60] hover:to-[#2ecc71] hover:shadow-2xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-green-500/25 group"
+    >
+      <FaBook className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" />
+      <span>Articles</span>
+      <FaChevronDown 
+        className={`w-3 h-3 transition-transform duration-300 ${
+          isArticlesDropdownOpen ? 'rotate-180' : 'group-hover:translate-y-0.5'
+        }`} 
+      />
+    </button>
 
-                {isArticlesDropdownOpen && (
-                  <div
-                    className="absolute left-0 top-full mt-1 bg-white border-2 border-emerald-100 rounded-lg shadow-xl z-[100] min-w-[200px]"
-                    onMouseEnter={() => setIsArticlesDropdownOpen(true)}
-                    onMouseLeave={() => setIsArticlesDropdownOpen(false)}
-                  >
-                    <div className="p-1.5">
-                      {articleCategories.map((category) => (
-                        <Link
-                          key={category.name}
-                          href={category.href}
-                          className="block px-3 py-2 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#2ecc71] rounded-md transition-colors duration-200 font-medium border-l-3 border-transparent hover:border-[#2ecc71]"
-                        >
-                          {category.name}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+    {isArticlesDropdownOpen && (
+      <div
+        className="absolute left-0 top-full mt-2 bg-white/95 backdrop-blur-lg border border-green-200 rounded-2xl shadow-2xl z-[100] min-w-[240px] animate-in fade-in-0 zoom-in-95"
+        onMouseEnter={() => setIsArticlesDropdownOpen(true)}
+        onMouseLeave={() => setIsArticlesDropdownOpen(false)}
+      >
+        {/* Header */}
+        <div className="p-3 border-b border-green-100 bg-gradient-to-r from-green-50 to-emerald-50 rounded-t-2xl">
+          <div className="flex items-center gap-2">
+            <FaBookOpen className="w-4 h-4 text-green-600" />
+            <span className="text-sm font-bold text-green-800">Article Categories</span>
+          </div>
+        </div>
+        
+        <div className="p-2">
+          {articleCategories.map((category, index) => (
+            <Link
+              key={category.name}
+              href={category.href}
+              className="flex items-center gap-3 px-3 py-3 text-sm text-gray-700 hover:bg-gradient-to-r hover:from-green-50 hover:to-emerald-50 hover:text-green-700 rounded-xl transition-all duration-200 font-medium group/item border-l-4 border-transparent hover:border-green-400 hover:shadow-md"
+            >
+              <div className="w-2 h-2 bg-green-400 rounded-full group-hover/item:scale-125 transition-transform duration-300"></div>
+              <span className="flex-1">{category.name}</span>
+              <FaArrowRight className="w-3 h-3 text-green-400 opacity-0 group-hover/item:opacity-100 transform -translate-x-1 group-hover/item:translate-x-0 transition-all duration-300" />
+            </Link>
+          ))}
+        </div>
+        
+        {/* Footer */}
+        <div className="p-3 border-t border-green-100 bg-green-50 rounded-b-2xl">
+          <Link
+            href="/articles"
+            className="flex items-center justify-center gap-2 px-3 py-2 text-xs font-semibold text-green-700 bg-white rounded-lg hover:bg-green-100 transition-colors duration-200 border border-green-200"
+          >
+            <FaBook className="w-3 h-3" />
+            View All Articles
+          </Link>
+        </div>
+      </div>
+    )}
+  </div>
             </div>
 
             {/* Center Navigation (Desktop) */}

@@ -85,12 +85,12 @@ const HeaderPrimary: React.FC = () => {
   // Manual sliding functionality
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!marqueeRef.current) return;
-    
+
     setIsDragging(true);
     setIsPaused(true);
     setDragStartX(e.pageX - marqueeRef.current.offsetLeft);
     setScrollLeft(marqueeRef.current.scrollLeft);
-    
+
     // Change cursor to grabbing
     marqueeRef.current.style.cursor = 'grabbing';
     marqueeRef.current.style.userSelect = 'none';
@@ -98,11 +98,11 @@ const HeaderPrimary: React.FC = () => {
 
   const handleMouseLeave = () => {
     if (!marqueeRef.current) return;
-    
+
     setIsDragging(false);
     marqueeRef.current.style.cursor = 'grab';
     marqueeRef.current.style.removeProperty('user-select');
-    
+
     // Only resume if not manually paused
     if (!isPaused) {
       setTimeout(() => setIsPaused(false), 1000);
@@ -111,11 +111,11 @@ const HeaderPrimary: React.FC = () => {
 
   const handleMouseUp = () => {
     if (!marqueeRef.current) return;
-    
+
     setIsDragging(false);
     marqueeRef.current.style.cursor = 'grab';
     marqueeRef.current.style.removeProperty('user-select');
-    
+
     // Only resume if not manually paused
     if (!isPaused) {
       setTimeout(() => setIsPaused(false), 1000);
@@ -124,7 +124,7 @@ const HeaderPrimary: React.FC = () => {
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!isDragging || !marqueeRef.current) return;
-    
+
     e.preventDefault();
     const x = e.pageX - marqueeRef.current.offsetLeft;
     const walk = (x - dragStartX) * 2; // Scroll-fast factor
@@ -205,13 +205,12 @@ const HeaderPrimary: React.FC = () => {
 
       {/* 🟢 Main Header */}
       <div
-        className={`hidden xl:block transition-all duration-300 ${
-          isScrolled ? "py-2 shadow-sm" : "py-3"
-        }`}
+        className={`hidden xl:block transition-all duration-300 ${isScrolled ? "py-2 shadow-sm" : "py-3"
+          }`}
       >
         <div className="max-w-[1320px] px-[15px] mx-auto flex items-center justify-between">
           {/* Left: Social Icons */}
-          <div className="hidden lg:flex items-center gap-2 min-w-[200px]">
+          <div className="lg:flex items-center gap-2 lg:min-w-[200px] min-w-[200px] invisible lg:visible">
             {socialLinks.map(({ icon, color, label }, idx) => (
               <a
                 key={idx}
@@ -225,7 +224,7 @@ const HeaderPrimary: React.FC = () => {
           </div>
 
           {/* Center: Logo */}
-          <div className="flex justify-center flex-1 lg:flex-none">
+          <div className="flex justify-center flex-1">
             <Link href="/" className="group">
               <Image
                 src={logo}
@@ -261,9 +260,8 @@ const HeaderPrimary: React.FC = () => {
 
                 {/* Dropdown Icon */}
                 <FaChevronDown
-                  className={`w-2.5 h-2.5 text-gray-500 transition-transform duration-300 hidden md:block ${
-                    isDropdownOpen ? "rotate-180" : ""
-                  }`}
+                  className={`w-2.5 h-2.5 text-gray-500 transition-transform duration-300 hidden md:block ${isDropdownOpen ? "rotate-180" : ""
+                    }`}
                 />
               </button>
 
@@ -278,30 +276,30 @@ const HeaderPrimary: React.FC = () => {
                   </div>
 
                   {/* Menu Items */}
-                 <div className="py-1.5">
-  <Link
-    href="/signin"
-    className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
-    onClick={() => setIsDropdownOpen(false)}
-  >
-    <span className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
-      <FaUser className="w-2.5 h-2.5 text-[#1a8f52]" />
-    </span>
-    <span className="font-medium text-[11px]">Sign In</span>
-  </Link>
+                  <div className="py-1.5">
+                    <Link
+                      href="/signin"
+                      className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <span className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
+                        <FaUser className="w-2.5 h-2.5 text-[#1a8f52]" />
+                      </span>
+                      <span className="font-medium text-[11px]">Sign In</span>
+                    </Link>
 
-  <Link
-    href="/signup"
-    className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
-    onClick={() => setIsDropdownOpen(false)}
-  >
-    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
-      <FaUser className="w-2.5 h-2.5 text-white" />
-    </span>
-    <span className="font-medium text-[11px]">Sign Up</span>
-  </Link>
-</div>
-</div>
+                    <Link
+                      href="/signup"
+                      className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                      onClick={() => setIsDropdownOpen(false)}
+                    >
+                      <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
+                        <FaUser className="w-2.5 h-2.5 text-white" />
+                      </span>
+                      <span className="font-medium text-[11px]">Sign Up</span>
+                    </Link>
+                  </div>
+                </div>
               )}
             </div>
           </div>
@@ -310,9 +308,8 @@ const HeaderPrimary: React.FC = () => {
 
       {/* 📱 Mobile Menu Drawer */}
       <div
-        className={`xl:hidden fixed inset-0 z-50 transition-opacity duration-300 ${
-          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`xl:hidden fixed inset-0 z-50 transition-opacity duration-300 ${isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
       >
         {/* Backdrop */}
         <div
@@ -322,9 +319,8 @@ const HeaderPrimary: React.FC = () => {
 
         {/* Drawer */}
         <div
-          className={`absolute left-0 top-0 bottom-0 w-[400px] max-w-[85vw] bg-white shadow-2xl transform transition-transform duration-300 flex flex-col ${
-            isMenuOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+          className={`absolute left-0 top-0 bottom-0 w-[400px] max-w-[85vw] bg-white shadow-2xl transform transition-transform duration-300 flex flex-col ${isMenuOpen ? "translate-x-0" : "-translate-x-full"
+            }`}
         >
           {/* Header */}
           <div className="flex items-center justify-between p-5 border-b-2 border-[#2ecc71]">
@@ -403,17 +399,15 @@ const HeaderPrimary: React.FC = () => {
                 >
                   <span>News</span>
                   <span
-                    className={`text-2xl font-light transition-transform duration-300 ${
-                      newsExpanded ? "rotate-45" : ""
-                    }`}
+                    className={`text-2xl font-light transition-transform duration-300 ${newsExpanded ? "rotate-45" : ""
+                      }`}
                   >
                     +
                   </span>
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${
-                    newsExpanded ? "max-h-96" : "max-h-0"
-                  }`}
+                  className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${newsExpanded ? "max-h-96" : "max-h-0"
+                    }`}
                 >
                   <div className="py-2">
                     {newsCategories.map((category: string, idx: number) => (
@@ -438,17 +432,15 @@ const HeaderPrimary: React.FC = () => {
                 >
                   <span>Articles</span>
                   <span
-                    className={`text-2xl font-light transition-transform duration-300 ${
-                      articlesExpanded ? "rotate-45" : ""
-                    }`}
+                    className={`text-2xl font-light transition-transform duration-300 ${articlesExpanded ? "rotate-45" : ""
+                      }`}
                   >
                     +
                   </span>
                 </button>
                 <div
-                  className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${
-                    articlesExpanded ? "max-h-64" : "max-h-0"
-                  }`}
+                  className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${articlesExpanded ? "max-h-64" : "max-h-0"
+                    }`}
                 >
                   <div className="py-2">
                     {articlesCategories.map((category: string, idx: number) => (
