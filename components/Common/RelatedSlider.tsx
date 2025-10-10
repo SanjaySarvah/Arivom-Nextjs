@@ -142,7 +142,7 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
 
 
                       <h3
-                        className="font-bold text-lg md:text-xl mb-3 line-clamp-2 leading-tight group-hover:underline transition-colors duration-300"
+                        className="font-bold text-lg md:text-xl mb-3 line-clamp-2 leading-tight  transition-colors duration-300"
                         style={{ color: "var(--foreground)" }}
                       >
                         {item.title}
