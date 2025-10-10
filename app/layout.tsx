@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* ---------------- STICKY CATEGORY TABS ---------------- */}
           {(showNewsTab || showArticlesTab) && (
             <div
-              className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200"
+              className="sticky top-0 xl:top-[64px] z-40 bg-white/95 backdrop-blur-sm shadow-md border-b border-gray-200"
               style={{ WebkitBackdropFilter: "blur(8px)" }}
             >
               {showNewsTab && (
