@@ -3,7 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Color palette */
+  --primary: #017BFF;    /* blue */
+  --secondary: #6f42c2;  /* purple */
+  --tertiary: #28a745;   /* green */
 }
+
 
 @theme inline {
   --color-background: var(--background);
