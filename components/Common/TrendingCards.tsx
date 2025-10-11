@@ -9,10 +9,11 @@ import "swiper/css/navigation";
 import {
   FiChevronLeft,
   FiChevronRight,
-  FiClock,FiZap,
+  FiZap,
 } from "react-icons/fi";
-import { Heart, Bookmark, Share2, User } from "lucide-react";
+import { Heart, Bookmark, Share2 } from "lucide-react";
 import { NewsItem, ArticleItem } from "@/lib/getData";
+import Advertisement from "@/components/Common/Sidebar/Advertisement";
 
 interface Props {
   title: string;
@@ -99,12 +100,12 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
   };
 
   const carouselItems = items.slice(0, 8);
-  const gridItems = items.slice(8, 11);
+  const gridItems = items.slice(8, 10);
 
   return (
-    <section className="py-8">
-      <div className="mx-auto ">
-        {/* Header: Title & Subtitle */}
+    <section>
+      <div className="mx-auto">
+        {/* Header */}
         <div className="mb-8 text-left">
           <div className="flex items-center gap-4 mb-3">
             <div className="flex items-center gap-3">
@@ -118,16 +119,12 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
             </div>
             <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
           </div>
-          {/* Subtitle */}
-          <p className="text-sm md:text-base text-gray-600 ml-8 md:ml-14">
-            Stay updated with the latest trending news and stories from around the world
-          </p>
         </div>
 
-        {/* Main Layout */}
+        {/* Layout */}
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
-          {/* LEFT SIDE - Single Card Swiper */}
-          <div className="w-full lg:w-2/3 h-[550px] sm:h-[600px] lg:h-[600px]">
+          {/* LEFT SIDE */}
+          <div className="w-full lg:w-2/3 h-[550px] sm:h-[600px] lg:h-[450px]">
             <div className="relative w-full h-full">
               <Swiper
                 modules={[Navigation, Autoplay]}
@@ -140,8 +137,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                 {carouselItems.map((item) => (
                   <SwiperSlide key={item.id} className="h-full">
                     <div className="bg-white rounded-2xl overflow-hidden h-full flex flex-col border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500">
-                   
-                      {/* Image with Overlay Content - Reduced Size */}
+                      {/* Image */}
                       <Link href={`${linkBase}/${String(item.id)}`} className="relative flex-1 overflow-hidden group">
                         <div className="relative w-full h-full">
                           <img
@@ -149,57 +145,46 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                             alt={item.title}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                           />
-
-                          {/* Gradient Overlay */}
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
-                          {/* Category Badge - Top Left */}
+                          {/* Badge */}
                           <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                         <span
-  className="inline-flex items-center gap-2 text-white text-xs sm:text-sm font-semibold rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 shadow-lg backdrop-blur-sm"
-  style={{ backgroundColor: "var(--primary)" }}
->
-  <FiZap className="text-yellow-300 text-sm sm:text-base animate-pulse" />
-  Breaking News
-</span>
+                            <span
+                              className="inline-flex items-center gap-2 text-white text-xs sm:text-sm font-semibold rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 shadow-lg backdrop-blur-sm"
+                              style={{ backgroundColor: "var(--primary)" }}
+                            >
+                              <FiZap className="text-yellow-300 text-sm sm:text-base animate-pulse" />
+                              Breaking News
+                            </span>
                           </div>
 
-                          {/* Content Details - Bottom */}
+                          {/* Content */}
                           <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 text-white">
-                            {/* Title */}
-                            <h3 className="font-bold text-base sm:text-lg md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight text-white! group-hover:text-white transition-colors">
+                            <h3 className="font-bold text-base sm:text-lg md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight text-white transition">
                               {item.title}
                             </h3>
-
-                            {/* Description */}
-                            <p className="text-white/90 text-xs sm:text-sm mb-2 line-clamp-2 leading-relaxed group-hover:text-white/90">
+                            <p className="text-white/90 text-xs sm:text-sm mb-2 line-clamp-2 leading-relaxed">
                               {item.content}
                             </p>
-
-                            {/* Meta Information - White Text */}
-                            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3 group-hover:text-white/80">
+                            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
                               <span className="flex items-center gap-1">
-                                <span className="font-semibold text-white">Author:</span>
-                                {item.author || 'Rohan Mehta'}
+                                <span className="font-semibold text-white">Author:</span> {item.author || "Rohan Mehta"}
                               </span>
                               <span className="hidden sm:inline">•</span>
                               <span className="flex items-center gap-1">
-                                <span className="font-semibold text-white">Category:</span>
-                                {item.category}
+                                <span className="font-semibold text-white">Category:</span> {item.category}
                               </span>
                               <span className="hidden md:inline">•</span>
                               <span className="hidden md:flex items-center gap-1">
-                                <span className="font-semibold text-white">Published:</span>
-                                {formatDate(item.created_at)}
+                                <span className="font-semibold text-white">Published:</span> {formatDate(item.created_at)}
                               </span>
                             </div>
                           </div>
                         </div>
                       </Link>
 
-                      {/* Action Buttons Section */}
+                      {/* Action Buttons */}
                       <div className="px-4 sm:px-6 py-3 sm:py-4 bg-white">
-                        {/* Action Buttons */}
                         <div className="flex items-center gap-2 sm:gap-3">
                           <button
                             onClick={(e) => toggleLike(item.id, e)}
@@ -207,56 +192,47 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                               likedItems.has(item.id)
                                 ? "border-red-500 bg-red-50"
                                 : "border-gray-200 hover:border-red-500 hover:bg-red-50"
-                            } group/like`}
-                            aria-label="Like"
+                            }`}
                           >
                             <Heart
-                              className={`w-3.5 sm:w-4 h-3.5 sm:h-4 transition-colors ${
-                                likedItems.has(item.id) ? "fill-red-500 stroke-red-500" : "stroke-gray-600 group-hover/like:stroke-red-500"
+                              className={`w-3.5 sm:w-4 h-3.5 sm:h-4 ${
+                                likedItems.has(item.id)
+                                  ? "fill-red-500 stroke-red-500"
+                                  : "stroke-gray-600 hover:stroke-red-500"
                               }`}
                             />
                           </button>
+
                           <button
                             onClick={(e) => toggleSave(item.id, e)}
                             className={`flex items-center justify-center w-8 sm:w-9 h-8 sm:h-9 rounded-full border transition-all ${
                               savedItems.has(item.id)
                                 ? "border-blue-500 bg-blue-50"
                                 : "border-gray-200 hover:border-blue-500 hover:bg-blue-50"
-                            } group/bookmark`}
-                            aria-label="Save"
+                            }`}
                           >
                             <Bookmark
-                              className={`w-3.5 sm:w-4 h-3.5 sm:h-4 transition-colors ${
-                                savedItems.has(item.id) ? "fill-blue-500 stroke-blue-500" : "stroke-gray-600 group-hover/bookmark:stroke-blue-500"
+                              className={`w-3.5 sm:w-4 h-3.5 sm:h-4 ${
+                                savedItems.has(item.id)
+                                  ? "fill-blue-500 stroke-blue-500"
+                                  : "stroke-gray-600 hover:stroke-blue-500"
                               }`}
                             />
                           </button>
+
                           <button
                             onClick={(e) => handleShare(item, e)}
-                            className="flex items-center justify-center w-8 sm:w-9 h-8 sm:h-9 rounded-full border transition-all group/share"
-                            style={{ borderColor: 'var(--tertiary)' }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.backgroundColor = 'var(--tertiary-light, #d4edda)';
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.backgroundColor = 'transparent';
-                            }}
-                            aria-label="Share"
+                            className="flex items-center justify-center w-8 sm:w-9 h-8 sm:h-9 rounded-full border border-gray-200 hover:border-green-500 transition-all"
                           >
-                            <Share2
-                              className="w-3.5 sm:w-4 h-3.5 sm:h-4"
-                              style={{ color: 'var(--tertiary)' }}
-                            />
+                            <Share2 className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-gray-600 hover:text-green-600" />
                           </button>
 
                           <Link
                             href={`${linkBase}/${String(item.id)}`}
                             className="ml-auto px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-white text-xs sm:text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg"
                             style={{ backgroundColor: "var(--secondary)" }}
-                            aria-label="Read more"
                           >
-                            <span className="hidden sm:inline">Read Full Story</span>
-                            <span className="sm:hidden">Read More</span>
+                            Read More
                           </Link>
                         </div>
                       </div>
@@ -285,106 +261,8 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
             </div>
           </div>
 
-          {/* RIGHT SIDE - Horizontal List Cards */}
-          <div className="w-full lg:w-1/3 h-[550px] sm:h-[600px] lg:h-[600px]">
-            <div className="flex flex-col gap-4 h-full overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 pr-2">
-              {gridItems.map((item) => (
-                <div
-                  key={item.id}
-                  className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300"
-                >
-                  <Link href={`${linkBase}/${String(item.id)}`} className="flex gap-3 p-3 group">
-                    {/* Left: Thumbnail Image */}
-                    <div className="relative w-24 h-24 sm:w-28 sm:h-28 flex-shrink-0 rounded-lg overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                    </div>
-
-                    {/* Right: Content */}
-                    <div className="flex-1 flex flex-col justify-between min-w-0">
-                      {/* Title */}
-                      <h3 className="font-bold text-sm sm:text-base text-gray-900 line-clamp-2 mb-2 group-hover:text-green-600 transition-colors leading-tight">
-                        {item.title}
-                      </h3>
-
-                      {/* Author & Category */}
-                      <div className="flex flex-col gap-1.5">
-                        <div className="flex items-center gap-2 text-xs">
-                          <User className="w-3 h-3 text-gray-500" />
-                          <span className="text-gray-700 font-medium truncate">{item.author || 'Rohan Mehta'}</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <span
-                            className="inline-block text-white text-xs font-semibold rounded px-2 py-0.5"
-                            style={{ backgroundColor: "var(--tertiary)" }}
-                          >
-                            {item.category}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-
-                  {/* Action Buttons Section */}
-                  <div className="px-3 pb-3 bg-white border-t border-gray-100 pt-2.5">
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={(e) => toggleLike(item.id, e)}
-                        className={`flex items-center justify-center w-8 h-8 rounded-full border transition-all ${
-                          likedItems.has(item.id)
-                            ? "border-red-500 bg-red-50"
-                            : "border-gray-200 hover:border-red-500 hover:bg-red-50"
-                        } group/like`}
-                        aria-label="Like"
-                      >
-                        <Heart
-                          className={`w-3.5 h-3.5 transition-colors ${
-                            likedItems.has(item.id) ? "fill-red-500 stroke-red-500" : "stroke-gray-600 group-hover/like:stroke-red-500"
-                          }`}
-                        />
-                      </button>
-                      <button
-                        onClick={(e) => toggleSave(item.id, e)}
-                        className={`flex items-center justify-center w-8 h-8 rounded-full border transition-all ${
-                          savedItems.has(item.id)
-                            ? "border-blue-500 bg-blue-50"
-                            : "border-gray-200 hover:border-blue-500 hover:bg-blue-50"
-                        } group/bookmark`}
-                        aria-label="Save"
-                      >
-                        <Bookmark
-                          className={`w-3.5 h-3.5 transition-colors ${
-                            savedItems.has(item.id) ? "fill-blue-500 stroke-blue-500" : "stroke-gray-600 group-hover/bookmark:stroke-blue-500"
-                          }`}
-                        />
-                      </button>
-                      <button
-                        onClick={(e) => handleShare(item, e)}
-                        className="flex items-center justify-center w-8 h-8 rounded-full border transition-all group/share border-gray-200 hover:border-green-500"
-                        aria-label="Share"
-                      >
-                        <Share2
-                          className="w-3.5 h-3.5 text-gray-600 group-hover/share:text-green-600"
-                        />
-                      </button>
-
-                      <Link
-                        href={`${linkBase}/${String(item.id)}`}
-                        className="ml-auto flex items-center justify-center w-8 h-8 rounded-full text-white transition-all hover:scale-110"
-                        style={{ backgroundColor: "var(--tertiary)" }}
-                        aria-label="Read more"
-                      >
-                        <FiChevronRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* ✅ RIGHT SIDE - Reusable Advertisement Component */}
+          <Advertisement/>
         </div>
       </div>
     </section>
