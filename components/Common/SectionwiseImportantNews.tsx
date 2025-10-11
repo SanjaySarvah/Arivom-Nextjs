@@ -109,14 +109,14 @@ const SectionwiseImportantNews: FC<Props> = ({
                 {/* Header: User Icon + Name (Left) | Date (Right) */}
                 <div className="flex items-center justify-between mb-3">
                   {/* Left: User Icon + Name */}
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center ">
                     <div
                       className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center"
-                      style={{ backgroundColor: "var(--tertiary)" }}
+                  
                     >
-                      <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+                      <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500" />
                     </div>
-                    <span className="text-xs sm:text-sm font-semibold text-gray-900">
+                    <span className="text-xs text-gray-500">
                       {item.author || 'Rohan Mehta'}
                     </span>
                   </div>

@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import {
   FiChevronLeft,
   FiChevronRight,
-  FiClock,
+  FiClock,FiZap,
 } from "react-icons/fi";
 import { Heart, Bookmark, Share2, User } from "lucide-react";
 import { NewsItem, ArticleItem } from "@/lib/getData";
@@ -140,27 +140,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                 {carouselItems.map((item) => (
                   <SwiperSlide key={item.id} className="h-full">
                     <div className="bg-white rounded-2xl overflow-hidden h-full flex flex-col border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500">
-                      {/* Header: User Icon + Name (Left) | Date (Right) */}
-                      <div className="flex items-center justify-between px-4 sm:px-6 pt-3 sm:pt-4 pb-2 sm:pb-3">
-                        {/* Left: User Icon + Name */}
-                        <div className="flex items-center gap-2">
-                          <div
-                            className="w-7 sm:w-8 h-7 sm:h-8 rounded-full flex items-center justify-center"
-                            style={{ backgroundColor: "var(--tertiary)" }}
-                          >
-                            <User className="w-3.5 sm:w-4 h-3.5 sm:h-4 text-white" />
-                          </div>
-                          <span className="text-xs sm:text-sm font-semibold text-gray-900">{item.author || 'Rohan Mehta'}</span>
-                        </div>
-
-                        {/* Right: Date */}
-                        <div className="flex items-center gap-1 text-xs text-gray-500">
-                          <FiClock className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
-                          <span className="hidden sm:inline">{formatDate(item.created_at)}</span>
-                          <span className="sm:hidden text-xs">{new Date(item.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</span>
-                        </div>
-                      </div>
-
+                   
                       {/* Image with Overlay Content - Reduced Size */}
                       <Link href={`${linkBase}/${String(item.id)}`} className="relative flex-1 overflow-hidden group">
                         <div className="relative w-full h-full">
@@ -175,18 +155,19 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
                           {/* Category Badge - Top Left */}
                           <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-                            <span
-                              className="inline-block text-white text-xs sm:text-sm font-semibold rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 shadow-lg backdrop-blur-sm"
-                              style={{ backgroundColor: "var(--tertiary)" }}
-                            >
-                              {item.category}
-                            </span>
+                         <span
+  className="inline-flex items-center gap-2 text-white text-xs sm:text-sm font-semibold rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 shadow-lg backdrop-blur-sm"
+  style={{ backgroundColor: "var(--primary)" }}
+>
+  <FiZap className="text-yellow-300 text-sm sm:text-base animate-pulse" />
+  Breaking News
+</span>
                           </div>
 
                           {/* Content Details - Bottom */}
                           <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 text-white">
                             {/* Title */}
-                            <h3 className="font-bold text-base sm:text-lg md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight text-white group-hover:text-white transition-colors">
+                            <h3 className="font-bold text-base sm:text-lg md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight text-white! group-hover:text-white transition-colors">
                               {item.title}
                             </h3>
 
@@ -271,7 +252,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                           <Link
                             href={`${linkBase}/${String(item.id)}`}
                             className="ml-auto px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-white text-xs sm:text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg"
-                            style={{ backgroundColor: "var(--tertiary)" }}
+                            style={{ backgroundColor: "var(--secondary)" }}
                             aria-label="Read more"
                           >
                             <span className="hidden sm:inline">Read Full Story</span>

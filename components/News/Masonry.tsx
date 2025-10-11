@@ -85,25 +85,7 @@ export default function NewsPortalLayout() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {gridItems.map((item) => (
                 <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition group">
-                  {/* Header: User Icon + Name (Left) | Date (Right) */}
-                  <div className="flex items-center justify-between px-4 pt-4 pb-2">
-                    {/* Left: User Icon + Name */}
-                    <div className="flex items-center gap-2">
-                      <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: "var(--tertiary)" }}
-                      >
-                        <User className="w-4 h-4 text-white" />
-                      </div>
-                      <span className="text-sm font-semibold text-gray-900">{item.author || 'Rohan Mehta'}</span>
-                    </div>
-
-                    {/* Right: Date */}
-                    <div className="flex items-center gap-1 text-xs text-gray-500">
-                      <FiClock className="w-3.5 h-3.5" />
-                      <span>{new Date(item.date || Date.now()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
-                    </div>
-                  </div>
+              
 
                   {/* Image */}
                   <Link href={`/news/${item.id}`}>

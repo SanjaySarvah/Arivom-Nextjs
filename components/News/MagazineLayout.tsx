@@ -152,25 +152,7 @@ const NewsGrid: React.FC = () => {
             key={item.id}
             className="bg-white rounded-2xl overflow-hidden transition-all duration-500 h-full flex flex-col group hover:shadow-lg transform border border-gray-200"
           >
-            {/* Header: User Icon + Name (Left) | Date (Right) */}
-            <div className="flex items-center justify-between px-5 pt-4 pb-3">
-              {/* Left: User Icon + Name */}
-              <div className="flex items-center gap-2">
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "var(--tertiary)" }}
-                >
-                  <User className="w-4 h-4 text-white" />
-                </div>
-                <span className="text-sm font-semibold text-gray-900">{item.author || 'Rohan Mehta'}</span>
-              </div>
-
-              {/* Right: Date */}
-              <div className="flex items-center gap-1 text-xs text-gray-500">
-                <FiClock className="w-3.5 h-3.5" />
-                <span>{formatDate(item.date)}</span>
-              </div>
-            </div>
+         
 
             {/* Image */}
             <Link href={`/news/${item.id}`} className="block">
