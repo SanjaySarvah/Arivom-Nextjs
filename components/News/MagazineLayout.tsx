@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiClock, FiChevronRight } from "react-icons/fi";
 import { Heart, Bookmark, Share2, User } from "lucide-react";
-import { FiUser, FiClock, FiChevronRight } from "react-icons/fi";
+
 import { ArrowRight } from 'lucide-react'
 
 import { getLatestNews, transformToGeneralPost } from "@/lib/getData";
