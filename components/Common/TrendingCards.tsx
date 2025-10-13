@@ -95,26 +95,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
     });
   };
 
-  // Handle share
-  const handleShare = async (item: NewsItem | ArticleItem, e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const itemId = String(item.id);
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: item.title,
-          text: item.content,
-          url: `${window.location.origin}${linkBase}/${itemId}`,
-        });
-      } catch {
-        console.log("Share cancelled");
-      }
-    } else {
-      navigator.clipboard.writeText(`${window.location.origin}${linkBase}/${itemId}`);
-      alert("Link copied to clipboard!");
-    }
-  };
+
 
   const customFormatDate = (date: string | Date) => {
     const d = typeof date === "string" ? new Date(date) : date;
@@ -175,13 +156,13 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
                            
                     
-<BookmarkButton 
-  id="1"
+<BookmarkButton
+  id={String(item.id)}
   borderColor="#e5e7eb"          // same as border-gray-200
   backgroundColor="#ffffff"       // same as bg-white
   savedBackgroundColor="#fef2f2"  // same as bg-red-50
   iconColor="#4b5563"             // same as stroke-gray-600
-  savedIconColor=" #6f42c2"        // same as fill-red-500 / stroke-red-500
+  savedIconColor="#6f42c2"        // same as fill-red-500 / stroke-red-500
 />
 
 
@@ -218,9 +199,9 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
                           <div className="flex items-center gap-4 sm:gap-3 ml-auto">
 
-                            <LikeButton  id={item.id}/>
+                            <LikeButton id={String(item.id)} />
 
-                            <ShareButton onClick={(e) => handleShare(item, e)} />
+                            <ShareButton item={item} linkBase={linkBase} />
 
                             <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
                           </div>

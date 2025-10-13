@@ -1,50 +1,54 @@
+'use client';
+
 import React from 'react';
-import { Heart, Eye, MessageCircle, Facebook, Linkedin, Twitter, Share2, ChevronRight, User, Calendar, Bookmark, ThumbsUp } from 'lucide-react';
-import PopularNews from './DetailViews/PopularNews';
-import Updates from './DetailViews/Updates';
-import RelatedPosts from './DetailViews/RelatedPosts';
-import PopularArticles from './DetailViews/PopularArticles';
+import {
+  Heart,
+  Eye,
+  MessageCircle,
+  Share2,
+  ChevronRight,
+  User,
+  Calendar,
+  Bookmark,
+} from 'lucide-react';
+
 import SectionwiseImportantNews from './SectionwiseImportantNews';
-import { getAllNews } from '@/lib/getData';
+
+import {
+  ArticleItem,
+  getAllNews,
+  NewsItem,
+} from '@/lib/getData';
+
+import LikeButton from './Badges/LikeButton';
+import BookmarkButton from './Badges/BookmarkButton';
+import ShareButton from './Badges/ShareButton';
+import ReadMoreButton from './Badges/ReadMoreButton';
 
 interface DetailViewProps {
-  data: {
-    title: string;
-    content: string;
-    image?: string;
-    category?: string;
-    author?: {
-      name: string;
-      role: string;
-      avatar?: string;
-    };
-    stats?: {
-      likes: number;
-      views: number;
-      comments: number;
-    };
-    date?: string;
-  };
+  data: NewsItem | ArticleItem;
 }
 
 export default function DetailView({ data }: DetailViewProps) {
-  const author = data.author || { name: 'admin', role: 'Author at Our Blog' };
-  const stats = data.stats || { likes: 0, views: 2340, comments: 0 };
+  const authorName = data.author || 'admin';
+  const stats = {
+    likes: data.likes || 0,
+    views: 2340,
+    comments: data.totalComments || 0,
+  };
   const category = data.category || 'தமிழகம்';
-  const date = data.date || 'August 31, 2025 (1 month ago)';
-  const news = getAllNews().slice(0, 10)
+  const date = data.created_at || 'August 31, 2025';
+  const news = getAllNews().slice(0, 10);
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Fixed Sticky Breadcrumb */}
+      {/* Breadcrumb */}
       <div className="bg-white border-b border-gray-200 sticky top-15 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center text-sm text-gray-600">
             <span className="hover:text-[#2ecc71] cursor-pointer transition-colors">Home</span>
             <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
-            <span className="hover:text-[#2ecc71] cursor-pointer transition-colors">Blog</span>
-            <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
-            <span 
+            <span
               className="text-gray-900 truncate max-w-[200px] sm:max-w-[300px] md:max-w-[400px] font-medium"
               title={data.title}
             >
@@ -56,30 +60,27 @@ export default function DetailView({ data }: DetailViewProps) {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column - Main Content */}
+          {/* Main Content */}
           <div className="lg:col-span-8">
             <article className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              {/* Article Image */}
+              {/* Image */}
               <div className="w-full h-80 bg-gradient-to-br from-emerald-500 to-green-600 relative">
-                <img 
-                  src={data.image || '/assets/banners/arivom-news-default-banner.jpg'} 
-                  alt={data.title} 
-                  className="w-full h-full object-cover" 
+                <img
+                  src={data.image || '/assets/banners/arivom-news-default-banner.jpg'}
+                  alt={data.title}
+                  className="w-full h-full object-cover"
                 />
-                {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               </div>
-              
+
               {/* Article Content */}
               <div className="p-8">
-                {/* Title */}
                 <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
                   {data.title}
                 </h3>
 
-                {/* Meta Information */}
+                {/* Meta Info */}
                 <div className="flex flex-wrap items-center gap-4 mb-6 pb-6 border-b border-gray-200">
-                  {/* Category Badge */}
                   <div className="flex items-center gap-2">
                     <span className="px-3 py-1 bg-[#2ecc71] text-white text-sm font-medium rounded-full">
                       {category}
@@ -91,11 +92,10 @@ export default function DetailView({ data }: DetailViewProps) {
                     )}
                   </div>
 
-                  {/* Author and Date */}
                   <div className="flex items-center gap-4 text-sm text-gray-600">
                     <div className="flex items-center gap-2">
                       <User className="w-4 h-4 text-[#2ecc71]" />
-                      <span className="font-medium">{author.name}</span>
+                      <span className="font-medium">{authorName}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-gray-400" />
@@ -104,14 +104,14 @@ export default function DetailView({ data }: DetailViewProps) {
                   </div>
                 </div>
 
-                {/* Short Description */}
+                {/* Description Box */}
                 <div className="bg-emerald-50 border-l-4 border-[#2ecc71] p-4 rounded-r-lg mb-6">
                   <p className="text-gray-700 text-base leading-relaxed font-medium">
                     தமிழ்நாட்டில் 25 சுங்கச்சாவடிகளில் இன்று நள்ளிரவு முதல் கட்டண உயர்வு அமலுக்கு வருகிறது
                   </p>
                 </div>
-                
-                {/* Main Content */}
+
+                {/* Content */}
                 <div className="prose prose-lg max-w-none">
                   <div className="text-gray-700 leading-relaxed text-lg whitespace-pre-wrap space-y-4">
                     {data.content}
@@ -119,48 +119,34 @@ export default function DetailView({ data }: DetailViewProps) {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
-                  <div className="flex items-center gap-4">
-                    <button className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-[#2ecc71] rounded-lg hover:bg-emerald-100 transition-colors">
-                      <ThumbsUp className="w-5 h-5" />
-                      <span>Like ({stats.likes})</span>
-                    </button>
-                    <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-                      <Bookmark className="w-5 h-5" />
-                      <span>Save</span>
-                    </button>
-                  </div>
-                  
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-500">Share:</span>
-                    <div className="flex gap-2">
-                      <button className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors">
-                        <Facebook className="w-4 h-4" />
-                      </button>
-                      <button className="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center hover:bg-sky-600 transition-colors">
-                        <Twitter className="w-4 h-4" />
-                      </button>
-                      <button className="w-8 h-8 rounded-full bg-blue-700 text-white flex items-center justify-center hover:bg-blue-800 transition-colors">
-                        <Linkedin className="w-4 h-4" />
-                      </button>
-                    </div>
-                  </div>
+                <div className="flex items-center gap-2 mt-8 pt-6 border-t border-gray-200">
+                  <LikeButton id={String(data.id)} />
+
+                  <ShareButton item={data} linkBase="/news" />
+
+                  <BookmarkButton
+                    id={String(data.id)}
+                    borderColor="#767676ff"
+                    backgroundColor="#ffffffff"
+                    savedBackgroundColor="#ffffffff"
+                    iconColor="#767676ff"
+                    savedIconColor="#6f42c2"
+                  />
+                 
                 </div>
               </div>
             </article>
 
-            {/* Comments Section */}
+            {/* Comments */}
             <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mt-8">
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-2xl font-bold text-gray-900">
-                  Comments ({stats.comments})
-                </h2>
+                <h2 className="text-2xl font-bold text-gray-900">Comments ({stats.comments})</h2>
                 <button className="px-4 py-2 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] transition-colors">
                   Leave a Comment
                 </button>
               </div>
 
-              {/* Comment Input */}
+              {/* Input */}
               <div className="bg-gray-50 rounded-lg p-6 mb-6">
                 <textarea
                   placeholder="Share your thoughts..."
@@ -174,45 +160,36 @@ export default function DetailView({ data }: DetailViewProps) {
                 </div>
               </div>
 
-              {/* No Comments Message */}
+              {/* No Comments Yet */}
               <div className="text-center py-8">
                 <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" />
                 <p className="text-gray-500 text-lg">No comments yet. Be the first to comment!</p>
               </div>
             </div>
 
-            {/* Related Posts */}
-            {/* <RelatedPosts /> */}
+            {/* Related / Sectionwise */}
             <SectionwiseImportantNews
-                items={news}
-                linkBase="/news"
-                title="பிரிவு வாரியாக முக்கிய செய்திகள்"
-                subtitle="ஒவ்வொரு பிரிவிலும் இருந்து கேர்நெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
-                categoryLabel="தமிழகம்"
-                viewAllLink="/news"
-              />
+              items={news}
+              linkBase="/news"
+              title="பிரிவு வாரியாக முக்கிய செய்திகள்"
+              subtitle="ஒவ்வொரு பிரிவிலும் இருந்து கேர்நெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
+              categoryLabel="தமிழகம்"
+              viewAllLink="/news"
+            />
           </div>
 
-          {/* Right Column - Sidebar */}
+          {/* Sidebar */}
           <div className="lg:col-span-4">
             <div className="sticky top-24 space-y-6">
               {/* Author Card */}
               <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <div className="flex flex-col items-center text-center">
-                  {/* Avatar */}
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#2ecc71] to-emerald-600 flex items-center justify-center mb-4 text-white text-2xl font-bold">
-                    {author.avatar ? (
-                      <img src={author.avatar} alt={author.name} className="w-full h-full rounded-full object-cover" />
-                    ) : (
-                      author.name.charAt(0).toUpperCase()
-                    )}
+                    {authorName.charAt(0).toUpperCase()}
                   </div>
-                  
-                  {/* Author Info */}
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{author.name}</h3>
-                  <p className="text-sm text-gray-600 mb-4">{author.role}</p>
-                  
-                  {/* Stats */}
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">{authorName}</h3>
+                  <p className="text-sm text-gray-600 mb-4">Author at Arivom News</p>
+
                   <div className="grid grid-cols-3 gap-4 w-full mb-4">
                     <div className="text-center">
                       <div className="text-lg font-bold text-gray-900">24</div>
@@ -227,8 +204,7 @@ export default function DetailView({ data }: DetailViewProps) {
                       <div className="text-xs text-gray-500">Following</div>
                     </div>
                   </div>
-                  
-                  {/* View Profile Button */}
+
                   <button className="w-full px-4 py-2 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] transition-colors">
                     Follow Author
                   </button>
@@ -281,13 +257,13 @@ export default function DetailView({ data }: DetailViewProps) {
                 </div>
               </div>
 
-              {/* Newsletter Signup */}
+              {/* Newsletter */}
               <div className="bg-gradient-to-br from-[#2ecc71] to-emerald-600 rounded-xl shadow-sm p-6 text-white">
                 <h3 className="text-xl font-bold mb-2">Stay Updated</h3>
                 <p className="text-emerald-100 mb-4">Get the latest articles delivered to your inbox</p>
                 <div className="space-y-3">
-                  <input 
-                    type="email" 
+                  <input
+                    type="email"
                     placeholder="Enter your email"
                     className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 placeholder-emerald-200 text-white focus:outline-none focus:bg-white/30"
                   />
@@ -297,10 +273,10 @@ export default function DetailView({ data }: DetailViewProps) {
                 </div>
               </div>
 
-              {/* Popular News */}
-              {/* <PopularNews />
-              <PopularArticles />
-              <Updates /> */}
+              {/* Future Sections */}
+              {/* <PopularNews /> */}
+              {/* <PopularArticles /> */}
+              {/* <Updates /> */}
             </div>
           </div>
         </div>

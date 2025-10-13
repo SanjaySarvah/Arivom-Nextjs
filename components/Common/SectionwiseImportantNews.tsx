@@ -4,6 +4,10 @@ import { FC } from "react";
 import Link from "next/link";
 import { Heart, Bookmark, Share2, User } from "lucide-react";
 import { FiClock, FiChevronRight } from "react-icons/fi";
+import LikeButton from "./Badges/LikeButton";
+import ShareButton from "./Badges/ShareButton";
+import BookmarkButton from "./Badges/BookmarkButton";
+import ReadMoreButton from "./Badges/ReadMoreButton";
 
 type NewsItem = {
   id: number;
@@ -107,7 +111,39 @@ const SectionwiseImportantNews: FC<Props> = ({
               {/* Content Section */}
               <div className="flex-1 p-3 md:p-4 flex flex-col justify-between min-h-[140px] sm:min-h-0">
                 {/* Header: User Icon + Name (Left) | Date (Right) */}
-                <div className="flex items-center justify-between mb-3">
+               
+
+                <div className="flex-1">
+                  {/* Category Tags */}
+                  <div className="flex items-center gap-2 mb-2">
+                    <span
+                      className="inline-block px-2 py-0.5 text-white text-xs font-semibold rounded"
+                      style={{ backgroundColor: "var(--tertiary)" }}
+                    >
+                      {item.category}
+                    </span>
+                    {item.subcategory && (
+                      <span className="text-xs text-blue-600 font-medium uppercase">
+                        {item.subcategory}
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Title */}
+                  <Link href={`${linkBase}/${item.id}`}>
+                    <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
+                      {item.title}
+                    </h3>
+
+                    {/* Excerpt */}
+                    <p className="text-xs md:text-sm text-gray-700 leading-relaxed line-clamp-2 mb-2">
+                      {item.content || item.excerpt}
+                    </p>
+                  </Link>
+                </div>
+
+
+                 <div className="flex items-center justify-between">
                   {/* Left: User Icon + Name */}
                   <div className="flex items-center ">
                     <div
@@ -140,83 +176,24 @@ const SectionwiseImportantNews: FC<Props> = ({
                   </div>
                 </div>
 
-                <div className="flex-1">
-                  {/* Category Tags */}
-                  <div className="flex items-center gap-2 mb-2">
-                    <span
-                      className="inline-block px-2 py-0.5 text-white text-xs font-semibold rounded"
-                      style={{ backgroundColor: "var(--tertiary)" }}
-                    >
-                      {item.category}
-                    </span>
-                    {item.subcategory && (
-                      <span className="text-xs text-blue-600 font-medium uppercase">
-                        {item.subcategory}
-                      </span>
-                    )}
+                {/* Action Buttons Footer */}
+                <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+                  <div className="flex items-center gap-2">
+                    <LikeButton id={String(item.id)} />
+
+                    <ShareButton item={item} linkBase="/news" />
+
+                    <BookmarkButton
+                      id={String(item.id)}
+                      borderColor="#767676ff"
+                      backgroundColor="#ffffffff"
+                      savedBackgroundColor="#ffffffff"
+                      iconColor="#767676ff"
+                      savedIconColor="#6f42c2"
+                    />
                   </div>
 
-                  {/* Title */}
-                  <Link href={`${linkBase}/${item.id}`}>
-                    <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-2 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
-                      {item.title}
-                    </h3>
-
-                    {/* Excerpt */}
-                    <p className="text-xs md:text-sm text-gray-700 leading-relaxed line-clamp-2 mb-2">
-                      {item.content || item.excerpt}
-                    </p>
-                  </Link>
-                </div>
-
-                {/* Action Buttons Footer */}
-                <div className="flex items-center gap-2 sm:gap-3 mt-3 pt-3 border-t border-gray-100">
-                  {/* Like Button */}
-                  <button
-                    className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-200 hover:border-red-500 hover:bg-red-50 transition-all group/like"
-                    aria-label="Like"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Heart className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 group-hover/like:text-red-500 transition-colors" />
-                  </button>
-
-                  {/* Bookmark Button */}
-                  <button
-                    className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all group/bookmark"
-                    aria-label="Bookmark"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Bookmark className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600 group-hover/bookmark:text-blue-500 transition-colors" />
-                  </button>
-
-                  {/* Share Button */}
-                  <button
-                    className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border transition-all group/share"
-                    style={{ borderColor: 'var(--tertiary)' }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = 'var(--tertiary-light, #d4edda)';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = 'transparent';
-                    }}
-                    aria-label="Share"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <Share2
-                      className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors"
-                      style={{ color: 'var(--tertiary)' }}
-                    />
-                  </button>
-
-                  {/* Next/Arrow Button */}
-                  <Link
-                    href={`${linkBase}/${item.id}`}
-                    className="ml-auto flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full text-white transition-all hover:scale-110"
-                    style={{ backgroundColor: "var(--tertiary)" }}
-                    aria-label="Read more"
-                  >
-                    <FiChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </Link>
+                  <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
                 </div>
               </div>
             </article>

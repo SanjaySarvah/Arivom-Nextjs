@@ -16,7 +16,6 @@ import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
 import DateBadge from "@/components/Common/Badges/DateBadge";
 import LikeButton from "@/components/Common/Badges/LikeButton";
 import ShareButton from "@/components/Common/Badges/ShareButton";
-import ReadMoreButton from "@/components/Common/Badges/ReadMoreButton";
 
 import { NewsItem, ArticleItem } from "@/lib/getData";
 import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
@@ -182,24 +181,18 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
         </div>
 
         {/* Buttons Row */}
-        <div className="flex items-center justify-between mt-5">
-          
-          {/* Left side icons */}
-          <div className="flex items-center gap-2">
-            <LikeButton  id={item.id}/>
-            <ShareButton onClick={(e) => handleShare(item, e)} />
-            <BookmarkButton
-              id="1"
-              borderColor="#767676ff"
-              backgroundColor="#ffffffff"
-              savedBackgroundColor="#ffffffff"
-              iconColor="#767676ff"
-              savedIconColor="#6f42c2"
-            />
-          </div>
+        <div className="flex items-center gap-2 mt-5">
+          <LikeButton id={String(item.id)} />
+          <ShareButton item={item} linkBase={linkBase} />
 
-          {/* Right side - Read More button */}
-          <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
+          <BookmarkButton
+            id={String(item.id)}
+            borderColor="#767676ff"
+            backgroundColor="#ffffffff"
+            savedBackgroundColor="#ffffffff"
+            iconColor="#767676ff"
+            savedIconColor="#6f42c2"
+          />
         </div>
       </div>
     </div>
