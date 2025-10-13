@@ -138,61 +138,74 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
             className="trending-slider !overflow-hidden"
           >
             {items.map((item) => (
-              <SwiperSlide key={item.id} className="!h-auto">
-                <Link href={`${linkBase}/${item.id}`} className="block h-full group relative">
-                  <div className="bg-white rounded-2xl overflow-hidden transition-all duration-500 h-full flex flex-col group-hover:scale-[1.02] transform border border-gray-200 shadow-sm">
-                    {/* Image */}
-                    <div className="relative h-48 md:h-56 w-full overflow-hidden">
-                      <img
-                        src={item.image}
-                        alt={item.title}
-                        className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                      />
-                    </div>
+           <SwiperSlide key={item.id} className="!h-auto">
+  <Link
+    href={`${linkBase}/${item.id}`}
+    className="block h-full group relative"
+  >
+    <div className="bg-white rounded-2xl overflow-hidden transition-all duration-500 h-full flex flex-col group-hover:scale-[1.02] transform border border-gray-200 shadow-sm">
+      
+      {/* Image */}
+      <div className="relative h-48 md:h-56 w-full overflow-hidden">
+        <img
+          src={item.image}
+          alt={item.title}
+          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+        />
+      </div>
 
-                    {/* Content */}
-                    <div className="p-5 md:p-6 flex-1 flex flex-col">
-                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
-                        <CategoryBadge
-                          category={item.category}
-                          icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-                        />
-                      </div>
+      {/* Content */}
+      <div className="p-5 md:p-6 flex-1 flex flex-col">
+        
+        {/* Category */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
+          <CategoryBadge
+            category={item.category}
+            icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+          />
+        </div>
 
-                      <h3 className="mb-3 line-clamp-2 leading-tight transition-colors duration-300 text-sm md:text-lg">
-                        {item.title}
-                      </h3>
+        {/* Title */}
+        <h3 className="mb-3 line-clamp-2 leading-tight transition-colors duration-300 text-sm md:text-lg">
+          {item.title}
+        </h3>
 
-                      <div className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
-                        {item.content}
-                      </div>
+        {/* Description */}
+        <div className="text-gray-600 text-sm mb-4 line-clamp-2 leading-relaxed">
+          {item.content}
+        </div>
 
-                      <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600 justify-between">
-                        <AuthorBadge author={item.author} />
-                        <DateBadge date={item.created_at} formatDate={customFormatDate} />
-                      </div>
+        {/* Author + Date */}
+        <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600 justify-between">
+          <AuthorBadge author={item.author} />
+          <DateBadge date={item.created_at} formatDate={customFormatDate} />
+        </div>
 
-                      {/* Buttons */}
-                      <div className="flex items-center gap-2 mt-5">
-                        <LikeButton liked={likedItems.has(String(item.id))} onClick={(e) => toggleLike(String(item.id), e)} />
-                        <ShareButton onClick={(e) => handleShare(item, e)} />
-                      {/* <AddBookmarkButton id={item.id} /> */}
-                        <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
-  <BookmarkButton 
-    id="1"
-    borderColor="#767676ff"
-    backgroundColor="#ef444480"
-    savedBackgroundColor="#ffffffff"
-    hoverShadowColor="#ef4444"
-    iconColor="#000000ff"
-    savedIconColor="#000000ff"
-  />
+        {/* Buttons Row */}
+        <div className="flex items-center justify-between mt-5">
+          
+          {/* Left side icons */}
+          <div className="flex items-center gap-2">
+            <LikeButton  id={item.id}/>
+            <ShareButton onClick={(e) => handleShare(item, e)} />
+            <BookmarkButton
+              id="1"
+              borderColor="#767676ff"
+              backgroundColor="#ffffffff"
+              savedBackgroundColor="#ffffffff"
+              iconColor="#767676ff"
+              savedIconColor="#6f42c2"
+            />
+          </div>
 
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </SwiperSlide>
+          {/* Right side - Read More button */}
+          <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
+        </div>
+      </div>
+    </div>
+  </Link>
+</SwiperSlide>
+
             ))}
           </Swiper>
 

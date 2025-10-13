@@ -7,34 +7,25 @@ interface BookmarkButtonProps {
   id: string | number;
   onToggle?: (isSaved: boolean) => void;
   size?: number;
-  
-  // 🎨 Comprehensive color customization props
   borderColor?: string;
   iconColor?: string;
   savedIconColor?: string;
   backgroundColor?: string;
   savedBackgroundColor?: string;
-  hoverShadowColor?: string;
-  hoverIconColor?: string;
 }
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   id,
   onToggle,
   size = 20,
-  
-  // Color props with defaults
-  borderColor = "var(--secondary)",
-  iconColor = "#ffffff",
-  savedIconColor = "#ffffff",
-  backgroundColor = "var(--secondary)80", // 50% transparent
-  savedBackgroundColor = "var(--secondary)",
-  hoverShadowColor = "var(--secondary)",
-  hoverIconColor = "#ffffff",
+  borderColor = "#e5e7eb", // border-gray-200
+  iconColor = "#4b5563", // stroke-gray-600
+  savedIconColor = "#6f42c2", // red-500
+  backgroundColor = "#ffffff", // white
+  savedBackgroundColor = "#fef2f2", // red-50
 }) => {
   const [savedItems, setSavedItems] = useState<Set<string>>(new Set());
   const [isClient, setIsClient] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -42,12 +33,10 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
       const stored = localStorage.getItem("savedNews");
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) {
-          setSavedItems(new Set(parsed));
-        }
+        if (Array.isArray(parsed)) setSavedItems(new Set(parsed));
       }
     } catch (err) {
-      console.error("❌ Error reading localStorage:", err);
+      console.error("Error reading localStorage:", err);
     }
   }, []);
 
@@ -56,14 +45,13 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
     try {
       localStorage.setItem("savedNews", JSON.stringify(Array.from(savedItems)));
     } catch (err) {
-      console.error("❌ Error saving to localStorage:", err);
+      console.error("Error saving to localStorage:", err);
     }
   }, [savedItems, isClient]);
 
   const toggleBookmark = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
-
     setSavedItems((prev) => {
       const newSet = new Set(prev);
       const key = String(id);
@@ -80,51 +68,39 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
     });
   };
 
-  const isSaved = savedItems.has(String(id));
-
   if (!isClient) return null;
 
-  // 🎨 Calculate current colors based on state
-  const currentBorderColor = borderColor;
-  const currentBackgroundColor = isSaved ? savedBackgroundColor : backgroundColor;
-  const currentIconColor = isHovered ? hoverIconColor : (isSaved ? savedIconColor : iconColor);
-  const currentShadow = isHovered ? `0 0 8px ${hoverShadowColor}` : 'none';
+  const isSaved = savedItems.has(String(id));
 
   return (
     <button
       onClick={toggleBookmark}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex items-center justify-center 
-        w-8 h-8 sm:w-9 sm:h-9 rounded-full 
-        border transition-all duration-300 
-        hover:scale-110"
+      className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border transition-all ${
+        isSaved
+          ? "border-red-500 bg-red-50"
+          : "border-gray-200 hover:border-red-500 hover:bg-red-50"
+      }`}
       style={{
-        borderColor: currentBorderColor,
-        backgroundColor: currentBackgroundColor,
-        boxShadow: currentShadow,
-        transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+        borderColor: isSaved ? "#6f42c2" : borderColor,
+        backgroundColor: isSaved ? savedBackgroundColor : backgroundColor,
       }}
     >
       {isSaved ? (
         <BookmarkCheck
-          style={{ 
-            width: size, 
-            height: size, 
-            color: currentIconColor,
-            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+          style={{
+            width: size,
+            height: size,
+            stroke: savedIconColor,
+            fill: savedIconColor,
           }}
-          className="transition-all duration-300"
         />
       ) : (
         <Bookmark
-          style={{ 
-            width: size, 
-            height: size, 
-            color: currentIconColor,
-            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+          style={{
+            width: size,
+            height: size,
+            stroke: iconColor,
           }}
-          className="transition-all duration-300"
         />
       )}
     </button>

@@ -175,15 +175,15 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
                            
                     
-  <BookmarkButton 
-    id="1"
-    borderColor="#ef4444"
-    backgroundColor="#ef444480"
-    savedBackgroundColor="#ef4444"
-    hoverShadowColor="#ef4444"
-    iconColor="#fecaca"
-    savedIconColor="#ffffff"
-  />
+<BookmarkButton 
+  id="1"
+  borderColor="#e5e7eb"          // same as border-gray-200
+  backgroundColor="#ffffff"       // same as bg-white
+  savedBackgroundColor="#fef2f2"  // same as bg-red-50
+  iconColor="#4b5563"             // same as stroke-gray-600
+  savedIconColor=" #6f42c2"        // same as fill-red-500 / stroke-red-500
+/>
+
 
                 </div>
 
@@ -218,7 +218,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
                           <div className="flex items-center gap-4 sm:gap-3 ml-auto">
 
-                            <LikeButton liked={likedItems.has(String(item.id))} onClick={(e) => toggleLike(String(item.id), e)} />
+                            <LikeButton  id={item.id}/>
 
                             <ShareButton onClick={(e) => handleShare(item, e)} />
 
