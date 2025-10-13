@@ -17,6 +17,7 @@ import {
 } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import { HiX } from "react-icons/hi";
+import { Bell } from "lucide-react";
 import logo from "@/public/assets/arivom-logo-latest.png";
 
 const HeaderPrimary: React.FC = () => {
@@ -25,6 +26,7 @@ const HeaderPrimary: React.FC = () => {
   const [newsExpanded, setNewsExpanded] = useState(false);
   const [articlesExpanded, setArticlesExpanded] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(5); // Notification count state
 
   // Marquee states
   const [isPaused, setIsPaused] = useState(false);
@@ -238,8 +240,18 @@ const HeaderPrimary: React.FC = () => {
             </Link>
           </div>
 
-          {/* Right: User Profile Dropdown */}
-          <div className="flex items-center justify-end min-w-[200px]">
+          {/* Right: Notification & User Profile */}
+          <div className="flex items-center justify-end gap-3 min-w-[200px]">
+            {/* Notification Icon */}
+            <button className="relative p-2 hover:bg-emerald-50 rounded-lg transition-all duration-300 group">
+              <Bell className="w-5 h-5 text-gray-600 group-hover:text-[#2ecc71] transition-colors" />
+              {notificationCount > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white shadow-md animate-pulse">
+                  {notificationCount > 9 ? '9+' : notificationCount}
+                </span>
+              )}
+            </button>
+
             {/* User Profile Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button

@@ -95,8 +95,8 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
 
   return (
     <div
-      className={`w-full transition-all duration-300 ${
-        isSticky ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-gray-50"
+    className={`hidden xl:block w-full transition-all duration-300 ${isSticky
+      ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-gray-50"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
