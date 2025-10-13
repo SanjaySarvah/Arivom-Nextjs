@@ -9,6 +9,7 @@ import Sidebar from '@/components/Common/Sidebar'
 import MasonryGrid from '@/components/News/Masonry'
 import MagazineLayout from '@/components/News/MagazineLayout';
 import TrendingCards from '@/components/Common/TrendingCards';
+import Popular from '@/components/Common/Sidebar/Popular'
 
 export default function Home() {
   const news = getAllNews().slice(0, 10)
@@ -22,7 +23,7 @@ return (
             <RelatedSlider title="முக்கிய செய்திகள்" items={related} linkBase="/news" />
           </div>
   <MasonryGrid />
-          <MagazineLayout/>
+          {/* <MagazineLayout/> */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
             {/* Left Column - 8/12 width on desktop */}
             <div className="lg:col-span-8">
@@ -37,8 +38,8 @@ return (
             </div>
 
             {/* Right Column - 4/12 width on desktop */}
-            <div className="lg:col-span-4">
-              <Sidebar />
+            <div className="lg:col-span-4 mt-10">
+              <Popular />
             </div>
           </div>
         </section>

@@ -9,6 +9,8 @@ import ShareButton from "./Badges/ShareButton";
 import BookmarkButton from "./Badges/BookmarkButton";
 import ReadMoreButton from "./Badges/ReadMoreButton";
 
+import SectionHeader from "@/components/Common/SectionHeader";
+
 type NewsItem = {
   id: number;
   title: string;
@@ -46,30 +48,16 @@ const SectionwiseImportantNews: FC<Props> = ({
   const displayItems = items.slice(0, 5);
 
   return (
-    <section className="py-8">
+    <section className="py-8 mt-5">
+                  <SectionHeader
+    subtitle="Latest"
+    title="Top News"
+    showButton={false}
+    buttonText="View All News"
+    buttonUrl="/news"
+  />
       <div>
-        {/* Header Section */}
-        <div className="mb-4 md:mb-6">
-          <div className="flex items-start md:items-center justify-between flex-col md:flex-row gap-3">
-            <div>
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 mb-1">
-                {title}
-              </h2>
-              {subtitle && (
-                <p className="text-xs md:text-sm text-gray-600">{subtitle}</p>
-              )}
-            </div>
-
-            {viewAllLink && (
-              <Link
-                href={viewAllLink}
-                className="flex items-center gap-1 text-blue-600 hover:text-blue-700 font-medium text-xs md:text-sm border-2 border-blue-600 hover:border-blue-700 px-3 py-1.5 rounded-full transition-all hover:bg-blue-50 whitespace-nowrap"
-              >
-                View all →
-              </Link>
-            )}
-          </div>
-        </div>
+       
 
         {/* Category Label */}
         <div className="mb-3 md:mb-4">

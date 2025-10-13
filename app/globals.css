@@ -173,6 +173,12 @@ p {
   color: #6b7280;
 }
 
+.small-textsidebar{
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #000000;
+}
+
 /* ✅ Mobile Responsive Font Sizes */
 @media (max-width: 768px) {
   .text-style,
