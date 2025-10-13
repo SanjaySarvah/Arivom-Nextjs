@@ -29,70 +29,75 @@ const articles = getAllArticles();
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Check if current path is a detail page
+  // Detect detail page
   const isDetailPage = pathname.match(/\/(news|articles)\/[^\/]+$/);
 
-  // Determine which tab to show (only for non-detail pages)
+  // Tabs visibility
   const showNewsTab =
-    !isDetailPage && (pathname === "/" || pathname === "/news" || pathname.startsWith("/news/category"));
+    !isDetailPage &&
+    (pathname === "/" ||
+      pathname === "/news" ||
+      pathname.startsWith("/news/category"));
+
   const showArticlesTab =
-    !isDetailPage && (pathname === "/articles" || pathname.startsWith("/articles/category"));
+    !isDetailPage &&
+    (pathname === "/articles" ||
+      pathname.startsWith("/articles/category"));
 
   return (
     <html
       lang="en"
       className={`${kumbhSans.variable} ${notoSansTamil.variable}`}
     >
-      <body className="bg-gray-50 text-gray-800">
-        <div>
-          <ClientLayoutWrapper>
-            {/* ---------------- HEADER SECTION ---------------- */}
-            {isDetailPage ? (
-              // Show only DetailsHeader on detail pages
-              <DetailsHeader />
-            ) : (
-              // Show regular headers on non-detail pages
-              <>
-                {/* First Row */}
-                <Header />
-                
-                {/* Second Row Navigation + Category Tabs */}
-                <div className="sticky top-0 z-50 bg-white shadow-md">
-                  <HeaderSecondary />
-                  
-                  {/* Category Tabs */}
-                  {(showNewsTab || showArticlesTab) && (
-                    <div
-                      className="bg-white/95 backdrop-blur-sm border-t border-gray-200"
-                      style={{ WebkitBackdropFilter: "blur(8px)" }}
-                    >
-                      {showNewsTab && (
-                        <CategoryTabs
-                          items={news}
-                          baseLink="/news"
-                          label="NEWS"
-                        />
-                      )}
-                      {showArticlesTab && (
-                        <CategoryTabs
-                          items={articles}
-                          baseLink="/articles"
-                          label="ARTICLES"
-                        />
-                      )}
-                    </div>
-                  )}
-                </div>
-              </>
-            )}
+      <body className="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+        <ClientLayoutWrapper>
+          {/* ---------------- HEADER SECTION ---------------- */}
+          {isDetailPage ? (
+            <DetailsHeader />
+          ) : (
+            <>
+              {/* First Row */}
+              <Header />
 
-            {/* ---------------- MAIN CONTENT ---------------- */}
-            <main className="w-full min-h-screen">{children}</main>
+              {/* Sticky Navigation */}
+              <div className="sticky top-0 z-50 bg-white shadow-md">
+                <HeaderSecondary />
 
-            {/* ---------------- FOOTER ---------------- */}
+                {(showNewsTab || showArticlesTab) && (
+                  <div
+                    className="bg-white/95 backdrop-blur-sm border-t border-gray-200"
+                    style={{ WebkitBackdropFilter: "blur(8px)" }}
+                  >
+                    {showNewsTab && (
+                      <CategoryTabs
+                        items={news}
+                        baseLink="/news"
+                        label="NEWS"
+                      />
+                    )}
+                    {showArticlesTab && (
+                      <CategoryTabs
+                        items={articles}
+                        baseLink="/articles"
+                        label="ARTICLES"
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+
+          {/* ---------------- MAIN CONTENT ---------------- */}
+          <main className="pt-15">
+            {children}
+          </main>
+
+          {/* ---------------- FOOTER ---------------- */}
+          <div className="">
             <Footer />
-          </ClientLayoutWrapper>
-        </div>
+          </div>
+        </ClientLayoutWrapper>
       </body>
     </html>
   );

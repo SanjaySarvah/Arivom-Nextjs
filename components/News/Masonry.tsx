@@ -7,6 +7,11 @@ import { Heart, Bookmark, Share2 } from "lucide-react";
 import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
 import { FaRegNewspaper } from "react-icons/fa";
 import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
+import LikeButton from "@/components/Common/Badges/LikeButton";
+import ShareButton from "@/components/Common/Badges/ShareButton";
+import { NewsItem, ArticleItem } from "@/lib/getData";
+import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
+
 
 import {
   getAllNews,
@@ -23,6 +28,7 @@ export default function NewsPortalLayout() {
     () => Array.from(new Set(allNews.map((n) => n.category))),
     [allNews]
   );
+  const linkBase = "/news";
 
   const [selectedCategory, setSelectedCategory] = useState<Category>("All");
 
@@ -116,30 +122,17 @@ export default function NewsPortalLayout() {
                     </Link>
 
                     <div className="flex items-center gap-3 mt-4 pt-3 border-t border-gray-100">
-                      <button className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 hover:border-red-500 hover:bg-red-50 transition-all group/like">
-                        <Heart className="w-4 h-4 text-gray-600 group-hover/like:text-red-500 transition-colors" />
-                      </button>
-                      <button className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 hover:border-blue-500 hover:bg-blue-50 transition-all group/bookmark">
-                        <Bookmark className="w-4 h-4 text-gray-600 group-hover/bookmark:text-blue-500 transition-colors" />
-                      </button>
-                      <button
-                        className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 transition-all group/share"
-                        style={{
-                          borderColor: "var(--tertiary-hover, #27ae60)",
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor =
-                            "var(--tertiary-light, #d4edda)";
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.backgroundColor = "transparent";
-                        }}
-                      >
-                        <Share2
-                          className="w-4 h-4 transition-colors"
-                          style={{ color: "var(--tertiary, #2ecc71)" }}
-                        />
-                      </button>
+                       <LikeButton id={String(item.id)} />
+          <ShareButton item={item} linkBase={linkBase} />
+
+          <BookmarkButton
+            id={String(item.id)}
+            borderColor="#767676ff"
+            backgroundColor="#ffffffff"
+            savedBackgroundColor="#ffffffff"
+            iconColor="#767676ff"
+            savedIconColor="#6f42c2"
+          />
                       <Link
                         href={`/news/${item.id}`}
                         className="ml-auto flex items-center justify-center w-9 h-9 rounded-full text-white transition-all hover:scale-110"

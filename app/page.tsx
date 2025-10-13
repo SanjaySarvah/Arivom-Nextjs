@@ -19,8 +19,8 @@ export default function Home() {
   const articles = getAllArticles().slice(0, 3);
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 py-6">
+    <main className="min-h-screen ">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 py-0">
         {/* 🔥 Trending + Top Sliders */}
         <section className="mb-10 lg:mb-16">
           <TrendingCards title="Trending News" items={related} linkBase="/news" />
@@ -34,7 +34,9 @@ export default function Home() {
           </div>
 
           {/* <MagazineLayout /> */}
+       <div className="mt-18">
           <MasonryGrid />
+          </div>
         </section>
 
         {/* 📰 Popular Section */}

@@ -154,24 +154,24 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                               <TagBadge label="Breaking New" />
                             </span>
 
-                           
-                    
-<BookmarkButton
-  id={String(item.id)}
-  borderColor="#e5e7eb"          // same as border-gray-200
-  backgroundColor="#ffffff"       // same as bg-white
-  savedBackgroundColor="#fef2f2"  // same as bg-red-50
-  iconColor="#4b5563"             // same as stroke-gray-600
-  savedIconColor="#6f42c2"        // same as fill-red-500 / stroke-red-500
-/>
 
 
-                </div>
+                            <BookmarkButton
+                              id={String(item.id)}
+                              borderColor="#e5e7eb"          // same as border-gray-200
+                              backgroundColor="#ffffff"       // same as bg-white
+                              savedBackgroundColor="#fef2f2"  // same as bg-red-50
+                              iconColor="#4b5563"             // same as stroke-gray-600
+                              savedIconColor="#6f42c2"        // same as fill-red-500 / stroke-red-500
+                            />
+
+
+                          </div>
 
                           <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 ">
-                           <span className="font-bold text-base sm:text-xl md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight transition text-white MobileViewContent hover:underline decoration-white decoration-2 underline-offset-4">
-  {item.title}
-</span>
+                            <span className="font-bold text-base sm:text-xl md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight transition text-white MobileViewContent hover:underline decoration-white decoration-2 underline-offset-4">
+                              {item.title}
+                            </span>
 
                             <p className="text-white/90 text-xs sm:text-sm mb-2 line-clamp-3 leading-relaxed ">
                               {item.content}

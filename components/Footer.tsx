@@ -24,7 +24,7 @@ const Footer = () => {
   }, []);
 
   return (
-    <footer className="bg-[#f9f9f9] py-8 pt-6 mt-12 relative">
+    <footer className="bg-[#f9f9f9] relative">
       <div className="max-w-[1320px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 h-[150px]">
 
         {/* Left Column: Logo + Description */}
