@@ -22,18 +22,11 @@ import ShareButton from "@/components/Common/Badges/ShareButton";
 import {
   FiChevronLeft,
   FiChevronRight,
-  FiZap,
-  FiUser,
-  FiClock,
 } from "react-icons/fi";
 import {
-  FaHome,
+
   FaRegNewspaper,
-  FaSearch,
-  FaBars,
-  FaTimes, FaBookOpen, FaPenNib,
-  FaChevronDown,
-  FaUserCircle,
+
 } from "react-icons/fa";
 import { Heart, Share2 } from "lucide-react";
 import { NewsItem, ArticleItem } from "@/lib/getData";

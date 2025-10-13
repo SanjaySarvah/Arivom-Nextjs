@@ -11,7 +11,7 @@ import LikeButton from "@/components/Common/Badges/LikeButton";
 import ShareButton from "@/components/Common/Badges/ShareButton";
 import { NewsItem, ArticleItem } from "@/lib/getData";
 import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
-
+import ReadMoreButton from "@/components/Common/Badges/ReadMoreButton";
 
 import {
   getAllNews,
@@ -121,26 +121,26 @@ export default function NewsPortalLayout() {
                       </p>
                     </Link>
 
-                    <div className="flex items-center gap-3 mt-4 pt-3 border-t border-gray-100">
-                       <LikeButton id={String(item.id)} />
-          <ShareButton item={item} linkBase={linkBase} />
+         {/* Buttons Row */}
+<div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+  {/* Left Side Icons */}
+  <div className="flex items-center gap-3">
+    <LikeButton id={String(item.id)} />
+    <ShareButton item={item} linkBase={linkBase} />
+    <BookmarkButton
+      id={String(item.id)}
+      borderColor="#767676ff"
+      backgroundColor="#ffffffff"
+      savedBackgroundColor="#ffffffff"
+      iconColor="#767676ff"
+      savedIconColor="#6f42c2"
+    />
+  </div>
 
-          <BookmarkButton
-            id={String(item.id)}
-            borderColor="#767676ff"
-            backgroundColor="#ffffffff"
-            savedBackgroundColor="#ffffffff"
-            iconColor="#767676ff"
-            savedIconColor="#6f42c2"
-          />
-                      <Link
-                        href={`/news/${item.id}`}
-                        className="ml-auto flex items-center justify-center w-9 h-9 rounded-full text-white transition-all hover:scale-110"
-                        style={{ backgroundColor: "var(--tertiary)" }}
-                      >
-                        <FiChevronRight className="w-5 h-5" />
-                      </Link>
-                    </div>
+  {/* Right Side Read More Button */}
+  <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
+</div>
+
                   </div>
                 </div>
               ))}

@@ -9,6 +9,8 @@ import { FaRegNewspaper } from "react-icons/fa";
 import { getLatestArticles } from "@/lib/getData"; // ✅ switched to articles
 import ShareButton from './Badges/ShareButton';
 import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
+import ReadMoreButton from "@/components/Common/Badges/ReadMoreButton";
+import LikeButton from "@/components/Common/Badges/LikeButton";
 
 const CardView: React.FC = () => {
   const allArticles = getLatestArticles(); // get all
@@ -73,33 +75,26 @@ const CardView: React.FC = () => {
               </Link>
 
               {/* Footer actions */}
-              <div className="flex items-center gap-3 mt-4 pt-3 border-t border-gray-100">
-                {/* Like */}
-                <button className="flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 hover:border-red-500 hover:bg-red-50 transition-all group/like">
-                  <Heart className="w-4 h-4 text-gray-600 group-hover/like:text-red-500 transition-colors" />
-                </button>
+     {/* Buttons Row */}
+<div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+  {/* Left Side: Like / Bookmark / Share */}
+  <div className="flex items-center gap-3">
+    <LikeButton id={String(item.id)} />
+    <BookmarkButton
+      id={String(item.id)}
+      borderColor="#767676ff"
+      backgroundColor="#ffffffff"
+      savedBackgroundColor="#ffffffff"
+      iconColor="#767676ff"
+      savedIconColor="#6f42c2"
+    />
+    <ShareButton item={item} linkBase={linkBase} />
+  </div>
 
-                 <BookmarkButton
-            id={String(item.id)}
-            borderColor="#767676ff"
-            backgroundColor="#ffffffff"
-            savedBackgroundColor="#ffffffff"
-            iconColor="#767676ff"
-            savedIconColor="#6f42c2"
-          />
+  {/* Right Side: Read More */}
+  <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
+</div>
 
-                {/* Share */}
-                     <ShareButton item={item} linkBase={linkBase} />
-
-                {/* Read more */}
-                <Link
-                  href={`/articles/${item.id}`}
-                  className="ml-auto flex items-center justify-center w-9 h-9 rounded-full text-white transition-all hover:scale-110"
-                  style={{ backgroundColor: "var(--tertiary)" }}
-                >
-                  <FiChevronRight className="w-5 h-5" />
-                </Link>
-              </div>
             </div>
           </div>
         ))}

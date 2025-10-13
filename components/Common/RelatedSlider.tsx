@@ -18,7 +18,7 @@ import DateBadge from "@/components/Common/Badges/DateBadge";
 import LikeButton from "@/components/Common/Badges/LikeButton";
 import ShareButton from "@/components/Common/Badges/ShareButton";
 import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
-
+import ReadMoreButton from "@/components/Common/Badges/ReadMoreButton";
 import { NewsItem, ArticleItem } from "@/lib/getData";
 
 interface Props {
@@ -149,19 +149,26 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                         <DateBadge date={item.created_at} formatDate={customFormatDate} />
                       </div>
 
-                      {/* Buttons Row */}
-                      <div className="flex items-center gap-2 mt-5">
-                        <LikeButton id={String(item.id)} />
-                        <ShareButton item={item} linkBase={linkBase} />
-                        <BookmarkButton
-                          id={String(item.id)}
-                          borderColor="#767676ff"
-                          backgroundColor="#ffffffff"
-                          savedBackgroundColor="#ffffffff"
-                          iconColor="#767676ff"
-                          savedIconColor="#6f42c2"
-                        />
-                      </div>
+                  {/* Buttons Row */}
+<div className="flex items-center justify-between mt-5 pt-3 border-t border-gray-100">
+  {/* Left Side: Like, Share, Bookmark */}
+  <div className="flex items-center gap-2">
+    <LikeButton id={String(item.id)} />
+    <ShareButton item={item} linkBase={linkBase} />
+    <BookmarkButton
+      id={String(item.id)}
+      borderColor="#767676ff"
+      backgroundColor="#ffffffff"
+      savedBackgroundColor="#ffffffff"
+      iconColor="#767676ff"
+      savedIconColor="#6f42c2"
+    />
+  </div>
+
+  {/* Right Side: Read More */}
+  <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
+</div>
+
                     </div>
                   </div>
                 </Link>
