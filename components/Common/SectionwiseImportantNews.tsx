@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Heart, Bookmark, Share2, User } from "lucide-react";
 import { FiClock, FiChevronRight } from "react-icons/fi";
@@ -8,6 +8,18 @@ import LikeButton from "./Badges/LikeButton";
 import ShareButton from "./Badges/ShareButton";
 import BookmarkButton from "./Badges/BookmarkButton";
 import ReadMoreButton from "./Badges/ReadMoreButton";
+import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
+
+
+import {
+  FaHome,
+  FaRegNewspaper,
+  FaSearch,
+  FaBars,
+  FaTimes, FaBookOpen, FaPenNib,
+  FaChevronDown,
+  FaUserCircle,
+} from "react-icons/fa";
 
 import SectionHeader from "@/components/Common/SectionHeader";
 
@@ -48,14 +60,8 @@ const SectionwiseImportantNews: FC<Props> = ({
   const displayItems = items.slice(0, 5);
 
   return (
-    <section className="py-8 mt-5">
-                  <SectionHeader
-    subtitle="Latest"
-    title="Top News"
-    showButton={false}
-    buttonText="View All News"
-    buttonUrl="/news"
-  />
+    <section className=" ">
+
       <div>
        
 
@@ -64,6 +70,8 @@ const SectionwiseImportantNews: FC<Props> = ({
           <h3 className="text-lg md:text-xl font-bold text-blue-600">
             {categoryLabel}
           </h3>
+
+        
         </div>
 
         {/* News Cards */}
@@ -104,12 +112,13 @@ const SectionwiseImportantNews: FC<Props> = ({
                 <div className="flex-1">
                   {/* Category Tags */}
                   <div className="flex items-center gap-2 mb-2">
-                    <span
-                      className="inline-block px-2 py-0.5 text-white text-xs font-semibold rounded"
-                      style={{ backgroundColor: "var(--tertiary)" }}
-                    >
-                      {item.category}
-                    </span>
+                 
+
+                        <CategoryBadge
+                                category={item.category}
+                                icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+
+                                />
                     {item.subcategory && (
                       <span className="text-xs text-blue-600 font-medium uppercase">
                         {item.subcategory}
@@ -132,7 +141,6 @@ const SectionwiseImportantNews: FC<Props> = ({
 
 
                  <div className="flex items-center justify-between">
-                  {/* Left: User Icon + Name */}
                   <div className="flex items-center ">
                     <div
                       className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center"
@@ -144,8 +152,6 @@ const SectionwiseImportantNews: FC<Props> = ({
                       {item.author || 'Rohan Mehta'}
                     </span>
                   </div>
-
-                  {/* Right: Date */}
                   <div className="flex items-center gap-1 text-xs text-gray-500">
                     <FiClock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
                     <span className="hidden sm:inline">
@@ -164,8 +170,7 @@ const SectionwiseImportantNews: FC<Props> = ({
                   </div>
                 </div>
 
-                {/* Action Buttons Footer */}
-                <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+                <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                   <div className="flex items-center gap-2">
                     <LikeButton id={String(item.id)} />
 
@@ -189,7 +194,6 @@ const SectionwiseImportantNews: FC<Props> = ({
         </div>
       </div>
 
-      {/* Line clamp styling */}
       <style jsx>{`
         .line-clamp-2 {
           display: -webkit-box;

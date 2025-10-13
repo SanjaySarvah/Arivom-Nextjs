@@ -149,7 +149,7 @@ h3:hover{
   color:#017BFF;
 }
 
-h4, h5, h6 {
+h4,  h6 {
   font-size: 1.125rem; /* 18px */
   line-height: 1.5rem;
   font-weight: 600;
@@ -163,7 +163,9 @@ p {
   font-weight: 400;
   margin-bottom: 1rem;
 }
-
+.h5{
+   font-size: 0.8rem;
+}
 /* Small Text */
 .small-text,
 .description {
@@ -178,6 +180,8 @@ p {
   font-weight: 500;
   color: #000000;
 }
+
+
 
 /* ✅ Mobile Responsive Font Sizes */
 @media (max-width: 768px) {
