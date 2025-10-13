@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import ClientLayoutWrapper from "@/components/Common/ClientLayoutWrapper";
 import CategoryTabs from "@/components/Common/CategoryTabs";
 import { Kumbh_Sans, Noto_Sans_Tamil } from "next/font/google";
+import DetailsHeader from "@/components/DetailsHeader";
 
 const kumbhSans = Kumbh_Sans({
   subsets: ["latin"],
@@ -28,11 +29,14 @@ const articles = getAllArticles();
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
 
-  // Determine which tab to show
+  // Check if current path is a detail page
+  const isDetailPage = pathname.match(/\/(news|articles)\/[^\/]+$/);
+
+  // Determine which tab to show (only for non-detail pages)
   const showNewsTab =
-    pathname === "/" || pathname === "/news" || pathname.startsWith("/news/category");
+    !isDetailPage && (pathname === "/" || pathname === "/news" || pathname.startsWith("/news/category"));
   const showArticlesTab =
-    pathname === "/articles" || pathname.startsWith("/articles/category");
+    !isDetailPage && (pathname === "/articles" || pathname.startsWith("/articles/category"));
 
   return (
     <html
@@ -42,37 +46,45 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-gray-50 text-gray-800">
         <div>
           <ClientLayoutWrapper>
-            {/* ---------------- HEADER FIRST ROW ---------------- */}
-            <Header />
-
-            {/* ---------------- STICKY HEADER SECONDARY + CATEGORY TABS ---------------- */}
-            <div className="sticky top-0 z-50 bg-white shadow-md">
-              {/* Second Row Navigation */}
-              <HeaderSecondary />
-
-              {/* Category Tabs */}
-              {(showNewsTab || showArticlesTab) && (
-                <div
-                  className="bg-white/95 backdrop-blur-sm border-t border-gray-200"
-                  style={{ WebkitBackdropFilter: "blur(8px)" }}
-                >
-                  {showNewsTab && (
-                    <CategoryTabs
-                      items={news}
-                      baseLink="/news"
-                      label="NEWS"
-                    />
-                  )}
-                  {showArticlesTab && (
-                    <CategoryTabs
-                      items={articles}
-                      baseLink="/articles"
-                      label="ARTICLES"
-                    />
+            {/* ---------------- HEADER SECTION ---------------- */}
+            {isDetailPage ? (
+              // Show only DetailsHeader on detail pages
+              <DetailsHeader />
+            ) : (
+              // Show regular headers on non-detail pages
+              <>
+                {/* First Row */}
+                <Header />
+                
+                {/* Second Row Navigation + Category Tabs */}
+                <div className="sticky top-0 z-50 bg-white shadow-md">
+                  <HeaderSecondary />
+                  
+                  {/* Category Tabs */}
+                  {(showNewsTab || showArticlesTab) && (
+                    <div
+                      className="bg-white/95 backdrop-blur-sm border-t border-gray-200"
+                      style={{ WebkitBackdropFilter: "blur(8px)" }}
+                    >
+                      {showNewsTab && (
+                        <CategoryTabs
+                          items={news}
+                          baseLink="/news"
+                          label="NEWS"
+                        />
+                      )}
+                      {showArticlesTab && (
+                        <CategoryTabs
+                          items={articles}
+                          baseLink="/articles"
+                          label="ARTICLES"
+                        />
+                      )}
+                    </div>
                   )}
                 </div>
-              )}
-            </div>
+              </>
+            )}
 
             {/* ---------------- MAIN CONTENT ---------------- */}
             <main className="w-full min-h-screen">{children}</main>

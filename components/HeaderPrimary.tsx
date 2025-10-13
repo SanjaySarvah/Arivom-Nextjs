@@ -13,6 +13,7 @@ import {
   FaPlay,
   FaUser,
   FaChevronDown,
+  FaUserPlus,
 } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import { HiX } from "react-icons/hi";
@@ -282,8 +283,8 @@ const HeaderPrimary: React.FC = () => {
                       className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
                       onClick={() => setIsDropdownOpen(false)}
                     >
-                      <span className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center">
-                        <FaUser className="w-2.5 h-2.5 text-[#1a8f52]" />
+                     <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
+                        <FaUser className="w-2.5 h-2.5 text-white" />
                       </span>
                       <span className="font-medium text-[11px]">Sign In</span>
                     </Link>
@@ -294,7 +295,7 @@ const HeaderPrimary: React.FC = () => {
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
-                        <FaUser className="w-2.5 h-2.5 text-white" />
+                        <FaUserPlus className="w-2.5 h-2.5 text-white" />
                       </span>
                       <span className="font-medium text-[11px]">Sign Up</span>
                     </Link>
