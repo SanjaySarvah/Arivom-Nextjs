@@ -13,7 +13,7 @@ interface CardItemProps {
     category?: string;
     tname?: string;
   };
-  linkBase: string;
+  linkBase: string; 
 }
 const formatDate = (dateString?: string) => {
   if (!dateString) return "";
