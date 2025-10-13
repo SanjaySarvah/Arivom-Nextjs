@@ -12,7 +12,11 @@ import {
   Bookmark,
   Clock,
 } from 'lucide-react';
+import { FaRegNewspaper } from "react-icons/fa";
 import { useRouter } from 'next/navigation';
+import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
+import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
+import DateBadge from "@/components/Common/Badges/DateBadge";
 
 import SectionwiseImportantNews from './SectionwiseImportantNews';
 import {
@@ -50,6 +54,18 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
   const handleNavigateHome = () => {
     router.push('/');
   };
+
+  // Custom date format
+  const customFormatDate = (date: string | Date) => {
+    const d = typeof date === "string" ? new Date(date) : date;
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
+
+
 
   const handleNavigateToSection = () => {
     router.push(`/${contentType}`);
@@ -110,10 +126,13 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
 
                 {/* Category Badge on Image */}
                 <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1.5 bg-[#2ecc71] text-white text-sm font-semibold rounded-full shadow-lg">
-                    {category}
-                  </span>
+                    <CategoryBadge
+            category={category}
+            icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+          />
                 </div>
+
+
               </div>
 
               {/* Article Content */}
@@ -126,17 +145,18 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 {/* Enhanced Meta Info */}
                 <div className="flex flex-wrap items-center gap-3 mb-6 pb-6 border-b border-gray-200">
                   <div className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1.5">
-                    <User className="w-4 h-4 text-[#2ecc71]" />
-                    <span className="text-sm font-medium text-gray-700">{authorName}</span>
+      
+                     <AuthorBadge author={authorName} />
                   </div>
                   <div className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1.5">
-                    <Calendar className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">{date}</span>
+                 
+                       <DateBadge date={date} formatDate={customFormatDate} />
                   </div>
-                  <div className="flex items-center gap-2 bg-gray-100 rounded-full px-3 py-1.5">
-                    <Clock className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">{readTime}</span>
-                  </div>
+                
+
+                    
+      
+
                 </div>
 
                 {/* Description Box */}
@@ -201,9 +221,13 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
                   Comments ({stats.comments})
                 </h2>
-                <button className="px-4 sm:px-6 py-2.5 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] transition-colors duration-200 shadow-sm hover:shadow-md">
-                  Leave a Comment
-                </button>
+              <button
+  className="px-4 sm:px-6 py-2.5 text-white rounded-lg font-medium transition-colors duration-200 shadow-sm hover:shadow-md"
+  style={{ backgroundColor: "var(--primary)" }}
+>
+  Button Text
+</button>
+
               </div>
 
               {/* Comment Input */}

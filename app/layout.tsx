@@ -89,7 +89,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           )}
 
           {/* ---------------- MAIN CONTENT ---------------- */}
-          <main className="pt-15">
+   <main className="pt-5 sm:pt-15">
+
             {children}
           </main>
 
