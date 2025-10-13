@@ -1,9 +1,11 @@
 import React from 'react';
-import { Heart, Eye, MessageCircle, Facebook, Linkedin, Twitter, Share2, ChevronRight, User, Calendar } from 'lucide-react';
+import { Heart, Eye, MessageCircle, Facebook, Linkedin, Twitter, Share2, ChevronRight, User, Calendar, Bookmark, ThumbsUp } from 'lucide-react';
 import PopularNews from './DetailViews/PopularNews';
 import Updates from './DetailViews/Updates';
 import RelatedPosts from './DetailViews/RelatedPosts';
 import PopularArticles from './DetailViews/PopularArticles';
+import SectionwiseImportantNews from './SectionwiseImportantNews';
+import { getAllNews } from '@/lib/getData';
 
 interface DetailViewProps {
   data: {
@@ -30,123 +32,179 @@ export default function DetailView({ data }: DetailViewProps) {
   const stats = data.stats || { likes: 0, views: 2340, comments: 0 };
   const category = data.category || 'தமிழகம்';
   const date = data.date || 'August 31, 2025 (1 month ago)';
+  const news = getAllNews().slice(0, 10)
 
   return (
     <div className="bg-gray-50 min-h-screen">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b border-gray-200">
+      {/* Fixed Sticky Breadcrumb */}
+      <div className="bg-white border-b border-gray-200 sticky top-15 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-3">
           <div className="flex items-center text-sm text-gray-600">
-            <span className="hover:text-blue-600 cursor-pointer">Home</span>
-            <ChevronRight className="w-4 h-4 mx-2" />
-            <span className="hover:text-blue-600 cursor-pointer">Blog</span>
-            <ChevronRight className="w-4 h-4 mx-2" />
-            <span className="text-gray-900 truncate">{data.title}</span>
+            <span className="hover:text-[#2ecc71] cursor-pointer transition-colors">Home</span>
+            <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
+            <span className="hover:text-[#2ecc71] cursor-pointer transition-colors">Blog</span>
+            <ChevronRight className="w-4 h-4 mx-2 text-gray-400" />
+            <span 
+              className="text-gray-900 truncate max-w-[200px] sm:max-w-[300px] md:max-w-[400px] font-medium"
+              title={data.title}
+            >
+              {data.title.length > 60 ? `${data.title.substring(0, 60)}...` : data.title}
+            </span>
           </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Left Column - 8/12 */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          {/* Left Column - Main Content */}
           <div className="lg:col-span-8">
-            <article className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <article className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
               {/* Article Image */}
-              <div className="w-full h-96 bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center">
+              <div className="w-full h-80 bg-gradient-to-br from-emerald-500 to-green-600 relative">
                 <img 
                   src={data.image || '/assets/banners/arivom-news-default-banner.jpg'} 
                   alt={data.title} 
                   className="w-full h-full object-cover" 
                 />
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
               </div>
               
               {/* Article Content */}
               <div className="p-8">
                 {/* Title */}
-                <h1 className="text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                <h3 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
                   {data.title}
-                </h1>
+                </h3>
 
-                {/* Category Badge */}
-                <div className="mb-4">
-                  <span className="inline-block px-4 py-1 bg-[#2ecc71] text-white text-sm font-medium rounded">
-                    {category}
-                  </span>
-                  {data.category === 'தமிழகம்' && (
-                    <span className="ml-2 inline-block px-4 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded">
-                      BUSINESS / ECONOMY
+                {/* Meta Information */}
+                <div className="flex flex-wrap items-center gap-4 mb-6 pb-6 border-b border-gray-200">
+                  {/* Category Badge */}
+                  <div className="flex items-center gap-2">
+                    <span className="px-3 py-1 bg-[#2ecc71] text-white text-sm font-medium rounded-full">
+                      {category}
                     </span>
-                  )}
+                    {data.category === 'தமிழகம்' && (
+                      <span className="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
+                        BUSINESS / ECONOMY
+                      </span>
+                    )}
+                  </div>
+
+                  {/* Author and Date */}
+                  <div className="flex items-center gap-4 text-sm text-gray-600">
+                    <div className="flex items-center gap-2">
+                      <User className="w-4 h-4 text-[#2ecc71]" />
+                      <span className="font-medium">{author.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-gray-400" />
+                      <span>{date}</span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Short Description */}
-                <p className="text-gray-700 text-base mb-4 leading-relaxed">
-                  தமிழ்நாட்டில் 25 சுங்கச்சாவடிகளில் இன்று நள்ளிரவு முதல் கட்டண உயர்வு அமலுக்கு வருகிறதுtamilnadu-25-tollgates-toll-fee-hike-midnight
-                </p>
-
-                {/* Author and Date */}
-                <div className="flex items-center gap-4 mb-6 pb-6 border-b border-gray-200">
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <User className="w-4 h-4 text-[#2ecc71]" />
-                    <span>{author.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Calendar className="w-4 h-4 text-gray-400" />
-                    <span>{date}</span>
-                  </div>
+                <div className="bg-emerald-50 border-l-4 border-[#2ecc71] p-4 rounded-r-lg mb-6">
+                  <p className="text-gray-700 text-base leading-relaxed font-medium">
+                    தமிழ்நாட்டில் 25 சுங்கச்சாவடிகளில் இன்று நள்ளிரவு முதல் கட்டண உயர்வு அமலுக்கு வருகிறது
+                  </p>
                 </div>
                 
                 {/* Main Content */}
                 <div className="prose prose-lg max-w-none">
-                  <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-wrap">
+                  <div className="text-gray-700 leading-relaxed text-lg whitespace-pre-wrap space-y-4">
                     {data.content}
-                  </p>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex items-center justify-between mt-8 pt-6 border-t border-gray-200">
+                  <div className="flex items-center gap-4">
+                    <button className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-[#2ecc71] rounded-lg hover:bg-emerald-100 transition-colors">
+                      <ThumbsUp className="w-5 h-5" />
+                      <span>Like ({stats.likes})</span>
+                    </button>
+                    <button className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
+                      <Bookmark className="w-5 h-5" />
+                      <span>Save</span>
+                    </button>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-500">Share:</span>
+                    <div className="flex gap-2">
+                      <button className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center hover:bg-blue-700 transition-colors">
+                        <Facebook className="w-4 h-4" />
+                      </button>
+                      <button className="w-8 h-8 rounded-full bg-sky-500 text-white flex items-center justify-center hover:bg-sky-600 transition-colors">
+                        <Twitter className="w-4 h-4" />
+                      </button>
+                      <button className="w-8 h-8 rounded-full bg-blue-700 text-white flex items-center justify-center hover:bg-blue-800 transition-colors">
+                        <Linkedin className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </article>
 
             {/* Comments Section */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8 mt-6">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">
-                Comments (0)
-              </h2>
-
-              {/* Leave a Comment */}
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">
+            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 mt-8">
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold text-gray-900">
+                  Comments ({stats.comments})
+                </h2>
+                <button className="px-4 py-2 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] transition-colors">
                   Leave a Comment
-                </h3>
-                
+                </button>
+              </div>
+
+              {/* Comment Input */}
+              <div className="bg-gray-50 rounded-lg p-6 mb-6">
                 <textarea
-                  placeholder="Write your comment..."
-                  rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-gray-700"
+                  placeholder="Share your thoughts..."
+                  rows={4}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ecc71] focus:border-transparent resize-none text-gray-700 bg-white"
                 />
-                
                 <div className="mt-4 flex justify-end">
-                  <button className="px-6 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                  <button className="px-6 py-2.5 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] transition-colors">
                     Post Comment
                   </button>
                 </div>
               </div>
+
+              {/* No Comments Message */}
+              <div className="text-center py-8">
+                <MessageCircle className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                <p className="text-gray-500 text-lg">No comments yet. Be the first to comment!</p>
+              </div>
             </div>
-            <RelatedPosts />
+
+            {/* Related Posts */}
+            {/* <RelatedPosts /> */}
+            <SectionwiseImportantNews
+                items={news}
+                linkBase="/news"
+                title="பிரிவு வாரியாக முக்கிய செய்திகள்"
+                subtitle="ஒவ்வொரு பிரிவிலும் இருந்து கேர்நெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
+                categoryLabel="தமிழகம்"
+                viewAllLink="/news"
+              />
           </div>
 
-          {/* Right Column - 4/12 */}
+          {/* Right Column - Sidebar */}
           <div className="lg:col-span-4">
-            <div className="sticky top-8 space-y-6">
+            <div className="sticky top-24 space-y-6">
               {/* Author Card */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
                 <div className="flex flex-col items-center text-center">
                   {/* Avatar */}
-                  <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-4">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#2ecc71] to-emerald-600 flex items-center justify-center mb-4 text-white text-2xl font-bold">
                     {author.avatar ? (
                       <img src={author.avatar} alt={author.name} className="w-full h-full rounded-full object-cover" />
                     ) : (
-                      <svg className="w-12 h-12 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                      </svg>
+                      author.name.charAt(0).toUpperCase()
                     )}
                   </div>
                   
@@ -154,74 +212,95 @@ export default function DetailView({ data }: DetailViewProps) {
                   <h3 className="text-xl font-bold text-gray-900 mb-1">{author.name}</h3>
                   <p className="text-sm text-gray-600 mb-4">{author.role}</p>
                   
+                  {/* Stats */}
+                  <div className="grid grid-cols-3 gap-4 w-full mb-4">
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-gray-900">24</div>
+                      <div className="text-xs text-gray-500">Posts</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-gray-900">1.2K</div>
+                      <div className="text-xs text-gray-500">Followers</div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-lg font-bold text-gray-900">356</div>
+                      <div className="text-xs text-gray-500">Following</div>
+                    </div>
+                  </div>
+                  
                   {/* View Profile Button */}
-                  <button className="px-6 py-2 border-2 border-blue-600 text-blue-600 rounded-md font-medium hover:bg-blue-50 transition-colors">
-                    View Profile
+                  <button className="w-full px-4 py-2 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] transition-colors">
+                    Follow Author
                   </button>
                 </div>
               </div>
 
-              {/* Stats Card */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  {/* Likes */}
-                  <div className="flex flex-col items-center">
-                    <Heart className="w-6 h-6 text-[#2ecc71] mb-2" />
-                    <span className="text-2xl font-bold text-gray-900">{stats.likes}</span>
+              {/* Article Stats */}
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">Article Status</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center p-4 bg-emerald-50 rounded-lg">
+                    <Eye className="w-8 h-8 text-[#2ecc71] mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-gray-900">{stats.views.toLocaleString()}</div>
+                    <div className="text-sm text-gray-600">Views</div>
                   </div>
-                  
-                  {/* Views */}
-                  <div className="flex flex-col items-center">
-                    <Eye className="w-6 h-6 text-gray-600 mb-2" />
-                    <span className="text-2xl font-bold text-gray-900">{stats.views.toLocaleString()}</span>
+                  <div className="text-center p-4 bg-blue-50 rounded-lg">
+                    <Heart className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-gray-900">{stats.likes}</div>
+                    <div className="text-sm text-gray-600">Likes</div>
                   </div>
-                  
-                  {/* Comments */}
-                  <div className="flex flex-col items-center">
-                    <MessageCircle className="w-6 h-6 text-green-600 mb-2" />
-                    <span className="text-2xl font-bold text-gray-900">{stats.comments}</span>
+                  <div className="text-center p-4 bg-green-50 rounded-lg">
+                    <MessageCircle className="w-8 h-8 text-green-600 mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-gray-900">{stats.comments}</div>
+                    <div className="text-sm text-gray-600">Comments</div>
+                  </div>
+                  <div className="text-center p-4 bg-purple-50 rounded-lg">
+                    <Share2 className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+                    <div className="text-2xl font-bold text-gray-900">48</div>
+                    <div className="text-sm text-gray-600">Shares</div>
                   </div>
                 </div>
               </div>
 
-              {/* Share Card */}
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">Share this post:</h3>
-                
-                <div className="flex justify-center gap-3">
-                  {/* Facebook */}
-                  <button className="w-12 h-12 rounded-full border-2 border-blue-600 text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-colors">
-                    <Facebook className="w-5 h-5" />
+              {/* Quick Actions */}
+              <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+                <div className="space-y-3">
+                  <button className="w-full flex items-center gap-3 px-4 py-3 bg-emerald-50 text-[#2ecc71] rounded-lg hover:bg-emerald-100 transition-colors">
+                    <Bookmark className="w-5 h-5" />
+                    <span>Save for Later</span>
                   </button>
-                  
-                  {/* LinkedIn */}
-                  <button className="w-12 h-12 rounded-full border-2 border-blue-700 text-blue-700 flex items-center justify-center hover:bg-blue-700 hover:text-white transition-colors">
-                    <Linkedin className="w-5 h-5" />
-                  </button>
-                  
-                  {/* Twitter */}
-                  <button className="w-12 h-12 rounded-full border-2 border-sky-500 text-sky-500 flex items-center justify-center hover:bg-sky-500 hover:text-white transition-colors">
-                    <Twitter className="w-5 h-5" />
-                  </button>
-                  
-                  {/* WhatsApp */}
-                  <button className="w-12 h-12 rounded-full border-2 border-green-600 text-green-600 flex items-center justify-center hover:bg-green-600 hover:text-white transition-colors">
+                  <button className="w-full flex items-center gap-3 px-4 py-3 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors">
                     <Share2 className="w-5 h-5" />
+                    <span>Share Article</span>
+                  </button>
+                  <button className="w-full flex items-center gap-3 px-4 py-3 bg-gray-50 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors">
+                    <MessageCircle className="w-5 h-5" />
+                    <span>Report Issue</span>
                   </button>
                 </div>
               </div>
 
-              {/* Additional Image Below Cards */}
-              {/* <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-                <img 
-                  src="https://picsum.photos/seed/1/400/200" 
-                  alt="Advertisement" 
-                  className="w-full h-auto object-cover"
-                />
-              </div> */}
-              <PopularNews />
+              {/* Newsletter Signup */}
+              <div className="bg-gradient-to-br from-[#2ecc71] to-emerald-600 rounded-xl shadow-sm p-6 text-white">
+                <h3 className="text-xl font-bold mb-2">Stay Updated</h3>
+                <p className="text-emerald-100 mb-4">Get the latest articles delivered to your inbox</p>
+                <div className="space-y-3">
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email"
+                    className="w-full px-4 py-3 rounded-lg bg-white/20 border border-white/30 placeholder-emerald-200 text-white focus:outline-none focus:bg-white/30"
+                  />
+                  <button className="w-full px-4 py-3 bg-white text-[#2ecc71] rounded-lg font-bold hover:bg-gray-100 transition-colors">
+                    Subscribe
+                  </button>
+                </div>
+              </div>
+
+              {/* Popular News */}
+              {/* <PopularNews />
               <PopularArticles />
-              <Updates />
+              <Updates /> */}
             </div>
           </div>
         </div>

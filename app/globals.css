@@ -9,6 +9,15 @@
   --secondary: #6f42c2;  /* purple */
   --tertiary: #28a745;   /* green */
 }
+/* Assign the primary color to text */
+.text-primary {
+  color: var(--primary);
+}
+
+/* Assign the primary color to a background */
+.bg-primary {
+ background: var(--primary);
+}
 
 
 @theme inline {
