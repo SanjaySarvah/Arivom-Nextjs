@@ -1,11 +1,20 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
-import { 
-  getArticleCategories, 
-  getArticleSubcategories, 
-  getArticleSubsubcategories 
+import {
+  getArticleCategories,
+  getArticleSubcategories,
+  getArticleSubsubcategories
 } from "@/lib/getData";
+import {
+  BookOpen,
+  ChevronDown,
+  ChevronRight,
+  FileText,
+  Folder,
+  FolderOpen,
+  X
+} from "lucide-react";
 
 export default function ArticleCategoryDropdown() {
   const categories = getArticleCategories();
@@ -74,19 +83,13 @@ export default function ArticleCategoryDropdown() {
       {/* Trigger Button */}
       <button
         onClick={toggleDropdown}
-        className="w-full sm:w-auto px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 font-medium transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-between text-sm"
+        className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg hover:from-green-700 hover:to-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 font-semibold transition-all duration-200 shadow-sm hover:shadow-md flex items-center gap-2 text-sm"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <span>Categories</span>
-        <svg
-          className={`w-3 h-3 ml-1 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-        </svg>
+        <BookOpen className="w-4 h-4" />
+        <span>Articles</span>
+        <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
       </button>
 
       {/* Dropdown Menu */}
@@ -95,15 +98,16 @@ export default function ArticleCategoryDropdown() {
           {/* Header */}
           <div className="p-4 pb-3 bg-gradient-to-r from-green-50 to-white border-b border-green-100">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900 text-base">Categories</h3>
+              <div className="flex items-center gap-2">
+                <Folder className="w-4 h-4 text-green-600" />
+                <h3 className="font-semibold text-gray-900 text-base">Article Categories</h3>
+              </div>
               <button
                 onClick={closeAll}
                 className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-md transition-colors"
                 aria-label="Close menu"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X className="w-4 h-4" />
               </button>
             </div>
             <p className="text-xs text-gray-500 mt-1">Browse articles by category</p>
@@ -123,32 +127,31 @@ export default function ArticleCategoryDropdown() {
                       {hasSubcategories ? (
                         <button
                           onClick={() => toggleCategory(cat.category)}
-                          className="flex-1 text-left font-medium text-gray-800 hover:text-green-700 transition-colors flex items-center text-sm"
+                          className="flex-1 text-left font-medium text-gray-800 hover:text-green-700 transition-colors flex items-center gap-2 text-sm"
                           aria-expanded={activeCategory === cat.category}
                           aria-controls={`subcategory-list-${cat.category}`}
                         >
+                          {activeCategory === cat.category ? (
+                            <FolderOpen className="w-4 h-4 text-green-600 flex-shrink-0" />
+                          ) : (
+                            <Folder className="w-4 h-4 text-gray-400 flex-shrink-0" />
+                          )}
                           <span className="flex-1">{cat.category}</span>
-                          <svg
-                            className={`w-3 h-3 text-gray-400 transition-transform duration-200 ${
+                          <ChevronDown
+                            className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 flex-shrink-0 ${
                               activeCategory === cat.category ? "rotate-180 text-green-600" : ""
                             }`}
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                          </svg>
+                          />
                         </button>
                       ) : (
                         <Link
                           href={`/articles/category/${cat.category}`}
-                          className="flex-1 font-medium text-gray-800 hover:text-green-700 transition-colors flex items-center text-sm"
+                          className="flex-1 font-medium text-gray-800 hover:text-green-700 transition-colors flex items-center gap-2 text-sm"
                           onClick={closeAll}
                         >
+                          <FileText className="w-4 h-4 text-gray-400 flex-shrink-0" />
                           <span className="flex-1">{cat.category}</span>
-                          <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                          </svg>
+                          <ChevronRight className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
                         </Link>
                       )}
                     </div>
@@ -171,32 +174,27 @@ export default function ArticleCategoryDropdown() {
                                 {hasSubsubcategories ? (
                                   <button
                                     onClick={() => toggleSubcategory(subcat.subcategory)}
-                                    className="flex-1 text-left text-gray-700 hover:text-green-600 transition-colors text-xs font-medium flex items-center"
+                                    className="flex-1 text-left text-gray-700 hover:text-green-600 transition-colors text-xs font-medium flex items-center gap-2"
                                     aria-expanded={activeSubcategory === subcat.subcategory}
                                     aria-controls={`subsubcategory-list-${subcat.subcategory}`}
                                   >
+                                    <Folder className="w-3 h-3 text-gray-400 flex-shrink-0" />
                                     <span className="flex-1">{subcat.subcategory}</span>
-                                    <svg
-                                      className={`w-2.5 h-2.5 text-gray-400 transition-transform duration-200 ${
+                                    <ChevronDown
+                                      className={`w-3 h-3 text-gray-400 transition-transform duration-200 flex-shrink-0 ${
                                         activeSubcategory === subcat.subcategory ? "rotate-180 text-green-500" : ""
                                       }`}
-                                      fill="none"
-                                      stroke="currentColor"
-                                      viewBox="0 0 24 24"
-                                    >
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                                    </svg>
+                                    />
                                   </button>
                                 ) : (
                                   <Link
                                     href={`/articles/category/${cat.category}/${subcat.subcategory}`}
-                                    className="flex-1 text-gray-700 hover:text-green-600 transition-colors text-xs font-medium flex items-center"
+                                    className="flex-1 text-gray-700 hover:text-green-600 transition-colors text-xs font-medium flex items-center gap-2"
                                     onClick={closeAll}
                                   >
+                                    <FileText className="w-3 h-3 text-gray-400 flex-shrink-0" />
                                     <span className="flex-1">{subcat.subcategory}</span>
-                                    <svg className="w-2.5 h-2.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                    </svg>
+                                    <ChevronRight className="w-3 h-3 text-gray-400 flex-shrink-0" />
                                   </Link>
                                 )}
                               </div>
@@ -213,9 +211,10 @@ export default function ArticleCategoryDropdown() {
                                     <li key={subsubcat.subsubcategory}>
                                       <Link
                                         href={`/articles/category/${cat.category}/${subcat.subcategory}/${subsubcat.subsubcategory}`}
-                                        className="block py-1.5 px-2 text-gray-600 hover:text-green-600 hover:bg-green-25 rounded-md transition-all duration-200 text-xs border border-transparent hover:border-green-100"
+                                        className="flex items-center gap-2 py-1.5 px-2 text-gray-600 hover:text-green-600 hover:bg-green-25 rounded-md transition-all duration-200 text-xs border border-transparent hover:border-green-100"
                                         onClick={closeAll}
                                       >
+                                        <FileText className="w-2.5 h-2.5 text-gray-400 flex-shrink-0" />
                                         {subsubcat.subsubcategory}
                                       </Link>
                                     </li>

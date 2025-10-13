@@ -17,6 +17,7 @@ import { LuBookOpen } from "react-icons/lu";
 import {TbBook2} from "react-icons/tb";
 import logo from "@/public/assets/arivom-logo-latest.png";
 import ArticleDropdownButton from "@/components/ArticleDropdownButton"; // ✅ added
+import { Banknote, Share2 } from "lucide-react";
 
 const HeaderSecondary: React.FC = () => {
   const pathname = usePathname();
@@ -44,6 +45,18 @@ const HeaderSecondary: React.FC = () => {
       href: "/articles",
       icon: TbBook2,
       active: pathname.startsWith("/articles"),
+    },
+    {
+      name: "Earn Money",
+      href: "/earnmoney",
+      icon: Banknote,
+      active: pathname.startsWith("/earnmoney"),
+    },
+    {
+      name: "Social Media",
+      href: "/socialmedia",
+      icon: Share2,
+      active: pathname.startsWith("/socialmedia"),
     }
   ];
 
@@ -60,25 +73,25 @@ const HeaderSecondary: React.FC = () => {
       {/* Header Wrapper */}
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-[1320px] mx-auto px-[15px]">
-          <div className="relative flex items-center justify-between h-16">
-            {/* Left Section */}
+          <div className="flex items-center justify-between h-16 gap-4">
+            {/* Left Section - Mobile Menu & Articles Button */}
             <div className="flex items-center gap-3">
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="xl:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                className="xl:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors flex items-center"
               >
                 {isMobileMenuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
               </button>
 
-              {/* ✅ Replaced old Articles button with custom component */}
-              <div className="hidden lg:block">
+              {/* Articles Button - Desktop Left Side */}
+              <div className="hidden xl:block">
                 <ArticleDropdownButton />
               </div>
             </div>
 
             {/* Logo - Centered on mobile */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 xl:hidden">
+            <div className="xl:hidden absolute left-1/2 transform -translate-x-1/2">
               <Link href="/" className="group flex items-center">
                 <Image
                   src={logo}
@@ -91,13 +104,14 @@ const HeaderSecondary: React.FC = () => {
               </Link>
             </div>
 
-            {/* Center Navigation (Desktop) */}
-            <nav className="hidden xl:flex items-center justify-center gap-1 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            {/* Center Navigation - Desktop */}
+            <nav className="hidden xl:flex items-center gap-1 flex-1 justify-center">
+              {/* Main Navigation Items */}
               {mainNavigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
                     item.active
                       ? "text-[#1a8f52] bg-emerald-50 border-b-3 border-[#2ecc71] shadow-sm"
                       : "text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50"
@@ -109,50 +123,47 @@ const HeaderSecondary: React.FC = () => {
               ))}
             </nav>
 
-            {/* Right Section */}
-            <div className="flex items-center gap-3">
-              {/* Search (Desktop) */}
-              <div className="hidden xl:block relative">
-                <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2ecc71] focus-within:shadow-md min-w-[280px]">
-                  <FaSearch className="w-3.5 h-3.5 text-gray-500 mr-2" />
-                  <input
-                    type="text"
-                    placeholder="Search news, articles..."
-                    className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
-                  />
-                </div>
+            {/* Right Section - Search */}
+            <div className="hidden xl:flex items-center">
+              <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2ecc71] focus-within:shadow-md min-w-[280px]">
+                <FaSearch className="w-3.5 h-3.5 text-gray-500 mr-2" />
+                <input
+                  type="text"
+                  placeholder="Search news, articles..."
+                  className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
+                />
               </div>
+            </div>
 
-              {/* Profile Icon (Mobile) */}
-              <div className="xl:hidden relative">
-                <button
-                  onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-                  className="p-2 rounded-full hover:bg-emerald-50 transition-colors"
-                >
-                  <FaUserCircle className="w-6 h-6 text-gray-700" />
-                </button>
+            {/* Profile Icon (Mobile) */}
+            <div className="xl:hidden relative flex items-center">
+              <button
+                onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
+                className="p-2 rounded-full hover:bg-emerald-50 transition-colors flex items-center justify-center"
+              >
+                <FaUserCircle className="w-6 h-6 text-gray-700" />
+              </button>
 
-                {isProfileDropdownOpen && (
-                  <div className="absolute right-0 top-full mt-2 bg-white border-2 border-emerald-100 rounded-lg shadow-xl z-[100] min-w-[160px]">
-                    <div className="p-1.5">
-                      <Link
-                        href="/login"
-                        className="block px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#2ecc71] rounded-md"
-                        onClick={() => setIsProfileDropdownOpen(false)}
-                      >
-                        Login
-                      </Link>
-                      <Link
-                        href="/register"
-                        className="block px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#2ecc71] rounded-md"
-                        onClick={() => setIsProfileDropdownOpen(false)}
-                      >
-                        Register
-                      </Link>
-                    </div>
+              {isProfileDropdownOpen && (
+                <div className="absolute right-0 top-full mt-2 bg-white border-2 border-emerald-100 rounded-lg shadow-xl z-[100] min-w-[160px]">
+                  <div className="p-1.5">
+                    <Link
+                      href="/login"
+                      className="block px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#2ecc71] rounded-md"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      Login
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="block px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#2ecc71] rounded-md"
+                      onClick={() => setIsProfileDropdownOpen(false)}
+                    >
+                      Register
+                    </Link>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
