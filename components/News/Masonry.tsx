@@ -65,11 +65,11 @@ export default function NewsPortalLayout() {
                       {featured.category}
                     </span>
 
-     <h3
-  className="mt-3 mb-2 leading-tight transition-colors duration-300 text-white! hover:text-[var(--secondary)]"
->
-  {featured.title}
-</h3>
+                    <h3
+                      className="mt-3 mb-2 leading-tight transition-colors duration-300 text-white! hover:text-[var(--secondary)]"
+                    >
+                      {featured.title}
+                    </h3>
 
 
 
@@ -85,7 +85,7 @@ export default function NewsPortalLayout() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {gridItems.map((item) => (
                 <div key={item.id} className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition group">
-              
+
 
                   {/* Image */}
                   <Link href={`/news/${item.id}`}>
@@ -188,24 +188,24 @@ export default function NewsPortalLayout() {
 
 
 
-    <div className="mb-8 text-left">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div 
-                className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"
-              ></div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-green-600 uppercase tracking-wider">
-                  News
-                </span>
-                <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-                 Trending Now
-                </h2>
+              <div className="mb-8 text-left">
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3">
+                    <div
+                      className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"
+                    ></div>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-semibold text-green-600 uppercase tracking-wider">
+                        News
+                      </span>
+                      <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                        Trending Now
+                      </h2>
+                    </div>
+                  </div>
+                  <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
+                </div>
               </div>
-            </div>
-            <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
-          </div>
-        </div>
 
 
 
@@ -249,13 +249,13 @@ export default function NewsPortalLayout() {
                             <span className="font-medium">{item.author}</span>
                           </span>
 
-                      
+
 
                           {/* Category */}
                           {item.category && (
-                             <span className="inline-block self-start text-white text-xs font-semibold rounded px-2 py-0.5" style={{ backgroundColor: "var(--tertiary)" }}>
-  {item.category}
-</span>
+                            <span className="inline-block self-start text-white text-xs font-semibold rounded px-2 py-0.5" style={{ backgroundColor: "var(--tertiary)" }}>
+                              {item.category}
+                            </span>
                           )}
                         </div>
                       </div>

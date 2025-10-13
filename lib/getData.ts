@@ -228,3 +228,77 @@ export const transformToGeneralPost = (
     badge: item.days_ago <= 1 ? "TRENDING" : item.days_ago <= 3 ? "HOT" : "NEWS",
   }));
 };
+
+// --------------------
+// ✅ CATEGORY HELPERS FOR ARTICLES
+// --------------------
+
+// ✅ Get unique main categories
+export const getArticleCategories = (): {
+  category: string;
+  tname?: string;
+}[] => {
+  const seen = new Set<string>();
+  const categories = (articles as ArticleItem[])
+    .filter((a) => {
+      if (!a.category || seen.has(a.category.toLowerCase())) return false;
+      seen.add(a.category.toLowerCase());
+      return true;
+    })
+    .map((a) => ({
+      category: a.category,
+      tname: a.tname || a.category,
+    }));
+  return categories;
+};
+
+// ✅ Get unique subcategories for a given category
+export const getArticleSubcategories = (
+  category: string
+): {
+  subcategory: string;
+  tname?: string;
+}[] => {
+  const seen = new Set<string>();
+  const subcategories = (articles as ArticleItem[])
+    .filter(
+      (a) =>
+        a.category.toLowerCase() === category.toLowerCase() && a.subcategory
+    )
+    .filter((a) => {
+      if (seen.has(a.subcategory!.toLowerCase())) return false;
+      seen.add(a.subcategory!.toLowerCase());
+      return true;
+    })
+    .map((a) => ({
+      subcategory: a.subcategory!,
+      tname: a.tname || a.subcategory!,
+    }));
+  return subcategories;
+};
+
+// ✅ Get unique sub-subcategories for a given subcategory
+export const getArticleSubsubcategories = (
+  subcategory: string
+): {
+  subsubcategory: string;
+  tname?: string;
+}[] => {
+  const seen = new Set<string>();
+  const subsubcategories = (articles as ArticleItem[])
+    .filter(
+      (a) =>
+        a.subcategory?.toLowerCase() === subcategory.toLowerCase() &&
+        a.subsubcategory
+    )
+    .filter((a) => {
+      if (seen.has(a.subsubcategory!.toLowerCase())) return false;
+      seen.add(a.subsubcategory!.toLowerCase());
+      return true;
+    })
+    .map((a) => ({
+      subsubcategory: a.subsubcategory!,
+      tname: a.tname || a.subsubcategory!,
+    }));
+  return subsubcategories;
+};

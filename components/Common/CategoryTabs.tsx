@@ -59,7 +59,7 @@ export default function CategoryTabs({ items, baseLink, label }: CategoryTabsPro
           : "bg-gray-50"
         }`}
     >
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="max-w-7xl mx-auto ">
         <div className="flex items-center gap-3 h-12">
           {/* Label */}
           <span className="text-green-500 font-bold text-sm whitespace-nowrap

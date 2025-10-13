@@ -17,29 +17,32 @@ const CompactAdList: FC = () => {
   const compactAds: AdItem[] = [
     {
       id: "1",
-      title: "Summer Sale - Up to 50% Off Electronics",
-      image: "https://picsum.photos/seed/201/400/200",
-      sponsor: "TechStore",
+      title: "Up to 50% Off on Premium Laptops",
+      image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=800&q=80",
+      sponsor: "TechWorld",
       ctaLink: "#",
-      category: "Hot Deal",
+      category: "Electronics",
     },
     {
       id: "2",
-      title: "Learn Web Development - Free Workshop",
-      image: "https://picsum.photos/seed/201/400/200",
-      sponsor: "CodeCamp",
+      title: "Trendy Summer Collection - New Arrivals",
+      image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80",
+      sponsor: "UrbanWear",
       ctaLink: "#",
-      category: "Education",
+      category: "Fashion",
     },
     {
       id: "3",
-      title: "Travel Deals: Book Now & Save 30%",
-      image: "https://picsum.photos/seed/201/400/200",
-      sponsor: "TravelGo",
+      title: "Smartphones Mega Sale - Save up to 40%",
+      image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80",
+      sponsor: "MobileHub",
       ctaLink: "#",
-      category: "Travel",
+      category: "Mobile",
     },
+   
   ];
+
+
 
   return (
     <aside className="w-full">
@@ -66,11 +69,11 @@ const CompactAdList: FC = () => {
                 className="object-cover rounded-md border border-gray-100 group-hover:scale-105 transition-transform"
               />
 
-              {ad.category && (
+              {/* {ad.category && (
                 <span className="absolute top-1 right-1 bg-blue-600 text-white text-[10px] font-semibold px-2 py-[1px] rounded-full shadow-sm">
                   {ad.category}
                 </span>
-              )}
+              )} */}
             </div>
 
             {/* Content */}

@@ -3,17 +3,34 @@
 import { FC, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Pagination,
-  Autoplay,
-  EffectCoverflow,
-} from "swiper/modules";
+import { Navigation, Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
-import { FiChevronLeft, FiChevronRight, FiClock, FiUser, FiHeart, FiBookmark, FiShare2 } from "react-icons/fi";
+import {
+  FaHome,
+  FaRegNewspaper,
+  FaSearch,
+  FaBars,
+  FaTimes, FaBookOpen, FaPenNib,
+  FaChevronDown,
+  FaUserCircle,
+} from "react-icons/fa";
+import AddBookmarkButton from "@/components/Common/Badges/BookmarkButton";
+import TagBadge from "@/components/Common/Badges/TagBadge";
+import DateBadge from "@/components/Common/Badges/DateBadge";
+import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
+
+import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
+import {
+  FiChevronLeft,
+  FiChevronRight,
+  FiClock,
+  FiUser,
+  FiHeart,
+  FiBookmark,
+  FiShare2,
+} from "react-icons/fi";
 import { NewsItem, ArticleItem } from "@/lib/getData";
 
 interface Props {
@@ -37,9 +54,12 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // ✅ Fix navigation not working: attach refs AFTER init
   useEffect(() => {
-    if (swiperInstance && navigationPrevRef.current && navigationNextRef.current) {
+    if (
+      swiperInstance &&
+      navigationPrevRef.current &&
+      navigationNextRef.current
+    ) {
       swiperInstance.params.navigation.prevEl = navigationPrevRef.current;
       swiperInstance.params.navigation.nextEl = navigationNextRef.current;
       swiperInstance.navigation.init();
@@ -47,10 +67,9 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
     }
   }, [swiperInstance]);
 
-  const formatDate = (dateString: string) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
+  const customFormatDate = (date: string | Date) => {
+    const d = typeof date === "string" ? new Date(date) : date;
+    return d.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -59,23 +78,12 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
 
   return (
     <section>
-      <div className="mx-auto relative">
-{/*       
-    <div className="mb-6 text-left md:text-center">
-  <div className="flex md:inline-flex items-center gap-3">
-
-    <div className="w-2 h-8 bg-[#2ECC71] rounded-full md:mx-auto md:inline-block"></div>
- 
-    <h1 className="text-4xl font-bold">{title}</h1>
-  </div>
-</div> */}
-
-    <div className="mb-8 text-left">
+      <div className="mx-auto relative mt-15">
+        {/* 🔹 Section Header */}
+        <div className="mb-8 text-left">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
-              <div 
-                className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"
-              ></div>
+              <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
               <div className="flex flex-col">
                 <span className="text-sm font-semibold text-green-600 uppercase tracking-wider">
                   News
@@ -89,11 +97,10 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
           </div>
         </div>
 
-
-        {/* Slider */}
+        {/* 🔹 Slider */}
         <div className="relative w-full">
           <Swiper
-            modules={[Navigation, Pagination, Autoplay, EffectCoverflow]}
+            modules={[Navigation, Autoplay, EffectCoverflow]}
             slidesPerView={1}
             spaceBetween={16}
             centeredSlides={isMobile}
@@ -108,14 +115,8 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
               1024: { slidesPerView: 2.5, spaceBetween: 24 },
               1280: { slidesPerView: 3, spaceBetween: 24 },
             }}
-            pagination={{
-              clickable: true,
-              el: ".swiper-pagination-custom",
-              renderBullet: (index, className) =>
-                `<span class="${className} !w-2 !h-2 !rounded-full !mx-1" style="background-color: var(--secondary-color);"></span>`,
-            }}
-            onSwiper={setSwiperInstance} // ✅ Capture swiper instance
-            className="trending-slider !overflow-hidden pb-10"
+            onSwiper={setSwiperInstance}
+            className="trending-slider !overflow-hidden"
           >
             {items.map((item) => (
               <SwiperSlide key={item.id} className="!h-auto">
@@ -124,7 +125,7 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                   className="block h-full group relative"
                 >
                   <div className="bg-white rounded-2xl overflow-hidden transition-all duration-500 h-full flex flex-col group-hover:scale-[1.02] transform border border-gray-200 shadow-sm">
-                    {/* Image */}
+                    {/* 🖼️ Image */}
                     <div className="relative h-48 md:h-56 w-full overflow-hidden">
                       <img
                         src={item.image}
@@ -133,18 +134,18 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                       />
                     </div>
 
-                    {/* Content */}
+                    {/* 📝 Content */}
                     <div className="p-5 md:p-6 flex-1 flex flex-col">
-                    
-      <span className="inline-block self-start text-white text-xs font-semibold rounded px-2 py-0.5" style={{ backgroundColor: "var(--tertiary)" }}>
-  {item.category}
-</span>
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
+                        <CategoryBadge
+                          category={item.category}
+                          icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+
+                        />
+                      </div>
 
 
-                      <h3
-                        className="mb-3 line-clamp-2 leading-tight  transition-colors duration-300"
-                      
-                      >
+                      <h3 className="mb-3 line-clamp-2 leading-tight transition-colors duration-300">
                         {item.title}
                       </h3>
 
@@ -152,49 +153,41 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                         {item.content}
                       </div>
 
-                      {/* Author and Date Row */}
-                      <div className="flex items-center justify-between mb-4 text-sm">
-                        <span className="flex items-center gap-2">
-                          <FiUser className="w-4 h-4" style={{ color: "var(--tertiary)" }} />
-                          <span style={{ color: "var(--tertiary)" }}>{item.author}</span>
-                        </span>
-                        <span className="flex items-center gap-2">
-                          <FiClock className="w-4 h-4" style={{ color: "var(--tertiary)" }} />
-                          <span style={{ color: "var(--tertiary)" }}>{formatDate(item.created_at)}</span>
-                        </span>
-                      </div>
+                       <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600 justify-between">
+                            <span className="flex items-center gap-1.5">
+                              <AuthorBadge author={item.author} /></span>
+                            <span className="flex items-center gap-1.5 MobileViewContent">
+                              <DateBadge date={item.created_at} formatDate={customFormatDate} /></span>
+                          </div>
 
-                      {/* Action Buttons Row */}
-                      <div className="flex items-center gap-2">
+                   
+                      <div className="flex items-center gap-2 mt-5">
                         <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            // Like functionality
-                          }}
+                          onClick={(e) => e.preventDefault()}
                           className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300"
-                          aria-label="Like"
                         >
-                          <FiHeart className="w-5 h-5" style={{ color: "var(--tertiary)" }} />
+                          <FiHeart
+                            className="w-5 h-5"
+                            style={{ color: "var(--tertiary)" }}
+                          />
                         </button>
                         <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            // Save functionality
-                          }}
+                          onClick={(e) => e.preventDefault()}
                           className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300"
-                          aria-label="Save"
                         >
-                          <FiBookmark className="w-5 h-5" style={{ color: "var(--tertiary)" }} />
+                          <FiBookmark
+                            className="w-5 h-5"
+                            style={{ color: "var(--tertiary)" }}
+                          />
                         </button>
                         <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            // Share functionality
-                          }}
+                          onClick={(e) => e.preventDefault()}
                           className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300"
-                          aria-label="Share"
                         >
-                          <FiShare2 className="w-5 h-5" style={{ color: "var(--tertiary)" }} />
+                          <FiShare2
+                            className="w-5 h-5"
+                            style={{ color: "var(--tertiary)" }}
+                          />
                         </button>
                         <div className="flex-1"></div>
                         <div
@@ -203,9 +196,7 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                             backgroundColor: "var(--tertiary)",
                           }}
                         >
-                          <FiChevronRight
-                            className="w-5 h-5 text-white"
-                          />
+                          <FiChevronRight className="w-5 h-5 text-white" />
                         </div>
                       </div>
                     </div>
@@ -215,33 +206,25 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
             ))}
           </Swiper>
 
-          {/* Navigation Buttons */}
+          {/* 🔹 Navigation Buttons */}
           {!isMobile && (
             <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center pointer-events-none z-20">
               <button
                 ref={navigationPrevRef}
                 className="pointer-events-auto bg-white/90 border border-gray-200 rounded-full w-12 h-12 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-green-600 hover:text-white transition-all duration-300 -ml-6"
               >
-                <FiChevronLeft
-                  className="w-6 h-6 transition-colors"
-  
-                />
+                <FiChevronLeft className="w-6 h-6 transition-colors" />
               </button>
 
               <button
                 ref={navigationNextRef}
                 className="pointer-events-auto bg-white/90 border border-gray-200 rounded-full w-12 h-12 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-green-600 hover:text-white transition-all duration-300 -mr-6"
               >
-                <FiChevronRight
-                  className="w-6 h-6 transition-colors"
-            
-                />
+                <FiChevronRight className="w-6 h-6 transition-colors" />
               </button>
             </div>
           )}
         </div>
-
-        <div className="swiper-pagination-custom flex justify-center gap-1 mt-8 md:mt-12"></div>
       </div>
     </section>
   );
