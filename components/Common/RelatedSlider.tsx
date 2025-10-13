@@ -7,31 +7,19 @@ import { Navigation, Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
-import {
-  FaHome,
-  FaRegNewspaper,
-  FaSearch,
-  FaBars,
-  FaTimes, FaBookOpen, FaPenNib,
-  FaChevronDown,
-  FaUserCircle,
-} from "react-icons/fa";
-import AddBookmarkButton from "@/components/Common/Badges/BookmarkButton";
-import TagBadge from "@/components/Common/Badges/TagBadge";
-import DateBadge from "@/components/Common/Badges/DateBadge";
-import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
 
+import { FiChevronLeft, FiChevronRight, FiHeart, FiBookmark, FiShare2 } from "react-icons/fi";
+import { FaRegNewspaper } from "react-icons/fa";
+
+import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
 import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
-import {
-  FiChevronLeft,
-  FiChevronRight,
-  FiClock,
-  FiUser,
-  FiHeart,
-  FiBookmark,
-  FiShare2,
-} from "react-icons/fi";
+import DateBadge from "@/components/Common/Badges/DateBadge";
+import LikeButton from "@/components/Common/Badges/LikeButton";
+import ShareButton from "@/components/Common/Badges/ShareButton";
+import ReadMoreButton from "@/components/Common/Badges/ReadMoreButton";
+
 import { NewsItem, ArticleItem } from "@/lib/getData";
+import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
 
 interface Props {
   title: string;
@@ -42,11 +30,14 @@ interface Props {
 const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
+  const [likedItems, setLikedItems] = useState<Set<string>>(new Set());
+
   const navigationPrevRef = useRef<HTMLButtonElement>(null);
   const navigationNextRef = useRef<HTMLButtonElement>(null);
 
   if (!items || items.length === 0) return null;
 
+  // Mobile detection
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
@@ -54,12 +45,9 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
+  // Swiper navigation
   useEffect(() => {
-    if (
-      swiperInstance &&
-      navigationPrevRef.current &&
-      navigationNextRef.current
-    ) {
+    if (swiperInstance && navigationPrevRef.current && navigationNextRef.current) {
       swiperInstance.params.navigation.prevEl = navigationPrevRef.current;
       swiperInstance.params.navigation.nextEl = navigationNextRef.current;
       swiperInstance.navigation.init();
@@ -67,6 +55,41 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
     }
   }, [swiperInstance]);
 
+  // Like toggle
+  const toggleLike = (itemId: string | number, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setLikedItems((prev) => {
+      const newSet = new Set(prev);
+      newSet.has(String(itemId)) ? newSet.delete(String(itemId)) : newSet.add(String(itemId));
+      return newSet;
+    });
+  };
+
+  // Share functionality
+  const handleShare = async (item: NewsItem | ArticleItem, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const itemId = String(item.id);
+    const url = `${window.location.origin}${linkBase}/${itemId}`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: item.title,
+          text: item.content,
+          url,
+        });
+      } catch {
+        console.log("Share cancelled");
+      }
+    } else {
+      navigator.clipboard.writeText(url);
+      alert("Link copied to clipboard!");
+    }
+  };
+
+  // Custom date format
   const customFormatDate = (date: string | Date) => {
     const d = typeof date === "string" ? new Date(date) : date;
     return d.toLocaleDateString("en-US", {
@@ -78,8 +101,8 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
 
   return (
     <section>
-      <div className="mx-auto relative mt-15">
-        {/* 🔹 Section Header */}
+      <div className="mx-auto relative mt-12">
+        {/* Section Header */}
         <div className="mb-8 text-left">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
@@ -97,18 +120,14 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
           </div>
         </div>
 
-        {/* 🔹 Slider */}
+        {/* Slider */}
         <div className="relative w-full">
           <Swiper
             modules={[Navigation, Autoplay, EffectCoverflow]}
             slidesPerView={1}
             spaceBetween={16}
             centeredSlides={isMobile}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: false,
-              pauseOnMouseEnter: true,
-            }}
+            autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
             breakpoints={{
               0: { slidesPerView: 1, spaceBetween: 16, centeredSlides: true },
               768: { slidesPerView: 2, spaceBetween: 24 },
@@ -120,12 +139,9 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
           >
             {items.map((item) => (
               <SwiperSlide key={item.id} className="!h-auto">
-                <Link
-                  href={`${linkBase}/${item.id}`}
-                  className="block h-full group relative"
-                >
+                <Link href={`${linkBase}/${item.id}`} className="block h-full group relative">
                   <div className="bg-white rounded-2xl overflow-hidden transition-all duration-500 h-full flex flex-col group-hover:scale-[1.02] transform border border-gray-200 shadow-sm">
-                    {/* 🖼️ Image */}
+                    {/* Image */}
                     <div className="relative h-48 md:h-56 w-full overflow-hidden">
                       <img
                         src={item.image}
@@ -134,18 +150,16 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                       />
                     </div>
 
-                    {/* 📝 Content */}
+                    {/* Content */}
                     <div className="p-5 md:p-6 flex-1 flex flex-col">
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
                         <CategoryBadge
                           category={item.category}
                           icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-
                         />
                       </div>
 
-
-                      <h3 className="mb-3 line-clamp-2 leading-tight transition-colors duration-300">
+                      <h3 className="mb-3 line-clamp-2 leading-tight transition-colors duration-300 text-sm md:text-lg">
                         {item.title}
                       </h3>
 
@@ -153,51 +167,27 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
                         {item.content}
                       </div>
 
-                       <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600 justify-between">
-                            <span className="flex items-center gap-1.5">
-                              <AuthorBadge author={item.author} /></span>
-                            <span className="flex items-center gap-1.5 MobileViewContent">
-                              <DateBadge date={item.created_at} formatDate={customFormatDate} /></span>
-                          </div>
+                      <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600 justify-between">
+                        <AuthorBadge author={item.author} />
+                        <DateBadge date={item.created_at} formatDate={customFormatDate} />
+                      </div>
 
-                   
+                      {/* Buttons */}
                       <div className="flex items-center gap-2 mt-5">
-                        <button
-                          onClick={(e) => e.preventDefault()}
-                          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300"
-                        >
-                          <FiHeart
-                            className="w-5 h-5"
-                            style={{ color: "var(--tertiary)" }}
-                          />
-                        </button>
-                        <button
-                          onClick={(e) => e.preventDefault()}
-                          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300"
-                        >
-                          <FiBookmark
-                            className="w-5 h-5"
-                            style={{ color: "var(--tertiary)" }}
-                          />
-                        </button>
-                        <button
-                          onClick={(e) => e.preventDefault()}
-                          className="flex items-center justify-center w-10 h-10 rounded-full border border-gray-200 hover:border-gray-300 transition-all duration-300"
-                        >
-                          <FiShare2
-                            className="w-5 h-5"
-                            style={{ color: "var(--tertiary)" }}
-                          />
-                        </button>
-                        <div className="flex-1"></div>
-                        <div
-                          className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                          style={{
-                            backgroundColor: "var(--tertiary)",
-                          }}
-                        >
-                          <FiChevronRight className="w-5 h-5 text-white" />
-                        </div>
+                        <LikeButton liked={likedItems.has(String(item.id))} onClick={(e) => toggleLike(String(item.id), e)} />
+                        <ShareButton onClick={(e) => handleShare(item, e)} />
+                      {/* <AddBookmarkButton id={item.id} /> */}
+                        <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
+  <BookmarkButton 
+    id="1"
+    borderColor="#767676ff"
+    backgroundColor="#ef444480"
+    savedBackgroundColor="#ffffffff"
+    hoverShadowColor="#ef4444"
+    iconColor="#000000ff"
+    savedIconColor="#000000ff"
+  />
+
                       </div>
                     </div>
                   </div>
@@ -206,7 +196,7 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
             ))}
           </Swiper>
 
-          {/* 🔹 Navigation Buttons */}
+          {/* Navigation Buttons */}
           {!isMobile && (
             <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center pointer-events-none z-20">
               <button

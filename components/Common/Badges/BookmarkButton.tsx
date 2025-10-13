@@ -7,16 +7,37 @@ interface BookmarkButtonProps {
   id: string | number;
   onToggle?: (isSaved: boolean) => void;
   size?: number;
+  
+  // 🎨 Comprehensive color customization props
+  borderColor?: string;
+  iconColor?: string;
+  savedIconColor?: string;
+  backgroundColor?: string;
+  savedBackgroundColor?: string;
+  hoverShadowColor?: string;
+  hoverIconColor?: string;
 }
 
-const BookmarkButton: React.FC<BookmarkButtonProps> = ({ id, onToggle, size = 20 }) => {
+const BookmarkButton: React.FC<BookmarkButtonProps> = ({
+  id,
+  onToggle,
+  size = 20,
+  
+  // Color props with defaults
+  borderColor = "var(--secondary)",
+  iconColor = "#ffffff",
+  savedIconColor = "#ffffff",
+  backgroundColor = "var(--secondary)80", // 50% transparent
+  savedBackgroundColor = "var(--secondary)",
+  hoverShadowColor = "var(--secondary)",
+  hoverIconColor = "#ffffff",
+}) => {
   const [savedItems, setSavedItems] = useState<Set<string>>(new Set());
   const [isClient, setIsClient] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
-  // ✅ Ensure localStorage is accessed only in the browser
   useEffect(() => {
     setIsClient(true);
-
     try {
       const stored = localStorage.getItem("savedNews");
       if (stored) {
@@ -30,12 +51,10 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ id, onToggle, size = 20
     }
   }, []);
 
-  // ✅ Persist to localStorage only on client side
   useEffect(() => {
     if (!isClient) return;
     try {
       localStorage.setItem("savedNews", JSON.stringify(Array.from(savedItems)));
-      console.log("💾 Saved to localStorage:", Array.from(savedItems));
     } catch (err) {
       console.error("❌ Error saving to localStorage:", err);
     }
@@ -52,11 +71,9 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ id, onToggle, size = 20
       if (newSet.has(key)) {
         newSet.delete(key);
         onToggle?.(false);
-        console.log("🗑️ Removed bookmark:", key);
       } else {
         newSet.add(key);
         onToggle?.(true);
-        console.log("🔖 Added bookmark:", key);
       }
 
       return newSet;
@@ -65,27 +82,49 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({ id, onToggle, size = 20
 
   const isSaved = savedItems.has(String(id));
 
-  if (!isClient) return null; // prevents SSR mismatch warning
+  if (!isClient) return null;
+
+  // 🎨 Calculate current colors based on state
+  const currentBorderColor = borderColor;
+  const currentBackgroundColor = isSaved ? savedBackgroundColor : backgroundColor;
+  const currentIconColor = isHovered ? hoverIconColor : (isSaved ? savedIconColor : iconColor);
+  const currentShadow = isHovered ? `0 0 8px ${hoverShadowColor}` : 'none';
 
   return (
     <button
       onClick={toggleBookmark}
-      className={`group relative flex items-center justify-center 
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="group relative flex items-center justify-center 
         w-8 h-8 sm:w-9 sm:h-9 rounded-full 
-        border border-[var(--secondary)] 
-        bg-[var(--secondary)]/50 backdrop-blur-sm 
-        transition-all duration-300 
-        hover:bg-[var(--secondary)] hover:scale-110 hover:shadow-[0_0_8px_var(--secondary)]`}
+        border transition-all duration-300 
+        hover:scale-110"
+      style={{
+        borderColor: currentBorderColor,
+        backgroundColor: currentBackgroundColor,
+        boxShadow: currentShadow,
+        transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+      }}
     >
       {isSaved ? (
         <BookmarkCheck
-          className="text-white transition-transform duration-300 group-hover:scale-110"
-          style={{ width: size, height: size }}
+          style={{ 
+            width: size, 
+            height: size, 
+            color: currentIconColor,
+            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+          }}
+          className="transition-all duration-300"
         />
       ) : (
         <Bookmark
-          className="stroke-white transition-transform duration-300 group-hover:scale-110"
-          style={{ width: size, height: size }}
+          style={{ 
+            width: size, 
+            height: size, 
+            color: currentIconColor,
+            transform: isHovered ? 'scale(1.1)' : 'scale(1)',
+          }}
+          className="transition-all duration-300"
         />
       )}
     </button>

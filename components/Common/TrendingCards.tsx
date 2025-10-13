@@ -8,7 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 import SectionHeader from "@/components/Common/SectionHeader";
-import AddBookmarkButton from "@/components/Common/Badges/BookmarkButton";
+import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
 import TagBadge from "@/components/Common/Badges/TagBadge";
 import DateBadge from "@/components/Common/Badges/DateBadge";
 import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
@@ -173,13 +173,25 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                               <TagBadge label="Breaking New" />
                             </span>
 
-                            <AddBookmarkButton id={item.id} />
-                          </div>
+                           
+                    
+  <BookmarkButton 
+    id="1"
+    borderColor="#ef4444"
+    backgroundColor="#ef444480"
+    savedBackgroundColor="#ef4444"
+    hoverShadowColor="#ef4444"
+    iconColor="#fecaca"
+    savedIconColor="#ffffff"
+  />
+
+                </div>
 
                           <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 ">
-                            <span className="font-bold text-base sm:text-xl md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight transition text-white! MobileViewContent">
-                              {item.title}
-                            </span>
+                           <span className="font-bold text-base sm:text-xl md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight transition text-white MobileViewContent hover:underline decoration-white decoration-2 underline-offset-4">
+  {item.title}
+</span>
+
                             <p className="text-white/90 text-xs sm:text-sm mb-2 line-clamp-3 leading-relaxed ">
                               {item.content}
                             </p>
@@ -204,7 +216,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                               <DateBadge date={item.created_at} formatDate={customFormatDate} /></span>
                           </div>
 
-                          <div className="flex items-center gap-2 sm:gap-3 ml-auto">
+                          <div className="flex items-center gap-4 sm:gap-3 ml-auto">
 
                             <LikeButton liked={likedItems.has(String(item.id))} onClick={(e) => toggleLike(String(item.id), e)} />
 

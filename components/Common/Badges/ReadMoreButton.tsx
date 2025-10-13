@@ -9,10 +9,28 @@ interface ReadMoreButtonProps {
 const ReadMoreButton: FC<ReadMoreButtonProps> = ({ href }) => (
   <Link
     href={href}
-    className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-white text-xs sm:text-sm font-semibold transition-all hover:scale-105 hover:shadow-lg"
-    style={{ backgroundColor: "var(--secondary)" }}
+    className="group inline-flex hover:text-[var(--secondary)] "
   >
-    Read More
+
+    
+    {/* Arrow */}
+    <div >
+      <div className="w-8 h-8 rounded-full bg-[var(--secondarylight)] group-hover:bg-[var(--secondary)] flex items-center justify-center transition-colors">
+        <svg
+          className="w-4 h-4 text-white group-hover:text-white transition-colors"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </div>
+    </div>
   </Link>
 );
 
