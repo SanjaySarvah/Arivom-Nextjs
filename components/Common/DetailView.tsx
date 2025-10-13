@@ -39,6 +39,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
     comments: data.totalComments || 0,
     shares: data.shares || 48,
   };
+   const linkBase = "/news";
 
   const category = data.category || 'தமிழகம்';
   const date = data.created_at || 'August 31, 2025';
@@ -179,11 +180,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                   <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
                     <LikeButton id={String(data.id)} />
 
-                    <ShareButton
-                      item={data}
-                      linkBase="/news"
-                      className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors duration-200"
-                    />
+                       <ShareButton item={data} linkBase={linkBase} />
 
                     <BookmarkButton
                       id={String(data.id)}
@@ -244,7 +241,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
 
           {/* Enhanced Sidebar */}
           <div className="lg:col-span-4">
-            <div className="sticky top-6 space-y-6">
+            <div className="sticky top-25 space-y-6">
               {/* Author Card */}
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-300">
                 <div className="flex flex-col items-center text-center">
