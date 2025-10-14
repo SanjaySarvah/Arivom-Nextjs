@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 
 const SectionHeader = ({
   subtitle = "News",
-  title = "dvjvdcuig",
+  title = "",
   showButton = false,
   buttonText = "View All",
   buttonUrl = "/news",

@@ -93,12 +93,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           )}
 
           {/* ---------------- MAIN CONTENT ---------------- */}
-          <main className="bg-white w-full max-w-full">
+          <main className="bg-white w-full max-w-full ">
             {children}
           </main>
 
           {/* ---------------- FOOTER ---------------- */}
-          <footer className="w-full">
+          <footer className="w-full mb-30">
             <Footer />
           </footer>
         </ClientLayoutWrapper>

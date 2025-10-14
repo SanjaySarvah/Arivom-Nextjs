@@ -15,6 +15,8 @@ import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
 import DateBadge from "@/components/Common/Badges/DateBadge";
 import DetailFooter from './DetailViews/DetailFooter';
 import SectionwiseImportantNews from './SectionwiseImportantNews';
+import SectionHeader from "@/components/Common/SectionHeader";
+import SectionHeaderSidebar from "@/components/Common/SectionHeaderSidebar";
 import {
   ArticleItem,
   getAllNews,
@@ -30,22 +32,19 @@ interface DetailViewProps {
 }
 
 export default function DetailView({ data, contentType = 'news' }: DetailViewProps) {
-const authorName = data.author ?? 'admin';
+  const authorName = data.author ?? 'admin';
 
-const stats: {
-  views: number;
-  likes: number;
-  comments: number;
-  shares: number;
-} = {
-  likes: typeof data.likes === 'number' ? data.likes : 0,
-  views: 'views' in data && typeof data.views === 'number' ? data.views : 2340,
-  comments: typeof data.totalComments === 'number' ? data.totalComments : 0,
-  shares: 'shares' in data && typeof data.shares === 'number' ? data.shares : 48,
-};
-
- 
-
+  const stats: {
+    views: number;
+    likes: number;
+    comments: number;
+    shares: number;
+  } = {
+    likes: typeof data.likes === 'number' ? data.likes : 0,
+    views: 'views' in data && typeof data.views === 'number' ? data.views : 2340,
+    comments: typeof data.totalComments === 'number' ? data.totalComments : 0,
+    shares: 'shares' in data && typeof data.shares === 'number' ? data.shares : 48,
+  };
   const linkBase = contentType === 'news' ? "/news" : "/articles";
   const category = data.category || 'தமிழகம்';
   const date = data.created_at || 'August 31, 2025';
@@ -69,8 +68,8 @@ const stats: {
   };
 
   return (
-    <div className="bg-white min-h-screen">
-   
+    <div className="bg-white min-h-screen mb-10">
+
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 ">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
@@ -127,33 +126,14 @@ const stats: {
                   </div>
                 </div>
 
-                {/* Article Stats */}
-                <div className="mt-8 pt-6 border-t border-gray-200">
-                  <div className="flex flex-wrap items-center justify-center gap-6 text-gray-600 bg-gray-50 rounded-xl py-4 px-6">
-                    <div className="flex items-center gap-2">
-                      <Eye className="w-5 h-5 text-[#2ecc71]" />
-                      <span className="text-sm font-medium">{formatNumber(stats.views)} Views</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Heart className="w-5 h-5 text-red-500" />
-                      <span className="text-sm font-medium">{formatNumber(stats.likes)} Likes</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MessageCircle className="w-5 h-5 text-blue-500" />
-                      <span className="text-sm font-medium">{formatNumber(stats.comments)} Comments</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Share2 className="w-5 h-5 text-purple-500" />
-                      <span className="text-sm font-medium">{formatNumber(stats.shares)} Shares</span>
-                    </div>
-                  </div>
-                </div>
+
+
 
                 {/* Action Buttons */}
                 <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
                   <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
                     <LikeButton id={String(data.id)} />
-                   
+
                     <BookmarkButton
                       id={String(data.id)}
                       borderColor="#767676"
@@ -162,7 +142,7 @@ const stats: {
                       iconColor="#767676"
                       savedIconColor="#6f42c2"
                     />
-                     <ShareButton item={data} linkBase={linkBase} />
+                    <ShareButton item={data} linkBase={linkBase} />
                   </div>
                 </div>
               </div>
@@ -190,56 +170,87 @@ const stats: {
                 <p className="text-gray-400 text-sm">Be the first to share your thoughts!</p>
               </div>
             </div>
-<div className='mt-5 '> 
-            {/* Related News */}
-            <SectionwiseImportantNews
-              items={news}
-              linkBase={linkBase}
-              title="பிரிவு வாரியாக முக்கிய செய்திகள்"
-              subtitle="ஒவ்வொரு பிரிவிலும் இருந்து தேர்ந்தெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
-              categoryLabel="தமிழகம்"
-              viewAllLink={linkBase}
-            />
+            <div className='mt-5 '>
+              {/* Related News */}
+              <SectionwiseImportantNews
+                items={news}
+                linkBase={linkBase}
+                title="பிரிவு வாரியாக முக்கிய செய்திகள்"
+                subtitle="ஒவ்வொரு பிரிவிலும் இருந்து தேர்ந்தெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
+                categoryLabel="தமிழகம்"
+                viewAllLink={linkBase}
+              />
             </div>
           </div>
 
           {/* Sidebar */}
           <div className="lg:col-span-4">
             <div className="sticky top-25 space-y-6">
-              {/* Author Card */}
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-300">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#2ecc71] to-emerald-600 flex items-center justify-center mb-4 text-white text-2xl font-bold shadow-lg">
-                    {authorName.charAt(0).toUpperCase()}
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{authorName}</h3>
-                  <p className="text-sm text-gray-600 mb-4">Author at Arivom News</p>
-                </div>
-              </div>
+
 
               {/* Article Stats Sidebar */}
               <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-300">
-                <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">Article Stats</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="text-center p-3 sm:p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-                    <Eye className="w-6 h-6 sm:w-8 sm:h-8 text-[#2ecc71] mx-auto mb-2" />
-                    <div className="text-xl sm:text-2xl font-bold text-gray-900">{formatNumber(stats.views)}</div>
-                    <div className="text-xs text-gray-600">Views</div>
-                  </div>
-                  <div className="text-center p-3 sm:p-4 bg-blue-50 rounded-xl border border-blue-100">
-                    <Heart className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 mx-auto mb-2" />
-                    <div className="text-xl sm:text-2xl font-bold text-gray-900">{formatNumber(stats.likes)}</div>
-                    <div className="text-xs text-gray-600">Likes</div>
-                  </div>
-                  <div className="text-center p-3 sm:p-4 bg-green-50 rounded-xl border border-green-100">
-                    <MessageCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-600 mx-auto mb-2" />
-                    <div className="text-xl sm:text-2xl font-bold text-gray-900">{formatNumber(stats.comments)}</div>
-                    <div className="text-xs text-gray-600">Comments</div>
-                  </div>
-                  <div className="text-center p-3 sm:p-4 bg-purple-50 rounded-xl border border-purple-100">
-                    <Share2 className="w-6 h-6 sm:w-8 sm:h-8 text-purple-600 mx-auto mb-2" />
-                    <div className="text-xl sm:text-2xl font-bold text-gray-900">{formatNumber(stats.shares)}</div>
-                    <div className="text-xs text-gray-600">Shares</div>
+
+             {/* Read-only Stats Section */}
+<div className="mb-6">
+    <SectionHeaderSidebar 
+  subtitle="" 
+  title="Insights" 
+  size="small"
+/>
+  <div className="grid grid-cols-4 gap-2">
+    {/* Blue - Views */}
+    <div className="text-center p-2 bg-blue-50 rounded-lg border border-blue-200 cursor-default group hover:bg-blue-100 transition-colors">
+      <div className="w-8 h-8 bg-[#017BFF] rounded-full flex items-center justify-center mx-auto mb-1">
+        <Eye className="w-4 h-4 text-white" />
+      </div>
+      <div className="text-sm font-bold text-gray-900">{formatNumber(stats.views)}</div>
+      <div className="text-xs text-blue-600 font-medium">Views</div>
+    </div>
+    
+    {/* Purple - Likes */}
+    <div className="text-center p-2 bg-purple-50 rounded-lg border border-purple-200 cursor-default group hover:bg-purple-100 transition-colors">
+      <div className="w-8 h-8 bg-[#6f42c2] rounded-full flex items-center justify-center mx-auto mb-1">
+        <Heart className="w-4 h-4 text-white" />
+      </div>
+      <div className="text-sm font-bold text-gray-900">{formatNumber(stats.likes)}</div>
+      <div className="text-xs text-purple-600 font-medium">Likes</div>
+    </div>
+    
+    {/* Green - Comments */}
+    <div className="text-center p-2 bg-green-50 rounded-lg border border-green-200 cursor-default group hover:bg-green-100 transition-colors">
+      <div className="w-8 h-8 bg-[#28a745] rounded-full flex items-center justify-center mx-auto mb-1">
+        <MessageCircle className="w-4 h-4 text-white" />
+      </div>
+      <div className="text-sm font-bold text-gray-900">{formatNumber(stats.comments)}</div>
+      <div className="text-xs text-green-600 font-medium">Comments</div>
+    </div>
+    
+    {/* Gray - Shares */}
+    <div className="text-center p-2 bg-gray-50 rounded-lg border border-gray-200 cursor-default group hover:bg-gray-100 transition-colors">
+      <div className="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center mx-auto mb-1">
+        <Share2 className="w-4 h-4 text-white" />
+      </div>
+      <div className="text-sm font-bold text-gray-900">{formatNumber(stats.shares)}</div>
+      <div className="text-xs text-gray-600 font-medium">Shares</div>
+    </div>
+  </div>
+</div>
+
+                {/* Actionable Buttons Section */}
+                <div className="border-t border-gray-200 pt-4">
+                  <h4 className="text-sm font-semibold text-gray-900 mb-3 text-center">Your Actions</h4>
+                  <div className="flex items-center justify-center gap-3">
+                    <LikeButton id={String(data.id)} />
+                    <BookmarkButton
+                      id={String(data.id)}
+                      borderColor="#6b7280"
+                      backgroundColor="#f9fafb"
+                      savedBackgroundColor="#f9fafb"
+                      iconColor="#6b7280"
+                      savedIconColor="#6f42c2"
+                    />
+                    <ShareButton item={data} linkBase={linkBase} />
                   </div>
                 </div>
               </div>
@@ -248,7 +259,8 @@ const stats: {
         </div>
       </div>
 
-      <DetailFooter/>
+      <DetailFooter />
     </div>
+  
   );
 }
