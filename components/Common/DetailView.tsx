@@ -30,13 +30,22 @@ interface DetailViewProps {
 }
 
 export default function DetailView({ data, contentType = 'news' }: DetailViewProps) {
-  const authorName = data.author || 'admin';
-  const stats = {
-    likes: data.likes || 0,
-    views: data.views || 2340,
-    comments: data.totalComments || 0,
-    shares: data.shares || 48,
-  };
+const authorName = data.author ?? 'admin';
+
+const stats: {
+  views: number;
+  likes: number;
+  comments: number;
+  shares: number;
+} = {
+  likes: typeof data.likes === 'number' ? data.likes : 0,
+  views: 'views' in data && typeof data.views === 'number' ? data.views : 2340,
+  comments: typeof data.totalComments === 'number' ? data.totalComments : 0,
+  shares: 'shares' in data && typeof data.shares === 'number' ? data.shares : 48,
+};
+
+ 
+
   const linkBase = contentType === 'news' ? "/news" : "/articles";
   const category = data.category || 'தமிழகம்';
   const date = data.created_at || 'August 31, 2025';
