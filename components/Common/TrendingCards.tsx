@@ -104,9 +104,9 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                   <span className="text-xs md:text-sm font-semibold text-green-600 uppercase tracking-wider">
                     News
                   </span>
-                  <h3 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent hover:text-black!">
+                  <h2 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent hover:text-black!">
                     {title || "Trending News"}
-                  </h3>
+                  </h2>
                 </div>
                 {/* Divider Line */}
                 <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
