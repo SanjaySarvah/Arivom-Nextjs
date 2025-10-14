@@ -61,7 +61,7 @@ const CompactAdList: FC = () => {
 
 
   return (
-    <aside className="w-full lg:w-1/3">
+    <div className="w-full">
       {/* Sponsored Ads Header */}
            <SectionHeader
             subtitle="Latest"
@@ -72,7 +72,7 @@ const CompactAdList: FC = () => {
           />
 
       {/* Ads Content */}
-      <div className="flex flex-col gap-4 h-[350px] sm:h-[200px] lg:h-[450px] overflow-y-auto pr-2
+      <div className="flex flex-col gap-4 max-h-[600px] overflow-y-auto pr-2
         [&::-webkit-scrollbar]:w-2
         [&::-webkit-scrollbar-track]:bg-gray-100
         [&::-webkit-scrollbar-track]:rounded-full
@@ -96,12 +96,6 @@ const CompactAdList: FC = () => {
                 fill
                 className="object-cover rounded-md border border-gray-100 group-hover:scale-105 transition-transform"
               />
-
-              {/* {ad.category && (
-                <span className="absolute top-1 right-1 bg-blue-600 text-white text-[10px] font-semibold px-2 py-[1px] rounded-full shadow-sm">
-                  {ad.category}
-                </span>
-              )} */}
             </div>
 
             {/* Content */}
@@ -114,29 +108,29 @@ const CompactAdList: FC = () => {
               </p>
             </div>
 
-        {/* Arrow */}
-<div className="flex-shrink-0 group">
-  <div className="w-7 h-7 rounded-full bg-[var(--secondarylight)] text-white flex items-center justify-center transition-colors duration-300 group-hover:bg-[var(--secondary)]">
-    <svg
-      className="w-4 h-4 text-white transition-colors duration-300 group-hover:text-white"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={2}
-        d="M9 5l7 7-7 7"
-      />
-    </svg>
-  </div>
-</div>
+            {/* Arrow */}
+            <div className="flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-[var(--secondarylight)] group-hover:bg-[var(--secondary)] flex items-center justify-center transition-colors">
+                <svg
+                  className="w-4 h-4 text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </div>
+            </div>
 
           </Link>
         ))}
       </div>
-    </aside>
+    </div>
   );
 };
 

@@ -25,6 +25,7 @@ import LikeButton from "@/components/Common/Badges/LikeButton";
 import ShareButton from "@/components/Common/Badges/ShareButton";
 import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
 import { NewsItem, ArticleItem } from "@/lib/getData";
+import { ArrowRight } from "lucide-react";
 
 interface Props {
   title: string;

@@ -92,7 +92,7 @@ export default function MobileCategoryTabs({ items, baseLink, label }: MobileCat
           : "bg-white border-b border-gray-200"
       }`}
     >
-      <div className="relative flex items-center h-14 px-2">
+      <div className="relative flex items-center h-14">
         {/* Label Badge */}
         {/* <div className="flex-shrink-0 pl-2 pr-3">
           <span className="inline-block text-[#2ecc71] font-bold text-xs sm:text-sm whitespace-nowrap px-3 py-1.5 rounded-full bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 shadow-sm">
@@ -114,14 +114,14 @@ export default function MobileCategoryTabs({ items, baseLink, label }: MobileCat
         {/* Scrollable Tabs Container */}
         <div
           ref={containerRef}
-          className="flex-1 flex overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth px-2"
+          className="flex-1 flex overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth"
           style={{
             scrollbarWidth: "none",
             msOverflowStyle: "none",
             WebkitOverflowScrolling: "touch",
           }}
         >
-          <div className="flex gap-2 min-w-max">
+          <div className="flex min-w-max">
             {/* Category Links */}
             {categories.map(({ category, tname }) => {
               const isActive =
