@@ -55,6 +55,8 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
 
   return (
     <div className="bg-white min-h-screen mb-10">
+      {/* Sticky Header with Breadcrumb */}
+      <DetailsHeader currentTitle={data.title} contentType={contentType} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
           {/* ---------------- MAIN CONTENT ---------------- */}
@@ -231,11 +233,9 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 </div>
               </div>
 
-              {/* Full Width Advertisement */}
-              <div className="mt-8">
-                <div className="w-full rounded-2xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                  <Advertisement />
-                </div>
+              {/* Advertisement Section */}
+              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <Advertisement />
               </div>
             </div>
           </div>

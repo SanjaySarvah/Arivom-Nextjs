@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ClientLayoutWrapper>
           {/* ---------------- HEADER SECTION ---------------- */}
           {isDetailPage ? (
-            <DetailsHeader />
+            ''    // logic removed
           ) : (
             <>
               {/* First Row */}
