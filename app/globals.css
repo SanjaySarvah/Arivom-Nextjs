@@ -256,4 +256,7 @@ p {
   .MobileViewContent {
     display: none;
   }
+  .footerspacing{
+    margin-bottom: 100;
+  }
 }
