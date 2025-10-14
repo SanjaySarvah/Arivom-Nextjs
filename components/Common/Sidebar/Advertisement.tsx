@@ -39,21 +39,61 @@ const CompactAdList: FC = () => {
       ctaLink: "#",
       category: "Mobile",
     },
-   
+    {
+      id: "4",
+      title: "Smart Home Devices - Best Deals",
+      image: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80",
+      sponsor: "HomeTech",
+      ctaLink: "#",
+      category: "Smart Home",
+    },
+    {
+      id: "5",
+      title: "Fitness Gear - Exclusive Offers",
+      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80",
+      sponsor: "FitZone",
+      ctaLink: "#",
+      category: "Fitness",
+    },
   ];
 
 
 
   return (
     <aside className="w-full lg:w-1/3">
-      <div className="flex flex-col gap-4">
+      {/* Sponsored Ads Header */}
+      <div className="mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
+          <div className="flex flex-col">
+            <span className="text-xs md:text-sm font-semibold text-green-600 uppercase tracking-wider">
+              Ads
+            </span>
+            <h3 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent hover:text-black!">
+              Sponsored Ads
+            </h3>
+          </div>
+          {/* Divider Line */}
+          <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
+        </div>
+      </div>
+
+      {/* Ads Content */}
+      <div className="flex flex-col gap-4 h-[350px] sm:h-[200px] lg:h-[450px] overflow-y-auto pr-2
+        [&::-webkit-scrollbar]:w-2
+        [&::-webkit-scrollbar-track]:bg-gray-100
+        [&::-webkit-scrollbar-track]:rounded-full
+        [&::-webkit-scrollbar-thumb]:bg-gray-300
+        [&::-webkit-scrollbar-thumb]:rounded-full
+        [&::-webkit-scrollbar-thumb]:hover:bg-gray-400
+        [&::-webkit-scrollbar-thumb]:transition-colors">
         {compactAds.map((ad) => (
           <Link
             key={ad.id}
             href={ad.ctaLink}
-            className="flex items-center gap-4 bg-white rounded-lg p-3 shadow-sm 
-            border border-gray-200 hover:shadow-md hover:-translate-y-0.5 
-            transition-all duration-200 group"
+            className="flex items-center gap-4 bg-white rounded-lg p-3 shadow-sm
+            border border-gray-200 hover:shadow-md hover:-translate-y-0.5
+            transition-all duration-200 group flex-shrink-0"
           >
             {/* Ad Image */}
             <div className="relative w-20 h-20 flex-shrink-0">

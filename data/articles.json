@@ -118,7 +118,19 @@
           }
         ]
       }
-    ]
+    ],
+ "tags": [
+  { "tags": "cricket" },
+  { "tags": "sports" },
+  { "tags": "world cup 2025" },
+  { "tags": "team india" },
+  { "tags": "new players" },
+  { "tags": "training" },
+  { "tags": "icc" },
+  { "tags": "youth in sports" },
+  { "tags": "team selection" },
+  { "tags": "sports news" }
+]
   },
   {
     "id": 5,

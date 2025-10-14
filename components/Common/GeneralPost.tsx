@@ -92,21 +92,22 @@ export default function GeneralPost({
               </div>
 
               {/* Read More Arrow */}
-              <div className="mt-4 flex items-center gap-2 text-blue-600 font-semibold text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                <span>Read More</span>
-                <svg
-                  className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+              <div className="mt-4 flex justify-end">
+                <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white group-hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer">
+                  <svg
+                    className="w-5 h-5 transform group-hover:translate-x-0.5 transition-transform"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </span>
               </div>
             </div>
           </Link>

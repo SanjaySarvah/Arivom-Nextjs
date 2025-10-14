@@ -3,13 +3,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FiTrendingUp, FiChevronRight } from "react-icons/fi";
-import { Heart, Bookmark, Share2 } from "lucide-react";
 import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
 import { FaRegNewspaper } from "react-icons/fa";
 import { getLatestArticles } from "@/lib/getData"; // ✅ switched to articles
 import ShareButton from './Badges/ShareButton';
 import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
-import ReadMoreButton from "@/components/Common/Badges/ReadMoreButton";
 import LikeButton from "@/components/Common/Badges/LikeButton";
 
 const CardView: React.FC = () => {
@@ -29,17 +27,16 @@ const CardView: React.FC = () => {
       {/* Grid Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
         {visibleArticles.map((item) => (
-          <div
+          <Link
             key={item.id}
-            className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition group"
+            href={`/articles/${item.id}`}
+            className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition group block"
           >
-            <Link href={`/articles/${item.id}`}>
-              <img
-                src={item.image}
-                alt={item.title}
-                className="h-48 w-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
-            </Link>
+            <img
+              src={item.image}
+              alt={item.title}
+              className="h-48 w-full object-cover group-hover:scale-110 transition-transform duration-500"
+            />
 
             <div className="p-4">
               {/* Header */}
@@ -65,38 +62,38 @@ const CardView: React.FC = () => {
               </div>
 
               {/* Content */}
-              <Link href={`/articles/${item.id}`}>
-                <h3 className="font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600">
-                  {item.title}
-                </h3>
-                <p className="text-gray-600 text-sm mt-2 line-clamp-2">
-                  {item.excerpt}
-                </p>
-              </Link>
+              <h3 className="font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600">
+                {item.title}
+              </h3>
+              <p className="text-gray-600 text-sm mt-2 line-clamp-2">
+                {item.excerpt}
+              </p>
 
               {/* Footer actions */}
-     {/* Buttons Row */}
-<div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-  {/* Left Side: Like / Bookmark / Share */}
-  <div className="flex items-center gap-3">
-    <LikeButton id={String(item.id)} />
-    <BookmarkButton
-      id={String(item.id)}
-      borderColor="#767676ff"
-      backgroundColor="#ffffffff"
-      savedBackgroundColor="#ffffffff"
-      iconColor="#767676ff"
-      savedIconColor="#6f42c2"
-    />
-    <ShareButton item={item} linkBase={linkBase} />
-  </div>
+              {/* Buttons Row */}
+              <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+                {/* Left Side: Like / Bookmark / Share */}
+                <div className="flex items-center gap-3" onClick={(e) => e.preventDefault()}>
+                  <LikeButton id={String(item.id)} />
+                  <BookmarkButton
+                    id={String(item.id)}
+                    borderColor="#767676ff"
+                    backgroundColor="#ffffffff"
+                    savedBackgroundColor="#ffffffff"
+                    iconColor="#767676ff"
+                    savedIconColor="#6f42c2"
+                  />
+                  <ShareButton item={item} linkBase={linkBase} />
+                </div>
 
-  {/* Right Side: Read More */}
-  <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
-</div>
+                {/* Right Side: Read More */}
+                <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer group">
+                  <FiChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </div>
 
             </div>
-          </div>
+          </Link>
         ))}
       </div>
 

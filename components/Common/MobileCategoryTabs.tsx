@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronLeft, ChevronRight, Grid, TrendingUp, Bell, Gift, DollarSign, Users } from "lucide-react";
+import { ChevronLeft, ChevronRight, TrendingUp, Bell, Gift, DollarSign, Users } from "lucide-react";
 
 interface CategoryItem {
   category: string;
@@ -121,25 +121,7 @@ export default function MobileCategoryTabs({ items, baseLink, label }: MobileCat
             WebkitOverflowScrolling: "touch",
           }}
         >
-          <div className="flex gap-2 min-w-max py-2">
-            {/* All Categories Link with Icon */}
-            <Link
-              href={baseLink}
-              className={`relative flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold rounded-t-lg whitespace-nowrap transition-all duration-300 group ${
-                pathname === baseLink
-                  ? "text-[#2ecc71] bg-emerald-50/50"
-                  : "text-gray-700 hover:text-[#2ecc71] hover:bg-gray-50"
-              }`}
-            >
-              <Grid className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300 ${
-                pathname === baseLink ? "scale-110" : "group-hover:scale-110"
-              }`} />
-              {/* <span>All</span> */}
-              {pathname === baseLink && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#2ecc71] to-[#27ae60] rounded-full" />
-              )}
-            </Link>
-
+          <div className="flex gap-2 min-w-max">
             {/* Category Links */}
             {categories.map(({ category, tname }) => {
               const isActive =
@@ -149,16 +131,13 @@ export default function MobileCategoryTabs({ items, baseLink, label }: MobileCat
                 <Link
                   key={category}
                   href={`${baseLink}/category/${category.toLowerCase()}`}
-                  className={`relative px-4 py-2 text-xs sm:text-sm font-semibold rounded-t-lg whitespace-nowrap transition-all duration-300 ${
+                  className={`relative px-4 py-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 border-b-2 ${
                     isActive
-                      ? "text-[#2ecc71] bg-emerald-50/50"
-                      : "text-gray-700 hover:text-[#2ecc71] hover:bg-gray-50"
+                      ? "text-[#2ecc71] border-[#2ecc71]"
+                      : "text-gray-700 hover:text-[#2ecc71] border-transparent hover:border-gray-300"
                   }`}
                 >
                   {tname || category}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#2ecc71] to-[#27ae60] rounded-full" />
-                  )}
                 </Link>
               );
             })}
@@ -169,16 +148,34 @@ export default function MobileCategoryTabs({ items, baseLink, label }: MobileCat
             {/* Special Feature Tabs with Icons */}
             {specialTabs.map(({ label, href, icon: Icon, gradient, hoverColor }) => {
               const isActive = pathname === href;
-              // Extract the main color from gradient for the underline
-              const underlineColor = gradient.split(' ')[0].replace('from-', '');
+              // Map gradient to actual color for active state
+              const colorMap: { [key: string]: string } = {
+                'from-orange-500': 'text-orange-500',
+                'from-blue-500': 'text-blue-500',
+                'from-purple-500': 'text-purple-500',
+                'from-green-500': 'text-green-500',
+                'from-indigo-500': 'text-indigo-500',
+              };
+              const activeColor = colorMap[gradient.split(' ')[0]] || 'text-gray-700';
+
+              // Border color map
+              const borderColorMap: { [key: string]: string } = {
+                'from-orange-500': 'border-orange-500',
+                'from-blue-500': 'border-blue-500',
+                'from-purple-500': 'border-purple-500',
+                'from-green-500': 'border-green-500',
+                'from-indigo-500': 'border-indigo-500',
+              };
+              const activeBorderColor = borderColorMap[gradient.split(' ')[0]] || 'border-gray-300';
+
               return (
                 <Link
                   key={label}
                   href={href}
-                  className={`relative flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold rounded-t-lg whitespace-nowrap transition-all duration-300 group ${
+                  className={`relative flex items-center gap-1.5 px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 group border-b-2 ${
                     isActive
-                      ? `text-${underlineColor} bg-gradient-to-br from-gray-50/80 to-gray-100/80`
-                      : `bg-gradient-to-br from-gray-50 to-gray-100 text-gray-700 ${hoverColor} border border-gray-200/50`
+                      ? `${activeColor} ${activeBorderColor}`
+                      : `text-gray-700 ${hoverColor} border-transparent hover:border-gray-300`
                   }`}
                 >
                   <Icon
@@ -187,9 +184,6 @@ export default function MobileCategoryTabs({ items, baseLink, label }: MobileCat
                     }`}
                   />
                   <span>{label}</span>
-                  {isActive && (
-                    <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r ${gradient} rounded-full shadow-md`} />
-                  )}
                 </Link>
               );
             })}

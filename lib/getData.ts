@@ -28,6 +28,7 @@ export type NewsItem = {
   likes?: number;
   totalComments?: number;
   comments?: Comment[];
+  tags?: string[];
 };
 
 export type ArticleItem = {
@@ -47,6 +48,7 @@ export type ArticleItem = {
   likes?: number;
   totalComments?: number;
   comments?: Comment[];
+  tags?: string[];
 };
 
 // ✅ NEW: News Video Type
@@ -204,6 +206,7 @@ export const searchItems = (
 // TRANSFORM FOR GENERALPOST COMPONENT
 // --------------------
 export type GeneralPostItem = {
+  created_at: string | Date;
   id: number;
   title: string;
   description: string;
@@ -224,6 +227,7 @@ export const transformToGeneralPost = (
     category: item.category,
     author: item.author,
     date: item.created_at,
+    created_at: item.created_at,
     image: "thumbnail" in item ? item.thumbnail : (item as any).image,
     badge: item.days_ago <= 1 ? "TRENDING" : item.days_ago <= 3 ? "HOT" : "NEWS",
   }));

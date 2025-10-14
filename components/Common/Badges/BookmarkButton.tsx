@@ -12,6 +12,7 @@ interface BookmarkButtonProps {
   savedIconColor?: string;
   backgroundColor?: string;
   savedBackgroundColor?: string;
+  dataType?: 'news' | 'article' | 'video'; // Add dataType prop to determine source
 }
 
 const BookmarkButton: React.FC<BookmarkButtonProps> = ({
@@ -23,7 +24,12 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   savedIconColor = "#6f42c2", // red-500
   backgroundColor = "#ffffff", // white
   savedBackgroundColor = "#fef2f2", // red-50
+  dataType, // Accept dataType prop
 }) => {
+  // Hide bookmark button if data is from NewsItem
+  if (dataType === 'news') {
+    return null;
+  }
   const [savedItems, setSavedItems] = useState<Set<string>>(new Set());
   const [isClient, setIsClient] = useState(false);
 

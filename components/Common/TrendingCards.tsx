@@ -3,9 +3,10 @@
 import { FC, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
 import TagBadge from "@/components/Common/Badges/TagBadge";
@@ -15,7 +16,6 @@ import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
 import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
 import Advertisement from "@/components/Common/Sidebar/Advertisement";
 import LikeButton from "@/components/Common/Badges/LikeButton";
-import ReadMoreButton from "@/components/Common/Badges/ReadMoreButton";
 import ShareButton from "@/components/Common/Badges/ShareButton";
 
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
@@ -30,7 +30,6 @@ interface Props {
 }
 
 const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
-  const [isMobile, setIsMobile] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
   const [likedItems, setLikedItems] = useState<Set<string>>(new Set());
 
@@ -38,14 +37,6 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
   const navigationNextRef = useRef<HTMLButtonElement>(null);
 
   if (!items || items.length === 0) return null;
-
-  // Detect mobile layout
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
 
   // Initialize Swiper navigation
   useEffect(() => {
@@ -95,67 +86,55 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
   const carouselItems = items.slice(0, 8);
 
+  // Determine dataType based on linkBase
+  const dataType = linkBase.includes('/news') ? 'news' : 'article';
+
   return (
     <section>
       <div className="mx-auto mt-5 sm:mt-10">
-        {/* Split Headers - Responsive */}
-        <div className="mb-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
-          {/* Trending News Header - Left Side */}
-          <div className="w-full lg:w-2/3">
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
-              <div className="flex flex-col">
-                <span className="text-xs md:text-sm font-semibold text-green-600 uppercase tracking-wider">
-                  News
-                </span>
-                <h2 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-                  {title || "Trending News"}
-                </h2>
-              </div>
-              {/* Divider Line */}
-              <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
-            </div>
-          </div>
-
-          {/* Sponsored Ads Header - Right Side */}
-          <div className="w-full lg:w-1/3">
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
-              <div className="flex flex-col">
-                <span className="text-xs md:text-sm font-semibold text-green-600 uppercase tracking-wider">
-                  Ads
-                </span>
-                <h2 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-                  Sponsored Ads
-                </h2>
-              </div>
-              {/* Divider Line */}
-              <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
-            </div>
-          </div>
-        </div>
-
         {/* Layout */}
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
-          {/* LEFT SIDE */}
-          <div className="w-full lg:w-2/3 h-[350px] sm:h-[200px] lg:h-[450px]">
-            <div className="relative w-full h-full">
+          {/* LEFT SIDE - Trending News */}
+          <div className="w-full lg:w-2/3">
+            {/* Trending News Header */}
+            <div className="mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
+                <div className="flex flex-col">
+                  <span className="text-xs md:text-sm font-semibold text-green-600 uppercase tracking-wider">
+                    News
+                  </span>
+                  <h3 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent hover:text-black!">
+                    {title || "Trending News"}
+                  </h3>
+                </div>
+                {/* Divider Line */}
+                <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
+              </div>
+            </div>
+
+            {/* Trending News Content */}
+            <div className="relative h-[350px] sm:h-[200px] lg:h-[450px]">
               <Swiper
-                modules={[Navigation, Autoplay]}
+                modules={[Navigation, Autoplay, Pagination]}
                 slidesPerView={1}
                 spaceBetween={24}
                 autoplay={{ delay: 5000, disableOnInteraction: false }}
+                pagination={{
+                  clickable: true,
+                  el: '.swiper-pagination-custom',
+                }}
                 onSwiper={setSwiperInstance}
                 className="h-full rounded-2xl"
               >
                 {carouselItems.map((item) => (
                   <SwiperSlide key={item.id} className="h-full">
-                    <div className="bg-white rounded-2xl overflow-hidden h-full flex flex-col border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500">
+                    <Link
+                      href={`${linkBase}/${String(item.id)}`}
+                      className="bg-white rounded-2xl overflow-hidden h-full flex flex-col border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500 block"
+                    >
                       {/* Image */}
-                      <Link
-                        href={`${linkBase}/${String(item.id)}`}
-                        className="relative flex-1 overflow-hidden group"
-                      >
+                      <div className="relative flex-1 overflow-hidden group">
                         <div className="relative w-full h-full">
                           <img
                             src={item.image}
@@ -198,7 +177,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                             </div>
                           </div>
                         </div>
-                      </Link>
+                      </div>
 
                       <div className="px-4 sm:px-6 py-3 sm:py-4 bg-white border-t border-gray-100">
                         <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
@@ -214,7 +193,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                             </span>
                           </div>
 
-                          <div className="flex items-center gap-4 sm:gap-3 ml-auto">
+                          <div className="flex items-center gap-4 sm:gap-3 ml-auto" onClick={(e) => e.preventDefault()}>
                             <LikeButton id={String(item.id)} />
                             <BookmarkButton
                               id={String(item.id)}
@@ -223,22 +202,23 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                               savedBackgroundColor="#fef2f2" // same as bg-red-50
                               iconColor="#4b5563" // same as stroke-gray-600
                               savedIconColor="#6f42c2" // same as fill-red-500 / stroke-red-500
+                              dataType={dataType as 'news' | 'article'}
                             />
                             <ShareButton item={item} linkBase={linkBase} />
 
-                            <ReadMoreButton
-                              href={`${linkBase}/${String(item.id)}`}
-                            />
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer group">
+                              <FiChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+                            </span>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   </SwiperSlide>
                 ))}
               </Swiper>
 
-              {/* Navigation */}
-              {!isMobile && (
+              {/* Navigation - Desktop Only (above 1024px) */}
+              <div className="hidden lg:block">
                 <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center pointer-events-none z-20">
                   <button
                     ref={navigationPrevRef}
@@ -254,8 +234,11 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                     <FiChevronRight className="w-6 h-6 text-black transition-colors duration-300 group-hover:text-white" />
                   </button>
                 </div>
-              )}
+              </div>
             </div>
+
+            {/* Pagination Dots - Mobile/Tablet Only (below 1024px) */}
+            <div className="swiper-pagination-custom mt-4 lg:hidden"></div>
           </div>
 
           {/* RIGHT SIDE */}

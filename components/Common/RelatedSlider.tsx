@@ -3,7 +3,12 @@
 import { FC, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
+import {
+  Navigation,
+  Autoplay,
+  EffectCoverflow,
+  Pagination,
+} from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
@@ -18,7 +23,6 @@ import DateBadge from "@/components/Common/Badges/DateBadge";
 import LikeButton from "@/components/Common/Badges/LikeButton";
 import ShareButton from "@/components/Common/Badges/ShareButton";
 import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
-import ReadMoreButton from "@/components/Common/Badges/ReadMoreButton";
 import { NewsItem, ArticleItem } from "@/lib/getData";
 
 interface Props {
@@ -47,7 +51,11 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
 
   // ✅ Swiper Navigation Setup
   useEffect(() => {
-    if (swiperInstance && navigationPrevRef.current && navigationNextRef.current) {
+    if (
+      swiperInstance &&
+      navigationPrevRef.current &&
+      navigationNextRef.current
+    ) {
       swiperInstance.params.navigation.prevEl = navigationPrevRef.current;
       swiperInstance.params.navigation.nextEl = navigationNextRef.current;
       swiperInstance.navigation.init();
@@ -108,7 +116,11 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
             slidesPerView={1}
             spaceBetween={16}
             centeredSlides={isMobile}
-            autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: true,
+            }}
             pagination={
               isMobile
                 ? { clickable: true, dynamicBullets: true } // ✅ Dots only for mobile
@@ -145,7 +157,9 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
                         <CategoryBadge
                           category={item.category}
-                          icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+                          icon={
+                            <FaRegNewspaper className="text-white w-3 h-3" />
+                          }
                         />
                       </div>
 
@@ -162,30 +176,34 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
                       {/* Author + Date */}
                       <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600 justify-between">
                         <AuthorBadge author={item.author} />
-                        <DateBadge date={item.created_at} formatDate={customFormatDate} />
+                        <DateBadge
+                          date={item.created_at}
+                          formatDate={customFormatDate}
+                        />
                       </div>
 
-                  {/* Buttons Row */}
-<div className="flex items-center justify-between mt-5 pt-3 border-t border-gray-100">
-  {/* Left Side: Like, Share, Bookmark */}
-  <div className="flex items-center gap-2">
-    <LikeButton id={String(item.id)} />
-   
-    <BookmarkButton
-      id={String(item.id)}
-      borderColor="#767676ff"
-      backgroundColor="#ffffffff"
-      savedBackgroundColor="#ffffffff"
-      iconColor="#767676ff"
-      savedIconColor="#6f42c2"
-    />
-     <ShareButton item={item} linkBase={linkBase} />
-  </div>
+                      {/* Buttons Row */}
+                      <div className="flex items-center justify-between mt-5 pt-3 border-t border-gray-100">
+                        {/* Left Side: Like, Share, Bookmark */}
+                        <div className="flex items-center gap-2" onClick={(e) => e.preventDefault()}>
+                          <LikeButton id={String(item.id)} />
 
-  {/* Right Side: Read More */}
-  <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
-</div>
+                          <BookmarkButton
+                            id={String(item.id)}
+                            borderColor="#767676ff"
+                            backgroundColor="#ffffffff"
+                            savedBackgroundColor="#ffffffff"
+                            iconColor="#767676ff"
+                            savedIconColor="#6f42c2"
+                          />
+                          <ShareButton item={item} linkBase={linkBase} />
+                        </div>
 
+                        {/* Right Side: Read More */}
+                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer group">
+                          <FiChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </Link>

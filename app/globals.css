@@ -149,7 +149,31 @@ p {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+/* =========================
+   Swiper Pagination Dots
+========================= */
+.swiper-pagination-custom {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
 
+.swiper-pagination-custom .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #d1d5db;
+  opacity: 1;
+  transition: all 0.3s ease;
+  border-radius: 50%;
+  margin: 0 !important;
+}
+
+.swiper-pagination-custom .swiper-pagination-bullet-active {
+  width: 24px;
+  height: 10px;
+  background: linear-gradient(to right, #22c55e, #16a34a);
+  border-radius: 5px;
+}
 /* =========================
    Animations
 ========================= */
