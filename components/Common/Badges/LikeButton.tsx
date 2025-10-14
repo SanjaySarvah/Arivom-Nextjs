@@ -18,16 +18,14 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   id,
   onToggle,
   size = 20,
-  borderColor = "#e5e7eb",          // border-gray-200
-  iconColor = "#4b5563",            // stroke-gray-600
-  likedIconColor = "#ef4444",       // red-500
-  backgroundColor = "#ffffff",      // white
-  likedBackgroundColor = "#fef2f2", // red-50
+  borderColor = "#e5e7eb", // gray-200
+  iconColor = "#4b5563", // gray-600
+  likedIconColor = "#ef4444", // red-500
+  backgroundColor = "#ffffff", // white
 }) => {
   const [likedItems, setLikedItems] = useState<Set<string>>(new Set());
   const [isClient, setIsClient] = useState(false);
 
-  // ✅ Load from localStorage
   useEffect(() => {
     setIsClient(true);
     try {
@@ -41,7 +39,6 @@ const LikeButton: React.FC<LikeButtonProps> = ({
     }
   }, []);
 
-  // ✅ Save to localStorage
   useEffect(() => {
     if (!isClient) return;
     try {
@@ -78,14 +75,12 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   return (
     <button
       onClick={toggleLike}
-      className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border transition-all ${
-        isLiked
-          ? "border-red-500 bg-red-50"
-          : "border-gray-200 hover:border-red-500 hover:bg-red-50"
-      }`}
+      className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full transition-all duration-300`}
       style={{
-        borderColor: isLiked ? "#ef4444" : borderColor,
-        backgroundColor: isLiked ? likedBackgroundColor : backgroundColor,
+        borderWidth: "0.5px",
+        borderStyle: "solid",
+        borderColor: isLiked ? likedIconColor : borderColor,
+        backgroundColor: backgroundColor, // ✅ Always white background
       }}
     >
       <Heart
@@ -95,6 +90,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
           stroke: isLiked ? likedIconColor : iconColor,
           fill: isLiked ? likedIconColor : "none",
         }}
+        strokeWidth={1.5} // ✅ Softer stroke
       />
     </button>
   );

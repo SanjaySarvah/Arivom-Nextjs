@@ -37,7 +37,6 @@ const ShareButton: FC<ShareButtonProps> = ({ item, linkBase }) => {
     } else {
       try {
         await navigator.clipboard.writeText(itemUrl);
-        // ✅ Non-blocking feedback (no alert)
         const toast = document.createElement("div");
         toast.textContent = "🔗 Link copied!";
         toast.className =
@@ -54,9 +53,12 @@ const ShareButton: FC<ShareButtonProps> = ({ item, linkBase }) => {
     <button
       onClick={handleShare}
       aria-label="Share this post"
-      className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-200 hover:border-green-500 hover:bg-green-50 transition-all group"
+      className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-200  transition-all group"
     >
-      <Share2 className="w-4 h-4 text-gray-600 group-hover:text-green-600 transition-colors" />
+      <Share2
+  className="w-4 h-4 text-gray-600 transition-all duration-300 group-hover:text-green-600 group-hover:fill-green-600"
+/>
+
     </button>
   );
 };

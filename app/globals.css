@@ -1,33 +1,20 @@
 @import "tailwindcss";
 
+/* =========================
+   CSS Variables
+========================= */
 :root {
   --background: #ffffff;
   --foreground: #171717;
 
   /* Color palette */
-  --primary: #017BFF;    /* blue */
-  --secondary: #6f42c2;  /* purple */
+  --primary: #017BFF;         /* blue */
+  --secondary: #6f42c2;       /* purple */
   --secondarylight: #6f42c290;
-  --tertiary: #28a745;   /* green */
-}
-/* Assign the primary color to text */
-.text-primary {
-  color: var(--primary);
+  --tertiary: #28a745;        /* green */
 }
 
-/* Assign the primary color to a background */
-.bg-primary {
- background: var(--primary);
-}
-
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
+/* Dark Mode Colors */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -35,6 +22,9 @@
   }
 }
 
+/* =========================
+   Body & Fonts
+========================= */
 body {
   background: var(--background);
   color: var(--foreground);
@@ -42,24 +32,89 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-
-
-
-/* Common text */
-.text-style {
-  font-size: 18px;
-  line-height: 40px;
-  font-weight: 600;
+/* =========================
+   Text Colors / Backgrounds
+========================= */
+.text-primary {
+  color: var(--primary);
 }
 
-/* Center Navigation Text */
+.bg-primary {
+  background-color: var(--primary);
+}
+
+/* =========================
+   Common Text & Headings
+========================= */
+.text-style,
 .center-nav li {
   font-size: 18px;
   line-height: 40px;
   font-weight: 600;
 }
 
-/* Loader */
+h1 {
+  font-size: 2rem; /* 32px */
+  line-height: 2.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: #0a0a0a;
+}
+
+h2 {
+  font-size: 1.75rem; /* 28px */
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+h3 {
+  font-size: 1.2rem; /* 20px */
+  line-height: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #0a0a0a;
+}
+
+h3:hover {
+  color: #017BFF;
+}
+
+h4, h5, h6 {
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  font-size: 1rem; /* 16px */
+  line-height: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.h5 {
+  font-size: 0.8rem;
+}
+
+/* Small Text */
+.small-text,
+.description {
+  font-size: 0.875rem; /* 14px */
+  line-height: 1.5rem;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.small-textsidebar {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* =========================
+   Loader / Spinner
+========================= */
 .loader-container {
   display: flex;
   flex-direction: column;
@@ -83,16 +138,21 @@ body {
   }
 }
 
-/* Scrollbar Hide */
+/* =========================
+   Scrollbar
+========================= */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-/* Marquee */
+/* =========================
+   Animations
+========================= */
 @keyframes marquee {
   0% {
     transform: translateX(0);
@@ -101,13 +161,13 @@ body {
     transform: translateX(-50%);
   }
 }
+
 .animate-marquee {
   display: inline-flex;
   animation: marquee 50s linear infinite;
   will-change: transform;
 }
 
-/* Fade In Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -118,72 +178,14 @@ body {
     transform: translateY(0);
   }
 }
+
 .animate-fadeIn {
   animation: fadeIn 0.2s ease-out;
 }
 
-/* Headings (Desktop defaults) */
-h1 {
-  font-size: 2rem; /* 32px */
-  line-height: 2.5rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: #0a0a0a;
-}
-
-h2 {
-  font-size: 1.75rem; /* 28px */
-  font-weight: 600;
-  color: #0a0a0a;
-}
-
-h3 {
-  font-size: 1.2rem; /* 20px */
-  line-height: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #0a0a0a;
-  
-}
-h3:hover{
-  color:#017BFF;
-}
-
-h4,  h6 {
-  font-size: 1.125rem; /* 18px */
-  line-height: 1.5rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-/* Paragraphs */
-p {
-  font-size: 1rem; /* 16px */
-  line-height: 1.75rem;
-  font-weight: 400;
-  margin-bottom: 1rem;
-}
-.h5{
-   font-size: 0.8rem;
-}
-/* Small Text */
-.small-text,
-.description {
-  font-size: 0.875rem; /* 14px */
-  line-height: 1.5rem;
-  font-weight: 400;
-  color: #6b7280;
-}
-
-.small-textsidebar{
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #000000;
-}
-
-
-
-/* ✅ Mobile Responsive Font Sizes */
+/* =========================
+   Mobile Responsive
+========================= */
 @media (max-width: 768px) {
   .text-style,
   .center-nav li {
@@ -201,11 +203,11 @@ p {
   }
 
   h3 {
-    font-size: 1.125rem; /* 18px */
+    font-size: 1rem; /* 18px */
   }
 
   h4, h5, h6 {
-    font-size: 1rem; /* 16px */
+    font-size: 0.80; /* 16px */
   }
 
   p {
@@ -217,13 +219,10 @@ p {
   .description {
     font-size: 0.8125rem; /* 13px */
   }
+}
 
-
-  /* Hide on mobile screens */
 @media (max-width: 639px) {
   .MobileViewContent {
     display: none;
   }
-}
-
 }

@@ -18,6 +18,7 @@ import {
   getNewsByCategory,
   transformToGeneralPost,
 } from "@/lib/getData";
+import PopularTag from "../Common/Badges/PopularTag";
 
 type Category = string;
 
@@ -49,7 +50,7 @@ export default function NewsPortalLayout() {
           <div className="lg:col-span-8 space-y-12">
             {/* Featured Story */}
             {featured && (
-              <Link href={`/news/${featured.id}`} className="block group">
+              <Link href={`/news/${featured.id}`} className="block group MobileViewContent ">
                 <div className="relative overflow-hidden rounded-xl shadow-lg">
                   <div className="relative w-full h-[420px] overflow-hidden group">
                     <img
@@ -62,18 +63,18 @@ export default function NewsPortalLayout() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
                   <div className="absolute bottom-0 p-6 text-white">
                     <span
-                      className="inline-block self-start text-white text-xs font-semibold rounded px-2 py-0.5"
+                      className="inline-block self-start text-white text-xs font-semibold rounded px-2 py-0.5 mb-5"
                       style={{ backgroundColor: "var(--tertiary)" }}
                     >
-                      <CategoryBadge
+                      <CategoryBadge className=""
                         category={featured.category}
-                        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+                        icon={<FaRegNewspaper className="text-white w-3 h-3 " />}
                       />
                     </span>
-                    <h3 className="mt-3 mb-2 leading-tight transition-colors duration-300 text-white! hover:text-[var(--secondary)]">
+                   <span className="font-bold text-base sm:text-xl md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight transition text-white MobileViewContent hover:underline decoration-white decoration-2 underline-offset-4 mb-5">
                       {featured.title}
-                    </h3>
-                    <p className="text-blue-100 text-base md:text-lg line-clamp-2">
+                    </span>
+                    <p className="text-blue-100 text-base md:text-lg line-clamp-2 ">
                       {featured.description}
                     </p>
                   </div>
@@ -98,13 +99,11 @@ export default function NewsPortalLayout() {
 
                   <div className="p-4">
                     <div className="flex justify-between items-center mb-2">
-                      <div
-                        className="flex items-center gap-1 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md"
-                        style={{ backgroundColor: "var(--secondary)" }}
-                      >
-                        <FiTrendingUp className="w-3 h-3" />
-                        <span>Trending</span>
-                      </div>
+                    
+                  
+                
+                        <PopularTag label="popular"/>
+                      
 
                       <CategoryBadge
                         category={item.category}

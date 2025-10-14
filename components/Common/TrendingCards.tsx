@@ -103,7 +103,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
   return (
     <section>
-      <div className="mx-auto">
+      <div className="mx-auto mt-5 sm:mt-10">
         <SectionHeader
           subtitle="News"
           title={title || "Latest Headlines"}

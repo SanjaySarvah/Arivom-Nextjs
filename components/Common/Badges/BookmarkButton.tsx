@@ -19,7 +19,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   onToggle,
   size = 20,
   borderColor = "#e5e7eb", // border-gray-200
-  iconColor = "#4b5563", // stroke-gray-600
+  iconColor = "#000000ff", // stroke-gray-600
   savedIconColor = "#6f42c2", // red-500
   backgroundColor = "#ffffff", // white
   savedBackgroundColor = "#fef2f2", // red-50
@@ -75,14 +75,16 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
   return (
     <button
       onClick={toggleBookmark}
-      className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border transition-all ${
+      className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gray-200  transition-all ${
         isSaved
-          ? "border-red-500 bg-red-50"
+          ? "border-gray-200 bg-red-50"
           : "border-gray-200 hover:border-red-500 hover:bg-red-50"
       }`}
       style={{
         borderColor: isSaved ? "#6f42c2" : borderColor,
         backgroundColor: isSaved ? savedBackgroundColor : backgroundColor,
+         borderWidth: "0.1px", // 👈 much thinner border
+             borderStyle: "solid",
       }}
     >
       {isSaved ? (
@@ -93,6 +95,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
             stroke: savedIconColor,
             fill: savedIconColor,
           }}
+          strokeWidth={1.5} 
         />
       ) : (
         <Bookmark
@@ -101,6 +104,7 @@ const BookmarkButton: React.FC<BookmarkButtonProps> = ({
             height: size,
             stroke: iconColor,
           }}
+          strokeWidth={2} 
         />
       )}
     </button>

@@ -46,10 +46,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       pathname.startsWith("/articles/category"));
 
   return (
-    <html
-      lang="en"
-      className={`${kumbhSans.variable} ${notoSansTamil.variable}`}
-    >
+    <html lang="en" className={`${kumbhSans.variable} ${notoSansTamil.variable}`}>
+      <head>
+        {/* ✅ Viewport for proper mobile scaling */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Arivom News</title>
+      </head>
+
       <body className="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
         <ClientLayoutWrapper>
           {/* ---------------- HEADER SECTION ---------------- */}
@@ -90,15 +93,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           )}
 
           {/* ---------------- MAIN CONTENT ---------------- */}
-          <main className="pt-5 sm:pt-15">
-
+          <main className="bg-white w-full max-w-full">
             {children}
           </main>
 
           {/* ---------------- FOOTER ---------------- */}
-          <div className="">
+          <footer className="w-full">
             <Footer />
-          </div>
+          </footer>
         </ClientLayoutWrapper>
       </body>
     </html>

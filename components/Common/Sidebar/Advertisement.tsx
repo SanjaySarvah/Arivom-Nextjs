@@ -86,24 +86,25 @@ const CompactAdList: FC = () => {
               </p>
             </div>
 
-            {/* Arrow */}
-            <div className="flex-shrink-0">
-              <div className="w-7 h-7 rounded-full bg-gray-50 group-hover:bg-blue-100 flex items-center justify-center transition-colors">
-                <svg
-                  className="w-4 h-4 text-gray-500 group-hover:text-blue-600 transition-colors"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </div>
-            </div>
+        {/* Arrow */}
+<div className="flex-shrink-0 group">
+  <div className="w-7 h-7 rounded-full bg-[var(--secondarylight)] text-white flex items-center justify-center transition-colors duration-300 group-hover:bg-[var(--secondary)]">
+    <svg
+      className="w-4 h-4 text-white transition-colors duration-300 group-hover:text-white"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 5l7 7-7 7"
+      />
+    </svg>
+  </div>
+</div>
+
           </Link>
         ))}
       </div>

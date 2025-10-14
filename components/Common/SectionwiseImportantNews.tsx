@@ -79,30 +79,31 @@ const SectionwiseImportantNews: FC<Props> = ({
           {displayItems.map((item) => (
             <article
               key={item.id}
-              className="flex flex-col sm:flex-row gap-3 md:gap-4 bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 group"
+              className="flex flex-col sm:flex-row gap-3 md:gap-4 bg-white border border-gray-200 rounded-lg overflow-hiddentransition-all duration-300 group"
             >
-              {/* Image Section */}
-              <div className="relative w-full sm:w-48 md:w-56 lg:w-64 h-40 sm:h-auto flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-700">
-                <Link href={`${linkBase}/${item.id}`}>
-                  <img
-                    src={item.image}
-                    alt={item.title || "News Image"}
-                    className="w-full h-full object-cover"
-                  />
+         {/* Image Section */}
+<div className="relative w-full sm:w-48 md:w-56 lg:w-64 h-40 sm:h-auto flex-shrink-0 bg-gradient-to-br from-blue-500 to-blue-700 group overflow-hidden rounded-lg">
+  <Link href={`${linkBase}/${item.id}`}>
+    <img
+      src={item.image}
+      alt={item.title || "News Image"}
+      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+    />
 
-                  {/* Overlay Branding */}
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div className="text-center">
-                      <div className="text-white font-bold text-xl md:text-2xl opacity-90">
-                        ARIVOM
-                      </div>
-                      <div className="text-white text-xs font-semibold opacity-80">
-                        NEWS
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </div>
+    {/* Overlay Branding */}
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="text-center">
+        <div className="text-white font-bold text-xl md:text-2xl opacity-90">
+          ARIVOM
+        </div>
+        <div className="text-white text-xs font-semibold opacity-80">
+          NEWS
+        </div>
+      </div>
+    </div>
+  </Link>
+</div>
+
 
               {/* Content Section */}
               <div className="flex-1 p-3 md:p-4 flex flex-col justify-between min-h-[140px] sm:min-h-0">
