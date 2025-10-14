@@ -7,7 +7,6 @@ import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import SectionHeader from "@/components/Common/SectionHeader";
 import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
 import TagBadge from "@/components/Common/Badges/TagBadge";
 import DateBadge from "@/components/Common/Badges/DateBadge";
@@ -19,15 +18,8 @@ import LikeButton from "@/components/Common/Badges/LikeButton";
 import ReadMoreButton from "@/components/Common/Badges/ReadMoreButton";
 import ShareButton from "@/components/Common/Badges/ShareButton";
 
-import {
-  FiChevronLeft,
-  FiChevronRight,
-} from "react-icons/fi";
-import {
-
-  FaRegNewspaper,
-
-} from "react-icons/fa";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { FaRegNewspaper } from "react-icons/fa";
 import { Heart, Share2 } from "lucide-react";
 import { NewsItem, ArticleItem } from "@/lib/getData";
 
@@ -57,7 +49,11 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
 
   // Initialize Swiper navigation
   useEffect(() => {
-    if (swiperInstance && navigationPrevRef.current && navigationNextRef.current) {
+    if (
+      swiperInstance &&
+      navigationPrevRef.current &&
+      navigationNextRef.current
+    ) {
       swiperInstance.params.navigation.prevEl = navigationPrevRef.current;
       swiperInstance.params.navigation.nextEl = navigationNextRef.current;
       swiperInstance.navigation.init();
@@ -88,8 +84,6 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
     });
   };
 
-
-
   const customFormatDate = (date: string | Date) => {
     const d = typeof date === "string" ? new Date(date) : date;
     return d.toLocaleDateString("en-US", {
@@ -104,13 +98,42 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
   return (
     <section>
       <div className="mx-auto mt-5 sm:mt-10">
-        <SectionHeader
-          subtitle="News"
-          title={title || "Latest Headlines"}
-          showButton={false}
-          buttonText="View All"
-          buttonUrl="/news"
-        />
+        {/* Split Headers - Responsive */}
+        <div className="mb-8 flex flex-col lg:flex-row gap-6 lg:gap-8">
+          {/* Trending News Header - Left Side */}
+          <div className="w-full lg:w-2/3">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
+              <div className="flex flex-col">
+                <span className="text-xs md:text-sm font-semibold text-green-600 uppercase tracking-wider">
+                  News
+                </span>
+                <h2 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                  {title || "Trending News"}
+                </h2>
+              </div>
+              {/* Divider Line */}
+              <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
+            </div>
+          </div>
+
+          {/* Sponsored Ads Header - Right Side */}
+          <div className="w-full lg:w-1/3">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
+              <div className="flex flex-col">
+                <span className="text-xs md:text-sm font-semibold text-green-600 uppercase tracking-wider">
+                  Ads
+                </span>
+                <h2 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                  Sponsored Ads
+                </h2>
+              </div>
+              {/* Divider Line */}
+              <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
+            </div>
+          </div>
+        </div>
 
         {/* Layout */}
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
@@ -142,23 +165,18 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
                           <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between z-10">
-
                             <span>
                               <TagBadge label="Breaking New" />
                             </span>
 
-
-
-                            <BookmarkButton
+                            {/* <BookmarkButton
                               id={String(item.id)}
                               borderColor="#e5e7eb"          // same as border-gray-200
                               backgroundColor="#ffffff"       // same as bg-white
                               savedBackgroundColor="#fef2f2"  // same as bg-red-50
                               iconColor="#4b5563"             // same as stroke-gray-600
                               savedIconColor="#6f42c2"        // same as fill-red-500 / stroke-red-500
-                            />
-
-
+                            /> */}
                           </div>
 
                           <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 ">
@@ -173,8 +191,9 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                             <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
                               <CategoryBadge
                                 category={item.category}
-                                icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-
+                                icon={
+                                  <FaRegNewspaper className="text-white w-3 h-3" />
+                                }
                               />
                             </div>
                           </div>
@@ -185,18 +204,31 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                         <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
                           <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600">
                             <span className="flex items-center gap-1.5">
-                              <AuthorBadge author={item.author} /></span>
+                              <AuthorBadge author={item.author} />
+                            </span>
                             <span className="flex items-center gap-1.5 MobileViewContent">
-                              <DateBadge date={item.created_at} formatDate={customFormatDate} /></span>
+                              <DateBadge
+                                date={item.created_at}
+                                formatDate={customFormatDate}
+                              />
+                            </span>
                           </div>
 
                           <div className="flex items-center gap-4 sm:gap-3 ml-auto">
-
                             <LikeButton id={String(item.id)} />
-
+                            <BookmarkButton
+                              id={String(item.id)}
+                              borderColor="#e5e7eb" // same as border-gray-200
+                              backgroundColor="#ffffff" // same as bg-white
+                              savedBackgroundColor="#fef2f2" // same as bg-red-50
+                              iconColor="#4b5563" // same as stroke-gray-600
+                              savedIconColor="#6f42c2" // same as fill-red-500 / stroke-red-500
+                            />
                             <ShareButton item={item} linkBase={linkBase} />
 
-                            <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />
+                            <ReadMoreButton
+                              href={`${linkBase}/${String(item.id)}`}
+                            />
                           </div>
                         </div>
                       </div>

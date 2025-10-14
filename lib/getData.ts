@@ -257,7 +257,6 @@ export const getArticleSubcategories = (
   category: string
 ): {
   subcategory: string;
-  tname?: string;
 }[] => {
   const seen = new Set<string>();
   const subcategories = (articles as ArticleItem[])
@@ -272,7 +271,6 @@ export const getArticleSubcategories = (
     })
     .map((a) => ({
       subcategory: a.subcategory!,
-      tname: a.tname || a.subcategory!,
     }));
   return subcategories;
 };
@@ -282,7 +280,6 @@ export const getArticleSubsubcategories = (
   subcategory: string
 ): {
   subsubcategory: string;
-  tname?: string;
 }[] => {
   const seen = new Set<string>();
   const subsubcategories = (articles as ArticleItem[])
@@ -298,7 +295,6 @@ export const getArticleSubsubcategories = (
     })
     .map((a) => ({
       subsubcategory: a.subsubcategory!,
-      tname: a.tname || a.subsubcategory!,
     }));
   return subsubcategories;
 };

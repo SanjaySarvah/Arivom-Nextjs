@@ -30,6 +30,7 @@ export default function Home() {
               title="முக்கிய செய்திகள்"
               items={related}
               linkBase="/news"
+              viewAllLink="/news"
             />
           </div>
 
@@ -45,9 +46,10 @@ export default function Home() {
             subtitle="Latest"
             title="Popular News"
             showButton={true}
-            buttonText="View All News"
+            buttonText="View All"
             buttonUrl="/news"
           />
+          
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
             {/* Left Column */}
@@ -78,7 +80,7 @@ export default function Home() {
             subtitle="Editorials"
             title="Recent Articles"
             showButton={true}
-            buttonText="View All Articles"
+            buttonText="View All"
             buttonUrl="/articles"
           />
          <CardView/>

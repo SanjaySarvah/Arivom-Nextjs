@@ -66,13 +66,13 @@ const SectionwiseImportantNews: FC<Props> = ({
        
 
         {/* Category Label */}
-        <div className="mb-3 md:mb-4">
+        {/* <div className="mb-3 md:mb-4">
           <h3 className="text-lg md:text-xl font-bold text-blue-600">
             {categoryLabel}
           </h3>
 
         
-        </div>
+        </div> */}
 
         {/* News Cards */}
         <div className="space-y-4 md:space-y-5">
@@ -175,7 +175,7 @@ const SectionwiseImportantNews: FC<Props> = ({
                   <div className="flex items-center gap-2">
                     <LikeButton id={String(item.id)} />
 
-                    <ShareButton item={item} linkBase="/news" />
+                   
 
                     <BookmarkButton
                       id={String(item.id)}
@@ -185,6 +185,7 @@ const SectionwiseImportantNews: FC<Props> = ({
                       iconColor="#767676ff"
                       savedIconColor="#6f42c2"
                     />
+                     <ShareButton item={item} linkBase="/news" />
                   </div>
 
                   <ReadMoreButton href={`${linkBase}/${String(item.id)}`} />

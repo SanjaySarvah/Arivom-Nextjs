@@ -298,7 +298,7 @@ const HeaderPrimary: React.FC = () => {
                      <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
                         <FaUser className="w-2.5 h-2.5 text-white" />
                       </span>
-                      <span className="font-medium text-[11px]">Sign In</span>
+                      <span className="font-medium text-sm">Sign In</span>
                     </Link>
 
                     <Link
@@ -309,7 +309,7 @@ const HeaderPrimary: React.FC = () => {
                       <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
                         <FaUserPlus className="w-2.5 h-2.5 text-white" />
                       </span>
-                      <span className="font-medium text-[11px]">Sign Up</span>
+                      <span className="font-medium text-sm">Sign Up</span>
                     </Link>
                   </div>
                 </div>

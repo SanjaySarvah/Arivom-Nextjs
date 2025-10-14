@@ -25,9 +25,10 @@ interface Props {
   title: string;
   items: NewsItem[] | ArticleItem[];
   linkBase: string;
+  viewAllLink?: string;
 }
 
-const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
+const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
 
@@ -82,6 +83,21 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
               </div>
             </div>
             <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
+
+            {/* View All Button */}
+            {viewAllLink && (
+              <Link
+                href={viewAllLink}
+                className="relative px-5 py-2 text-base font-semibold rounded-md border border-green-500 text-green-600 overflow-hidden transition-all duration-300 group flex items-center gap-2"
+                aria-label="View All"
+              >
+                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+                  View All
+                </span>
+                <FiChevronRight className="relative z-10 w-4 h-4 transition-colors duration-300 group-hover:text-white" />
+                <span className="absolute inset-0 bg-green-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out" />
+              </Link>
+            )}
           </div>
         </div>
 
@@ -154,7 +170,7 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
   {/* Left Side: Like, Share, Bookmark */}
   <div className="flex items-center gap-2">
     <LikeButton id={String(item.id)} />
-    <ShareButton item={item} linkBase={linkBase} />
+   
     <BookmarkButton
       id={String(item.id)}
       borderColor="#767676ff"
@@ -163,6 +179,7 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase }) => {
       iconColor="#767676ff"
       savedIconColor="#6f42c2"
     />
+     <ShareButton item={item} linkBase={linkBase} />
   </div>
 
   {/* Right Side: Read More */}

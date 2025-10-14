@@ -31,7 +31,7 @@ export default function ArticlesPage() {
           </div>
         </div> */}
         <div className="mb-8">
-          <RelatedSlider title="முக்கிய கட்டுரைகள்" items={articles} linkBase="/articles" />
+          <RelatedSlider title="முக்கிய கட்டுரைகள்" items={articles} linkBase="/articles" viewAllLink="/articles" />
         </div>
         {/* Articles List with Sidebar */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">

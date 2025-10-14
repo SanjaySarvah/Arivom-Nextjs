@@ -153,7 +153,7 @@ const stats: {
                 <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
                   <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
                     <LikeButton id={String(data.id)} />
-                    <ShareButton item={data} linkBase={linkBase} />
+                   
                     <BookmarkButton
                       id={String(data.id)}
                       borderColor="#767676"
@@ -162,6 +162,7 @@ const stats: {
                       iconColor="#767676"
                       savedIconColor="#6f42c2"
                     />
+                     <ShareButton item={data} linkBase={linkBase} />
                   </div>
                 </div>
               </div>

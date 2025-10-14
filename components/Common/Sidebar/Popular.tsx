@@ -2,8 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { FiTrendingUp, FiChevronRight } from "react-icons/fi";
-import { Heart, Bookmark, Share2 } from "lucide-react";
+import { FiTrendingUp, FiChevronRight, FiClock } from "react-icons/fi";
+import { Heart, Bookmark, Share2, User } from "lucide-react";
 import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
 import { FaRegNewspaper } from "react-icons/fa";
 import { getLatestNews } from "@/lib/getData"; // ✅ Using your data accessors
@@ -57,8 +57,36 @@ const CardView: React.FC = () => {
                 {item.excerpt}
               </p>
             </Link>
-
-       
+   <div className="flex items-center justify-between">
+                  <div className="flex items-center ">
+                    <div
+                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center"
+                  
+                    >
+                      <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500" />
+                    </div>
+                    <span className="text-xs text-gray-500">
+                      {item.author || 'Rohan Mehta'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500">
+                    <FiClock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                    <span className="hidden sm:inline">
+                      {new Date(item.created_at).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
+                    <span className="sm:hidden">
+                      {new Date(item.created_at).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                  </div>
+                </div>
+        
           </div>
         </div>
       ))}

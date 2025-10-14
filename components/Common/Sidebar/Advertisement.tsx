@@ -45,12 +45,7 @@ const CompactAdList: FC = () => {
 
 
   return (
-    <aside className="w-full">
-    <span className="text-lg font-semibold text-gray-700 mb-1 pb-1 block">
-  Sponsored Ads
-</span>
-
-
+    <aside className="w-full lg:w-1/3">
       <div className="flex flex-col gap-4">
         {compactAds.map((ad) => (
           <Link

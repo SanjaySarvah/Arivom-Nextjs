@@ -38,7 +38,7 @@ export default function NewsPage() {
           {/* Full Width Cards */}
           {/* <CardList items={news} linkBase="/news" /> */}
              <div className="mb-8">
-            <RelatedSlider title="முக்கிய செய்திகள்" items={news} linkBase="/news" />
+            <RelatedSlider title="முக்கிய செய்திகள்" items={news} linkBase="/news" viewAllLink="/news" />
           </div>
         
 

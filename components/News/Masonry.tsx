@@ -125,7 +125,7 @@ export default function NewsPortalLayout() {
   {/* Left Side Icons */}
   <div className="flex items-center gap-3">
     <LikeButton id={String(item.id)} />
-    <ShareButton item={item} linkBase={linkBase} />
+   
     <BookmarkButton
       id={String(item.id)}
       borderColor="#767676ff"
@@ -134,6 +134,7 @@ export default function NewsPortalLayout() {
       iconColor="#767676ff"
       savedIconColor="#6f42c2"
     />
+     <ShareButton item={item} linkBase={linkBase} />
   </div>
 
   {/* Right Side Read More Button */}

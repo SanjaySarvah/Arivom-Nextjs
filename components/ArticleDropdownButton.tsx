@@ -96,7 +96,7 @@ export default function ArticleCategoryDropdown() {
       {isOpen && (
         <div className="absolute top-full left-0 mt-2 w-72 sm:w-80 bg-white rounded-xl shadow-lg border border-green-200 z-50 max-h-[70vh] overflow-hidden">
           {/* Header */}
-          <div className="p-4 pb-3 bg-gradient-to-r from-green-50 to-white border-b border-green-100">
+          {/* <div className="p-4 pb-3 bg-gradient-to-r from-green-50 to-white border-b border-green-100">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Folder className="w-4 h-4 text-green-600" />
@@ -111,7 +111,7 @@ export default function ArticleCategoryDropdown() {
               </button>
             </div>
             <p className="text-xs text-gray-500 mt-1">Browse articles by category</p>
-          </div>
+          </div> */}
 
           {/* Categories List */}
           <div className="p-3 max-h-64 overflow-y-auto custom-scrollbar">
@@ -136,7 +136,7 @@ export default function ArticleCategoryDropdown() {
                           ) : (
                             <Folder className="w-4 h-4 text-gray-400 flex-shrink-0" />
                           )}
-                          <span className="flex-1">{cat.category}</span>
+                          <span className="flex-1">{cat.tname || cat.category}</span>
                           <ChevronDown
                             className={`w-3.5 h-3.5 text-gray-400 transition-transform duration-200 flex-shrink-0 ${
                               activeCategory === cat.category ? "rotate-180 text-green-600" : ""
@@ -150,7 +150,7 @@ export default function ArticleCategoryDropdown() {
                           onClick={closeAll}
                         >
                           <FileText className="w-4 h-4 text-gray-400 flex-shrink-0" />
-                          <span className="flex-1">{cat.category}</span>
+                          <span className="flex-1">{cat.tname || cat.category}</span>
                           <ChevronRight className="w-3.5 h-3.5 text-gray-400 flex-shrink-0" />
                         </Link>
                       )}
@@ -233,13 +233,13 @@ export default function ArticleCategoryDropdown() {
           </div>
 
           {/* Footer */}
-          <div className="p-3 bg-green-50 border-t border-green-100">
+          {/* <div className="p-3 bg-green-50 border-t border-green-100">
             <div className="text-center">
               <p className="text-xs text-gray-500">
                 {categories.length} categories
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
 
