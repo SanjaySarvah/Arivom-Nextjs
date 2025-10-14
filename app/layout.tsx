@@ -98,7 +98,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
 
           {/* ---------------- FOOTER ---------------- */}
-          <footer className="w-full mb-30">
+        <footer className="w-full footerspacing">
+
             <Footer />
           </footer>
         </ClientLayoutWrapper>
