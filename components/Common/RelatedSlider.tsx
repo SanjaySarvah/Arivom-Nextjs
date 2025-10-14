@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
+import SectionHeader from "@/components/Common/SectionHeader";
 
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { FaRegNewspaper } from "react-icons/fa";
@@ -76,38 +77,13 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
   return (
     <section>
       <div className="mx-auto relative mt-12">
-        {/* Section Header */}
-        <div className="mb-8 text-left">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
-              <div className="flex flex-col">
-                <span className="text-sm font-semibold text-green-600 uppercase tracking-wider">
-                  News
-                </span>
-                <h2 className="text-3xl md:text-5xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
-                  {title}
-                </h2>
-              </div>
-            </div>
-            <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
-
-            {/* View All Button */}
-            {viewAllLink && (
-              <Link
-                href={viewAllLink}
-                className="relative px-5 py-2 text-base font-semibold rounded-md border border-green-500 text-green-600 overflow-hidden transition-all duration-300 group flex items-center gap-2"
-                aria-label="View All"
-              >
-                <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
-                  View All
-                </span>
-                <FiChevronRight className="relative z-10 w-4 h-4 transition-colors duration-300 group-hover:text-white" />
-                <span className="absolute inset-0 bg-green-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out" />
-              </Link>
-            )}
-          </div>
-        </div>
+         <SectionHeader
+            subtitle="Editorials"
+            title="Recent Articles"
+            showButton={true}
+            buttonText="View All"
+            buttonUrl="/articles"
+          />
 
         {/* ✅ Swiper Slider */}
         <div className="relative w-full">

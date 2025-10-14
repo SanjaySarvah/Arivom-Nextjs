@@ -3,6 +3,7 @@
 import { FC } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import SectionHeader from "@/components/Common/SectionHeader";
 
 interface AdItem {
   id: string;
@@ -62,21 +63,13 @@ const CompactAdList: FC = () => {
   return (
     <aside className="w-full lg:w-1/3">
       {/* Sponsored Ads Header */}
-      <div className="mb-4">
-        <div className="flex items-center gap-3">
-          <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
-          <div className="flex flex-col">
-            <span className="text-xs md:text-sm font-semibold text-green-600 uppercase tracking-wider">
-              Ads
-            </span>
-            <h3 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent hover:text-black!">
-              Sponsored Ads
-            </h3>
-          </div>
-          {/* Divider Line */}
-          <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
-        </div>
-      </div>
+           <SectionHeader
+            subtitle="Latest"
+            title="Popular News"
+            showButton={false}
+            buttonText="View All"
+            buttonUrl="/news"
+          />
 
       {/* Ads Content */}
       <div className="flex flex-col gap-4 h-[350px] sm:h-[200px] lg:h-[450px] overflow-y-auto pr-2

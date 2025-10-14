@@ -12,7 +12,6 @@ import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
 import TagBadge from "@/components/Common/Badges/TagBadge";
 import DateBadge from "@/components/Common/Badges/DateBadge";
 import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
-
 import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
 import Advertisement from "@/components/Common/Sidebar/Advertisement";
 import LikeButton from "@/components/Common/Badges/LikeButton";
@@ -20,8 +19,8 @@ import ShareButton from "@/components/Common/Badges/ShareButton";
 
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { FaRegNewspaper } from "react-icons/fa";
-import { Heart, Share2 } from "lucide-react";
 import { NewsItem, ArticleItem } from "@/lib/getData";
+import SectionHeader from "@/components/Common/SectionHeader";
 
 interface Props {
   title: string;
@@ -32,13 +31,22 @@ interface Props {
 const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
   const [likedItems, setLikedItems] = useState<Set<string>>(new Set());
+  const [isMobile, setIsMobile] = useState(false);
 
   const navigationPrevRef = useRef<HTMLButtonElement>(null);
   const navigationNextRef = useRef<HTMLButtonElement>(null);
 
   if (!items || items.length === 0) return null;
 
-  // Initialize Swiper navigation
+  // ✅ Detect Mobile View
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  // ✅ Initialize Swiper navigation
   useEffect(() => {
     if (
       swiperInstance &&
@@ -52,18 +60,20 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
     }
   }, [swiperInstance]);
 
-  // Helpers
-  const formatDate = (dateString: string) => {
-    if (!dateString) return "";
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
+  // ✅ Helpers
+  const customFormatDate = (date: string | Date) => {
+    const d = typeof date === "string" ? new Date(date) : date;
+    return d.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
     });
   };
 
-  // Toggle like
+  const carouselItems = items.slice(0, 8);
+  const dataType = linkBase.includes("/news") ? "news" : "article";
+
+  // ✅ Toggle Like
   const toggleLike = (itemId: string | number, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
@@ -75,137 +85,107 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
     });
   };
 
-  const customFormatDate = (date: string | Date) => {
-    const d = typeof date === "string" ? new Date(date) : date;
-    return d.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  };
-
-  const carouselItems = items.slice(0, 8);
-
-  // Determine dataType based on linkBase
-  const dataType = linkBase.includes('/news') ? 'news' : 'article';
-
   return (
     <section>
       <div className="mx-auto mt-5 sm:mt-10">
-        {/* Layout */}
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
           {/* LEFT SIDE - Trending News */}
           <div className="w-full lg:w-2/3">
-            {/* Trending News Header */}
-            <div className="mb-4">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-10 rounded-full bg-gradient-to-b from-green-500 to-green-600 shadow-lg"></div>
-                <div className="flex flex-col">
-                  <span className="text-xs md:text-sm font-semibold text-green-600 uppercase tracking-wider">
-                    News
-                  </span>
-                  <h3 className="text-lg sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent hover:text-black!">
-                    {title || "Trending News"}
-                  </h3>
-                </div>
-                {/* Divider Line */}
-                <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
-              </div>
-            </div>
+            {/* Section Header */}
+            <SectionHeader
+              subtitle="Latest"
+              title="Popular News"
+              showButton={false}
+              buttonText="View All"
+              buttonUrl="/news"
+            />
 
-            {/* Trending News Content */}
-            <div className="relative h-[350px] sm:h-[200px] lg:h-[450px]">
+            {/* Swiper Slider */}
+            <div className="relative h-[350px] sm:h-[200px] lg:h-[450px] ">
               <Swiper
                 modules={[Navigation, Autoplay, Pagination]}
                 slidesPerView={1}
                 spaceBetween={24}
-                autoplay={{ delay: 5000, disableOnInteraction: false }}
-                pagination={{
-                  clickable: true,
-                  el: '.swiper-pagination-custom',
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true,
                 }}
+                pagination={
+                  isMobile
+                    ? { clickable: true, dynamicBullets: true } // ✅ Only show dots on mobile
+                    : false
+                }
                 onSwiper={setSwiperInstance}
-                className="h-full rounded-2xl"
+                className="h-full rounded-2xl overflow-hidden "
               >
                 {carouselItems.map((item) => (
-                  <SwiperSlide key={item.id} className="h-full">
+                  <SwiperSlide key={item.id} className="h-full ">
                     <Link
                       href={`${linkBase}/${String(item.id)}`}
                       className="bg-white rounded-2xl overflow-hidden h-full flex flex-col border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500 block"
                     >
                       {/* Image */}
                       <div className="relative flex-1 overflow-hidden group">
-                        <div className="relative w-full h-full">
-                          <img
-                            src={item.image}
-                            alt={item.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
-                          <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between z-10">
-                            <span>
-                              <TagBadge label="Breaking New" />
-                            </span>
+                        {/* Tag + Bookmark */}
+                        <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between z-10">
+                          <TagBadge label="Breaking News" />
+                        </div>
 
-                            {/* <BookmarkButton
-                              id={String(item.id)}
-                              borderColor="#e5e7eb"          // same as border-gray-200
-                              backgroundColor="#ffffff"       // same as bg-white
-                              savedBackgroundColor="#fef2f2"  // same as bg-red-50
-                              iconColor="#4b5563"             // same as stroke-gray-600
-                              savedIconColor="#6f42c2"        // same as fill-red-500 / stroke-red-500
-                            /> */}
-                          </div>
-
-                          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5 ">
-                            <span className="font-bold text-base sm:text-xl md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight transition text-white MobileViewContent hover:underline decoration-white decoration-2 underline-offset-4">
-                              {item.title}
-                            </span>
-
-                            <p className="text-white/90 text-xs sm:text-sm mb-2 line-clamp-3 leading-relaxed ">
-                              {item.content}
-                            </p>
-
-                            <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
-                              <CategoryBadge
-                                category={item.category}
-                                icon={
-                                  <FaRegNewspaper className="text-white w-3 h-3" />
-                                }
-                              />
-                            </div>
+                        {/* Text Overlay */}
+                        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5">
+                          <span className="font-bold text-base sm:text-xl md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight text-white hover:underline decoration-white decoration-2 underline-offset-4">
+                            {item.title}
+                          </span>
+                          <p className="text-white/90 text-xs sm:text-sm mb-2 line-clamp-3 leading-relaxed">
+                            {item.content}
+                          </p>
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
+                            <CategoryBadge
+                              category={item.category}
+                              icon={
+                                <FaRegNewspaper className="text-white w-3 h-3" />
+                              }
+                            />
                           </div>
                         </div>
                       </div>
 
+                      {/* Bottom Info */}
                       <div className="px-4 sm:px-6 py-3 sm:py-4 bg-white border-t border-gray-100">
                         <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
+                          {/* Author + Date */}
                           <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600">
-                            <span className="flex items-center gap-1.5">
-                              <AuthorBadge author={item.author} />
-                            </span>
-                            <span className="flex items-center gap-1.5 MobileViewContent">
-                              <DateBadge
-                                date={item.created_at}
-                                formatDate={customFormatDate}
-                              />
-                            </span>
+                            <AuthorBadge author={item.author} />
+                            {/* <DateBadge
+                              date={item.created_at}
+                              formatDate={customFormatDate}
+                            /> */}
                           </div>
 
-                          <div className="flex items-center gap-4 sm:gap-3 ml-auto" onClick={(e) => e.preventDefault()}>
+                          {/* Action Buttons */}
+                          <div
+                            className="flex items-center gap-4 sm:gap-3 ml-auto"
+                            onClick={(e) => e.preventDefault()}
+                          >
                             <LikeButton id={String(item.id)} />
                             <BookmarkButton
                               id={String(item.id)}
-                              borderColor="#e5e7eb" // same as border-gray-200
-                              backgroundColor="#ffffff" // same as bg-white
-                              savedBackgroundColor="#fef2f2" // same as bg-red-50
-                              iconColor="#4b5563" // same as stroke-gray-600
-                              savedIconColor="#6f42c2" // same as fill-red-500 / stroke-red-500
-                              dataType={dataType as 'news' | 'article'}
+                              borderColor="#e5e7eb"
+                              backgroundColor="#ffffff"
+                              savedBackgroundColor="#fef2f2"
+                              iconColor="#4b5563"
+                              savedIconColor="#6f42c2"
+                              dataType={dataType as "news" | "article"}
                             />
                             <ShareButton item={item} linkBase={linkBase} />
-
                             <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer group">
                               <FiChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
                             </span>
@@ -217,9 +197,9 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                 ))}
               </Swiper>
 
-              {/* Navigation - Desktop Only (above 1024px) */}
-              <div className="hidden lg:block">
-                <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center pointer-events-none z-20">
+              {/* ✅ Desktop Navigation Buttons */}
+              {!isMobile && (
+                <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center pointer-events-none z-20 "  >
                   <button
                     ref={navigationPrevRef}
                     className="pointer-events-auto bg-white/90 border border-gray-200 rounded-full w-12 h-12 flex items-center justify-center shadow-xl transition-all duration-300 hover:scale-110 hover:bg-[var(--secondary)] hover:border-[var(--secondary)] group -ml-6"
@@ -234,11 +214,8 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                     <FiChevronRight className="w-6 h-6 text-black transition-colors duration-300 group-hover:text-white" />
                   </button>
                 </div>
-              </div>
+              )}
             </div>
-
-            {/* Pagination Dots - Mobile/Tablet Only (below 1024px) */}
-            <div className="swiper-pagination-custom mt-4 lg:hidden"></div>
           </div>
 
           {/* RIGHT SIDE */}
