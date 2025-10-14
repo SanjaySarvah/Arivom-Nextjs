@@ -24,6 +24,7 @@ import LikeButton from "@/components/Common/Badges/LikeButton";
 import ShareButton from "@/components/Common/Badges/ShareButton";
 import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
 import { NewsItem, ArticleItem } from "@/lib/getData";
+import { ArrowRight } from "lucide-react";
 
 interface Props {
   title: string;
@@ -93,10 +94,10 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
             <div className="flex-1 h-px bg-gradient-to-r from-green-500 to-transparent ml-4"></div>
 
             {/* View All Button */}
-            {viewAllLink && (
+            {/* {viewAllLink && (
               <Link
                 href={viewAllLink}
-                className="relative px-5 py-2 text-base font-semibold rounded-md border border-green-500 text-green-600 overflow-hidden transition-all duration-300 group flex items-center gap-2"
+                className="relative  text-base font-semibold rounded-md border border-green-500 text-green-600 overflow-hidden transition-all duration-300 group flex items-center gap-2"
                 aria-label="View All"
               >
                 <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
@@ -105,7 +106,14 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
                 <FiChevronRight className="relative z-10 w-4 h-4 transition-colors duration-300 group-hover:text-white" />
                 <span className="absolute inset-0 bg-green-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out" />
               </Link>
-            )}
+            )} */}
+            <button className="relative px-6 py-2 font-semibold rounded-lg border-2 border-green-500 text-green-600 overflow-hidden transition-all duration-300 group flex items-center gap-2">
+            <span className="relative z-10 transition-colors duration-300 group-hover:text-white">
+              View All
+            </span>
+            <FiChevronRight className="relative z-10 w-4 h-4 transition-colors duration-300 group-hover:text-white" />
+            <span className="absolute inset-0 bg-green-500 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ease-out"></span>
+          </button>
           </div>
         </div>
 
