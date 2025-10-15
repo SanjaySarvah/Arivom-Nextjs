@@ -192,7 +192,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
               {/* Add Comment Box */}
               <div className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-8 border border-gray-200">
                 <div className="flex items-start gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                     You
                   </div>
                   <div className="flex-1">
@@ -207,7 +207,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                       <button
                         onClick={handleSubmitComment}
                         disabled={!newComment.trim()}
-                        className="px-6 py-2.5 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm"
+                        className="px-4 py-2 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm"
                       >
                         Post Comment
                       </button>
