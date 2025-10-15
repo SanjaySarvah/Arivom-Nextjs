@@ -127,7 +127,8 @@ const CardView: React.FC = () => {
       {visibleCount < allArticles.length && (
         <button
           onClick={handleLoadMore}
-          className="mt-8 px-6 py-2 text-white font-semibold rounded-full transition-all hover:scale-105"
+        className="mt-8 mb-20 sm:mb-0 px-6 py-2 text-white font-semibold rounded-full transition-all hover:scale-105"
+
           style={{ backgroundColor: "var(--tertiary)" }}
         >
           Load More

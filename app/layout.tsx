@@ -49,7 +49,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       pathname.startsWith("/articles/category"));
 
   return (
-    <html lang="en" className={`${kumbhSans.variable} ${notoSansTamil.variable}`}>
+    <html
+      lang="en"
+      className={`${kumbhSans.variable} ${notoSansTamil.variable}`}
+    >
       <head>
         {/* ✅ Viewport for proper mobile scaling */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -62,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {isAuthPage ? (
             <DetailsHeader />
           ) : isDetailPage ? (
-            ''    // logic removed
+            "" // logic removed
           ) : (
             <>
               {/* First Row */}
@@ -101,12 +104,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           )}
 
           {/* ---------------- MAIN CONTENT ---------------- */}
-          <main className="bg-white w-full max-w-full ">
-            {children}
-          </main>
+          <main className="bg-white w-full max-w-full ">{children}</main>
 
           {/* ---------------- FOOTER ---------------- */}
-          <footer className="w-full footerspacing">
+          <footer className="hidden sm:block w-full footerspacing">
             <Footer />
           </footer>
         </ClientLayoutWrapper>
