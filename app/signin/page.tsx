@@ -16,7 +16,7 @@ export default function SignInPage() {
     <div className="flex items-center justify-center p-4 min-h-0 sm:min-h-0">
 
       {/* Breadcrumbs */}
-     <div className="absolute top-[5px] left-[6px] sm:top-45 sm:left-50">
+     {/* <div className="absolute top-[5px] left-[6px] sm:top-45 sm:left-50">
         <div className="text-sm">
           <Link href="/" className="text-blue-600 font-medium hover:text-blue-700 hover:underline transition-colors">
             Home
@@ -24,7 +24,7 @@ export default function SignInPage() {
           <span className="text-gray-400 mx-1">{'>'}</span>
           <span className="text-gray-600 font-medium">Sign In</span>
         </div>
-      </div>
+      </div> */}
 
       {/* Card Container - Properly centered on mobile */}
       <div className="w-full max-w-md">

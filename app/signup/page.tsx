@@ -24,7 +24,7 @@ export default function SignUpPage() {
     <div className="flex items-center justify-center p-4 min-h-0 sm:min-h-0">
 
       {/* Breadcrumbs */}
-      <div className="absolute top-[5px] left-[6px] sm:top-45 sm:left-50">
+      {/* <div className="absolute top-[5px] left-[6px] sm:top-45 sm:left-50">
         <div className="text-sm">
           <Link
             href="/"
@@ -35,7 +35,7 @@ export default function SignUpPage() {
           <span className="text-gray-400 mx-1">{'>'}</span>
           <span className="text-gray-600 font-medium">Sign Up</span>
         </div>
-      </div>
+      </div> */}
 
       {/* Card Container */}
       <div className="w-full max-w-md">

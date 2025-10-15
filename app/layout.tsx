@@ -33,6 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   // Detect detail page
   const isDetailPage = pathname.match(/\/(news|articles)\/[^\/]+$/);
 
+  // Detect auth pages (signin/signup)
+  const isAuthPage = pathname === "/signin" || pathname === "/signup";
+
   // Tabs visibility
   const showNewsTab =
     !isDetailPage &&
@@ -56,7 +59,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
         <ClientLayoutWrapper>
           {/* ---------------- HEADER SECTION ---------------- */}
-          {isDetailPage ? (
+          {isAuthPage ? (
+            <DetailsHeader />
+          ) : isDetailPage ? (
             ''    // logic removed
           ) : (
             <>
@@ -66,10 +71,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Sticky Navigation */}
               <div className="sticky top-0 z-50 bg-white shadow-md">
                 <HeaderSecondary />
-                
+
                 {/* FIXED: Remove the label prop */}
                 <MobileCategoryTabs items={[]} baseLink={""} />
-                
+
                 {(showNewsTab || showArticlesTab) && (
                   <div
                     className="bg-white/95 backdrop-blur-sm border-t border-gray-200"
