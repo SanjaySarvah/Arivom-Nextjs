@@ -1,6 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
-import { FaHome, FaHeart, FaEye, FaComment, FaShareAlt } from 'react-icons/fa';
+import {
+  FaHome,
+  FaHeart,
+  FaEye,
+  FaComment,
+  FaShareAlt,
+  FaBolt,
+  FaThLarge,
+  FaTags,
+  FaMoneyBillWave,
+} from 'react-icons/fa';
 
 interface DetailFooterProps {
   likeCount?: number;
@@ -29,37 +39,41 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
           <span className="text-xs font-medium">Home</span>
         </Link>
 
-        {/* Like */}
-        <button
-          onClick={onLike}
+        {/* Breaking */}
+        <Link
+          href="/breaking"
           className="flex flex-col items-center gap-1 text-gray-600 hover:text-[#2ecc71] transition-colors"
         >
-          <FaHeart size={24} />
-          <span className="text-sm font-semibold">{likeCount}</span>
-        </button>
+          <FaBolt size={24} />
+          <span className="text-xs font-medium">Breaking</span>
+        </Link>
 
-        {/* Views */}
-        <div className="flex flex-col items-center gap-1 text-gray-600">
-          <FaEye size={24} />
-          <span className="text-sm font-semibold">
-            {viewCount >= 1000 ? `${(viewCount / 1000).toFixed(1)}k` : viewCount}
-          </span>
-        </div>
-
-        {/* Comments */}
-        <button className="flex flex-col items-center gap-1 text-green-500 hover:text-green-600 transition-colors">
-          <FaComment size={24} />
-          <span className="text-sm font-semibold">{commentCount}</span>
-        </button>
-
-        {/* Share */}
-        <button
-          onClick={onShare}
-          className="flex flex-col items-center gap-1 text-gray-600 hover:text-blue-500 transition-colors"
+        {/* Categories */}
+        <Link
+          href="/categories"
+          className="flex flex-col items-center gap-1 text-gray-600 hover:text-[#2ecc71] transition-colors"
         >
-          <FaShareAlt size={24} />
-          <span className="text-xs font-medium">Share</span>
-        </button>
+          <FaThLarge size={24} />
+          <span className="text-xs font-medium">Categories</span>
+        </Link>
+
+        {/* Offers and Deals */}
+        <Link
+          href="/offers"
+          className="flex flex-col items-center gap-1 text-gray-600 hover:text-[#2ecc71] transition-colors"
+        >
+          <FaTags size={24} />
+          <span className="text-xs font-medium">Offers</span>
+        </Link>
+
+        {/* Earn Money */}
+        <Link
+          href="/earn-money"
+          className="flex flex-col items-center gap-1 text-gray-600 hover:text-[#2ecc71] transition-colors"
+        >
+          <FaMoneyBillWave size={24} />
+          <span className="text-xs font-medium">Earn</span>
+        </Link>
       </div>
     </footer>
   );
