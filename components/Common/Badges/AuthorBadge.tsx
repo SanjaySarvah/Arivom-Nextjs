@@ -17,7 +17,7 @@ const AuthorBadge: React.FC<AuthorBadgeProps> = ({
   return (
     <span className={`flex items-center gap-1.5 ${className}`}>
       {icon}
-      <span className="font-medium">{author}</span>
+      <span className="font-medium text-black">{author}</span>
     </span>
   );
 };

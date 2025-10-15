@@ -64,22 +64,23 @@ const CompactAdList: FC = () => {
     <div className="w-full">
       {/* Sponsored Ads Header */}
            <SectionHeader
-            subtitle="Latest"
-            title="Popular News"
+            subtitle="Sponsered Ad"
+            title=""
             showButton={false}
             buttonText="View All"
             buttonUrl="/news"
           />
 
-      {/* Ads Content */}
-      <div className="flex flex-col gap-4 max-h-[600px] overflow-y-auto pr-2
-        [&::-webkit-scrollbar]:w-2
-        [&::-webkit-scrollbar-track]:bg-gray-100
-        [&::-webkit-scrollbar-track]:rounded-full
-        [&::-webkit-scrollbar-thumb]:bg-gray-300
-        [&::-webkit-scrollbar-thumb]:rounded-full
-        [&::-webkit-scrollbar-thumb]:hover:bg-gray-400
-        [&::-webkit-scrollbar-thumb]:transition-colors">
+<div
+  className="flex flex-col gap-4 max-h-[450px] overflow-y-auto pr-2
+  [&::-webkit-scrollbar]:w-1.5
+  [&::-webkit-scrollbar-track]:bg-transparent
+  [&::-webkit-scrollbar-thumb]:bg-gray-300
+  [&::-webkit-scrollbar-thumb]:rounded-full
+  hover:[&::-webkit-scrollbar-thumb]:bg-gray-400
+  transition-all"
+>
+
         {compactAds.map((ad) => (
           <Link
             key={ad.id}
@@ -100,7 +101,7 @@ const CompactAdList: FC = () => {
 
             {/* Content */}
             <div className="flex-1 min-w-0">
-              <h6 className="text-sm font-semibold text-gray-900 leading-snug mb-1 line-clamp-2 group-hover:text-blue-600 transition-colors">
+              <h6 className="font-semibold text-gray-900 leading-snug mb-1 line-clamp-2 group-hover:text-blue-600 transition-colors">
                 {ad.title}
               </h6>
               <p className="text-xs text-gray-600">

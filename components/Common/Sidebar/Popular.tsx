@@ -2,97 +2,73 @@
 
 import React from "react";
 import Link from "next/link";
-import { FiTrendingUp, FiChevronRight, FiClock } from "react-icons/fi";
-import { Heart, Bookmark, Share2, User } from "lucide-react";
-import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
+import { FiTrendingUp, FiClock } from "react-icons/fi";
+import { User } from "lucide-react";
 import { FaRegNewspaper } from "react-icons/fa";
-import { getLatestNews } from "@/lib/getData"; // ✅ Using your data accessors
+import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
+import { getLatestNews } from "@/lib/getData";
+import PopularTag from "../Badges/PopularTag";
 
 const CardView: React.FC = () => {
-  // ✅ Fetch latest news (limit 4)
   const latestNews = getLatestNews(4);
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-4 sm:gap-5 md:gap-6 lg:grid-cols-1 xl:grid-cols-1">
       {latestNews.map((item) => (
-        <div
+        <article
           key={item.id}
-          className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition group"
+          className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300 group"
         >
-          <Link href={`/news/${item.id}`}>
+          {/* Image */}
+          <Link href={`/news/${item.id}`} className="block relative overflow-hidden">
             <img
               src={item.image}
               alt={item.title}
-              className="h-48 w-full object-cover group-hover:scale-110 transition-transform duration-500"
+              className="h-44 sm:h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
+            <div className="absolute top-2 left-2">
+            
+
+              <PopularTag label="popular"/>
+            </div>
           </Link>
 
-          <div className="p-4">
-            {/* Header */}
-            <div className="flex justify-between items-center mb-2">
-              <div
-                className="flex items-center gap-1 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md"
-                style={{ backgroundColor: "var(--secondary)" }}
-              >
-                <FiTrendingUp className="w-3 h-3" />
-                <span>
-                  {item.days_ago <= 1
-                    ? "Trending"
-                    : item.days_ago <= 3
-                    ? "Hot"
-                    : "Recent"}
-                </span>
-              </div>
-
-              <CategoryBadge
-                category={item.category}
-                icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-              />
+          {/* Content */}
+          <div className="p-3 sm:p-4 flex flex-col justify-between">
+            {/* Category */}
+            <div className="flex justify-between items-center mb-1">
+            
             </div>
 
-            {/* Content */}
+            {/* Title + Description */}
             <Link href={`/news/${item.id}`}>
-             
-              <p className="text-gray-600 text-sm mt-2 line-clamp-2">
-                {item.excerpt}
-              </p>
+              <h3 className="text-sm sm:text-base font-semibold text-gray-900 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
+                {item.title}
+              </h3>
+              {item.excerpt && (
+                <p className="text-xs sm:text-sm text-gray-600 mt-1 line-clamp-2">
+                  {item.excerpt}
+                </p>
+              )}
             </Link>
-   <div className="flex items-center justify-between">
-                  <div className="flex items-center ">
-                    <div
-                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center"
-                  
-                    >
-                      <User className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500" />
-                    </div>
-                    <span className="text-xs text-gray-500">
-                      {item.author || 'Rohan Mehta'}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1 text-xs text-gray-500">
-                    <FiClock className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                    <span className="hidden sm:inline">
-                      {new Date(item.created_at).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </span>
-                    <span className="sm:hidden">
-                      {new Date(item.created_at).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </span>
-                  </div>
-                </div>
-        
+
+            {/* Footer */}
+            <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
+                <CategoryBadge
+        category={item.tname ?? item.category}
+        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+      />
+              <div className="flex items-center gap-1">
+                <User className="w-3.5 h-3.5" />
+                <span>{item.author || "ARIVOM Desk"}</span>
+              </div>
+            
+            </div>
           </div>
-        </div>
+        </article>
       ))}
     </div>
   );
 };
 
 export default CardView;
-

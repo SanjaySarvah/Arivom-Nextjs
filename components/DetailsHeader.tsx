@@ -158,11 +158,10 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
 
               <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
 
-              <span className="text-gray-900 truncate font-medium whitespace-nowrap">
-                {currentTitle.length > 50
-                  ? `${currentTitle.substring(0, 50)}...`
-                  : currentTitle}
-              </span>
+           <span className="text-gray-900 font-medium whitespace-nowrap truncate max-w-[180px] sm:overflow-visible sm:whitespace-normal sm:max-w-none">
+  {currentTitle}
+</span>
+
             </div>
           </div>
         </div>

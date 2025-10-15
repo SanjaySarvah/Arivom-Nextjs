@@ -112,7 +112,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 </div>
 
                 {/* Actions */}
-                <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
+                {/* <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
                   <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
                     <LikeButton id={String(data.id)} />
                     <BookmarkButton
@@ -125,7 +125,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                     />
                     <ShareButton item={data} linkBase={linkBase} />
                   </div>
-                </div>
+                </div> */}
               </div>
             </article>
 
@@ -171,9 +171,9 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
           <div className="lg:col-span-4">
             <div className="sticky top-25 space-y-6">
               {/* Insights Section */}
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-300">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-2 hover:shadow-md transition-shadow duration-300">
                 <div className="mb-6">
-                  <SectionHeaderSidebar subtitle="" title="Insights" size="small" />
+                  <SectionHeaderSidebar subtitle="Insights" title="" size="large" />
                   <div className="grid grid-cols-4 gap-2">
                     <div className="text-center p-2 bg-blue-50 rounded-lg border border-blue-200 hover:bg-blue-100 transition-colors">
                       <div className="w-8 h-8 bg-[#017BFF] rounded-full flex items-center justify-center mx-auto mb-1">
@@ -234,7 +234,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
               </div>
 
               {/* Advertisement Section */}
-              <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="bg-white rounded-2xl p-2 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <Advertisement />
               </div>
             </div>

@@ -14,10 +14,8 @@ import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import SectionHeader from "@/components/Common/SectionHeader";
-
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { FaRegNewspaper } from "react-icons/fa";
-
 import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
 import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
 import DateBadge from "@/components/Common/Badges/DateBadge";
@@ -33,11 +31,9 @@ interface Props {
   linkBase: string;
   viewAllLink?: string;
 }
-
 const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [swiperInstance, setSwiperInstance] = useState<any>(null);
-
   const navigationPrevRef = useRef<HTMLButtonElement>(null);
   const navigationNextRef = useRef<HTMLButtonElement>(null);
 
@@ -78,13 +74,13 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
   return (
     <section>
       <div className="mx-auto relative mt-12">
-         <SectionHeader
-            subtitle="Editorials"
-            title="Recent Articles"
-            showButton={true}
-            buttonText="View All"
-            buttonUrl="/articles"
-          />
+        <SectionHeader
+          subtitle="Editorials"
+          title="Recent Articles"
+          showButton={true}
+          buttonText="View All"
+          buttonUrl="/articles"
+        />
 
         {/* ✅ Swiper Slider */}
         <div className="relative w-full">
@@ -100,7 +96,7 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
             }}
             pagination={
               isMobile
-                ? { clickable: true, dynamicBullets: true } // ✅ Dots only for mobile
+                ? { clickable: true, dynamicBullets: true } 
                 : false
             }
             breakpoints={{

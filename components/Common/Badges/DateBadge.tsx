@@ -16,13 +16,13 @@ const DateBadge: React.FC<DateBadgeProps> = ({
     const d = typeof date === "string" ? new Date(date) : date;
     return d.toLocaleDateString();
   },
-  icon = <FiClock className="w-3.5 h-3.5 text-gray-500" />,
+  icon = <FiClock className="w-3.5 h-3.5 text-black" />, // 🖤 icon color changed
   className = "",
 }) => {
   return (
-    <span className={`flex items-center gap-1.5 ${className}`}>
+    <span className={`flex items-center gap-1.5 text-black ${className}`}> {/* 🖤 text color added */}
       {icon}
-      <span>{formatDate(date)}</span>
+      <span className="font-medium">{formatDate(date)}</span>
     </span>
   );
 };

@@ -1,9 +1,10 @@
 "use client";
 
-import { FaFire } from "react-icons/fa";
+import { FaChartLine } from "react-icons/fa";
+import { FiTrendingUp, FiChevronRight } from "react-icons/fi";
 import React from "react";
 
-interface PopularTagProps {
+interface TrendingTagProps {
   label?: string;
   icon?: React.ReactElement;
   bgColor?: string;
@@ -11,10 +12,10 @@ interface PopularTagProps {
   pulse?: boolean;
 }
 
-const PopularTag: React.FC<PopularTagProps> = ({
-  label = "Popular",
-  icon = <FaFire />,
-  bgColor = "#017BFF",
+const TrendingTag: React.FC<TrendingTagProps> = ({
+  label = "Trending",
+  icon = <FiTrendingUp />,
+  bgColor = "#6f42c2",
   textColor = "#FFFFFF",
   pulse = true,
 }) => {
@@ -45,4 +46,4 @@ const PopularTag: React.FC<PopularTagProps> = ({
   );
 };
 
-export default PopularTag;
+export default TrendingTag;

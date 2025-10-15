@@ -9,6 +9,8 @@ import { getLatestArticles } from "@/lib/getData"; // ✅ switched to articles
 import ShareButton from './Badges/ShareButton';
 import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
 import LikeButton from "@/components/Common/Badges/LikeButton";
+import TrendingBadge from "@/components/Common/Badges/TrendingBadge"
+import TaggingBadge from "./Badges/TaggingBadge";
 
 const CardView: React.FC = () => {
   const allArticles = getLatestArticles(); // get all
@@ -27,73 +29,75 @@ const CardView: React.FC = () => {
       {/* Grid Section */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
         {visibleArticles.map((item) => (
-          <Link
-            key={item.id}
-            href={`/articles/${item.id}`}
-            className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition group block"
-          >
-            <img
-              src={item.image}
-              alt={item.title}
-              className="h-48 w-full object-cover group-hover:scale-110 transition-transform duration-500"
-            />
+       <Link
+  key={item.id}
+  href={`/articles/${item.id}`}
+  className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition group block relative"
+>
+  {/* 🔹 Image with Overlay Badges */}
+  <div className="relative">
+    <img
+      src={item.image}
+      alt={item.title}
+      className="h-48 w-full object-cover group-hover:scale-110 transition-transform duration-500"
+    />
 
-            <div className="p-4">
-              {/* Header */}
-              <div className="flex justify-between items-center mb-2">
-                <div
-                  className="flex items-center gap-1 text-white text-xs font-semibold px-2 py-1 rounded-full shadow-md"
-                  style={{ backgroundColor: "var(--secondary)" }}
-                >
-                  <FiTrendingUp className="w-3 h-3" />
-                  <span>
-                    {item.days_ago <= 1
-                      ? "Trending"
-                      : item.days_ago <= 3
-                      ? "Hot"
-                      : "Recent"}
-                  </span>
-                </div>
+    {/* 🔸 Trending Badge (Top Left Overlay) */}
+    <div className="absolute top-2 left-2 z-10">
+      <TrendingBadge />
+    </div>
 
-                <CategoryBadge
-                  category={item.category}
-                  icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-                />
-              </div>
+    {/* 🔸 Tagging Badge (Top Right Overlay) */}
 
-              {/* Content */}
-              <h3 className="font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600">
-                {item.title}
-              </h3>
-              <p className="text-gray-600 text-sm mt-2 line-clamp-2">
-                {item.excerpt}
-              </p>
+  
+   
+  </div>
 
-              {/* Footer actions */}
-              {/* Buttons Row */}
-              <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-                {/* Left Side: Like / Bookmark / Share */}
-                <div className="flex items-center gap-3" onClick={(e) => e.preventDefault()}>
-                  <LikeButton id={String(item.id)} />
-                  <BookmarkButton
-                    id={String(item.id)}
-                    borderColor="#767676ff"
-                    backgroundColor="#ffffffff"
-                    savedBackgroundColor="#ffffffff"
-                    iconColor="#767676ff"
-                    savedIconColor="#6f42c2"
-                  />
-                  <ShareButton item={item} linkBase={linkBase} />
-                </div>
+  {/* 🔹 Content Section */}
+  <div className="p-4">
+    <div className="flex justify-between items-center mb-2">
+          <TaggingBadge
+        tag="Summary"
+        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+      />
+      <CategoryBadge
+        category={item.category}
+        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+      />
+    </div>
 
-                {/* Right Side: Read More */}
-                <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer group">
-                  <FiChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </div>
+    <h3 className="font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600">
+      {item.title}
+    </h3>
+    <p className="text-gray-600 text-sm mt-2 line-clamp-2">{item.excerpt}</p>
 
-            </div>
-          </Link>
+    {/* Footer Actions */}
+    <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
+      {/* Left Side: Like / Bookmark / Share */}
+      <div
+        className="flex items-center gap-3"
+        onClick={(e) => e.preventDefault()}
+      >
+        <LikeButton id={String(item.id)} />
+        <BookmarkButton
+          id={String(item.id)}
+          borderColor="#767676ff"
+          backgroundColor="#ffffffff"
+          savedBackgroundColor="#ffffffff"
+          iconColor="#767676ff"
+          savedIconColor="#6f42c2"
+        />
+        <ShareButton item={item} linkBase={linkBase} />
+      </div>
+
+      {/* Right Side: Read More */}
+      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer group">
+        <FiChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+      </span>
+    </div>
+  </div>
+</Link>
+
         ))}
       </div>
 
