@@ -13,10 +13,10 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4 min-h-0 sm:min-h-screen">
+    <div className="flex items-center justify-center p-4 min-h-0 sm:min-h-0">
 
       {/* Breadcrumbs */}
-      <div className="absolute top-6 left-6">
+     <div className="absolute top-[5px] left-[6px] sm:top-45 sm:left-50">
         <div className="text-sm">
           <Link href="/" className="text-blue-600 font-medium hover:text-blue-700 hover:underline transition-colors">
             Home
@@ -29,14 +29,10 @@ export default function SignInPage() {
       {/* Card Container - Properly centered on mobile */}
       <div className="w-full max-w-md">
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100">
+        <div className="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
+       
             <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
               Welcome Back
             </h2>
@@ -104,16 +100,7 @@ export default function SignInPage() {
               Sign In
             </button>
 
-            {/* Divider */}
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">Or continue with</span>
-              </div>
-            </div>
-
+        
        
 
             {/* Sign Up Link */}
