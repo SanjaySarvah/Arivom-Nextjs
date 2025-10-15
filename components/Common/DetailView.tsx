@@ -10,12 +10,22 @@ import DateBadge from '@/components/Common/Badges/DateBadge';
 import DetailFooter from './DetailViews/DetailFooter';
 import SectionwiseImportantNews from './SectionwiseImportantNews';
 import SectionHeaderSidebar from '@/components/Common/SectionHeaderSidebar';
-import Advertisement from '@/components/Common/Sidebar/Advertisement';
+import AdvertisementSidebar from '@/components/Common/Sidebar/AdvertisementSidebar';
 import { ArticleItem, getAllNews, NewsItem } from '@/lib/getData';
 import LikeButton from './Badges/LikeButton';
 import BookmarkButton from './Badges/BookmarkButton';
 import ShareButton from './Badges/ShareButton';
-
+import {
+  FaHome,
+  
+  FaSearch,
+  FaBars,
+  FaTimes,
+  FaChevronDown,
+  FaUserCircle,
+  FaUser,
+  FaUserPlus,
+} from "react-icons/fa";
 interface Comment {
   id: string;
   UserName: string;
@@ -192,9 +202,9 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
               {/* Add Comment Box */}
               <div className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-8 border border-gray-200">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                    You
-                  </div>
+                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center text-white font-semibold shadow-md group-hover:shadow-lg transition-all duration-300">
+                                        <FaUserCircle className="w-5 h-5" />
+                                      </div>
                   <div className="flex-1">
                     <textarea
                       value={newComment}
@@ -459,7 +469,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
 
               {/* Advertisement */}
               <div className="bg-white rounded-2xl p-2 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <Advertisement />
+                <AdvertisementSidebar />
               </div>
             </div>
           </div>
