@@ -153,12 +153,12 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
-                <div className="absolute top-4 left-4">
+                {/* <div className="absolute top-4 left-4">
                   <CategoryBadge
                     category={category}
                     icon={<FaRegNewspaper className="text-white w-3 h-3" />}
                   />
-                </div>
+                </div> */}
               </div>
 
               {/* Title & Meta */}
@@ -167,14 +167,37 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                   {data.title}
                 </h3>
 
-                <div className="flex flex-wrap items-center gap-3 mb-6 pb-6 border-b border-gray-200">
-                  <div className="flex items-center gap-2 px-3 py-1.5">
-                    <AuthorBadge author={authorName} />
-                  </div>
-                  <div className="flex items-center gap-2 px-3 py-1.5">
-                    <DateBadge date={date} formatDate={customFormatDate} />
-                  </div>
-                </div>
+               <div className="flex flex-wrap items-center gap-3 mb-6 pb-6 border-b border-gray-200">
+  {/* --- Mobile Layout (Category left, Date right, hide Author) --- */}
+  <div className="flex w-full justify-between md:hidden">
+    <div className="flex items-center gap-2 px-3 py-1.5">
+      <CategoryBadge
+        category={category}
+        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+      />
+    </div>
+    <div className="flex items-center gap-2 px-3 py-1.5">
+      <DateBadge date={date} formatDate={customFormatDate} />
+    </div>
+  </div>
+
+  {/* --- Desktop Layout (Show all badges in one row) --- */}
+  <div className="hidden md:flex items-center gap-3">
+    <div className="flex items-center gap-2 px-3 py-1.5">
+      <CategoryBadge
+        category={category}
+        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+      />
+    </div>
+    <div className="flex items-center gap-2 px-3 py-1.5">
+      <AuthorBadge author={authorName} />
+    </div>
+    <div className="flex items-center gap-2 px-3 py-1.5">
+      <DateBadge date={date} formatDate={customFormatDate} />
+    </div>
+  </div>
+</div>
+
 
                 {/* Description */}
                 <div className="bg-gradient-to-r from-emerald-50 to-green-50 border-l-4 border-[#2ecc71] p-4 sm:p-6 rounded-r-xl mb-6 sm:mb-8 shadow-sm">
@@ -476,7 +499,12 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
         </div>
       </div>
 
-      <DetailFooter />
+      <DetailFooter
+  authorName={authorName}
+  date={date}
+  formatDate={customFormatDate}
+/>
+
     </div>
   );
 }

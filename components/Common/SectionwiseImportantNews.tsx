@@ -10,7 +10,9 @@ import LikeButton from "./Badges/LikeButton";
 import ShareButton from "./Badges/ShareButton";
 import BookmarkButton from "./Badges/BookmarkButton";
 import ReadMoreButton from "./Badges/ReadMoreButton";
+import DateBadge from "@/components/Common/Badges/DateBadge";
 import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
+import AuthorBadge from "@/components/Common/Badges/AuthorBadge";
 
 interface SectionwiseImportantNewsProps {
   items: NewsItem[];
@@ -20,6 +22,14 @@ interface SectionwiseImportantNewsProps {
   categoryLabel?: string;
   viewAllLink?: string;
 }
+ const customFormatDate = (date: string | Date) => {
+    const d = typeof date === "string" ? new Date(date) : date;
+    return d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
 
 const SectionwiseImportantNews: FC<SectionwiseImportantNewsProps> = ({
   items,
@@ -73,22 +83,15 @@ const SectionwiseImportantNews: FC<SectionwiseImportantNewsProps> = ({
     </div>
 
     {/* Author + Date */}
-    <div className="flex items-center justify-between text-xs text-gray-500">
+    <div className="flex items-center justify-between  text-gray-500">
       
        
       <div className="flex items-center gap-1 MobileViewContent">
-        <User className="w-4 h-4" />
-        <span>{item.author || "ARIVOM Desk"}</span>
+        <AuthorBadge author={item.author} />
       </div>
-      <div className="flex items-center gap-1 MobileViewContent">
-        <FiClock className="w-4 h-4" />
-        <span>
-          {new Date(item.created_at).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-          })}
-        </span>
-      </div>
+ <div className="flex items-center gap-2 px-3 py-1.5">
+                    <DateBadge date={item.created_at} formatDate={customFormatDate} />
+                  </div>
        <CategoryBadge
         category={item.tname ?? item.category}
         icon={<FaRegNewspaper className="text-white w-3 h-3" />}

@@ -169,7 +169,12 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
                               formatDate={customFormatDate}
                             /> */}
                           </div>
-
+ <div className="flex items-center gap-2 px-3 py-1.5">
+              
+                  </div>
+                  <div className="flex items-center gap-2 px-3 py-1.5">
+                    <DateBadge date={item.created_at} formatDate={customFormatDate} />
+                  </div>
                           {/* Action Buttons */}
                           <div
                             className="flex items-center gap-4 sm:gap-3 ml-auto"

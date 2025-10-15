@@ -1,16 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
-import {
-  FaHome,
-  FaHeart,
-  FaEye,
-  FaComment,
-  FaShareAlt,
-  FaBolt,
-  FaThLarge,
-  FaTags,
-  FaMoneyBillWave,
-} from 'react-icons/fa';
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import { Home, Zap, LayoutGrid, Tag, Wallet } from "lucide-react";
 
 interface DetailFooterProps {
   likeCount?: number;
@@ -18,6 +10,9 @@ interface DetailFooterProps {
   commentCount?: number;
   onLike?: () => void;
   onShare?: () => void;
+  authorName?: string;
+  date?: string | Date;
+  formatDate?: (date: string | Date) => string;
 }
 
 const DetailFooter: React.FC<DetailFooterProps> = ({
@@ -26,53 +21,63 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
   commentCount = 0,
   onLike,
   onShare,
+  authorName,
+  date,
+  formatDate,
 }) => {
   return (
-    <footer className="xl:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
-      <div className="flex justify-around items-center py-3 px-4 max-w-screen-xl mx-auto">
-        {/* Home */}
+    <footer className="xl:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-sm z-40">
+      {/* Author Badge - Positioned absolutely in top-left corner */}
+      {authorName && (
+        <div className="absolute -top-8 left-0">
+          <div className="bg-white text-gray px-3 py-1.5 rounded-r-lg rounded-t-lg  ">
+            <span className="text-xs font-semibold whitespace-nowrap">
+              By {authorName}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Navigation */}
+      <div className="flex justify-around items-center py-2.5 px-2 max-w-screen-xl mx-auto">
         <Link
           href="/"
-          className="flex flex-col items-center gap-1 text-[#2ecc71] hover:text-[#27ae60] transition-colors"
+          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
         >
-          <FaHome size={24} />
-          <span className="text-xs font-medium">Home</span>
+          <Home size={20} strokeWidth={1.8} />
+          <span className="text-[11px] font-medium">Home</span>
         </Link>
 
-        {/* Breaking */}
         <Link
           href="/breaking"
-          className="flex flex-col items-center gap-1 text-gray-600 hover:text-[#2ecc71] transition-colors"
+          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
         >
-          <FaBolt size={24} />
-          <span className="text-xs font-medium">Breaking</span>
+          <Zap size={20} strokeWidth={1.8} />
+          <span className="text-[11px] font-medium">Breaking</span>
         </Link>
 
-        {/* Categories */}
         <Link
           href="/categories"
-          className="flex flex-col items-center gap-1 text-gray-600 hover:text-[#2ecc71] transition-colors"
+          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
         >
-          <FaThLarge size={24} />
-          <span className="text-xs font-medium">Categories</span>
+          <LayoutGrid size={20} strokeWidth={1.8} />
+          <span className="text-[11px] font-medium">Categories</span>
         </Link>
 
-        {/* Offers and Deals */}
         <Link
           href="/offers"
-          className="flex flex-col items-center gap-1 text-gray-600 hover:text-[#2ecc71] transition-colors"
+          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
         >
-          <FaTags size={24} />
-          <span className="text-xs font-medium">Offers</span>
+          <Tag size={20} strokeWidth={1.8} />
+          <span className="text-[11px] font-medium">Offers</span>
         </Link>
 
-        {/* Earn Money */}
         <Link
           href="/earn-money"
-          className="flex flex-col items-center gap-1 text-gray-600 hover:text-[#2ecc71] transition-colors"
+          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
         >
-          <FaMoneyBillWave size={24} />
-          <span className="text-xs font-medium">Earn</span>
+          <Wallet size={20} strokeWidth={1.8} />
+          <span className="text-[11px] font-medium">Earn</span>
         </Link>
       </div>
     </footer>

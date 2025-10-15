@@ -11,13 +11,13 @@ interface AuthorBadgeProps {
 
 const AuthorBadge: React.FC<AuthorBadgeProps> = ({
   author,
-  icon = <FiUser className="w-3.5 h-3.5 text-gray-500" />,
+  icon = <FiUser className="w-3.5 h-3.5 text-gray-500 text-xs" />,
   className = "",
 }) => {
   return (
-    <span className={`flex items-center gap-1.5 ${className}`}>
+    <span className={`flex items-center text-xs gap-1.5 ${className}`}>
       {icon}
-      <span className="font-medium text-black">{author}</span>
+      <span className="font-medium  text-xs text-black">{author}</span>
     </span>
   );
 };
