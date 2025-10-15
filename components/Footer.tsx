@@ -76,7 +76,7 @@ const TrendingFooter = () => {
       {showScroll && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-blue-600 hover:bg-red-700 shadow-lg transition-all duration-300 ease-in-out z-50 group MobileViewContent "
+          className="fixed bottom-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-blue-600 hover:bg-blue-600 shadow-lg transition-all duration-300 ease-in-out z-50 group MobileViewContent "
           aria-label="Scroll to top"
         >
           <FaArrowUp className="text-white text-lg group-hover:scale-110 transition-transform" />
