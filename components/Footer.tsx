@@ -35,21 +35,7 @@ const TrendingFooter = () => {
           {/* Logo */}
           <Image src={logoSrc} alt="Arivom Logo" width={140} height={50} className="object-contain" />
 
-          {/* Trending Topics */}
-          <div>
-            <h3 className="text-lg font-semibold mb-3">🔥 Trending Topics</h3>
-            <div className="flex flex-wrap justify-center gap-2">
-              {trendingTopics.map((tag, index) => (
-                <Link
-                  key={index}
-                  href={`/tag/${tag.toLowerCase()}`}
-                  className="px-3 py-1 bg-gray-800 hover:bg-gray-700 rounded-full text-sm text-gray-300 transition-colors"
-                >
-                  #{tag}
-                </Link>
-              ))}
-            </div>
-          </div>
+ 
 
           {/* Social Media Links */}
           <div className="flex items-center justify-center space-x-4 mt-4">
@@ -90,7 +76,7 @@ const TrendingFooter = () => {
       {showScroll && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-red-600 hover:bg-red-700 shadow-lg transition-all duration-300 ease-in-out z-50 group"
+          className="fixed bottom-6 right-6 w-11 h-11 flex items-center justify-center rounded-full bg-blue-600 hover:bg-red-700 shadow-lg transition-all duration-300 ease-in-out z-50 group MobileViewContent "
           aria-label="Scroll to top"
         >
           <FaArrowUp className="text-white text-lg group-hover:scale-110 transition-transform" />

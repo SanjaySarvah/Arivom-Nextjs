@@ -54,15 +54,15 @@ const CardView: React.FC = () => {
 
             {/* Footer */}
             <div className="flex items-center justify-between mt-3 text-xs text-gray-500">
-                <CategoryBadge
-        category={item.tname ?? item.category}
-        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-      />
+   
               <div className="flex items-center gap-1">
                 <User className="w-3.5 h-3.5" />
                 <span>{item.author || "ARIVOM Desk"}</span>
               </div>
-            
+                         <CategoryBadge
+        category={item.tname ?? item.category}
+        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+      />
             </div>
           </div>
         </article>

@@ -48,7 +48,6 @@ export default function MobileCategoryTabs({ items, baseLink }: MobileCategoryTa
           <div className="flex min-w-max">
             {/* Categories */}
             {categories.map(({ category, tname }, idx) => {
-              // Active: URL match or first tab by default
               const isActive =
                 pathname !== baseLink &&
                 pathname.toLowerCase().includes(category.toLowerCase())
@@ -61,18 +60,22 @@ export default function MobileCategoryTabs({ items, baseLink }: MobileCategoryTa
                 <Link
                   key={category}
                   href={`${baseLink}/category/${category.toLowerCase()}`}
-                  className={`relative px-4 py-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
-                    isActive
-                      ? "text-[#017BFF]"
-                      : "text-gray-700 hover:text-[#017BFF]"
-                  }`}
+                  className="relative px-4 py-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300"
+                  prefetch={false} // Prevent automatic prefetch to avoid reload
                 >
-                  {tname || category}
-                  
+                  <span
+                    className={`text-xs sm:text-sm font-semibold ${
+                      isActive ? "text-[#017BFF]" : "text-gray-700 hover:text-[#017BFF]"
+                    }`}
+                  >
+                    {tname || category}
+                  </span>
                   {/* Animated underline */}
-                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#017BFF] transition-all duration-300 ${
-                    isActive ? "scale-x-100" : "scale-x-0"
-                  }`} />
+                  <span
+                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#017BFF] transition-transform duration-300 origin-left ${
+                      isActive ? "scale-x-100" : "scale-x-0"
+                    }`}
+                  />
                 </Link>
               );
             })}
@@ -84,19 +87,20 @@ export default function MobileCategoryTabs({ items, baseLink }: MobileCategoryTa
                 <Link
                   key={label}
                   href={href}
-                  className={`relative flex items-center gap-1.5 px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300 ${
-                    isActive
-                      ? "text-[#017BFF]"
-                      : "text-gray-700 hover:text-[#017BFF]"
-                  }`}
+                  className="relative flex items-center gap-1.5 px-3 sm:px-4 py-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300"
+                  prefetch={false}
                 >
-                  <Icon className={`w-3.5 h-3.5 sm:w-4 sm:h-4`} />
-                  <span>{label}</span>
-                  
+                  <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <span className={`${isActive ? "text-[#017BFF]" : "text-gray-700 hover:text-[#017BFF]"}`}>
+                    {label}
+                  </span>
+
                   {/* Animated underline */}
-                  <span className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#017BFF] transition-all duration-300 ${
-                    isActive ? "scale-x-100" : "scale-x-0"
-                  }`} />
+                  <span
+                    className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#017BFF] transition-transform duration-300 origin-left ${
+                      isActive ? "scale-x-100" : "scale-x-0"
+                    }`}
+                  />
                 </Link>
               );
             })}

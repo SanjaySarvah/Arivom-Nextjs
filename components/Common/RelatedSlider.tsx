@@ -161,14 +161,14 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
                         <div className="flex items-center gap-2" onClick={(e) => e.preventDefault()}>
                           <LikeButton id={String(item.id)} />
 
-                          <BookmarkButton
+                          {/* <BookmarkButton
                             id={String(item.id)}
                             borderColor="#767676ff"
                             backgroundColor="#ffffffff"
                             savedBackgroundColor="#ffffffff"
                             iconColor="#767676ff"
                             savedIconColor="#6f42c2"
-                          />
+                          /> */}
                           <ShareButton item={item} linkBase={linkBase} />
                         </div>
 

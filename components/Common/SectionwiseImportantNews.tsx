@@ -75,10 +75,7 @@ const SectionwiseImportantNews: FC<SectionwiseImportantNewsProps> = ({
     {/* Author + Date */}
     <div className="flex items-center justify-between text-xs text-gray-500">
       
-        <CategoryBadge
-        category={item.tname ?? item.category}
-        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-      />
+       
       <div className="flex items-center gap-1 MobileViewContent">
         <User className="w-4 h-4" />
         <span>{item.author || "ARIVOM Desk"}</span>
@@ -92,20 +89,24 @@ const SectionwiseImportantNews: FC<SectionwiseImportantNewsProps> = ({
           })}
         </span>
       </div>
+       <CategoryBadge
+        category={item.tname ?? item.category}
+        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+      />
     </div>
 
     {/* Buttons */}
     <div className="flex items-center justify-between pt-3 border-t border-gray-200 mt-3">
       <div className="flex items-center gap-3">
         <LikeButton id={String(item.id)} />
-        <BookmarkButton
+        {/* <BookmarkButton
           id={String(item.id)}
           borderColor="#767676ff"
           backgroundColor="#ffffffff"
           savedBackgroundColor="#ffffffff"
           iconColor="#767676ff"
           savedIconColor="#6f42c2"
-        />
+        /> */}
         <ShareButton item={item} linkBase={linkBase} />
       </div>
       <ReadMoreButton href={`${linkBase}/${item.id}`} />
