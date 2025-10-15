@@ -15,6 +15,7 @@ import { ArticleItem, getAllNews, NewsItem } from '@/lib/getData';
 import LikeButton from './Badges/LikeButton';
 import BookmarkButton from './Badges/BookmarkButton';
 import ShareButton from './Badges/ShareButton';
+import TagsSidebar from '@/components/Common/Sidebar/TagsSidebar';
 import {
   FaHome,
   
@@ -493,7 +494,10 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
               {/* Advertisement */}
               <div className="bg-white rounded-2xl p-2 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <AdvertisementSidebar />
+               
               </div>
+               <div className="bg-white rounded-2xl p-2 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+               <TagsSidebar tags={data.tags} /></div>
             </div>
           </div>
         </div>
