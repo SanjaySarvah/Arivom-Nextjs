@@ -315,6 +315,8 @@ const HeaderSecondary: React.FC = () => {
                         ))}
                       </div>
                     </div> */}
+                      {/* Contact Details */}
+
                   </div>
                 )
               )}
@@ -325,8 +327,14 @@ const HeaderSecondary: React.FC = () => {
               </div> */}
             </nav>
 
-          
+                  <div className="fixed bottom-0 left-0  px-4 py-3 text-xs text-gray-600 space-y-1 text-center ">
+    <p className="font-semibold text-gray-700">Contact Us</p>
+    <p>Email: <a href="mailto:support@arivom.com" className="text-[#2ecc71]">support@arivom.com</a></p>
+    <p>Phone: <a href="tel:+919876543210" className="text-[#2ecc71]">+91 9876543210</a></p>
+    <p className="mt-1 text-[9px] text-gray-400">© 2025 Arivom. All rights reserved.</p>
+  </div>
           </div>
+    
         </div>
       )}
     </>
