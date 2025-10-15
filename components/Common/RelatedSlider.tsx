@@ -189,14 +189,14 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
             <div className="absolute inset-y-0 left-0 right-0 flex justify-between items-center pointer-events-none z-20">
               <button
                 ref={navigationPrevRef}
-                className="pointer-events-auto bg-white/90 border border-gray-200 rounded-full w-12 h-12 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-green-600 hover:text-white transition-all duration-300 -ml-6"
+                className="pointer-events-auto bg-white/90 border border-gray-200 rounded-full w-12 h-12 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-[#7c3aed] hover:text-white transition-all duration-300 -ml-6"
               >
                 <FiChevronLeft className="w-6 h-6 transition-colors" />
               </button>
 
               <button
                 ref={navigationNextRef}
-                className="pointer-events-auto bg-white/90 border border-gray-200 rounded-full w-12 h-12 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-green-600 hover:text-white transition-all duration-300 -mr-6"
+                className="pointer-events-auto bg-white/90 border border-gray-200 rounded-full w-12 h-12 flex items-center justify-center shadow-xl hover:scale-110 hover:bg-[#7c3aed] hover:text-white transition-all duration-300 -mr-6"
               >
                 <FiChevronRight className="w-6 h-6 transition-colors" />
               </button>
