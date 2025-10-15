@@ -4,13 +4,16 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { FiTrendingUp, FiChevronRight } from "react-icons/fi";
 import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
-import { FaRegNewspaper } from "react-icons/fa";
+
 import { getLatestArticles } from "@/lib/getData"; // ✅ switched to articles
 import ShareButton from './Badges/ShareButton';
 import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
 import LikeButton from "@/components/Common/Badges/LikeButton";
 import TrendingBadge from "@/components/Common/Badges/TrendingBadge"
 import TaggingBadge from "./Badges/TaggingBadge";
+import { FiClock } from "react-icons/fi";
+import { FaRegNewspaper } from "react-icons/fa";
+import { User } from "lucide-react";
 
 const CardView: React.FC = () => {
   const allArticles = getLatestArticles(); // get all
@@ -70,6 +73,25 @@ const CardView: React.FC = () => {
       {item.title}
     </h3>
     <p className="text-gray-600 text-sm mt-2 line-clamp-2">{item.excerpt}</p>
+   <div className="flex justify-between items-center text-gray-600 text-sm mt-2">
+  {/* Left: Author */}
+  <div className="flex items-center gap-1">
+    <User className="w-4 h-4" />
+    <span>{item.author || "ARIVOM Desk"}</span>
+  </div>
+
+  {/* Right: Date */}
+  <div className="flex items-center gap-1">
+    <FiClock className="w-4 h-4" />
+    <span>
+      {new Date(item.created_at).toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      })}
+    </span>
+  </div>
+</div>
+
 
     {/* Footer Actions */}
     <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
