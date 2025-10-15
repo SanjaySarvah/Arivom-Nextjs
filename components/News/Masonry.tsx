@@ -61,8 +61,8 @@ export default function NewsPortalLayout() {
     <section className="">
       <div className="mb-8">
         <SectionHeader
-          subtitle="Latest"
-          title="Popular News"
+          subtitle="Viral & Vital"
+          title="The Pulse of Today"
           showButton={true}
           buttonText="View All"
           buttonUrl="/news"

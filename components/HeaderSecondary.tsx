@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -9,15 +9,16 @@ import {
   FaRegNewspaper,
   FaSearch,
   FaBars,
-  FaTimes,FaBookOpen,FaPenNib,
+  FaTimes,
   FaChevronDown,
   FaUserCircle,
+  FaUser,
+  FaUserPlus,
 } from "react-icons/fa";
-import { LuBookOpen } from "react-icons/lu";
-import {TbBook2} from "react-icons/tb";
-import logo from "@/public/assets/arivom-logo-latest.png";
-import ArticleDropdownButton from "@/components/ArticleDropdownButton"; // ✅ added
+import { TbBook2 } from "react-icons/tb";
 import { Banknote, Share2 } from "lucide-react";
+import logo from "@/public/assets/arivom-logo-latest.png";
+import ArticleDropdownButton from "@/components/ArticleDropdownButton";
 
 const HeaderSecondary: React.FC = () => {
   const pathname = usePathname();
@@ -25,11 +26,26 @@ const HeaderSecondary: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
   const [isMobileNewsExpanded, setIsMobileNewsExpanded] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsProfileDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const mainNavigation = [
@@ -40,7 +56,7 @@ const HeaderSecondary: React.FC = () => {
       icon: FaRegNewspaper,
       active: pathname.startsWith("/news"),
     },
-      {
+    {
       name: "Articles",
       href: "/articles",
       icon: TbBook2,
@@ -57,7 +73,7 @@ const HeaderSecondary: React.FC = () => {
       href: "/socialmedia",
       icon: Share2,
       active: pathname.startsWith("/socialmedia"),
-    }
+    },
   ];
 
   const newsCategories = [
@@ -71,9 +87,13 @@ const HeaderSecondary: React.FC = () => {
   return (
     <>
       {/* Header Wrapper */}
-      <div className="bg-white border-b border-gray-200">
+      <div
+        className={`bg-white border-b border-gray-200 sticky top-0 z-[90] ${
+          isScrolled ? "shadow-md" : ""
+        }`}
+      >
         <div className="max-w-[1320px] mx-auto px-[15px]">
-          <div className="flex items-center justify-between h-16 gap-4">
+          <div className="flex items-center justify-between h-16 gap-4 relative">
             {/* Left Section - Mobile Menu & Articles Button */}
             <div className="flex items-center gap-3">
               {/* Mobile Menu Toggle */}
@@ -106,7 +126,6 @@ const HeaderSecondary: React.FC = () => {
 
             {/* Center Navigation - Desktop */}
             <nav className="hidden xl:flex items-center gap-1 flex-1 justify-center">
-              {/* Main Navigation Items */}
               {mainNavigation.map((item) => (
                 <Link
                   key={item.name}
@@ -123,9 +142,10 @@ const HeaderSecondary: React.FC = () => {
               ))}
             </nav>
 
-            {/* Right Section - Search */}
-            <div className="hidden xl:flex items-center">
-              <div className="flex items-center bg-gray-100 rounded-full px-4 py-2 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2ecc71] focus-within:shadow-md min-w-[280px]">
+            {/* Right Section - Search & Profile */}
+            <div className="flex items-center gap-3">
+              {/* Search - Desktop */}
+              <div className="hidden xl:flex items-center bg-gray-100 rounded-full px-4 py-2 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2ecc71] focus-within:shadow-md min-w-[280px]">
                 <FaSearch className="w-3.5 h-3.5 text-gray-500 mr-2" />
                 <input
                   type="text"
@@ -133,37 +153,67 @@ const HeaderSecondary: React.FC = () => {
                   className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
                 />
               </div>
-            </div>
 
-            {/* Profile Icon (Mobile) */}
-            <div className="xl:hidden relative flex items-center">
-              <button
-                onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-                className="p-2 rounded-full hover:bg-emerald-50 transition-colors flex items-center justify-center"
-              >
-                <FaUserCircle className="w-6 h-6 text-gray-700" />
-              </button>
-
-              {isProfileDropdownOpen && (
-                <div className="absolute right-0 top-full mt-2 bg-white border-2 border-emerald-100 rounded-lg shadow-xl z-[100] min-w-[160px]">
-                  <div className="p-1.5">
-                    <Link
-                      href="/login"
-                      className="block px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#2ecc71] rounded-md"
-                      onClick={() => setIsProfileDropdownOpen(false)}
-                    >
-                      Login
-                    </Link>
-                    <Link
-                      href="/register"
-                      className="block px-3 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-[#2ecc71] rounded-md"
-                      onClick={() => setIsProfileDropdownOpen(false)}
-                    >
-                      Register
-                    </Link>
+              {/* User Profile Dropdown (Mobile) */}
+              <div className="relative xl:hidden" ref={dropdownRef}>
+                <button
+                  onClick={() =>
+                    setIsProfileDropdownOpen(!isProfileDropdownOpen)
+                  }
+                  className="flex items-center gap-2 px-2 py-1.5 hover:bg-emerald-50 rounded-lg transition-all duration-300 group"
+                >
+                  {/* Avatar */}
+                  <div className="relative">
+                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center text-white font-semibold shadow-md group-hover:shadow-lg transition-all duration-300">
+                      <FaUserCircle className="w-5 h-5" />
+                    </div>
+                    <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#2ecc71] border-2 border-white rounded-full"></span>
                   </div>
-                </div>
-              )}
+
+
+                </button>
+
+                {/* Dropdown Menu */}
+                {isProfileDropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-[100] animate-fadeIn">
+                    {/* User Info */}
+                    <div className="px-3 py-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border-b border-gray-100">
+                      <p className="text-sm font-semibold text-gray-800">
+                        Arivom
+                      </p>
+                      <p className="text-[8px] text-gray-600">Admin</p>
+                      <p className="text-[8px] text-gray-500 mt-0.5">
+                        arivom@mail.com
+                      </p>
+                    </div>
+
+                    {/* Menu Items */}
+                    <div className="py-1.5">
+                      <Link
+                        href="/signin"
+                        className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
+                          <FaUser className="w-2.5 h-2.5 text-white" />
+                        </span>
+                        <span className="font-medium text-sm">Sign In</span>
+                      </Link>
+
+                      <Link
+                        href="/signup"
+                        className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                        onClick={() => setIsProfileDropdownOpen(false)}
+                      >
+                        <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
+                          <FaUserPlus className="w-2.5 h-2.5 text-white" />
+                        </span>
+                        <span className="font-medium text-sm">Sign Up</span>
+                      </Link>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -179,7 +229,8 @@ const HeaderSecondary: React.FC = () => {
             className="bg-white w-80 h-full transform transition-transform duration-300 overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 border-b-2 border-[#2ecc71] flex items-center justify-between bg-white sticky top-0">
+            {/* Mobile Header */}
+            <div className="p-4 border-b-2 border-[#2ecc71] flex items-center justify-between bg-white sticky top-0 z-20">
               <Image
                 src={logo}
                 alt="Arivom Logo"
@@ -195,101 +246,86 @@ const HeaderSecondary: React.FC = () => {
               </button>
             </div>
 
-            <div className="p-4">
-              {/* Search Mobile */}
-              <div className="mb-6 relative">
-                <div className="flex items-center bg-gray-100 rounded-full px-4 py-3 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2ecc71]">
-                  <FaSearch className="w-4 h-4 text-gray-500 mr-2" />
-                  <input
-                    type="text"
-                    placeholder="Search news, articles..."
-                    className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
-                  />
-                </div>
+            {/* Search Mobile */}
+            <div className="p-4 mb-6">
+              <div className="flex items-center bg-gray-100 rounded-full px-4 py-3 transition-all duration-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2ecc71]">
+                <FaSearch className="w-4 h-4 text-gray-500 mr-2" />
+                <input
+                  type="text"
+                  placeholder="Search news, articles..."
+                  className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
+                />
               </div>
+            </div>
 
-              {/* Main Navigation Mobile */}
-              <nav className="space-y-1">
-                {/* Home */}
-                <Link
-                  href="/"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-4 py-3 text-base font-medium transition-all duration-200 border-l-4 ${
-                    pathname === "/"
-                      ? "text-[#1a8f52] bg-emerald-50 border-[#2ecc71]"
-                      : "text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
-                  }`}
-                >
-                  <FaHome size={16} />
-                  Home
-                </Link>
-
-                {/* News with submenu */}
-                <div className="border-t border-gray-100">
-                  <button
-                    onClick={() => setIsMobileNewsExpanded(!isMobileNewsExpanded)}
-                    className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium transition-all duration-200 border-l-4 ${
-                      pathname.startsWith("/news")
+            {/* Main Navigation Mobile */}
+            <nav className="px-4 space-y-1">
+              {mainNavigation.map((item) =>
+                item.name !== "News" ? (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center gap-3 px-4 py-3 text-base font-medium transition-all duration-200 border-l-4 ${
+                      item.active
                         ? "text-[#1a8f52] bg-emerald-50 border-[#2ecc71]"
                         : "text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
-                      <FaRegNewspaper size={16} />
-                      News
-                    </div>
-                    <FaChevronDown
-                      className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                        isMobileNewsExpanded ? "rotate-180" : ""
+                    <item.icon size={16} />
+                    {item.name}
+                  </Link>
+                ) : (
+                  <div key={item.name} className="border-t border-gray-100">
+                    <button
+                      onClick={() =>
+                        setIsMobileNewsExpanded(!isMobileNewsExpanded)
+                      }
+                      className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium transition-all duration-200 border-l-4 ${
+                        pathname.startsWith("/news")
+                          ? "text-[#1a8f52] bg-emerald-50 border-[#2ecc71]"
+                          : "text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
                       }`}
-                    />
-                  </button>
-                  <div
-                    className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${
-                      isMobileNewsExpanded ? "max-h-96" : "max-h-0"
-                    }`}
-                  >
-                    <div className="py-2">
-                      {newsCategories.map((category) => (
-                        <Link
-                          key={category.name}
-                          href={category.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="block px-8 py-2.5 text-sm text-gray-700 hover:bg-white hover:text-[#2ecc71] border-l-4 border-transparent hover:border-[#2ecc71] transition-all"
-                        >
-                          {category.name}
-                        </Link>
-                      ))}
-                    </div>
+                    >
+                      <div className="flex items-center gap-3">
+                        <FaRegNewspaper size={16} />
+                        News
+                      </div>
+                      {/* <FaChevronDown
+                        className={`w-3.5 h-3.5 transition-transform duration-300 ${
+                          isMobileNewsExpanded ? "rotate-180" : ""
+                        }`}
+                      /> */}
+                    </button>
+                    {/* <div
+                      className={`overflow-hidden transition-all duration-300 bg-emerald-50/30 ${
+                        isMobileNewsExpanded ? "max-h-96" : "max-h-0"
+                      }`}
+                    >
+                      <div className="py-2">
+                        {newsCategories.map((category) => (
+                          <Link
+                            key={category.name}
+                            href={category.href}
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className="block px-8 py-2.5 text-sm text-gray-700 hover:bg-white hover:text-[#2ecc71] border-l-4 border-transparent hover:border-[#2ecc71] transition-all"
+                          >
+                            {category.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div> */}
                   </div>
-                </div>
+                )
+              )}
 
-                {/* ✅ You can optionally include your dropdown here for mobile */}
-                <div className="border-t border-gray-100">
-                  <ArticleDropdownButton />
-                </div>
-              </nav>
+              {/* Articles Dropdown */}
+              {/* <div className="border-t border-gray-100">
+                <ArticleDropdownButton />
+              </div> */}
+            </nav>
 
-              {/* Auth Links Mobile */}
-              <div className="mt-8 pt-6 border-t border-gray-200">
-                <div className="flex flex-col gap-3">
-                  <Link
-                    href="/login"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-full text-center px-4 py-3 text-base font-semibold text-gray-700 hover:bg-gray-100 rounded-lg transition-colors duration-200"
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    href="/register"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-full text-center px-4 py-3 text-base font-semibold text-white bg-gradient-to-r from-[#2ecc71] to-[#27ae60] rounded-lg hover:from-[#27ae60] hover:to-[#2ecc71] transition-all duration-300"
-                  >
-                    Register
-                  </Link>
-                </div>
-              </div>
-            </div>
+          
           </div>
         </div>
       )}

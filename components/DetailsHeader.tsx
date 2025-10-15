@@ -135,37 +135,50 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         </div>
       </div>
 
-      {/* Breadcrumbs */}
-      {currentTitle && contentType && (
-        <div className="bg-white border-t border-gray-100 z-40 shadow-sm backdrop-blur-sm bg-white/95">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center text-sm text-gray-600 py-2 overflow-x-auto">
-              <span
-                onClick={handleNavigateHome}
-                className="hover:text-[#2ecc71] cursor-pointer transition-colors duration-200 whitespace-nowrap"
-              >
-                Home
-              </span>
+   {/* Breadcrumbs */}
+{currentTitle && contentType && (
+  <div className="bg-white border-t border-gray-100 z-40 shadow-sm backdrop-blur-sm bg-white/95">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div
+        className="
+          flex items-center text-sm text-gray-600 py-2
+          overflow-x-auto sm:overflow-visible
+          whitespace-nowrap sm:whitespace-normal
+        "
+      >
+        <span
+          onClick={handleNavigateHome}
+          className="hover:text-[#2ecc71] cursor-pointer transition-colors duration-200 flex-shrink-0"
+        >
+          Home
+        </span>
 
-              <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
+        <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
 
-              <span
-                onClick={handleNavigateToSection}
-                className="hover:text-[#2ecc71] cursor-pointer transition-colors duration-200 whitespace-nowrap"
-              >
-                {contentType === "news" ? "News" : "Articles"}
-              </span>
+        <span
+          onClick={handleNavigateToSection}
+          className="hover:text-[#2ecc71] cursor-pointer transition-colors duration-200 flex-shrink-0"
+        >
+          {contentType === "news" ? "News" : "Articles"}
+        </span>
 
-              <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
+        <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
 
-           <span className="text-gray-900 font-medium whitespace-nowrap truncate max-w-[180px] sm:overflow-visible sm:whitespace-normal sm:max-w-none">
-  {currentTitle}
-</span>
+        <span
+          className="
+            text-gray-900 font-medium
+            truncate max-w-[180px]
+            sm:truncate-0 sm:max-w-none
+            flex-shrink
+          "
+        >
+          {currentTitle}
+        </span>
+      </div>
+    </div>
+  </div>
+)}
 
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

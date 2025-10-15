@@ -22,7 +22,7 @@ const TrendingTag: React.FC<TrendingTagProps> = ({
   const iconWithClass = React.cloneElement(icon, {
     className: `${icon.props?.className || ""} ${
       pulse ? "animate-pulse" : ""
-    } text-sm sm:text-base`,
+    } text-sm sm:text-base text-white`,
   });
 
   return (

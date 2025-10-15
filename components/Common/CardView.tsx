@@ -58,7 +58,7 @@ const CardView: React.FC = () => {
     <div className="flex justify-between items-center mb-2">
           <TaggingBadge
         tag="Summary"
-        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+    
       />
       <CategoryBadge
         category={item.category}

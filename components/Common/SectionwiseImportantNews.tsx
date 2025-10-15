@@ -60,7 +60,7 @@ const SectionwiseImportantNews: FC<SectionwiseImportantNewsProps> = ({
   </div>
 
   {/* Content Section */}
-  <div className="flex-1 sm:p-5 flex flex-col justify-between">
+  <div className="flex-1 sm:p-5 p-2 flex flex-col justify-between">
     <div>
       <Link href={`${linkBase}/${item.id}`}>
         <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[var(--secondary)] transition-colors duration-300">
@@ -79,11 +79,11 @@ const SectionwiseImportantNews: FC<SectionwiseImportantNewsProps> = ({
         category={item.tname ?? item.category}
         icon={<FaRegNewspaper className="text-white w-3 h-3" />}
       />
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 MobileViewContent">
         <User className="w-4 h-4" />
         <span>{item.author || "ARIVOM Desk"}</span>
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 MobileViewContent">
         <FiClock className="w-4 h-4" />
         <span>
           {new Date(item.created_at).toLocaleDateString("en-US", {

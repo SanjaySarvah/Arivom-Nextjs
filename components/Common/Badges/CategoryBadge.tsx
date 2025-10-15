@@ -17,7 +17,7 @@ const CategoryBadge: FC<CategoryBadgeProps> = ({
 }) => {
   // Truncate to first 6 characters for mobile view
   const shortCategory =
-    category.length > 6 ? category.slice(0, 6) + "…" : category;
+    category.length > 15 ? category.slice(0, 6) + "…" : category;
 
   return (
     <span

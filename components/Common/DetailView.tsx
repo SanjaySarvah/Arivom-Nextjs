@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { Heart, Eye, MessageCircle, Share2 } from 'lucide-react';
+import React, { useState } from 'react';
+import { Heart, Eye, MessageCircle, Share2, Reply, ChevronDown, ChevronUp } from 'lucide-react';
 import { FaRegNewspaper } from 'react-icons/fa';
 import DetailsHeader from '../../components/DetailsHeader';
 import CategoryBadge from '@/components/Common/Badges/CategoryBadge';
@@ -16,6 +16,17 @@ import LikeButton from './Badges/LikeButton';
 import BookmarkButton from './Badges/BookmarkButton';
 import ShareButton from './Badges/ShareButton';
 
+interface Comment {
+  id: string;
+  UserName: string;
+  ProfileImage: string;
+  comment: string;
+  timestamp: string;
+  likes: number;
+  userLiked: boolean;
+  sub_comments?: Comment[];
+}
+
 interface DetailViewProps {
   data: NewsItem | ArticleItem;
   contentType?: 'news' | 'articles';
@@ -23,12 +34,16 @@ interface DetailViewProps {
 
 export default function DetailView({ data, contentType = 'news' }: DetailViewProps) {
   const authorName = data.author ?? 'admin';
+  const [newComment, setNewComment] = useState('');
+  const [replyingTo, setReplyingTo] = useState<string | null>(null);
+  const [replyContent, setReplyContent] = useState('');
+  const [expandedComments, setExpandedComments] = useState<Set<string>>(new Set());
 
   const stats = {
     likes: typeof data.likes === 'number' ? data.likes : 0,
-    views: 'views' in data && typeof data.views === 'number' ? data.views : 2340,
+    views: 'views' in data && typeof (data as any).views === 'number' ? (data as any).views : 2340,
     comments: typeof data.totalComments === 'number' ? data.totalComments : 0,
-    shares: 'shares' in data && typeof data.shares === 'number' ? data.shares : 48,
+    shares: 'shares' in data && typeof (data as any).shares === 'number' ? (data as any).shares : 48,
   };
 
   const linkBase = contentType === 'news' ? '/news' : '/articles';
@@ -36,7 +51,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
   const date = data.created_at || 'August 31, 2025';
   const news = getAllNews().slice(0, 10);
 
-  // Format date
+  // Format date helper
   const customFormatDate = (date: string | Date) => {
     const d = typeof date === 'string' ? new Date(date) : date;
     return d.toLocaleDateString('en-US', {
@@ -46,23 +61,79 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
     });
   };
 
-  // Format large numbers
+  // Format number helper
   const formatNumber = (num: number): string => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
     return num.toString();
   };
 
+  // Format relative time
+  const formatRelativeTime = (timestamp: string) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+    
+    if (diffInSeconds < 60) return 'now';
+    if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m`;
+    if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h`;
+    if (diffInSeconds < 2592000) return `${Math.floor(diffInSeconds / 86400)}d`;
+    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  };
+
+  // Toggle subcomments visibility
+  const toggleSubComments = (commentId: string) => {
+    const newExpanded = new Set(expandedComments);
+    if (newExpanded.has(commentId)) {
+      newExpanded.delete(commentId);
+    } else {
+      newExpanded.add(commentId);
+    }
+    setExpandedComments(newExpanded);
+  };
+
+  // Handle comment submission
+  const handleSubmitComment = () => {
+    if (!newComment.trim()) return;
+    // Add your comment submission logic here
+    console.log('New comment:', newComment);
+    setNewComment('');
+  };
+
+  // Handle reply submission
+  const handleSubmitReply = (commentId: string) => {
+    if (!replyContent.trim()) return;
+    // Add your reply submission logic here
+    console.log('Reply to', commentId, ':', replyContent);
+    setReplyContent('');
+    setReplyingTo(null);
+  };
+
+  // Handle like comment
+  const handleLikeComment = (commentId: string) => {
+    // Add your like logic here
+    console.log('Like comment:', commentId);
+  };
+
+  // Handle share comment
+  const handleShareComment = (commentId: string) => {
+    // Add your share logic here
+    console.log('Share comment:', commentId);
+  };
+
   return (
     <div className="bg-white min-h-screen mb-10">
-      {/* Sticky Header with Breadcrumb */}
+      {/* Sticky Header */}
       <DetailsHeader currentTitle={data.title} contentType={contentType} />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+
           {/* ---------------- MAIN CONTENT ---------------- */}
           <div className="lg:col-span-8">
             <article className="bg-white rounded-2xl duration-300">
-              {/* Image Section */}
+              {/* ... (Keep your existing article content exactly the same) ... */}
+              {/* Image */}
               <div className="relative w-full h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-emerald-500 to-green-600">
                 <img
                   src={data.image || '/assets/banners/arivom-news-default-banner.jpg'}
@@ -72,7 +143,6 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
 
-                {/* Category Badge */}
                 <div className="absolute top-4 left-4">
                   <CategoryBadge
                     category={category}
@@ -81,13 +151,12 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 </div>
               </div>
 
-              {/* Title & Info */}
+              {/* Title & Meta */}
               <div>
                 <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight tracking-tight mt-2">
                   {data.title}
                 </h3>
 
-                {/* Meta Info */}
                 <div className="flex flex-wrap items-center gap-3 mb-6 pb-6 border-b border-gray-200">
                   <div className="flex items-center gap-2 px-3 py-1.5">
                     <AuthorBadge author={authorName} />
@@ -100,61 +169,212 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 {/* Description */}
                 <div className="bg-gradient-to-r from-emerald-50 to-green-50 border-l-4 border-[#2ecc71] p-4 sm:p-6 rounded-r-xl mb-6 sm:mb-8 shadow-sm">
                   <p className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
-                    {data.content || 'No description available.'}
+                    {data.excerpt || data.content || 'No description available.'}
                   </p>
                 </div>
 
-                {/* Content */}
+                {/* Main Content */}
                 <div className="prose prose-lg max-w-none">
                   <div className="text-gray-700 leading-relaxed text-base sm:text-lg whitespace-pre-wrap space-y-4 sm:space-y-6">
                     {data.content}
                   </div>
                 </div>
-
-                {/* Actions */}
-                {/* <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
-                  <div className="flex items-center gap-3 flex-wrap justify-center sm:justify-start">
-                    <LikeButton id={String(data.id)} />
-                    <BookmarkButton
-                      id={String(data.id)}
-                      borderColor="#767676"
-                      backgroundColor="#ffffff"
-                      savedBackgroundColor="#ffffff"
-                      iconColor="#767676"
-                      savedIconColor="#6f42c2"
-                    />
-                    <ShareButton item={data} linkBase={linkBase} />
-                  </div>
-                </div> */}
               </div>
             </article>
 
-            {/* Comments */}
+            {/* ---------------- IMPROVED COMMENTS SECTION ---------------- */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 mt-6 sm:mt-8">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
                 Comments ({stats.comments})
               </h2>
-              <div className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-6 border border-gray-200">
-                <textarea
-                  placeholder="Share your thoughts..."
-                  rows={4}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ecc71] focus:border-transparent resize-none text-gray-700 bg-white transition-all duration-200"
-                />
-                <div className="mt-4 flex justify-end">
-                  <button className="px-6 py-2.5 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] transition-colors duration-200 shadow-sm">
-                    Post Comment
-                  </button>
+              <p className="text-gray-500 text-sm mb-6">Join the conversation</p>
+
+              {/* Add Comment Box */}
+              <div className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-8 border border-gray-200">
+                <div className="flex items-start gap-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                    You
+                  </div>
+                  <div className="flex-1">
+                    <textarea
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Share your thoughts..."
+                      rows={3}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ecc71] focus:border-transparent resize-none text-gray-700 bg-white transition-all duration-200"
+                    />
+                    <div className="mt-3 flex justify-end">
+                      <button
+                        onClick={handleSubmitComment}
+                        disabled={!newComment.trim()}
+                        className="px-6 py-2.5 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm"
+                      >
+                        Post Comment
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="text-center py-8 sm:py-12">
-                <MessageCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                <p className="text-gray-500 text-lg mb-2">No comments yet</p>
-                <p className="text-gray-400 text-sm">Be the first to share your thoughts!</p>
-              </div>
+              {/* Comments List */}
+              {data.comments && data.comments.length > 0 ? (
+                <div className="space-y-6">
+                  {(data.comments as Comment[]).map((comment) => (
+                    <div key={comment.id} className="border-b border-gray-100 pb-6 last:border-b-0">
+                      {/* Main Comment */}
+                      <div className="flex items-start gap-4">
+                        <img
+                          src={comment.ProfileImage}
+                          alt={comment.UserName}
+                          className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h4 className="font-semibold text-gray-900">{comment.UserName}</h4>
+                            <span className="text-gray-500 text-sm">
+                              {formatRelativeTime(comment.timestamp)}
+                            </span>
+                          </div>
+                          <p className="text-gray-700 mb-3">{comment.comment}</p>
+                          
+                          {/* Comment Actions */}
+                          <div className="flex items-center gap-4 text-sm">
+                            <button
+                              onClick={() => handleLikeComment(comment.id)}
+                              className={`flex items-center gap-1 px-2 py-1 rounded-md transition-colors ${
+                                comment.userLiked 
+                                  ? 'text-red-600 bg-red-50' 
+                                  : 'text-gray-600 hover:text-red-600 hover:bg-gray-50'
+                              }`}
+                            >
+                              <Heart className={`w-4 h-4 ${comment.userLiked ? 'fill-current' : ''}`} />
+                              <span>{comment.likes}</span>
+                            </button>
+                            
+                            <button
+                              onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
+                              className="flex items-center gap-1 px-2 py-1 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
+                            >
+                              <Reply className="w-4 h-4" />
+                              <span>Reply</span>
+                            </button>
+                            
+                            <button
+                              onClick={() => handleShareComment(comment.id)}
+                              className="flex items-center gap-1 px-2 py-1 rounded-md text-gray-600 hover:text-green-600 hover:bg-gray-50 transition-colors"
+                            >
+                              <Share2 className="w-4 h-4" />
+                              <span>Share</span>
+                            </button>
+                          </div>
+
+                          {/* Reply Input */}
+                          {replyingTo === comment.id && (
+                            <div className="mt-4 flex items-start gap-3">
+                              <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-xs">
+                                You
+                              </div>
+                              <div className="flex-1">
+                                <textarea
+                                  value={replyContent}
+                                  onChange={(e) => setReplyContent(e.target.value)}
+                                  placeholder="Write your reply..."
+                                  rows={2}
+                                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none text-gray-700 bg-white text-sm"
+                                />
+                                <div className="mt-2 flex gap-2">
+                                  <button
+                                    onClick={() => handleSubmitReply(comment.id)}
+                                    disabled={!replyContent.trim()}
+                                    className="px-4 py-1.5 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+                                  >
+                                    Post Reply
+                                  </button>
+                                  <button
+                                    onClick={() => setReplyingTo(null)}
+                                    className="px-4 py-1.5 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Sub Comments */}
+                          {comment.sub_comments && comment.sub_comments.length > 0 && (
+                            <div className="mt-4">
+                              <button
+                                onClick={() => toggleSubComments(comment.id)}
+                                className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700 font-medium mb-3"
+                              >
+                                {expandedComments.has(comment.id) ? (
+                                  <ChevronUp className="w-4 h-4" />
+                                ) : (
+                                  <ChevronDown className="w-4 h-4" />
+                                )}
+                                {expandedComments.has(comment.id) ? 'Hide' : 'Show'} {comment.sub_comments.length} replies
+                              </button>
+
+                              {expandedComments.has(comment.id) && (
+                                <div className="ml-4 pl-4 border-l-2 border-gray-200 space-y-4">
+                                  {comment.sub_comments.map((subComment) => (
+                                    <div key={subComment.id} className="flex items-start gap-3 pt-4 first:pt-0">
+                                      <img
+                                        src={subComment.ProfileImage}
+                                        alt={subComment.UserName}
+                                        className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                                      />
+                                      <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <h5 className="font-medium text-gray-800 text-sm">{subComment.UserName}</h5>
+                                          <span className="text-gray-500 text-xs">
+                                            {formatRelativeTime(subComment.timestamp)}
+                                          </span>
+                                        </div>
+                                        <p className="text-gray-600 text-sm mb-2">{subComment.comment}</p>
+                                        <div className="flex items-center gap-3 text-xs">
+                                          <button
+                                            onClick={() => handleLikeComment(subComment.id)}
+                                            className={`flex items-center gap-1 px-2 py-1 rounded-md transition-colors ${
+                                              subComment.userLiked 
+                                                ? 'text-red-600 bg-red-50' 
+                                                : 'text-gray-500 hover:text-red-600 hover:bg-gray-50'
+                                            }`}
+                                          >
+                                            <Heart className={`w-3 h-3 ${subComment.userLiked ? 'fill-current' : ''}`} />
+                                            <span>{subComment.likes}</span>
+                                          </button>
+                                          <button
+                                            onClick={() => handleShareComment(subComment.id)}
+                                            className="flex items-center gap-1 px-2 py-1 rounded-md text-gray-500 hover:text-green-600 hover:bg-gray-50 transition-colors"
+                                          >
+                                            <Share2 className="w-3 h-3" />
+                                            <span>Share</span>
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-12">
+                  <MessageCircle className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500 text-lg mb-2">No comments yet</p>
+                  <p className="text-gray-400 text-sm">Be the first to share your thoughts!</p>
+                </div>
+              )}
             </div>
 
-            {/* Related News */}
+            {/* ---------------- RELATED NEWS ---------------- */}
             <div className="mt-5">
               <SectionwiseImportantNews
                 items={news}
@@ -184,6 +404,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                       </div>
                       <div className="text-xs text-blue-600 font-medium">Views</div>
                     </div>
+
                     <div className="text-center p-2 bg-purple-50 rounded-lg border border-purple-200 hover:bg-purple-100 transition-colors">
                       <div className="w-8 h-8 bg-[#6f42c2] rounded-full flex items-center justify-center mx-auto mb-1">
                         <Heart className="w-4 h-4 text-white" />
@@ -193,6 +414,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                       </div>
                       <div className="text-xs text-purple-600 font-medium">Likes</div>
                     </div>
+
                     <div className="text-center p-2 bg-green-50 rounded-lg border border-green-200 hover:bg-green-100 transition-colors">
                       <div className="w-8 h-8 bg-[#28a745] rounded-full flex items-center justify-center mx-auto mb-1">
                         <MessageCircle className="w-4 h-4 text-white" />
@@ -202,6 +424,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                       </div>
                       <div className="text-xs text-green-600 font-medium">Comments</div>
                     </div>
+
                     <div className="text-center p-2 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors">
                       <div className="w-8 h-8 bg-gray-500 rounded-full flex items-center justify-center mx-auto mb-1">
                         <Share2 className="w-4 h-4 text-white" />
@@ -214,6 +437,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                   </div>
                 </div>
 
+                {/* Actions */}
                 <div className="border-t border-gray-200 pt-4">
                   <h4 className="text-sm font-semibold text-gray-900 mb-3 text-center">
                     Your Actions
@@ -233,7 +457,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 </div>
               </div>
 
-              {/* Advertisement Section */}
+              {/* Advertisement */}
               <div className="bg-white rounded-2xl p-2 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <Advertisement />
               </div>

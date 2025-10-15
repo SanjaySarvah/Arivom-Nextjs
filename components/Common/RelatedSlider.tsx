@@ -75,8 +75,8 @@ const TrendingSlider: FC<Props> = ({ title, items, linkBase, viewAllLink }) => {
     <section>
       <div className="mx-auto relative mt-12">
         <SectionHeader
-          subtitle="Editorials"
-          title="Recent Articles"
+          subtitle="Trending Now"
+          title="Top Stories Today"
           showButton={true}
           buttonText="View All"
           buttonUrl="/articles"

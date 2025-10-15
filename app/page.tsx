@@ -43,8 +43,8 @@ export default function Home() {
         {/* 📰 Popular Section */}
         <section className="mb-10 lg:mb-16">
           <SectionHeader
-            subtitle="Latest"
-            title="Popular News"
+            subtitle="Happening Now"
+            title="Fresh Updates"
             showButton={true}
             buttonText="View All"
             buttonUrl="/news"

@@ -66,7 +66,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               {/* Sticky Navigation */}
               <div className="sticky top-0 z-50 bg-white shadow-md">
                 <HeaderSecondary />
-                <MobileCategoryTabs items={[]} baseLink={""} label={""} />
+                
+                {/* FIXED: Remove the label prop */}
+                <MobileCategoryTabs items={[]} baseLink={""} />
+                
                 {(showNewsTab || showArticlesTab) && (
                   <div
                     className="bg-white/95 backdrop-blur-sm border-t border-gray-200"
@@ -98,8 +101,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </main>
 
           {/* ---------------- FOOTER ---------------- */}
-        <footer className="w-full footerspacing">
-
+          <footer className="w-full footerspacing">
             <Footer />
           </footer>
         </ClientLayoutWrapper>

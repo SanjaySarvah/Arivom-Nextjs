@@ -93,8 +93,8 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
           <div className="w-full lg:w-2/3">
             {/* Section Header */}
             <SectionHeader
-              subtitle="Latest"
-              title="Popular News"
+              subtitle="News That Speaks Truth"
+              title="Arivom Today"
               showButton={false}
               buttonText="View All"
               buttonUrl="/news"
