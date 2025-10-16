@@ -97,7 +97,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         label="ARTICLES"
                       />
                     )}
-                  </div>
+                  </div> 
                 )}
               </div>
             </>
