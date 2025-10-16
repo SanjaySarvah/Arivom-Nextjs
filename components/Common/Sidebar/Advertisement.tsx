@@ -40,22 +40,22 @@ const CompactAdList: FC = () => {
       ctaLink: "#",
       category: "Mobile",
     },
-    {
-      id: "4",
-      title: "Smart Home Devices - Best Deals",
-      image: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80",
-      sponsor: "HomeTech",
-      ctaLink: "#",
-      category: "Smart Home",
-    },
-    {
-      id: "5",
-      title: "Fitness Gear - Exclusive Offers",
-      image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80",
-      sponsor: "FitZone",
-      ctaLink: "#",
-      category: "Fitness",
-    },
+    // {
+    //   id: "4",
+    //   title: "Smart Home Devices - Best Deals",
+    //   image: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=80",
+    //   sponsor: "HomeTech",
+    //   ctaLink: "#",
+    //   category: "Smart Home",
+    // },
+    // {
+    //   id: "5",
+    //   title: "Fitness Gear - Exclusive Offers",
+    //   image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80",
+    //   sponsor: "FitZone",
+    //   ctaLink: "#",
+    //   category: "Fitness",
+    // },
   ];
 
 
@@ -63,29 +63,29 @@ const CompactAdList: FC = () => {
   return (
     <div className="w-full">
       {/* Sponsored Ads Header */}
-           <SectionHeader
-            subtitle="Sponsered Ad"
-            title=""
-            showButton={false}
-            buttonText="View All"
-            buttonUrl="/news"
-          />
+      <SectionHeader
+        subtitle="Sponsered Ad"
+        title="AD"
+        showButton={false}
+        buttonText="View All"
+        buttonUrl="/news"
+      />
 
-<div
-  className="flex flex-col gap-4 max-h-[450px] overflow-y-auto pr-2
+      <div
+        className="flex flex-col gap-6 max-h-[450px] overflow-y-auto pr-2
   [&::-webkit-scrollbar]:w-1.5
   [&::-webkit-scrollbar-track]:bg-transparent
   [&::-webkit-scrollbar-thumb]:bg-gray-300
   [&::-webkit-scrollbar-thumb]:rounded-full
   hover:[&::-webkit-scrollbar-thumb]:bg-gray-400
   transition-all"
->
+      >
 
         {compactAds.map((ad) => (
           <Link
             key={ad.id}
             href={ad.ctaLink}
-            className="flex items-center gap-4 bg-white rounded-lg p-3 shadow-sm
+            className="flex items-center gap-4 bg-white rounded-lg p-4 shadow-sm
             border border-gray-200 hover:shadow-md hover:-translate-y-0.5
             transition-all duration-200 group flex-shrink-0"
           >
