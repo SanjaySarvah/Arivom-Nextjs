@@ -207,35 +207,35 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
               </h2>
               <p className="text-gray-500 text-sm mb-6">Join the conversation</p>
 
-           {/* Comment Section */}
-<div id="comment-section" className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-8 border border-gray-200">
-  <div className="flex items-start gap-3">
-    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center text-white font-semibold shadow-md group-hover:shadow-lg transition-all duration-300">
-      <FaUserCircle className="w-5 h-5" />
-    </div>
-    <div className="flex-1">
-      <textarea
-        value={newComment}
-        onChange={(e) => setNewComment(e.target.value)}
-        placeholder="Share your thoughts..."
-        rows={3}
-        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ecc71] focus:border-transparent resize-none text-gray-700 bg-white transition-all duration-200"
-      />
-      <div className="mt-3 flex justify-end">
-        <button
-          onClick={handleSubmitComment}
-          disabled={!newComment.trim()}
-          className="px-4 py-2 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm"
-        >
-          Post Comment
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+              {/* Comment Section */}
+              <div id="comment-section" className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-8 border border-gray-200">
+                <div className="flex items-start gap-3">
+                  <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center text-white font-semibold shadow-md group-hover:shadow-lg transition-all duration-300">
+                    <FaUserCircle className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <textarea
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Share your thoughts..."
+                      rows={3}
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ecc71] focus:border-transparent resize-none text-gray-700 bg-white transition-all duration-200"
+                    />
+                    <div className="mt-3 flex justify-end">
+                      <button
+                        onClick={handleSubmitComment}
+                        disabled={!newComment.trim()}
+                        className="px-4 py-2 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm"
+                      >
+                        Post Comment
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
 
-              {/* Comments List */}
+          
               {data.comments && data.comments.length > 0 ? (
                 <div className="space-y-6">
                   {(data.comments as Comment[]).map((comment) => (
@@ -261,8 +261,8 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                             <button
                               onClick={() => handleLikeComment(comment.id)}
                               className={`flex items-center gap-1 px-2 py-1 rounded-md transition-colors ${comment.userLiked
-                                  ? 'text-red-600 bg-red-50'
-                                  : 'text-gray-600 hover:text-red-600 hover:bg-gray-50'
+                                ? 'text-red-600 bg-red-50'
+                                : 'text-gray-600 hover:text-red-600 hover:bg-gray-50'
                                 }`}
                             >
                               <Heart className={`w-4 h-4 ${comment.userLiked ? 'fill-current' : ''}`} />
@@ -355,8 +355,8 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                                           <button
                                             onClick={() => handleLikeComment(subComment.id)}
                                             className={`flex items-center gap-1 px-2 py-1 rounded-md transition-colors ${subComment.userLiked
-                                                ? 'text-red-600 bg-red-50'
-                                                : 'text-gray-500 hover:text-red-600 hover:bg-gray-50'
+                                              ? 'text-red-600 bg-red-50'
+                                              : 'text-gray-500 hover:text-red-600 hover:bg-gray-50'
                                               }`}
                                           >
                                             <Heart className={`w-3 h-3 ${subComment.userLiked ? 'fill-current' : ''}`} />
@@ -390,14 +390,14 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 </div>
               )}
             </div>
-<div className="mt-5">
-            <SectionHeader 
-              subtitle="More to explore"
-              title="Related Post"
-              showButton={true}
-              buttonText="View All"
-              buttonUrl="/news"
-            />
+            <div className="mt-5">
+              <SectionHeader
+                subtitle="More to explore"
+                title="Related Post"
+                showButton={true}
+                buttonText="View All"
+                buttonUrl="/news"
+              />
             </div>
             <div className="mt-5">
               <SectionwiseImportantNews
@@ -492,15 +492,15 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
           </div>
         </div>
       </div>
-<DetailFooter
-  authorName={authorName}
-  date={date}
-  formatDate={customFormatDate}
-  likeCount={stats.likes}
-  commentCount={stats.comments}
-  item={data}
-  linkBase={linkBase}
-/>
+      <DetailFooter
+        authorName={authorName}
+        date={date}
+        formatDate={customFormatDate}
+        likeCount={stats.likes}
+        commentCount={stats.comments}
+        item={data}
+        linkBase={linkBase}
+      />
 
 
 

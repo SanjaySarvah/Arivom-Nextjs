@@ -15,20 +15,23 @@ interface MobileCategoryTabsProps {
   baseLink: string;
 }
 
-export default function MobileCategoryTabs({ items, baseLink }: MobileCategoryTabsProps) {
+export default function MobileCategoryTabs({
+  items,
+  baseLink,
+}: MobileCategoryTabsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const [categories, setCategories] = useState<CategoryItem[]>([]);
 
-  // Extract unique categories
   useEffect(() => {
     const uniqueCats = Array.from(
-      new Map(items.map((i) => [i.category, { category: i.category, tname: i.tname }])).values()
+      new Map(
+        items.map((i) => [i.category, { category: i.category, tname: i.tname }])
+      ).values()
     );
     setCategories(uniqueCats);
   }, [items]);
 
-  // Special tabs
   const specialTabs = [
     { label: "Trending", href: "/trending", icon: TrendingUp },
     { label: "Updates", href: "/updates", icon: Bell },
@@ -38,21 +41,20 @@ export default function MobileCategoryTabs({ items, baseLink }: MobileCategoryTa
   ];
 
   return (
-    <div className="xl:hidden w-full bg-white border-b border-gray-200 sticky top-0 z-40">
+    <div className="w-full bg-white border-b border-gray-200 sticky top-[60px] z-[50]">
       <div className="relative flex items-center h-14">
-        {/* Scrollable Tabs */}
         <div
           ref={containerRef}
           className="flex-1 flex overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth"
         >
           <div className="flex min-w-max">
-            {/* Categories */}
             {categories.map(({ category, tname }, idx) => {
               const isActive =
                 pathname !== baseLink &&
                 pathname.toLowerCase().includes(category.toLowerCase())
                   ? true
-                  : idx === 0 && !categories.some((c) =>
+                  : idx === 0 &&
+                    !categories.some((c) =>
                       pathname.toLowerCase().includes(c.category.toLowerCase())
                     );
 
@@ -61,16 +63,17 @@ export default function MobileCategoryTabs({ items, baseLink }: MobileCategoryTa
                   key={category}
                   href={`${baseLink}/category/${category.toLowerCase()}`}
                   className="relative px-4 py-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap transition-all duration-300"
-                  prefetch={false} // Prevent automatic prefetch to avoid reload
+                  prefetch={false}
                 >
                   <span
                     className={`text-xs sm:text-sm font-semibold ${
-                      isActive ? "text-[#017BFF]" : "text-gray-700 hover:text-[#017BFF]"
+                      isActive
+                        ? "text-[#017BFF]"
+                        : "text-gray-700 hover:text-[#017BFF]"
                     }`}
                   >
                     {tname || category}
                   </span>
-                  {/* Animated underline */}
                   <span
                     className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#017BFF] transition-transform duration-300 origin-left ${
                       isActive ? "scale-x-100" : "scale-x-0"
@@ -80,7 +83,6 @@ export default function MobileCategoryTabs({ items, baseLink }: MobileCategoryTa
               );
             })}
 
-            {/* Special Tabs */}
             {specialTabs.map(({ label, href, icon: Icon }) => {
               const isActive = pathname === href;
               return (
@@ -91,11 +93,15 @@ export default function MobileCategoryTabs({ items, baseLink }: MobileCategoryTa
                   prefetch={false}
                 >
                   <Icon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  <span className={`${isActive ? "text-[#017BFF]" : "text-gray-700 hover:text-[#017BFF]"}`}>
+                  <span
+                    className={`${
+                      isActive
+                        ? "text-[#017BFF]"
+                        : "text-gray-700 hover:text-[#017BFF]"
+                    }`}
+                  >
                     {label}
                   </span>
-
-                  {/* Animated underline */}
                   <span
                     className={`absolute bottom-0 left-0 w-full h-0.5 bg-[#017BFF] transition-transform duration-300 origin-left ${
                       isActive ? "scale-x-100" : "scale-x-0"
@@ -111,9 +117,6 @@ export default function MobileCategoryTabs({ items, baseLink }: MobileCategoryTa
       <style jsx>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
-          width: 0;
-          height: 0;
-          background: transparent;
         }
         .scrollbar-hide {
           -ms-overflow-style: none;

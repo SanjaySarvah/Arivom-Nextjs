@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { FiImage, FiVideo, FiPlayCircle } from "react-icons/fi";
 import {
   FaHome,
   FaRegNewspaper,
@@ -74,6 +75,24 @@ const HeaderSecondary: React.FC = () => {
       icon: Share2,
       active: pathname.startsWith("/socialmedia"),
     },
+       {
+    name: "Gallery",
+    href: "/socialmedia",
+    icon: FiImage, // Represents images/photos
+    active: pathname.startsWith("/socialmedia"),
+  },
+  {
+    name: "Video",
+    href: "/socialmedia",
+    icon: FiVideo, // Represents videos
+    active: pathname.startsWith("/socialmedia"),
+  },
+  {
+    name: "Shorts",
+    href: "/socialmedia",
+    icon: FiPlayCircle, // Represents short videos or clips
+    active: pathname.startsWith("/socialmedia"),
+  },
   ];
 
   const newsCategories = [
@@ -88,7 +107,7 @@ const HeaderSecondary: React.FC = () => {
     <>
       {/* Header Wrapper */}
       <div
-        className={`bg-white border-b border-gray-200 sticky top-0 z-[90]   ${
+        className={`bg-white border-b border-gray-200 sticky top-0 z-[90] MobileViewContent  ${
           isScrolled ? "shadow-md" : ""
         }`}
       >

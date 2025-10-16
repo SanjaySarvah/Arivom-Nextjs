@@ -89,9 +89,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
     <section>
       <div className="mx-auto mt-5 sm:mt-10">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
-          {/* LEFT SIDE - Trending News */}
-          <div className="w-full lg:w-2/3">
-            {/* Section Header */}
+          <div className="w-full lg:w-2/3 mt-8 lg:mt-0">
             <SectionHeader
               subtitle="News That Speaks Truth"
               title="Arivom Today"
@@ -100,7 +98,6 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
               buttonUrl="/news"
             />
 
-            {/* Swiper Slider */}
             <div className="relative h-[350px] sm:h-[200px] lg:h-[450px] ">
               <Swiper
                 modules={[Navigation, Autoplay, Pagination]}
@@ -172,7 +169,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
  <div className="flex items-center gap-2 px-3 py-1.5">
               
                   </div>
-                  <div className="flex items-center gap-2 px-3 py-1.5">
+                  <div className="flex items-center gap-2 px-3 py-1.5 MobileViewContent">
                     <DateBadge date={item.created_at} formatDate={customFormatDate} />
                   </div>
                           {/* Action Buttons */}

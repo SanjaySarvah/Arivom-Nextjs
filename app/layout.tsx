@@ -10,7 +10,7 @@ import ClientLayoutWrapper from "@/components/Common/ClientLayoutWrapper";
 import CategoryTabs from "@/components/Common/CategoryTabs";
 import { Kumbh_Sans, Noto_Sans_Tamil } from "next/font/google";
 import DetailsHeader from "@/components/DetailsHeader";
-import MobileCategoryTabs from "@/components/Common/MobileCategoryTabs";
+
 
 const kumbhSans = Kumbh_Sans({
   subsets: ["latin"],
@@ -75,8 +75,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="sticky top-0 z-50 bg-white shadow-md">
                 <HeaderSecondary />
 
-                {/* FIXED: Remove the label prop */}
-                <MobileCategoryTabs items={[]} baseLink={""} />
 
                 {(showNewsTab || showArticlesTab) && (
                   <div
