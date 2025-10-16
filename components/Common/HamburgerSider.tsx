@@ -104,10 +104,10 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
               >
                 <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
                   item.active
-                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md"
-                    : "bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md text-white"
+                    : "bg-gray-100 text-gray-600 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60] group-hover:text-white"
                 }`}>
-                  <item.icon size={14} className={item.active ? "text-white" : "text-gray-600"} />
+                  <item.icon size={14} />
                 </div>
                 {item.name}
               </Link>
