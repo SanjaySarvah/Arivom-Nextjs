@@ -12,24 +12,27 @@ interface TaggingBadgeProps {
 
 const TaggingBadge: FC<TaggingBadgeProps> = ({
   tag,
-  icon , // default tag icon
+  icon,
   className = "",
-  bgColor = "#9C27B0", // purple tone for tag look
+  bgColor = "#6f42c2", // purple tone for tags (secondary color)
 }) => {
-  // Truncate to first 6 characters for mobile
-  const shortTag = tag.length > 15 ? tag.slice(0, 6) + "…" : tag;
+  // Truncate for mobile view
+  const shortTag = tag.length > 15 ? tag.slice(0, 15) + "…" : tag;
 
   return (
-<span
-  className={`inline-flex items-center gap-1 px-2.5 py-[3px] rounded-full 
-  text-[10px] md:text-[10px] font-semibold uppercase tracking-wide text-white 
-  ${className}`}
-  style={{ backgroundColor: bgColor }}
->
+    <span
+      className={`inline-flex items-center gap-1 px-3 py-1 rounded-full 
+      text-[10px] md:text-xs font-semibold uppercase tracking-wide text-white
+      transition-colors ${className}`}
+      style={{ backgroundColor: bgColor }}
+      title={tag} // Tooltip for accessibility
+    >
+      {/* Use default tag icon if none provided */}
+      <span className="w-3 h-3 flex items-center justify-center">
+        {icon || <FaTag className="text-[10px] md:text-xs" />}
+      </span>
 
-      {icon && <span className="w-3 h-3 flex items-center justify-center">{icon}</span>}
-
-      {/* Mobile: truncated + smaller font | Desktop: full text */}
+      {/* Truncate on mobile, full on desktop */}
       <span className="block md:hidden">{shortTag}</span>
       <span className="hidden md:block">{tag}</span>
     </span>
