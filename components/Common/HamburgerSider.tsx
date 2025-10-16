@@ -358,88 +358,75 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
         </div>
 
         {/* Footer Contact */}
-        <div className="fixed bottom-0 left-0 w-80 bg-gradient-to-br from-gray-50 to-white border-t-2 border-[#2ecc71] shadow-lg">
+        <div className="fixed bottom-0 left-0 w-80 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-t-2 border-emerald-500/50 shadow-2xl">
           {/* Social Media Icons */}
-          <div className="px-4 pt-3 pb-2 border-b border-gray-100">
-            <div className="flex gap-3 justify-center">
+          <div className="px-4 pt-4 pb-3 border-b border-white/10">
+            <div className="flex gap-4 justify-center">
               <a
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 hover:from-blue-500 hover:to-blue-600 flex items-center justify-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 group"
+                className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm hover:bg-blue-500 flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 hover:-translate-y-1 group border border-white/10"
               >
-                <FaFacebook className="w-4 h-4 text-blue-600 group-hover:text-white transition-colors duration-300" />
+                <FaFacebook className="w-4 h-4 text-white transition-transform duration-300 group-hover:scale-110" />
               </a>
               <a
                 href="https://youtube.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-gradient-to-br from-red-100 to-red-200 hover:from-red-500 hover:to-red-600 flex items-center justify-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 group"
+                className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm hover:bg-red-500 flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:shadow-red-500/20 hover:-translate-y-1 group border border-white/10"
               >
-                <FaYoutube className="w-4 h-4 text-red-600 group-hover:text-white transition-colors duration-300" />
+                <FaYoutube className="w-4 h-4 text-white transition-transform duration-300 group-hover:scale-110" />
               </a>
               <a
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-100 to-purple-200 hover:from-pink-500 hover:to-purple-600 flex items-center justify-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 group"
+                className="w-10 h-10 rounded-xl bg-white/10 backdrop-blur-sm hover:bg-gradient-to-br hover:from-pink-500 hover:to-purple-600 flex items-center justify-center transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/20 hover:-translate-y-1 group border border-white/10"
               >
-                <FaInstagram className="w-4 h-4 text-pink-600 group-hover:text-white transition-colors duration-300" />
+                <FaInstagram className="w-4 h-4 text-white transition-transform duration-300 group-hover:scale-110" />
               </a>
             </div>
           </div>
 
+          {/* Contact Info */}
+          <div className="px-4 py-3 text-[11px] space-y-2.5 border-b border-white/10">
+            <a href="mailto:support@arivom.com" className="flex items-center justify-center gap-2 text-white/90 hover:text-emerald-400 font-medium transition-colors duration-200 group">
+              <span>Email:</span>
+              <span className="group-hover:underline underline-offset-2">support@arivom.com</span>
+            </a>
+            <a href="tel:+919876543210" className="flex items-center justify-center gap-2 text-white/90 hover:text-emerald-400 font-medium transition-colors duration-200 group">
+              <span>Phone:</span>
+              <span className="group-hover:underline underline-offset-2">+91 9876543210</span>
+            </a>
+          </div>
+
           {/* Quick Links */}
-          <div className="px-4 pt-2 pb-2 border-b border-gray-100">
+          <div className="px-4 py-3 border-b border-white/10">
             <div className="flex gap-3 justify-center text-[11px]">
               <Link
                 href="/terms-and-conditions"
                 onClick={onClose}
-                className="text-gray-700 hover:text-[#1a8f52] font-semibold transition-colors duration-200 hover:underline underline-offset-2"
+                className="text-white/80 hover:text-emerald-400 font-semibold transition-colors duration-200 hover:underline underline-offset-2"
               >
                 Terms & Conditions
               </Link>
-              <span className="text-gray-300">|</span>
+              <span className="text-white/30">|</span>
               <Link
                 href="/privacy-policy"
                 onClick={onClose}
-                className="text-gray-700 hover:text-[#1a8f52] font-semibold transition-colors duration-200 hover:underline underline-offset-2"
+                className="text-white/80 hover:text-emerald-400 font-semibold transition-colors duration-200 hover:underline underline-offset-2"
               >
                 Privacy Policy
               </Link>
             </div>
           </div>
 
-          {/* Contact Info */}
-          <div className="px-4 py-2.5 text-[10px] text-gray-600 space-y-1">
-            <p className="text-center text-gray-500">
-              Email: <a href="mailto:support@arivom.com" className="text-[#1a8f52] hover:text-[#2ecc71] font-medium transition-colors duration-200">support@arivom.com</a>
+          {/* Copyright */}
+          <div className="px-4 py-3">
+            <p className="text-[10px] text-white/70 text-center font-medium">
+              © 2025 <span className="font-bold bg-gradient-to-r from-emerald-400 to-green-400 bg-clip-text text-transparent">Arivom</span>. All rights reserved.
             </p>
-            <p className="text-center text-gray-500">
-              Phone: <a href="tel:+919876543210" className="text-[#1a8f52] hover:text-[#2ecc71] font-medium transition-colors duration-200">+91 9876543210</a>
-            </p>
-            <div className="pt-2 border-t border-gray-100 mt-2">
-              <div className="flex gap-2 justify-center text-[10px] mb-1.5">
-                <Link
-                  href="/terms-and-conditions"
-                  onClick={onClose}
-                  className="text-gray-600 hover:text-[#1a8f52] font-medium transition-colors duration-200 hover:underline underline-offset-2"
-                >
-                  Terms & Conditions
-                </Link>
-                <span className="text-gray-300">|</span>
-                <Link
-                  href="/privacy-policy"
-                  onClick={onClose}
-                  className="text-gray-600 hover:text-[#1a8f52] font-medium transition-colors duration-200 hover:underline underline-offset-2"
-                >
-                  Privacy Policy
-                </Link>
-              </div>
-              <p className="text-[8px] text-gray-500 text-center">
-                © 2025 Arivom. All rights reserved.
-              </p>
-            </div>
           </div>
         </div>
       </div>
