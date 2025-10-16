@@ -74,25 +74,7 @@ const HeaderSecondary: React.FC = () => {
       href: "/socialmedia",
       icon: Share2,
       active: pathname.startsWith("/socialmedia"),
-    },
-       {
-    name: "Gallery",
-    href: "/socialmedia",
-    icon: FiImage, // Represents images/photos
-    active: pathname.startsWith("/socialmedia"),
-  },
-  {
-    name: "Video",
-    href: "/socialmedia",
-    icon: FiVideo, // Represents videos
-    active: pathname.startsWith("/socialmedia"),
-  },
-  {
-    name: "Shorts",
-    href: "/socialmedia",
-    icon: FiPlayCircle, // Represents short videos or clips
-    active: pathname.startsWith("/socialmedia"),
-  },
+    }
   ];
 
   const newsCategories = [

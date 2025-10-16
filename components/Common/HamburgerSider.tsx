@@ -75,15 +75,18 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
 
   return (
     <div
-      className="xl:hidden fixed inset-0 bg-black/50 z-[100]"
+      className="xl:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] transition-opacity duration-300"
       onClick={onClose}
     >
+      {/* Sidebar */}
       <div
-        className="bg-white w-80 h-full transform transition-transform duration-300 overflow-y-auto"
+        className={`relative bg-white w-80 h-full transform transition-transform duration-300 overflow-y-auto z-[10000] shadow-2xl ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-4 border-b-2 border-[#2ecc71] flex items-center justify-between bg-white sticky top-0 z-20">
+        <div className="p-4 border-b-2 border-[#2ecc71] flex items-center justify-between sticky top-0 bg-white z-20">
           <Image
             src={logo}
             alt="Arivom Logo"
@@ -193,7 +196,6 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
               />
             </button>
 
-            {/* Article Category Navigation (like ArticleCategoryDropdown) */}
             {isArticleExpanded && (
               <div className="pl-4 pr-2 py-2 max-h-[65vh] overflow-y-auto custom-scrollbar">
                 {categories.map((cat) => {
@@ -202,7 +204,6 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
 
                   return (
                     <div key={cat.category} className="group">
-                      {/* CATEGORY ITEM */}
                       <div className="flex items-center justify-between p-2 rounded-md hover:bg-green-50 transition-all">
                         {hasSubcategories ? (
                           <button

@@ -12,8 +12,8 @@ interface DetailFooterProps {
   authorName?: string;
   date?: string | Date;
   formatDate?: (date: string | Date) => string;
-  item: any;
-  linkBase: string;
+  item?: any;
+  linkBase?: string;
 }
 
 const DetailFooter: React.FC<DetailFooterProps> = ({
@@ -21,22 +21,16 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
   commentCount = 0,
   authorName,
   item,
-  linkBase,
+  linkBase = "/", // ✅ default value to ensure string
 }) => {
-  // Format large numbers (1K, 1M, etc.)
   const formatCount = (count: number): string => {
-    if (count >= 1000000) {
-      return (count / 1000000).toFixed(1) + 'M';
-    }
-    if (count >= 1000) {
-      return (count / 1000).toFixed(1) + 'K';
-    }
+    if (count >= 1000000) return (count / 1000000).toFixed(1) + 'M';
+    if (count >= 1000) return (count / 1000).toFixed(1) + 'K';
     return count.toString();
   };
 
   return (
     <footer className="xl:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-2px_6px_rgba(0,0,0,0.05)] z-40">
-      {/* Author Name Badge */}
       {authorName && (
         <div className="absolute -top-8 left-0">
           <div className="bg-white text-gray-700 px-3 py-1.5 rounded-r-lg rounded-t-lg shadow-sm border border-gray-200">
@@ -45,12 +39,11 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
         </div>
       )}
 
-      {/* Footer Actions */}
       <div className="flex justify-around items-center py-3 px-4 max-w-screen-xl mx-auto text-gray-700 font-medium">
         {/* Like */}
         <div className="relative flex items-center justify-center min-w-[60px]">
           <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
-            <LikeButton id={String(item.id)} />
+            <LikeButton id={String(item?.id || 0)} />
           </div>
           {likeCount > 0 && (
             <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
@@ -59,33 +52,31 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
           )}
         </div>
 
-{/* Comment */}
-<div className="relative flex items-center justify-center min-w-[60px]">
-  <button
-    className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
-    onClick={() => {
-      const commentSection = document.getElementById("comment-section");
-      if (commentSection) {
-        commentSection.scrollIntoView({ behavior: "smooth", block: "start" });
-      }
-    }}
-  >
-    <MessageCircle className="w-5 h-5 text-gray-500" />
-  </button>
-
-  {commentCount > 0 && (
-    <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
-      {formatCount(commentCount)}
-    </span>
-  )}
-</div>
-
+        {/* Comment */}
+        <div className="relative flex items-center justify-center min-w-[60px]">
+          <button
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+            onClick={() => {
+              const commentSection = document.getElementById("comment-section");
+              if (commentSection) {
+                commentSection.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            }}
+          >
+            <MessageCircle className="w-5 h-5 text-gray-500" />
+          </button>
+          {commentCount > 0 && (
+            <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
+              {formatCount(commentCount)}
+            </span>
+          )}
+        </div>
 
         {/* Bookmark */}
         <div className="relative flex items-center justify-center min-w-[60px]">
           <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
             <BookmarkButton
-              id={String(item.id)}
+              id={String(item?.id || 0)}
               borderColor="#d1d5db"
               backgroundColor="#f9fafb"
               savedBackgroundColor="#f9fafb"
@@ -93,25 +84,13 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
               savedIconColor="#6f42c2"
             />
           </div>
-          {/* Add bookmark count if available */}
-          {/* {bookmarkCount > 0 && (
-            <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
-              {formatCount(bookmarkCount)}
-            </span>
-          )} */}
         </div>
 
         {/* Share */}
         <div className="relative flex items-center justify-center min-w-[60px]">
           <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
-            <ShareButton item={item} linkBase={linkBase} />
+            <ShareButton item={item} linkBase={linkBase} /> {/* ✅ linkBase is guaranteed string */}
           </div>
-          {/* Add share count if available */}
-          {/* {shareCount > 0 && (
-            <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
-              {formatCount(shareCount)}
-            </span>
-          )} */}
         </div>
       </div>
     </footer>

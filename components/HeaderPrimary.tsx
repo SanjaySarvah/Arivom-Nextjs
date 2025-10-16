@@ -9,6 +9,7 @@ import { RiTwitterXFill } from "react-icons/ri";
 import { HiX } from "react-icons/hi";
 import { Bell } from "lucide-react";
 import logo from "@/public/assets/arivom-logo-latest.png";
+import { FaVideo, FaFilm, FaImages } from "react-icons/fa"; 
 
 const HeaderPrimary: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -227,8 +228,41 @@ const HeaderPrimary: React.FC = () => {
           </div>
 
 
+
+
+
           <div className="flex items-center justify-end gap-3 min-w-[200px]">
-            <button className="relative p-2 hover:bg-emerald-50 rounded-lg transition-all duration-300 group">
+
+
+{/* Video Button */}
+<button className="relative p-3 bg-white/80 backdrop-blur-md hover:bg-white rounded-2xl transition-all duration-300 group">
+  <FaVideo className="w-5 h-5 text-gray-600 group-hover:text-[#2ecc71] transition-colors duration-300" />
+  <span className="absolute -top-1.5 -right-1.5 bg-[#2ecc71]/90 text-white text-[9px] font-semibold px-1.5 py-[1px] rounded-full shadow-md backdrop-blur-md ring-2 ring-white animate-pulse-slow">
+    NEW
+  </span>
+</button>
+
+{/* Shorts Button */}
+<button className="relative p-3 bg-white/80 backdrop-blur-md hover:bg-white rounded-2xl stransition-all duration-300 group">
+  <FaFilm className="w-5 h-5 text-gray-600 group-hover:text-[#2ecc71] transition-colors duration-300" />
+  <span className="absolute -top-1.5 -right-1.5 bg-[#2ecc71]/90 text-white text-[9px] font-semibold px-1.5 py-[1px] rounded-full shadow-md backdrop-blur-md ring-2 ring-white animate-pulse-slow">
+    NEW
+  </span>
+</button>
+
+{/* Gallery Button */}
+<button className="relative p-3 bg-white/80 backdrop-blur-md hover:bg-white rounded-2xl  transition-all duration-300 group">
+  <FaImages className="w-5 h-5 text-gray-600 group-hover:text-[#2ecc71] transition-colors duration-300" />
+  <span className="absolute -top-1.5 -right-1.5 bg-[#2ecc71]/90 text-white text-[9px] font-semibold px-1.5 py-[1px] rounded-full shadow-md backdrop-blur-md ring-2 ring-white animate-pulse-slow">
+    NEW
+  </span>
+</button>
+
+
+
+
+
+            <button className="relative p-2 rounded-lg transition-all duration-300 group">
               <Bell className="w-5 h-5 text-gray-600 group-hover:text-[#2ecc71] transition-colors" />
               {notificationCount > 0 && (
                 <span className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center border-2 border-white shadow-md animate-pulse">
