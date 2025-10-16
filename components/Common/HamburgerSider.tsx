@@ -7,6 +7,9 @@ import {
   FaTimes,
   FaSearch,
   FaRegNewspaper,
+  FaVideo,
+  FaFilm,
+  FaImages,
 } from "react-icons/fa";
 import {
   BookOpen,
@@ -50,8 +53,43 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
   const [isArticleExpanded, setIsArticleExpanded] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
+  const [isMediaExpanded, setIsMediaExpanded] = useState(false);
+  const [activeMediaType, setActiveMediaType] = useState<string | null>(null);
 
   const categories = getArticleCategories();
+
+  // Default media categories
+  const mediaCategories = {
+    videos: [
+      { name: "Latest Videos", href: "/videos/latest" },
+      { name: "Trending", href: "/videos/trending" },
+      { name: "News Videos", href: "/videos/news" },
+      { name: "Interviews", href: "/videos/interviews" },
+      { name: "Documentaries", href: "/videos/documentaries" },
+    ],
+    shorts: [
+      { name: "Trending Shorts", href: "/shorts/trending" },
+      { name: "News Shorts", href: "/shorts/news" },
+      { name: "Quick Updates", href: "/shorts/updates" },
+      { name: "Top Picks", href: "/shorts/top-picks" },
+    ],
+    gallery: [
+      { name: "Latest Photos", href: "/gallery/latest" },
+      { name: "Events", href: "/gallery/events" },
+      { name: "Featured", href: "/gallery/featured" },
+      { name: "Photo Stories", href: "/gallery/stories" },
+    ],
+  };
+
+  const handleMediaClick = (type: string) => {
+    if (activeMediaType === type) {
+      setActiveMediaType(null);
+      setIsMediaExpanded(false);
+    } else {
+      setActiveMediaType(type);
+      setIsMediaExpanded(true);
+    }
+  };
 
   const toggleCategory = (category: string) => {
     if (activeCategory === category) {
@@ -112,6 +150,131 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
               className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
             />
           </div>
+        </div>
+
+        {/* Media Buttons */}
+        <div className="px-4 mb-4">
+          <div className="grid grid-cols-3 gap-2">
+            {/* Video Button */}
+            <button
+              onClick={() => handleMediaClick("videos")}
+              className="relative group"
+            >
+              <div className={`flex flex-col items-center gap-2 p-3 border-2 rounded-xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${
+                activeMediaType === "videos"
+                  ? "bg-emerald-50 border-[#2ecc71]"
+                  : "bg-white border-gray-100 hover:border-[#2ecc71] hover:bg-emerald-50/50"
+              }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  activeMediaType === "videos"
+                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60]"
+                    : "bg-gradient-to-br from-emerald-100 to-green-100 group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+                }`}>
+                  <FaVideo className={`w-4 h-4 transition-colors duration-300 ${
+                    activeMediaType === "videos"
+                      ? "text-white"
+                      : "text-[#1a8f52] group-hover:text-white"
+                  }`} />
+                </div>
+                <span className={`text-[10px] font-semibold transition-colors ${
+                  activeMediaType === "videos"
+                    ? "text-[#1a8f52]"
+                    : "text-gray-700 group-hover:text-[#1a8f52]"
+                }`}>
+                  Videos
+                </span>
+              </div>
+              <span className="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-red-500 to-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full shadow-lg ring-2 ring-white animate-pulse">
+                NEW
+              </span>
+            </button>
+
+            {/* Shorts Button */}
+            <button
+              onClick={() => handleMediaClick("shorts")}
+              className="relative group"
+            >
+              <div className={`flex flex-col items-center gap-2 p-3 border-2 rounded-xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${
+                activeMediaType === "shorts"
+                  ? "bg-emerald-50 border-[#2ecc71]"
+                  : "bg-white border-gray-100 hover:border-[#2ecc71] hover:bg-emerald-50/50"
+              }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  activeMediaType === "shorts"
+                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60]"
+                    : "bg-gradient-to-br from-emerald-100 to-green-100 group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+                }`}>
+                  <FaFilm className={`w-4 h-4 transition-colors duration-300 ${
+                    activeMediaType === "shorts"
+                      ? "text-white"
+                      : "text-[#1a8f52] group-hover:text-white"
+                  }`} />
+                </div>
+                <span className={`text-[10px] font-semibold transition-colors ${
+                  activeMediaType === "shorts"
+                    ? "text-[#1a8f52]"
+                    : "text-gray-700 group-hover:text-[#1a8f52]"
+                }`}>
+                  Shorts
+                </span>
+              </div>
+              <span className="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-red-500 to-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full shadow-lg ring-2 ring-white animate-pulse">
+                NEW
+              </span>
+            </button>
+
+            {/* Gallery Button */}
+            <button
+              onClick={() => handleMediaClick("gallery")}
+              className="relative group"
+            >
+              <div className={`flex flex-col items-center gap-2 p-3 border-2 rounded-xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${
+                activeMediaType === "gallery"
+                  ? "bg-emerald-50 border-[#2ecc71]"
+                  : "bg-white border-gray-100 hover:border-[#2ecc71] hover:bg-emerald-50/50"
+              }`}>
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                  activeMediaType === "gallery"
+                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60]"
+                    : "bg-gradient-to-br from-emerald-100 to-green-100 group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+                }`}>
+                  <FaImages className={`w-4 h-4 transition-colors duration-300 ${
+                    activeMediaType === "gallery"
+                      ? "text-white"
+                      : "text-[#1a8f52] group-hover:text-white"
+                  }`} />
+                </div>
+                <span className={`text-[10px] font-semibold transition-colors ${
+                  activeMediaType === "gallery"
+                    ? "text-[#1a8f52]"
+                    : "text-gray-700 group-hover:text-[#1a8f52]"
+                }`}>
+                  Gallery
+                </span>
+              </div>
+              <span className="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-red-500 to-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full shadow-lg ring-2 ring-white animate-pulse">
+                NEW
+              </span>
+            </button>
+          </div>
+
+          {/* Media Categories Dropdown */}
+          {activeMediaType && (
+            <div className="mt-3 p-3 bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl border-2 border-[#2ecc71] animate-in fade-in duration-200">
+              <div className="space-y-1">
+                {mediaCategories[activeMediaType as keyof typeof mediaCategories].map((category) => (
+                  <Link
+                    key={category.name}
+                    href={category.href}
+                    onClick={onClose}
+                    className="block px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#1a8f52] hover:bg-white rounded-lg transition-all duration-200 hover:pl-4"
+                  >
+                    {category.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Navigation */}
