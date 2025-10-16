@@ -1,30 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
   FaTimes,
   FaSearch,
-  FaRegNewspaper,
   FaVideo,
   FaFilm,
   FaImages,
+  FaFacebook,
+  FaYoutube,
+  FaInstagram,
 } from "react-icons/fa";
-import {
-  BookOpen,
-  ChevronDown,
-  ChevronRight,
-  FileText,
-  Folder,
-  FolderOpen,
-} from "lucide-react";
 import logo from "@/public/assets/arivom-logo-latest.png";
-import {
-  getArticleCategories,
-  getArticleSubcategories,
-  getArticleSubsubcategories,
-} from "@/lib/getData";
 
 interface HamburgerSiderProps {
   isOpen: boolean;
@@ -50,81 +39,23 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
   isMobileNewsExpanded,
   toggleNewsExpanded,
 }) => {
-  const [isArticleExpanded, setIsArticleExpanded] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
-  const [isMediaExpanded, setIsMediaExpanded] = useState(false);
-  const [activeMediaType, setActiveMediaType] = useState<string | null>(null);
-
-  const categories = getArticleCategories();
-
-  // Default media categories
-  const mediaCategories = {
-    videos: [
-      { name: "Latest Videos", href: "/videos/latest" },
-      { name: "Trending", href: "/videos/trending" },
-      { name: "News Videos", href: "/videos/news" },
-      { name: "Interviews", href: "/videos/interviews" },
-      { name: "Documentaries", href: "/videos/documentaries" },
-    ],
-    shorts: [
-      { name: "Trending Shorts", href: "/shorts/trending" },
-      { name: "News Shorts", href: "/shorts/news" },
-      { name: "Quick Updates", href: "/shorts/updates" },
-      { name: "Top Picks", href: "/shorts/top-picks" },
-    ],
-    gallery: [
-      { name: "Latest Photos", href: "/gallery/latest" },
-      { name: "Events", href: "/gallery/events" },
-      { name: "Featured", href: "/gallery/featured" },
-      { name: "Photo Stories", href: "/gallery/stories" },
-    ],
-  };
-
-  const handleMediaClick = (type: string) => {
-    if (activeMediaType === type) {
-      setActiveMediaType(null);
-      setIsMediaExpanded(false);
-    } else {
-      setActiveMediaType(type);
-      setIsMediaExpanded(true);
-    }
-  };
-
-  const toggleCategory = (category: string) => {
-    if (activeCategory === category) {
-      setActiveCategory(null);
-      setActiveSubcategory(null);
-    } else {
-      setActiveCategory(category);
-      setActiveSubcategory(null);
-    }
-  };
-
-  const toggleSubcategory = (subcategory: string) => {
-    if (activeSubcategory === subcategory) {
-      setActiveSubcategory(null);
-    } else {
-      setActiveSubcategory(subcategory);
-    }
-  };
 
   if (!isOpen) return null;
 
   return (
     <div
-      className="xl:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] transition-opacity duration-300"
+      className="xl:hidden fixed inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/40 backdrop-blur-md z-[9999] transition-all duration-300"
       onClick={onClose}
     >
       {/* Sidebar */}
       <div
-        className={`relative bg-white w-80 h-full transform transition-transform duration-300 overflow-y-auto z-[10000] shadow-2xl ${
+        className={`relative bg-gradient-to-b from-white to-gray-50 w-80 h-full transform transition-all duration-300 ease-out overflow-y-auto z-[10000] shadow-2xl ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="p-4 border-b-2 border-[#2ecc71] flex items-center justify-between sticky top-0 bg-white z-20">
+        <div className="p-5 border-b-2 border-[#2ecc71] flex items-center justify-between sticky top-0 bg-gradient-to-r from-white to-gray-50 z-20 shadow-sm">
           <Image
             src={logo}
             alt="Arivom Logo"
@@ -134,171 +65,56 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
           />
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-emerald-50 transition-colors"
+            className="p-2.5 rounded-xl hover:bg-gradient-to-br hover:from-red-50 hover:to-red-100 transition-all duration-200 hover:shadow-md group"
           >
-            <FaTimes size={20} className="text-gray-700" />
+            <FaTimes size={20} className="text-gray-600 group-hover:text-red-600 transition-colors duration-200" />
           </button>
         </div>
 
         {/* Search Bar */}
-        <div className="p-4 mb-6">
-          <div className="flex items-center bg-gray-100 rounded-full px-4 py-3 focus-within:bg-white focus-within:ring-2 focus-within:ring-[#2ecc71]">
-            <FaSearch className="w-4 h-4 text-gray-500 mr-2" />
+        <div className="p-4 mb-4">
+          <div className="flex items-center bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl px-5 py-3 border-2 border-gray-200 focus-within:bg-white focus-within:border-[#2ecc71] focus-within:shadow-lg transition-all duration-300">
+            <FaSearch className="w-3.5 h-3.5 text-gray-400 mr-3 transition-colors focus-within:text-[#2ecc71]" />
             <input
               type="text"
               placeholder="Search news, articles..."
-              className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-500"
+              className="bg-transparent border-none outline-none text-xs w-full placeholder-gray-400 text-gray-700 font-medium"
             />
           </div>
         </div>
 
-        {/* Media Buttons */}
-        <div className="px-4 mb-4">
-          <div className="grid grid-cols-3 gap-2">
-            {/* Video Button */}
-            <button
-              onClick={() => handleMediaClick("videos")}
-              className="relative group"
-            >
-              <div className={`flex flex-col items-center gap-2 p-3 border-2 rounded-xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${
-                activeMediaType === "videos"
-                  ? "bg-emerald-50 border-[#2ecc71]"
-                  : "bg-white border-gray-100 hover:border-[#2ecc71] hover:bg-emerald-50/50"
-              }`}>
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  activeMediaType === "videos"
-                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60]"
-                    : "bg-gradient-to-br from-emerald-100 to-green-100 group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
-                }`}>
-                  <FaVideo className={`w-4 h-4 transition-colors duration-300 ${
-                    activeMediaType === "videos"
-                      ? "text-white"
-                      : "text-[#1a8f52] group-hover:text-white"
-                  }`} />
-                </div>
-                <span className={`text-[10px] font-semibold transition-colors ${
-                  activeMediaType === "videos"
-                    ? "text-[#1a8f52]"
-                    : "text-gray-700 group-hover:text-[#1a8f52]"
-                }`}>
-                  Videos
-                </span>
-              </div>
-              <span className="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-red-500 to-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full shadow-lg ring-2 ring-white animate-pulse">
-                NEW
-              </span>
-            </button>
-
-            {/* Shorts Button */}
-            <button
-              onClick={() => handleMediaClick("shorts")}
-              className="relative group"
-            >
-              <div className={`flex flex-col items-center gap-2 p-3 border-2 rounded-xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${
-                activeMediaType === "shorts"
-                  ? "bg-emerald-50 border-[#2ecc71]"
-                  : "bg-white border-gray-100 hover:border-[#2ecc71] hover:bg-emerald-50/50"
-              }`}>
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  activeMediaType === "shorts"
-                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60]"
-                    : "bg-gradient-to-br from-emerald-100 to-green-100 group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
-                }`}>
-                  <FaFilm className={`w-4 h-4 transition-colors duration-300 ${
-                    activeMediaType === "shorts"
-                      ? "text-white"
-                      : "text-[#1a8f52] group-hover:text-white"
-                  }`} />
-                </div>
-                <span className={`text-[10px] font-semibold transition-colors ${
-                  activeMediaType === "shorts"
-                    ? "text-[#1a8f52]"
-                    : "text-gray-700 group-hover:text-[#1a8f52]"
-                }`}>
-                  Shorts
-                </span>
-              </div>
-              <span className="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-red-500 to-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full shadow-lg ring-2 ring-white animate-pulse">
-                NEW
-              </span>
-            </button>
-
-            {/* Gallery Button */}
-            <button
-              onClick={() => handleMediaClick("gallery")}
-              className="relative group"
-            >
-              <div className={`flex flex-col items-center gap-2 p-3 border-2 rounded-xl transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${
-                activeMediaType === "gallery"
-                  ? "bg-emerald-50 border-[#2ecc71]"
-                  : "bg-white border-gray-100 hover:border-[#2ecc71] hover:bg-emerald-50/50"
-              }`}>
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
-                  activeMediaType === "gallery"
-                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60]"
-                    : "bg-gradient-to-br from-emerald-100 to-green-100 group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
-                }`}>
-                  <FaImages className={`w-4 h-4 transition-colors duration-300 ${
-                    activeMediaType === "gallery"
-                      ? "text-white"
-                      : "text-[#1a8f52] group-hover:text-white"
-                  }`} />
-                </div>
-                <span className={`text-[10px] font-semibold transition-colors ${
-                  activeMediaType === "gallery"
-                    ? "text-[#1a8f52]"
-                    : "text-gray-700 group-hover:text-[#1a8f52]"
-                }`}>
-                  Gallery
-                </span>
-              </div>
-              <span className="absolute -top-1.5 -right-1.5 bg-gradient-to-r from-red-500 to-red-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-full shadow-lg ring-2 ring-white animate-pulse">
-                NEW
-              </span>
-            </button>
-          </div>
-
-          {/* Media Categories Dropdown */}
-          {activeMediaType && (
-            <div className="mt-3 p-3 bg-gradient-to-br from-emerald-50 to-green-50 rounded-xl border-2 border-[#2ecc71] animate-in fade-in duration-200">
-              <div className="space-y-1">
-                {mediaCategories[activeMediaType as keyof typeof mediaCategories].map((category) => (
-                  <Link
-                    key={category.name}
-                    href={category.href}
-                    onClick={onClose}
-                    className="block px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#1a8f52] hover:bg-white rounded-lg transition-all duration-200 hover:pl-4"
-                  >
-                    {category.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-
         {/* Navigation */}
-        <nav className="px-4 space-y-1">
+        <nav className="px-4 space-y-1.5 mb-6">
+          <div className="text-[9px] font-bold text-gray-500 uppercase tracking-wider px-4 mb-2 flex items-center gap-2">
+            <span className="w-1 h-3 bg-[#2ecc71] rounded-full"></span>
+            Navigation
+          </div>
           {mainNavigation
-            .filter((item) => item.name !== "News" && item.name !== "Articles")
+            .filter((item) => item.name !== "News" && item.name !== "Articles" && item.name !== "Tags")
             .map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={onClose}
-                className={`flex items-center gap-3 px-4 py-3 text-base font-medium border-l-4 transition-all ${
+                className={`flex items-center gap-2.5 px-3 py-2.5 text-[13px] font-semibold rounded-xl border-l-4 transition-all duration-200 ${
                   item.active
-                    ? "text-[#1a8f52] bg-emerald-50 border-[#2ecc71]"
-                    : "text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
+                    ? "text-[#1a8f52] bg-gradient-to-r from-emerald-50 to-green-50 border-[#2ecc71] shadow-sm"
+                    : "text-gray-700 hover:text-[#1a8f52] hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 border-transparent hover:border-[#2ecc71] hover:shadow-sm"
                 }`}
               >
-                <item.icon size={16} />
+                <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
+                  item.active
+                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md"
+                    : "bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+                }`}>
+                  <item.icon size={14} className={item.active ? "text-white" : "text-gray-600"} />
+                </div>
                 {item.name}
               </Link>
             ))}
 
           {/* NEWS SECTION */}
-          <div className="border-t border-gray-100 mt-4">
+          {/* <div className="border-t border-gray-100 mt-4">
             <button
               onClick={toggleNewsExpanded}
               className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium border-l-4 transition-all ${
@@ -336,10 +152,10 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
                 ))}
               </div>
             )}
-          </div>
+          </div> */}
 
           {/* ARTICLES SECTION */}
-          <div className="border-t border-gray-100 mt-4">
+          {/* <div className="border-t border-gray-100 mt-4">
             <button
               onClick={() => setIsArticleExpanded(!isArticleExpanded)}
               className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium border-l-4 transition-all ${
@@ -400,7 +216,7 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
                         )}
                       </div>
 
-                      {/* SUBCATEGORIES */}
+                     
                       {activeCategory === cat.category && hasSubcategories && (
                         <div className="ml-4 pl-3 border-l-2 border-green-200 space-y-1 animate-in fade-in duration-200">
                           {subcategories.map((subcat) => {
@@ -443,7 +259,7 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
                                   )}
                                 </div>
 
-                                {/* SUBSUBCATEGORIES */}
+                            
                                 {activeSubcategory === subcat.subcategory &&
                                   hasSubsubcategories && (
                                     <div className="ml-3 pl-3 border-l-2 border-gray-200 space-y-0.5">
@@ -470,27 +286,161 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
                 })}
               </div>
             )}
-          </div>
+          </div> */}
         </nav>
 
+        {/* Media Section */}
+        <div className="border-t border-gray-100 mt-4 px-4">
+          <div className="text-[9px] font-bold text-gray-500 uppercase tracking-wider px-4 mb-2 mt-4 flex items-center gap-2">
+            <span className="w-1 h-3 bg-[#2ecc71] rounded-full"></span>
+            Media
+          </div>
+
+          {/* Videos */}
+          <Link
+            href="/videos"
+            onClick={onClose}
+            className={`flex items-center gap-2.5 px-3 py-2.5 text-[13px] font-semibold rounded-xl border-l-4 transition-all duration-200 ${
+              pathname === "/videos"
+                ? "text-[#1a8f52] bg-gradient-to-r from-emerald-50 to-green-50 border-[#2ecc71] shadow-sm"
+                : "text-gray-700 hover:text-[#1a8f52] hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 border-transparent hover:border-[#2ecc71] hover:shadow-sm"
+            }`}
+          >
+            <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
+              pathname === "/videos"
+                ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md"
+                : "bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+            }`}>
+              <FaVideo size={14} className={pathname === "/videos" ? "text-white" : "text-gray-600"} />
+            </div>
+            Videos
+          </Link>
+
+          {/* Shorts */}
+          <Link
+            href="/shorts"
+            onClick={onClose}
+            className={`flex items-center gap-2.5 px-3 py-2.5 text-[13px] font-semibold rounded-xl border-l-4 transition-all duration-200 ${
+              pathname === "/shorts"
+                ? "text-[#1a8f52] bg-gradient-to-r from-emerald-50 to-green-50 border-[#2ecc71] shadow-sm"
+                : "text-gray-700 hover:text-[#1a8f52] hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 border-transparent hover:border-[#2ecc71] hover:shadow-sm"
+            }`}
+          >
+            <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
+              pathname === "/shorts"
+                ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md"
+                : "bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+            }`}>
+              <FaFilm size={14} className={pathname === "/shorts" ? "text-white" : "text-gray-600"} />
+            </div>
+            Shorts
+          </Link>
+
+          {/* Gallery */}
+          <Link
+            href="/gallery"
+            onClick={onClose}
+            className={`flex items-center gap-2.5 px-3 py-2.5 text-[13px] font-semibold rounded-xl border-l-4 transition-all duration-200 ${
+              pathname === "/gallery"
+                ? "text-[#1a8f52] bg-gradient-to-r from-emerald-50 to-green-50 border-[#2ecc71] shadow-sm"
+                : "text-gray-700 hover:text-[#1a8f52] hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 border-transparent hover:border-[#2ecc71] hover:shadow-sm"
+            }`}
+          >
+            <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
+              pathname === "/gallery"
+                ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md"
+                : "bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+            }`}>
+              <FaImages size={14} className={pathname === "/gallery" ? "text-white" : "text-gray-600"} />
+            </div>
+            Gallery
+          </Link>
+        </div>
+
         {/* Footer Contact */}
-        <div className="fixed bottom-0 left-0 w-80 bg-white border-t border-gray-200 px-4 py-3 text-xs text-gray-600 space-y-1">
-          <p className="font-semibold text-gray-700">Contact Us</p>
-          <p>
-            Email:{" "}
-            <a href="mailto:support@arivom.com" className="text-[#2ecc71]">
-              support@arivom.com
-            </a>
-          </p>
-          <p>
-            Phone:{" "}
-            <a href="tel:+919876543210" className="text-[#2ecc71]">
-              +91 9876543210
-            </a>
-          </p>
-          <p className="mt-1 text-[9px] text-gray-400">
-            © 2025 Arivom. All rights reserved.
-          </p>
+        <div className="fixed bottom-0 left-0 w-80 bg-gradient-to-br from-gray-50 to-white border-t-2 border-[#2ecc71] shadow-lg">
+          {/* Social Media Icons */}
+          <div className="px-4 pt-3 pb-2 border-b border-gray-100">
+            <div className="flex gap-3 justify-center">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 hover:from-blue-500 hover:to-blue-600 flex items-center justify-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 group"
+              >
+                <FaFacebook className="w-4 h-4 text-blue-600 group-hover:text-white transition-colors duration-300" />
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-gradient-to-br from-red-100 to-red-200 hover:from-red-500 hover:to-red-600 flex items-center justify-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 group"
+              >
+                <FaYoutube className="w-4 h-4 text-red-600 group-hover:text-white transition-colors duration-300" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded-full bg-gradient-to-br from-pink-100 to-purple-200 hover:from-pink-500 hover:to-purple-600 flex items-center justify-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 group"
+              >
+                <FaInstagram className="w-4 h-4 text-pink-600 group-hover:text-white transition-colors duration-300" />
+              </a>
+            </div>
+          </div>
+
+          {/* Quick Links */}
+          <div className="px-4 pt-2 pb-2 border-b border-gray-100">
+            <div className="flex gap-3 justify-center text-[11px]">
+              <Link
+                href="/terms-and-conditions"
+                onClick={onClose}
+                className="text-gray-700 hover:text-[#1a8f52] font-semibold transition-colors duration-200 hover:underline underline-offset-2"
+              >
+                Terms & Conditions
+              </Link>
+              <span className="text-gray-300">|</span>
+              <Link
+                href="/privacy-policy"
+                onClick={onClose}
+                className="text-gray-700 hover:text-[#1a8f52] font-semibold transition-colors duration-200 hover:underline underline-offset-2"
+              >
+                Privacy Policy
+              </Link>
+            </div>
+          </div>
+
+          {/* Contact Info */}
+          <div className="px-4 py-2.5 text-[10px] text-gray-600 space-y-1">
+            <p className="text-center text-gray-500">
+              Email: <a href="mailto:support@arivom.com" className="text-[#1a8f52] hover:text-[#2ecc71] font-medium transition-colors duration-200">support@arivom.com</a>
+            </p>
+            <p className="text-center text-gray-500">
+              Phone: <a href="tel:+919876543210" className="text-[#1a8f52] hover:text-[#2ecc71] font-medium transition-colors duration-200">+91 9876543210</a>
+            </p>
+            <div className="pt-2 border-t border-gray-100 mt-2">
+              <div className="flex gap-2 justify-center text-[10px] mb-1.5">
+                <Link
+                  href="/terms-and-conditions"
+                  onClick={onClose}
+                  className="text-gray-600 hover:text-[#1a8f52] font-medium transition-colors duration-200 hover:underline underline-offset-2"
+                >
+                  Terms & Conditions
+                </Link>
+                <span className="text-gray-300">|</span>
+                <Link
+                  href="/privacy-policy"
+                  onClick={onClose}
+                  className="text-gray-600 hover:text-[#1a8f52] font-medium transition-colors duration-200 hover:underline underline-offset-2"
+                >
+                  Privacy Policy
+                </Link>
+              </div>
+              <p className="text-[8px] text-gray-500 text-center">
+                © 2025 Arivom. All rights reserved.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 
