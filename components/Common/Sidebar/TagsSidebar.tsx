@@ -9,17 +9,19 @@ interface TagsSidebarProps {
 
 const TagsSidebar: React.FC<TagsSidebarProps> = ({ tags }) => {
   return (
-    <div className="bg-white rounded-2xl  p-4 duration-300">
-      <SectionHeaderSidebar title="" subtitle="Tags" size="medium" />
-      
-      <div className="mt-3 flex flex-wrap gap-2">
+    <div className="bg-white rounded-2xl mt-5 duration-300">
+    
+
+      <div className="flex flex-wrap gap-2">
         {tags && tags.length > 0 ? (
           tags.map((tag, index) => (
             <button
               key={index}
-              className="px-3 py-1 text-xs sm:text-sm font-medium rounded-full bg-gray-100 text-gray-800 hover:bg-[#2ecc71] hover:text-white transition-colors duration-200"
+              className="px-3 py-1 text-xs sm:text-sm font-medium rounded-full 
+                         bg-gray-100 text-gray-800 hover:bg-[#2ecc71] hover:text-white 
+                         transition-colors duration-200"
             >
-              {tag}
+              #{tag.toLowerCase()}
             </button>
           ))
         ) : (

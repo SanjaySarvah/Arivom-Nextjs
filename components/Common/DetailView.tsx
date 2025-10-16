@@ -124,7 +124,25 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
 
   return (
     <div className="bg-white min-h-screen mb-10">
-      <DetailsHeader currentTitle={data.title} contentType={contentType} />
+     <DetailsHeader
+  currentTitle={data.title}
+  contentType={contentType}
+  actions={
+    <>
+      <LikeButton id={String(data.id)} />
+      <BookmarkButton
+        id={String(data.id)}
+        borderColor="#6b7280"
+        backgroundColor="#f9fafb"
+        savedBackgroundColor="#f9fafb"
+        iconColor="#6b7280"
+        savedIconColor="#6f42c2"
+      />
+      <ShareButton item={data} linkBase={contentType === 'news' ? '/news' : '/articles'} />
+    </>
+  }
+/>
+
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
@@ -423,7 +441,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
           <div className="lg:col-span-4">
             <div className="sticky top-25 space-y-6">
               {/* Insights Section */}
-              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-2 hover:shadow-md transition-shadow duration-300">
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-2 hover:shadow-md transition-shadow duration-300 MobileViewContent">
                 <div className="mb-6">
                   <SectionHeaderSidebar subtitle="Insights" title="" size="large" />
                   <div className="grid grid-cols-4 gap-2">
@@ -469,24 +487,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                   </div>
                 </div>
 
-                {/* Actions */}
-                <div className="border-t border-gray-200 pt-4 MobileViewContent">
-                  <h4 className="text-sm font-semibold text-gray-900 mb-3 text-center">
-                    Your Actions
-                  </h4>
-                  <div className="flex items-center justify-center gap-3">
-                    <LikeButton id={String(data.id)} />
-                    <BookmarkButton
-                      id={String(data.id)}
-                      borderColor="#6b7280"
-                      backgroundColor="#f9fafb"
-                      savedBackgroundColor="#f9fafb"
-                      iconColor="#6b7280"
-                      savedIconColor="#6f42c2"
-                    />
-                    <ShareButton item={data} linkBase={linkBase} />
-                  </div>
-                </div>
+          
               </div>
 
               {/* Advertisement */}
@@ -494,8 +495,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 <AdvertisementSidebar />
 
               </div>
-              <div className="bg-white rounded-2xl p-2 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-                <TagsSidebar tags={data.tags} /></div>
+             
             </div>
           </div>
         </div>
