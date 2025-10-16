@@ -9,7 +9,7 @@ interface TagsSidebarProps {
 
 const TagsSidebar: React.FC<TagsSidebarProps> = ({ tags }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-4 hover:shadow-md transition-shadow duration-300">
+    <div className="bg-white rounded-2xl  p-4 duration-300">
       <SectionHeaderSidebar title="" subtitle="Tags" size="medium" />
       
       <div className="mt-3 flex flex-wrap gap-2">

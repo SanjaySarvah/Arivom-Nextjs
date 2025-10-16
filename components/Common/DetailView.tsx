@@ -1,5 +1,4 @@
 'use client';
-
 import React, { useState } from 'react';
 import { Heart, Eye, MessageCircle, Share2, Reply, ChevronDown, ChevronUp } from 'lucide-react';
 import { FaRegNewspaper } from 'react-icons/fa';
@@ -17,16 +16,11 @@ import BookmarkButton from './Badges/BookmarkButton';
 import ShareButton from './Badges/ShareButton';
 import TagsSidebar from '@/components/Common/Sidebar/TagsSidebar';
 import {
-  FaHome,
-  
-  FaSearch,
-  FaBars,
-  FaTimes,
-  FaChevronDown,
-  FaUserCircle,
-  FaUser,
-  FaUserPlus,
+  FaHome, FaSearch, FaBars, FaTimes, FaChevronDown, FaUserCircle,
+  FaUser, FaUserPlus,
 } from "react-icons/fa";
+import HeaderPrimary from '../HeaderPrimary';
+import SectionHeader from './SectionHeader';
 interface Comment {
   id: string;
   UserName: string;
@@ -62,7 +56,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
   const date = data.created_at || 'August 31, 2025';
   const news = getAllNews().slice(0, 10);
 
-  // Format date helper
+
   const customFormatDate = (date: string | Date) => {
     const d = typeof date === 'string' ? new Date(date) : date;
     return d.toLocaleDateString('en-US', {
@@ -72,19 +66,18 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
     });
   };
 
-  // Format number helper
   const formatNumber = (num: number): string => {
     if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
     if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
     return num.toString();
   };
 
-  // Format relative time
+
   const formatRelativeTime = (timestamp: string) => {
     const date = new Date(timestamp);
     const now = new Date();
     const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-    
+
     if (diffInSeconds < 60) return 'now';
     if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m`;
     if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h`;
@@ -92,7 +85,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   };
 
-  // Toggle subcomments visibility
+
   const toggleSubComments = (commentId: string) => {
     const newExpanded = new Set(expandedComments);
     if (newExpanded.has(commentId)) {
@@ -103,48 +96,39 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
     setExpandedComments(newExpanded);
   };
 
-  // Handle comment submission
+
   const handleSubmitComment = () => {
     if (!newComment.trim()) return;
-    // Add your comment submission logic here
     console.log('New comment:', newComment);
     setNewComment('');
   };
 
-  // Handle reply submission
+
   const handleSubmitReply = (commentId: string) => {
     if (!replyContent.trim()) return;
-    // Add your reply submission logic here
     console.log('Reply to', commentId, ':', replyContent);
     setReplyContent('');
     setReplyingTo(null);
   };
 
-  // Handle like comment
+
   const handleLikeComment = (commentId: string) => {
-    // Add your like logic here
     console.log('Like comment:', commentId);
   };
 
-  // Handle share comment
+
   const handleShareComment = (commentId: string) => {
-    // Add your share logic here
     console.log('Share comment:', commentId);
   };
 
   return (
     <div className="bg-white min-h-screen mb-10">
-      {/* Sticky Header */}
       <DetailsHeader currentTitle={data.title} contentType={contentType} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-
-          {/* ---------------- MAIN CONTENT ---------------- */}
           <div className="lg:col-span-8">
             <article className="bg-white rounded-2xl duration-300">
-              {/* ... (Keep your existing article content exactly the same) ... */}
-              {/* Image */}
               <div className="relative w-full h-64 sm:h-80 lg:h-96 bg-gradient-to-br from-emerald-500 to-green-600">
                 <img
                   src={data.image || '/assets/banners/arivom-news-default-banner.jpg'}
@@ -168,36 +152,36 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                   {data.title}
                 </h3>
 
-               <div className="flex flex-wrap items-center gap-3 mb-6 pb-6 border-b border-gray-200">
-  {/* --- Mobile Layout (Category left, Date right, hide Author) --- */}
-  <div className="flex w-full justify-between md:hidden">
-    <div className="flex items-center gap-2 px-3 py-1.5">
-      <CategoryBadge
-        category={category}
-        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-      />
-    </div>
-    <div className="flex items-center gap-2 px-3 py-1.5">
-      <DateBadge date={date} formatDate={customFormatDate} />
-    </div>
-  </div>
+                <div className="flex flex-wrap items-center gap-3 mb-6 pb-6 border-b border-gray-200">
+                  {/* --- Mobile Layout (Category left, Date right, hide Author) --- */}
+                  <div className="flex w-full justify-between md:hidden">
+                    <div className="flex items-center gap-2 px-3 py-1.5">
+                      <CategoryBadge
+                        category={category}
+                        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+                      />
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-1.5">
+                      <DateBadge date={date} formatDate={customFormatDate} />
+                    </div>
+                  </div>
 
-  {/* --- Desktop Layout (Show all badges in one row) --- */}
-  <div className="hidden md:flex items-center gap-3">
-    <div className="flex items-center gap-2 px-3 py-1.5">
-      <CategoryBadge
-        category={category}
-        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-      />
-    </div>
-    <div className="flex items-center gap-2 px-3 py-1.5">
-      <AuthorBadge author={authorName} />
-    </div>
-    <div className="flex items-center gap-2 px-3 py-1.5">
-      <DateBadge date={date} formatDate={customFormatDate} />
-    </div>
-  </div>
-</div>
+                  {/* --- Desktop Layout (Show all badges in one row) --- */}
+                  <div className="hidden md:flex items-center gap-3">
+                    <div className="flex items-center gap-2 px-3 py-1.5">
+                      <CategoryBadge
+                        category={category}
+                        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+                      />
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-1.5">
+                      <AuthorBadge author={authorName} />
+                    </div>
+                    <div className="flex items-center gap-2 px-3 py-1.5">
+                      <DateBadge date={date} formatDate={customFormatDate} />
+                    </div>
+                  </div>
+                </div>
 
 
                 {/* Description */}
@@ -223,38 +207,39 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
               </h2>
               <p className="text-gray-500 text-sm mb-6">Join the conversation</p>
 
-              {/* Add Comment Box */}
-              <div className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-8 border border-gray-200">
-                <div className="flex items-start gap-3">
-                    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center text-white font-semibold shadow-md group-hover:shadow-lg transition-all duration-300">
-                                        <FaUserCircle className="w-5 h-5" />
-                                      </div>
-                  <div className="flex-1">
-                    <textarea
-                      value={newComment}
-                      onChange={(e) => setNewComment(e.target.value)}
-                      placeholder="Share your thoughts..."
-                      rows={3}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ecc71] focus:border-transparent resize-none text-gray-700 bg-white transition-all duration-200"
-                    />
-                    <div className="mt-3 flex justify-end">
-                      <button
-                        onClick={handleSubmitComment}
-                        disabled={!newComment.trim()}
-                        className="px-4 py-2 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm"
-                      >
-                        Post Comment
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+           {/* Comment Section */}
+<div id="comment-section" className="bg-gray-50 rounded-xl p-4 sm:p-6 mb-8 border border-gray-200">
+  <div className="flex items-start gap-3">
+    <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center text-white font-semibold shadow-md group-hover:shadow-lg transition-all duration-300">
+      <FaUserCircle className="w-5 h-5" />
+    </div>
+    <div className="flex-1">
+      <textarea
+        value={newComment}
+        onChange={(e) => setNewComment(e.target.value)}
+        placeholder="Share your thoughts..."
+        rows={3}
+        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ecc71] focus:border-transparent resize-none text-gray-700 bg-white transition-all duration-200"
+      />
+      <div className="mt-3 flex justify-end">
+        <button
+          onClick={handleSubmitComment}
+          disabled={!newComment.trim()}
+          className="px-4 py-2 bg-[#2ecc71] text-white rounded-lg font-medium hover:bg-[#27ae60] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors duration-200 shadow-sm"
+        >
+          Post Comment
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
               {/* Comments List */}
               {data.comments && data.comments.length > 0 ? (
                 <div className="space-y-6">
                   {(data.comments as Comment[]).map((comment) => (
-                    <div key={comment.id} className="border-b border-gray-100 pb-6 last:border-b-0">
+                    <div className="border-b border-gray-100 pb-6 last:border-b-0">
                       {/* Main Comment */}
                       <div className="flex items-start gap-4">
                         <img
@@ -270,21 +255,20 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                             </span>
                           </div>
                           <p className="text-gray-700 mb-3">{comment.comment}</p>
-                          
+
                           {/* Comment Actions */}
                           <div className="flex items-center gap-4 text-sm">
                             <button
                               onClick={() => handleLikeComment(comment.id)}
-                              className={`flex items-center gap-1 px-2 py-1 rounded-md transition-colors ${
-                                comment.userLiked 
-                                  ? 'text-red-600 bg-red-50' 
+                              className={`flex items-center gap-1 px-2 py-1 rounded-md transition-colors ${comment.userLiked
+                                  ? 'text-red-600 bg-red-50'
                                   : 'text-gray-600 hover:text-red-600 hover:bg-gray-50'
-                              }`}
+                                }`}
                             >
                               <Heart className={`w-4 h-4 ${comment.userLiked ? 'fill-current' : ''}`} />
                               <span>{comment.likes}</span>
                             </button>
-                            
+
                             <button
                               onClick={() => setReplyingTo(replyingTo === comment.id ? null : comment.id)}
                               className="flex items-center gap-1 px-2 py-1 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 transition-colors"
@@ -292,7 +276,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                               <Reply className="w-4 h-4" />
                               <span>Reply</span>
                             </button>
-                            
+
                             <button
                               onClick={() => handleShareComment(comment.id)}
                               className="flex items-center gap-1 px-2 py-1 rounded-md text-gray-600 hover:text-green-600 hover:bg-gray-50 transition-colors"
@@ -370,11 +354,10 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                                         <div className="flex items-center gap-3 text-xs">
                                           <button
                                             onClick={() => handleLikeComment(subComment.id)}
-                                            className={`flex items-center gap-1 px-2 py-1 rounded-md transition-colors ${
-                                              subComment.userLiked 
-                                                ? 'text-red-600 bg-red-50' 
+                                            className={`flex items-center gap-1 px-2 py-1 rounded-md transition-colors ${subComment.userLiked
+                                                ? 'text-red-600 bg-red-50'
                                                 : 'text-gray-500 hover:text-red-600 hover:bg-gray-50'
-                                            }`}
+                                              }`}
                                           >
                                             <Heart className={`w-3 h-3 ${subComment.userLiked ? 'fill-current' : ''}`} />
                                             <span>{subComment.likes}</span>
@@ -407,8 +390,15 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 </div>
               )}
             </div>
-
-            {/* ---------------- RELATED NEWS ---------------- */}
+<div className="mt-5">
+            <SectionHeader 
+              subtitle="More to explore"
+              title="Related Post"
+              showButton={true}
+              buttonText="View All"
+              buttonUrl="/news"
+            />
+            </div>
             <div className="mt-5">
               <SectionwiseImportantNews
                 items={news}
@@ -472,7 +462,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 </div>
 
                 {/* Actions */}
-                <div className="border-t border-gray-200 pt-4">
+                <div className="border-t border-gray-200 pt-4 MobileViewContent">
                   <h4 className="text-sm font-semibold text-gray-900 mb-3 text-center">
                     Your Actions
                   </h4>
@@ -494,20 +484,25 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
               {/* Advertisement */}
               <div className="bg-white rounded-2xl p-2 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
                 <AdvertisementSidebar />
-               
+
               </div>
-               <div className="bg-white rounded-2xl p-2 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
-               <TagsSidebar tags={data.tags} /></div>
+              <div className="bg-white rounded-2xl p-2 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <TagsSidebar tags={data.tags} /></div>
             </div>
           </div>
         </div>
       </div>
-
-      <DetailFooter
+<DetailFooter
   authorName={authorName}
   date={date}
   formatDate={customFormatDate}
+  likeCount={stats.likes}
+  commentCount={stats.comments}
+  item={data}
+  linkBase={linkBase}
 />
+
+
 
     </div>
   );

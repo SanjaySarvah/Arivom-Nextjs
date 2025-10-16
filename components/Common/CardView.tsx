@@ -6,9 +6,9 @@ import { FiTrendingUp, FiChevronRight } from "react-icons/fi";
 import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
 
 import { getLatestArticles } from "@/lib/getData"; // ✅ switched to articles
-import ShareButton from './Badges/ShareButton';
-import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
-import LikeButton from "@/components/Common/Badges/LikeButton";
+  import ShareButton from './Badges/ShareButton';
+  import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
+  import LikeButton from "@/components/Common/Badges/LikeButton";
 import TrendingBadge from "@/components/Common/Badges/TrendingBadge"
 import TaggingBadge from "./Badges/TaggingBadge";
 import { FiClock } from "react-icons/fi";

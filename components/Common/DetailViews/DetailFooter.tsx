@@ -1,84 +1,118 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
-import { Home, Zap, LayoutGrid, Tag, Wallet } from "lucide-react";
+import { MessageCircle } from "lucide-react";
+import LikeButton from "@/components/Common/Badges/LikeButton";
+import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
+import ShareButton from "@/components/Common/Badges/ShareButton";
 
 interface DetailFooterProps {
   likeCount?: number;
-  viewCount?: number;
   commentCount?: number;
-  onLike?: () => void;
-  onShare?: () => void;
   authorName?: string;
   date?: string | Date;
   formatDate?: (date: string | Date) => string;
+  item: any;
+  linkBase: string;
 }
 
 const DetailFooter: React.FC<DetailFooterProps> = ({
   likeCount = 0,
-  viewCount = 2300,
   commentCount = 0,
-  onLike,
-  onShare,
   authorName,
-  date,
-  formatDate,
+  item,
+  linkBase,
 }) => {
+  // Format large numbers (1K, 1M, etc.)
+  const formatCount = (count: number): string => {
+    if (count >= 1000000) {
+      return (count / 1000000).toFixed(1) + 'M';
+    }
+    if (count >= 1000) {
+      return (count / 1000).toFixed(1) + 'K';
+    }
+    return count.toString();
+  };
+
   return (
-    <footer className="xl:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-sm z-40">
-      {/* Author Badge - Positioned absolutely in top-left corner */}
+    <footer className="xl:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-2px_6px_rgba(0,0,0,0.05)] z-40">
+      {/* Author Name Badge */}
       {authorName && (
         <div className="absolute -top-8 left-0">
-          <div className="bg-white text-gray px-3 py-1.5 rounded-r-lg rounded-t-lg  ">
-            <span className="text-xs font-semibold whitespace-nowrap">
-              By {authorName}
-            </span>
+          <div className="bg-white text-gray-700 px-3 py-1.5 rounded-r-lg rounded-t-lg shadow-sm border border-gray-200">
+            <span className="text-xs font-semibold whitespace-nowrap">By {authorName}</span>
           </div>
         </div>
       )}
 
-      {/* Navigation */}
-      <div className="flex justify-around items-center py-2.5 px-2 max-w-screen-xl mx-auto">
-        <Link
-          href="/"
-          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
-        >
-          <Home size={20} strokeWidth={1.8} />
-          <span className="text-[11px] font-medium">Home</span>
-        </Link>
+      {/* Footer Actions */}
+      <div className="flex justify-around items-center py-3 px-4 max-w-screen-xl mx-auto text-gray-700 font-medium">
+        {/* Like */}
+        <div className="relative flex items-center justify-center min-w-[60px]">
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
+            <LikeButton id={String(item.id)} />
+          </div>
+          {likeCount > 0 && (
+            <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
+              {formatCount(likeCount)}
+            </span>
+          )}
+        </div>
 
-        <Link
-          href="/breaking"
-          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
-        >
-          <Zap size={20} strokeWidth={1.8} />
-          <span className="text-[11px] font-medium">Breaking</span>
-        </Link>
+{/* Comment */}
+<div className="relative flex items-center justify-center min-w-[60px]">
+  <button
+    className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+    onClick={() => {
+      const commentSection = document.getElementById("comment-section");
+      if (commentSection) {
+        commentSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }}
+  >
+    <MessageCircle className="w-5 h-5 text-gray-500" />
+  </button>
 
-        <Link
-          href="/categories"
-          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
-        >
-          <LayoutGrid size={20} strokeWidth={1.8} />
-          <span className="text-[11px] font-medium">Categories</span>
-        </Link>
+  {commentCount > 0 && (
+    <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
+      {formatCount(commentCount)}
+    </span>
+  )}
+</div>
 
-        <Link
-          href="/offers"
-          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
-        >
-          <Tag size={20} strokeWidth={1.8} />
-          <span className="text-[11px] font-medium">Offers</span>
-        </Link>
 
-        <Link
-          href="/earn-money"
-          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
-        >
-          <Wallet size={20} strokeWidth={1.8} />
-          <span className="text-[11px] font-medium">Earn</span>
-        </Link>
+        {/* Bookmark */}
+        <div className="relative flex items-center justify-center min-w-[60px]">
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
+            <BookmarkButton
+              id={String(item.id)}
+              borderColor="#d1d5db"
+              backgroundColor="#f9fafb"
+              savedBackgroundColor="#f9fafb"
+              iconColor="#6b7280"
+              savedIconColor="#6f42c2"
+            />
+          </div>
+          {/* Add bookmark count if available */}
+          {/* {bookmarkCount > 0 && (
+            <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
+              {formatCount(bookmarkCount)}
+            </span>
+          )} */}
+        </div>
+
+        {/* Share */}
+        <div className="relative flex items-center justify-center min-w-[60px]">
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
+            <ShareButton item={item} linkBase={linkBase} />
+          </div>
+          {/* Add share count if available */}
+          {/* {shareCount > 0 && (
+            <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
+              {formatCount(shareCount)}
+            </span>
+          )} */}
+        </div>
       </div>
     </footer>
   );

@@ -88,7 +88,7 @@ const HeaderSecondary: React.FC = () => {
     <>
       {/* Header Wrapper */}
       <div
-        className={`bg-white border-b border-gray-200 sticky top-0 z-[90] ${
+        className={`bg-white border-b border-gray-200 sticky top-0 z-[90]   ${
           isScrolled ? "shadow-md" : ""
         }`}
       >
