@@ -64,8 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* ---------------- HEADER SECTION ---------------- */}
           {isAuthPage ? (
             <DetailsHeader />
-          ) : isDetailPage ? (
-            "" // logic removed
+          ) : isDetailPage ? ( 
+            "" // logic removed 
           ) : (
             <>
               {/* First Row */}
