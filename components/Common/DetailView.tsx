@@ -21,6 +21,7 @@ import {
 } from "react-icons/fa";
 import HeaderPrimary from '../HeaderPrimary';
 import SectionHeader from './SectionHeader';
+import TaggingBadge from './Badges/TaggingBadge';
 interface Comment {
   id: string;
   UserName: string;
@@ -195,11 +196,17 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
                 <div className="prose prose-lg max-w-none">
                   <div className="text-gray-700 leading-relaxed text-base sm:text-lg whitespace-pre-wrap space-y-4 sm:space-y-6">
                     {data.content}
+                            <TagsSidebar tags={data.tags} />
+
                   </div>
                 </div>
               </div>
             </article>
 
+
+
+
+     
             {/* ---------------- IMPROVED COMMENTS SECTION ---------------- */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 sm:p-8 mt-6 sm:mt-8">
               <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2">
