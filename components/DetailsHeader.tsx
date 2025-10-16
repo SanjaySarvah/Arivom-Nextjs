@@ -4,30 +4,25 @@ import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import {
-  FaArrowLeft,
-  FaUserPlus,
-  FaUser,
-  FaChevronDown,
-} from "react-icons/fa";
+import { FaArrowLeft, FaUserPlus, FaUser, FaChevronDown } from "react-icons/fa";
 import { ChevronRight } from "lucide-react";
 import logo from "@/public/assets/arivom-logo-latest.png";
 
 interface DetailsHeaderProps {
   currentTitle?: string;
   contentType?: "news" | "articles";
+  actions?: React.ReactNode; // ✅ your icons like share/bookmark
 }
 
 const DetailsHeader: React.FC<DetailsHeaderProps> = ({
   currentTitle,
   contentType,
+  actions,
 }) => {
   const router = useRouter();
-
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -37,11 +32,8 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         setIsDropdownOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleNavigateHome = () => router.push("/");
@@ -50,6 +42,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
 
   return (
     <div className="bg-white border-b border-gray-200 sticky top-0 z-50">
+      {/* === TOP HEADER === */}
       <div className="max-w-[1320px] mx-auto px-3 sm:px-4 relative flex items-center h-14">
         {/* Back Button */}
         <button
@@ -59,7 +52,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
           <FaArrowLeft className="w-4 h-4 text-gray-600" />
         </button>
 
-        {/* Logo Centered */}
+        {/* Centered Logo */}
         <div className="absolute left-1/2 transform -translate-x-1/2 z-0">
           <Link href="/">
             <Image
@@ -96,7 +89,6 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
             />
           </button>
 
-          {/* Dropdown Menu */}
           {isDropdownOpen && (
             <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-[100] animate-fadeIn">
               <div className="px-3 py-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border-b border-gray-100">
@@ -111,7 +103,6 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
                 <Link
                   href="/signin"
                   className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
-                  onClick={() => setIsDropdownOpen(false)}
                 >
                   <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
                     <FaUser className="w-2.5 h-2.5 text-white" />
@@ -122,7 +113,6 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
                 <Link
                   href="/signup"
                   className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
-                  onClick={() => setIsDropdownOpen(false)}
                 >
                   <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
                     <FaUserPlus className="w-2.5 h-2.5 text-white" />
@@ -135,50 +125,46 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
         </div>
       </div>
 
-   {/* Breadcrumbs */}
-{currentTitle && contentType && (
-  <div className="bg-white border-t border-gray-100 z-40 shadow-sm backdrop-blur-sm bg-white/95">
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div
-        className="
-          flex items-center text-sm text-gray-600 py-2
-          overflow-x-auto sm:overflow-visible
-          whitespace-nowrap sm:whitespace-normal
-        "
-      >
-        <span
-          onClick={handleNavigateHome}
-          className="hover:text-[#2ecc71] cursor-pointer transition-colors duration-200 flex-shrink-0"
-        >
-          Home
-        </span>
+      {/* === BREADCRUMB + ACTIONS SINGLE ROW === */}
+      {(currentTitle || actions) && (
+        <div className="bg-white border-t border-gray-100 shadow-sm backdrop-blur-sm bg-white/95">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-11 flex items-center justify-between">
+            {/* Breadcrumb */}
+            {currentTitle && contentType && (
+              <div className="flex items-center text-sm text-gray-600 overflow-x-auto whitespace-nowrap">
+                <span
+                  onClick={handleNavigateHome}
+                  className="hover:text-[#017BFF] cursor-pointer transition-colors duration-200"
+                >
+                  Home
+                </span>
 
-        <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
+                <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
 
-        <span
-          onClick={handleNavigateToSection}
-          className="hover:text-[#2ecc71] cursor-pointer transition-colors duration-200 flex-shrink-0"
-        >
-          {contentType === "news" ? "News" : "Articles"}
-        </span>
+                <span
+                  onClick={handleNavigateToSection}
+                  className="hover:text-[#017BFF] cursor-pointer transition-colors duration-200"
+                >
+                  {contentType === "news" ? "News" : "Articles"}
+                </span>
 
-        <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
+                <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
 
-        <span
-          className="
-            text-gray-900 font-medium
-            truncate max-w-[180px]
-            sm:truncate-0 sm:max-w-none
-            flex-shrink
-          "
-        >
-          {currentTitle}
-        </span>
-      </div>
-    </div>
-  </div>
-)}
+                <span className="text-gray-900 font-medium truncate max-w-[160px] sm:max-w-none">
+                  {currentTitle}
+                </span>
+              </div>
+            )}
 
+            {/* Actions (hidden on mobile) */}
+            {actions && (
+              <div className="hidden sm:flex items-center gap-3">
+                {actions}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

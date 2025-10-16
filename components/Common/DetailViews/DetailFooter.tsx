@@ -59,7 +59,7 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
             onClick={() => {
               const commentSection = document.getElementById("comment-section");
               if (commentSection) {
-                commentSection.scrollIntoView({ behavior: "smooth", block: "start" });
+                commentSection.scrollIntoView({ behavior: "smooth", block: "center" });
               }
             }}
           >
