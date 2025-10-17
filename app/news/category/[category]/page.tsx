@@ -1,28 +1,16 @@
 "use client";
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { getNewsByCategory } from "@/lib/getData";
-import { User, Calendar } from "lucide-react";
 import PopularNews from '@/components/Common/DetailViews/PopularNews';
 import PopularArticles from '@/components/Common/DetailViews/PopularArticles';
 import Updates from '@/components/Common/DetailViews/Updates';
+import ViewAllGrid from "@/components/Common/ViewAllGrid";
 
 type Props = { params: { category: string } };
 
 export default function CategoryPage({ params }: Props) {
   const allPosts = getNewsByCategory(params.category);
   const category = decodeURIComponent(params.category);
-
-  // Pagination (Load More)
-  const initialDisplayCount = 9;
-  const loadMoreCount = 9;
-  const [displayCount, setDisplayCount] = useState(initialDisplayCount);
-
-  const visiblePosts = allPosts.slice(0, displayCount);
-  const hasMore = displayCount < allPosts.length;
-
-  const handleLoadMore = () => setDisplayCount((prev) => prev + loadMoreCount);
+  const linkBase = "/news";
 
   return (
     <main className="min-h-screen pb-20">
@@ -40,113 +28,15 @@ export default function CategoryPage({ params }: Props) {
 
             {/* News Grid */}
             <section>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
-                {visiblePosts.map((post: any) => (
-                  <Link
-                    key={post.id}
-                    href={`/news/${post.id}`}
-                    className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
-                  >
-                    {/* Image */}
-                    <div className="relative w-full h-48 sm:h-56 overflow-hidden">
-                      <Image
-                        src={post.image || "/placeholder.jpg"}
-                        alt={post.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
-
-                      {/* Gradient Badge */}
-                      <div className="absolute top-4 left-4 flex items-center gap-2 bg-gradient-to-r from-[#2ecc71] to-[#27ae60] text-white px-4 py-1.5 rounded-full text-xs font-bold shadow-lg">
-                        <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
-                        Trending
-                      </div>
-
-                      {/* Category Badge */}
-                      <div className="absolute top-4 right-4 bg-white/90 text-gray-800 px-3 py-1 rounded-full text-xs font-semibold shadow-md">
-                        {category}
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-5">
-                      <h3 className="text-lg font-bold text-gray-800 mb-3 line-clamp-2 group-hover:text-blue-600 transition-colors">
-                        {post.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                        {post.excerpt}
-                      </p>
-
-                      {/* Author + Date */}
-                      <div className="flex items-center justify-between text-xs text-gray-500">
-                        <div className="flex items-center gap-1.5">
-                          <User className="w-4 h-4" />
-                          <span>{post.author || "Editor"}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                          <Calendar className="w-4 h-4" />
-                          <span>{post.date || "Recently"}</span>
-                        </div>
-                      </div>
-
-                      {/* Read More */}
-                      <div className="mt-4 flex justify-end">
-                        <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white group-hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer">
-                          <svg
-                            className="w-5 h-5 transform group-hover:translate-x-0.5 transition-transform"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M9 5l7 7-7 7"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-
-              {/* LOAD MORE */}
-              {hasMore && (
-                <div className="flex justify-center mt-12">
-                  <button
-                    onClick={handleLoadMore}
-                    className="group relative px-8 py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
-                  >
-                    <span className="relative z-10 flex items-center gap-2">
-                      Load More
-                      <svg
-                        className="w-5 h-5 transform group-hover:translate-y-1 transition-transform"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-800 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
-                  </button>
-                </div>
-              )}
-              
-              {!hasMore && allPosts.length > initialDisplayCount && (
-                <div className="text-center mt-12 py-6 bg-gray-100 rounded-lg">
-                  <p className="text-gray-600 font-medium">
-                    You've reached the end — no more posts available.
-                  </p>
-                </div>
-              )}
+              <ViewAllGrid
+                items={allPosts}
+                linkBase={linkBase}
+                initialVisibleCount={9}
+                loadMoreIncrement={9}
+                showInteractiveButtons={false}
+                showTaggingBadge={false}
+                showPopularTag={true}
+              />
             </section>
           </div>
 

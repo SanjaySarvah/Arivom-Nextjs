@@ -47,7 +47,7 @@ export default function Home() {
             title="Fresh Updates"
             showButton={true}
             buttonText="View All"
-            buttonUrl="/news"
+            buttonUrl="/news/all"
           />
           
 
@@ -81,7 +81,7 @@ export default function Home() {
             title="Recent Articles"
             showButton={true}
             buttonText="View All"
-            buttonUrl="/articles"
+            buttonUrl="/articles/all"
           />
          <CardView/>
         </section>
