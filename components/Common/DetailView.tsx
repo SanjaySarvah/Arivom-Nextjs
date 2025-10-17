@@ -7,7 +7,6 @@ import CategoryBadge from '@/components/Common/Badges/CategoryBadge';
 import AuthorBadge from '@/components/Common/Badges/AuthorBadge';
 import DateBadge from '@/components/Common/Badges/DateBadge';
 import DetailFooter from './DetailViews/DetailFooter';
-import SectionwiseImportantNews from './SectionwiseImportantNews';
 import SectionHeaderSidebar from '@/components/Common/SectionHeaderSidebar';
 import AdvertisementSidebar from '@/components/Common/Sidebar/AdvertisementSidebar';
 import { ArticleItem, getAllNews, NewsItem } from '@/lib/getData';
@@ -22,6 +21,8 @@ import {
 import HeaderPrimary from '../HeaderPrimary';
 import SectionHeader from './SectionHeader';
 import TaggingBadge from './Badges/TaggingBadge';
+import NewsCard from './Cards/NewsCard';
+import CardView from './CardView';
 interface Comment {
   id: string;
   UserName: string;
@@ -44,6 +45,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
   const [replyingTo, setReplyingTo] = useState<string | null>(null);
   const [replyContent, setReplyContent] = useState('');
   const [expandedComments, setExpandedComments] = useState<Set<string>>(new Set());
+  const [visibleNewsCount, setVisibleNewsCount] = useState(6);
 
   const stats = {
     likes: typeof data.likes === 'number' ? data.likes : 0,
@@ -416,25 +418,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
 )}
 
             </div>
-            <div className="mt-5">
-              <SectionHeader
-                subtitle="More to explore"
-                title="Related Post"
-                showButton={true}
-                buttonText="View All"
-                buttonUrl="/news"
-              />
-            </div>
-            <div className="mt-5">
-              <SectionwiseImportantNews
-                items={news}
-                linkBase={linkBase}
-                title="பிரிவு வாரியாக முக்கிய செய்திகள்"
-                subtitle="ஒவ்வொரு பிரிவிலும் இருந்து தேர்ந்தெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
-                categoryLabel="தமிழகம்"
-                viewAllLink={linkBase}
-              />
-            </div>
+            {/*  */}
           </div>
 
           {/* ---------------- SIDEBAR ---------------- */}
@@ -499,7 +483,20 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
             </div>
           </div>
         </div>
+           <section className="mb-10 lg:mb-16">
+          <SectionHeader
+            subtitle="Editorials"
+            title="Related News"
+            showButton={true}
+            buttonText="View All"
+            buttonUrl="/news"
+          />
+         <CardView/>
+        </section>
       </div>
+      {/* ---------------- RELATED POSTS SECTION (2 Columns with Load More) ---------------- */}
+    
+     
 <DetailFooter
   authorName={authorName}
   date={date}

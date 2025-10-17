@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, Eye } from "lucide-react";
 import LikeButton from "@/components/Common/Badges/LikeButton";
 import BookmarkButton from "@/components/Common/Badges/BookmarkButton";
 import ShareButton from "@/components/Common/Badges/ShareButton";
@@ -9,19 +9,23 @@ import ShareButton from "@/components/Common/Badges/ShareButton";
 interface DetailFooterProps {
   likeCount?: number;
   commentCount?: number;
+  viewCount?: number;
   authorName?: string;
   date?: string | Date;
   formatDate?: (date: string | Date) => string;
   item?: any;
   linkBase?: string;
+  onViewClick?: () => void;
 }
 
 const DetailFooter: React.FC<DetailFooterProps> = ({
   likeCount = 0,
   commentCount = 0,
+  viewCount = 0,
   authorName,
   item,
   linkBase = "/", // ✅ default value to ensure string
+  onViewClick,
 }) => {
   const formatCount = (count: number): string => {
     if (count >= 1000000) return (count / 1000000).toFixed(1) + 'M';
@@ -40,13 +44,32 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
       )}
 
       <div className="flex justify-around items-center py-3 px-4 max-w-screen-xl mx-auto text-gray-700 font-medium">
+        {/* View */}
+        <div className="relative flex items-center justify-center min-w-[60px]">
+          <button
+            onClick={onViewClick}
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-[var(--secondarylight)] hover:scale-105 transition-all duration-200 group"
+          >
+            <Eye className="w-5 h-5 text-gray-500 group-hover:text-white transition-colors" />
+          </button>
+          {viewCount > 0 && (
+            <span className="absolute -bottom-1 -right-1 bg-[var(--secondary)] text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
+              {formatCount(viewCount)}
+            </span>
+          )}
+        </div>
+
         {/* Like */}
         <div className="relative flex items-center justify-center min-w-[60px]">
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
-            <LikeButton id={String(item?.id || 0)} />
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-red-50 hover:scale-105 transition-all duration-200">
+            <LikeButton
+              id={String(item?.id || 0)}
+              iconColor="#6b7280"
+              likedIconColor="#ef4444"
+            />
           </div>
           {likeCount > 0 && (
-            <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
+            <span className="absolute -bottom-1 -right-1 bg-red-500 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
               {formatCount(likeCount)}
             </span>
           )}
@@ -55,7 +78,7 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
         {/* Comment */}
         <div className="relative flex items-center justify-center min-w-[60px]">
           <button
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200"
+            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-blue-50 hover:scale-105 transition-all duration-200 group"
             onClick={() => {
               const commentSection = document.getElementById("comment-section");
               if (commentSection) {
@@ -63,10 +86,10 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
               }
             }}
           >
-            <MessageCircle className="w-5 h-5 text-gray-500" />
+            <MessageCircle className="w-5 h-5 text-gray-500 group-hover:text-blue-600 transition-colors" />
           </button>
           {commentCount > 0 && (
-            <span className="absolute -bottom-1 -right-1 bg-gray-600 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
+            <span className="absolute -bottom-1 -right-1 bg-blue-500 text-white text-[10px] font-medium px-1.5 py-0.5 rounded-full min-w-[20px] text-center border border-white">
               {formatCount(commentCount)}
             </span>
           )}
@@ -74,7 +97,7 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
 
         {/* Bookmark */}
         <div className="relative flex items-center justify-center min-w-[60px]">
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-purple-50 hover:scale-105 transition-all duration-200">
             <BookmarkButton
               id={String(item?.id || 0)}
               borderColor="#d1d5db"
@@ -88,7 +111,7 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
 
         {/* Share */}
         <div className="relative flex items-center justify-center min-w-[60px]">
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-gray-100 transition-colors duration-200">
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 hover:bg-green-50 hover:scale-105 transition-all duration-200">
             <ShareButton item={item} linkBase={linkBase} /> {/* ✅ linkBase is guaranteed string */}
           </div>
         </div>
