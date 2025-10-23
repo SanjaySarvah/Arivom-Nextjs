@@ -1,16 +1,12 @@
-//app/articles/[id]/page.tsx
-import { getArticleById } from '../../../lib/getData'
+// app/news/[id]/page.tsx
+import { getNewsById } from '../../../lib/getData'
 import DetailView from '../../../components/Common/DetailView'
-import DetailFooter from '../../../components/Common/DetailViews/DetailFooter';
 
 type Props = { params: { id: string } }
 
-export default function ArticleDetail({ params }: Props) {
-  const item = getArticleById(Number(params.id))
-  if(!item) return <p>Article not found</p>
+export default function NewsDetail({ params }: Props) {
+  const item = getNewsById(Number(params.id))
+  if (!item) return <p>News not found</p>
 
-  return <>
-  <DetailView data={item} />
-      <DetailFooter/>
-      </>
+  return <DetailView data={item} />
 }

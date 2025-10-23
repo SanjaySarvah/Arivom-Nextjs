@@ -49,7 +49,7 @@ export default function CategoryPage({ params }: Props) {
         <div className="flex flex-col lg:flex-row gap-8">
 
           {/* Main Content - 2/3 width */}
-          <div className="lg:w-2/3">
+          <div className="lg:w-2/2">
             {/* Category Header */}
             <div className="mb-8">
               <h1 className="text-3xl font-bold text-gray-900 capitalize">

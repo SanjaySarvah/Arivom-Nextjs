@@ -1,7 +1,7 @@
 "use client";
 
 import { getAllNews } from "@/lib/getData";
-import TrendingCards from "@/components/Common/TrendingCards";
+import TrendingCards from "@/app/news/Components/TrendingCards";
 import SectionHeader from "@/components/Common/SectionHeader";
 import Popular from "@/components/Common/Sidebar/Popular";
 import SectionwiseImportantNews from "@/components/Common/SectionwiseImportantNews";
@@ -14,7 +14,7 @@ export default function NewsPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
-      <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 py-6 lg:py-10">
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 ">
 
         {/* Hero Banner Section with Large Carousel (8 cols) + Ad (4 cols) */}
         <section className="mb-12 lg:mb-16">

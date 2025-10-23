@@ -42,7 +42,7 @@ const ViewAllGrid: React.FC<ViewAllGridProps> = ({
   return (
     <div className="flex flex-col items-center">
       {/* Grid Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 w-full">
         {items.slice(0, visibleCount).map((item, index) => (
           <article
             key={item.id}

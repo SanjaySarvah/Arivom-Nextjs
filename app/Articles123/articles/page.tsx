@@ -1,51 +1,51 @@
 "use client";
 
-import { getAllNews } from "@/lib/getData";
-import TrendingCards from "@/app/news/Components/TrendingCards";
+import { getAllArticles } from "@/lib/getData";
+import TrendingCards from "@/app/articles/Components/TrendingCards";
 import SectionHeader from "@/components/Common/SectionHeader";
 import Popular from "@/components/Common/Sidebar/Popular";
 import SectionwiseImportantNews from "@/components/Common/SectionwiseImportantNews";
-import CardView from "@/components/Common/CardView";
 import ViewAllGrid from "@/components/Common/ViewAllGrid";
 
-export default function NewsPage() {
-  const news = getAllNews();
-  const linkBase = "/news";
+export default function ArticlesPage() {
+  const articles = getAllArticles();
+  const linkBase = "/articles";
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
-      <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 ">
+<main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100 py-4 lg:py-0">
 
-        {/* Hero Banner Section with Large Carousel (8 cols) + Ad (4 cols) */}
+
+      <div className="max-w-[90rem] mx-auto px-4 sm:px-8 ">
+
+        {/* Hero Banner Section with Large Carousel */}
         <section className="mb-12 lg:mb-16">
           <TrendingCards
-            title="Breaking News"
-            items={news.slice(0, 8)}
-            linkBase="/news"
+            title="Breaking Articles"
+            items={articles.slice(0, 8)}
+            linkBase="/articles"
           />
         </section>
 
-            {/* 📰 Popular Section */}
+        {/* Popular Section */}
         <section className="mb-10 lg:mb-16">
           <SectionHeader
             subtitle="Happening Now"
             title="Fresh Updates"
             showButton={true}
             buttonText="View All"
-            buttonUrl="/news/all"
+            buttonUrl="/articles/all"
           />
-
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10">
             {/* Left Column */}
             <div className="lg:col-span-8">
               <SectionwiseImportantNews
-                items={news}
-                linkBase="/news"
-                title="பிரிவு வாரியாக முக்கிய செய்திகள்"
+                items={articles}
+                linkBase="/articles"
+                title="பிரிவு வாரியாக முக்கிய கட்டுரைகள்"
                 subtitle="ஒவ்வொரு பிரிவிலும் இருந்து தேர்ந்தெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
                 categoryLabel="தமிழகம்"
-                viewAllLink="/news/all"
+                viewAllLink="/articles/all"
               />
             </div>
 
@@ -53,25 +53,24 @@ export default function NewsPage() {
             <aside className="lg:col-span-4">
               <div className="sticky top-24 space-y-8">
                 <Popular />
-                {/* You can add <Sidebar /> or ad sections here */}
               </div>
             </aside>
           </div>
         </section>
 
-        {/* Featured + Top Stories Grid */}
+        {/* Featured + Top Articles Grid */}
         <section className="mb-12 lg:mb-16">
           <SectionHeader
             subtitle="Editor's Pick"
-            title="Featured Stories"
+            title="Featured Articles"
             showButton={true}
             buttonText="View All"
-            buttonUrl="/news/all"
+            buttonUrl="/articles/all"
           />
 
-          <div className="mt-8">
+          <div className="mt-8 ">
             <ViewAllGrid
-              items={news}
+              items={articles}
               linkBase={linkBase}
               initialVisibleCount={9}
               loadMoreIncrement={9}
@@ -82,18 +81,6 @@ export default function NewsPage() {
           </div>
         </section>
 
-        {/* Trending Sidebar Section */}
-         <section className="mb-10 lg:mb-16">
-          <SectionHeader
-            subtitle="Editorials"
-            title="Recent Articles"
-            showButton={true}
-            buttonText="View All"
-            buttonUrl="/articles/all"
-          />
-         <CardView/>
-        </section>
-        
       </div>
     </main>
   );

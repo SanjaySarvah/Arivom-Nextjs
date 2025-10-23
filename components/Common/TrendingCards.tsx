@@ -99,105 +99,103 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
             />
 
             <div className="relative h-[350px] sm:h-[200px] lg:h-[450px] ">
-              <Swiper
-                modules={[Navigation, Autoplay, Pagination]}
-                slidesPerView={1}
-                spaceBetween={24}
-                autoplay={{
-                  delay: 5000,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: true,
-                }}
-                pagination={
-                  isMobile
-                    ? { clickable: true, dynamicBullets: true } // ✅ Only show dots on mobile
-                    : false
-                }
-                onSwiper={setSwiperInstance}
-                className="h-full rounded-2xl overflow-hidden "
-              >
-                {carouselItems.map((item) => (
-                  <SwiperSlide key={item.id} className="h-full ">
-                    <Link
-                      href={`${linkBase}/${String(item.id)}`}
-                      className="bg-white rounded-2xl overflow-hidden h-full flex flex-col border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500 block"
-                    >
-                      {/* Image */}
-                      <div className="relative flex-1 overflow-hidden group">
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+<Swiper
+  modules={[Navigation, Autoplay, Pagination]}
+  slidesPerView={1}
+  spaceBetween={24}
+  autoplay={{
+    delay: 5000,
+    disableOnInteraction: false,
+    pauseOnMouseEnter: true,
+  }}
+  pagination={
+    isMobile
+      ? { clickable: true, dynamicBullets: true } // Only show dots on mobile
+      : false
+  }
+  onSwiper={setSwiperInstance}
+  className="h-full rounded-2xl overflow-hidden"
+>
+  {carouselItems.map((item) => (
+    <SwiperSlide key={item.id} className="h-full">
+      <Link
+        href={`${linkBase}/${String(item.id)}`}
+        className="bg-white rounded-2xl overflow-hidden h-full flex flex-col border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-500 block"
+      >
+        {/* Image & Gradient */}
+        <div className="relative flex-1 overflow-hidden group">
+          <img
+            src={item.image}
+            alt={item.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
 
-                        {/* Tag + Bookmark */}
-                        <div className="absolute top-3 left-3 right-3 sm:top-4 sm:left-4 sm:right-4 flex items-center justify-between z-10">
-                          <TagBadge label="Breaking News" />
-                        </div>
+          {/* Breaking News Tag */}
+          <div className="absolute top-3 left-3 sm:top-4 sm:left-4 flex items-center z-10">
+            <TagBadge label="Breaking News" />
+          </div>
 
-                        {/* Text Overlay */}
-                        <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5">
-                          <span className="font-bold text-base sm:text-xl md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight text-white hover:underline decoration-white decoration-2 underline-offset-4">
-                            {item.title}
-                          </span>
-                          <p className="text-white/90 text-xs sm:text-sm mb-2 line-clamp-3 leading-relaxed">
-                            {item.content}
-                          </p>
-                          <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs text-white/80 mb-3">
-                            <CategoryBadge
-                              category={item.category}
-                              icon={
-                                <FaRegNewspaper className="text-white w-3 h-3" />
-                              }
-                            />
-                          </div>
-                        </div>
-                      </div>
+          {/* Title & Content */}
+          <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 md:p-5">
+            <span className="font-bold text-base sm:text-xl md:text-xl mb-1.5 sm:mb-2 line-clamp-2 leading-tight text-white hover:underline decoration-white decoration-2 underline-offset-4">
+              {item.title}
+            </span>
+            <p className="text-white/90 text-xs sm:text-sm mb-2 line-clamp-3 leading-relaxed">
+              {item.content}
+            </p>
+          </div>
+        </div>
 
-                      {/* Bottom Info */}
-                      <div className="px-4 sm:px-6 py-3 sm:py-4 bg-white border-t border-gray-100">
-                        <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
-                          {/* Author + Date */}
-                          <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-gray-600">
-                            <AuthorBadge author={item.author} />
-                            {/* <DateBadge
-                              date={item.created_at}
-                              formatDate={customFormatDate}
-                            /> */}
-                          </div>
- <div className="flex items-center gap-2 px-3 py-1.5">
-              
-                  </div>
-                  <div className="flex items-center gap-2 px-3 py-1.5 MobileViewContent">
-                    <DateBadge date={item.created_at} formatDate={customFormatDate} />
-                  </div>
-                          {/* Action Buttons */}
-                          <div
-                            className="flex items-center gap-4 sm:gap-3 ml-auto"
-                            onClick={(e) => e.preventDefault()}
-                          >
-                            <LikeButton id={String(item.id)} />
-                            <BookmarkButton
-                              id={String(item.id)}
-                              borderColor="#e5e7eb"
-                              backgroundColor="#ffffff"
-                              savedBackgroundColor="#fef2f2"
-                              iconColor="#4b5563"
-                              savedIconColor="#6f42c2"
-                              dataType={dataType as "news" | "article"}
-                            />
-                            <ShareButton item={item} linkBase={linkBase} />
-                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer group">
-                              <FiChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+        {/* Footer: Author, Category, Actions, Date */}
+        <div className="px-4 sm:px-6 py-3 sm:py-4 bg-white border-t border-gray-100">
+
+          {/* Top Row: Author left, Category right */}
+          <div className="flex justify-between items-center mb-2">
+            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+              <AuthorBadge author={item.author} />
+            </div>
+            <div className="flex items-center gap-2">
+              <CategoryBadge
+                category={item.category}
+                icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+              />
+            </div>
+          </div>
+
+          {/* Bottom Row: Actions left, Date right */}
+          <div className="flex justify-between items-center">
+            {/* Actions */}
+            <div className="flex items-center gap-3">
+              <LikeButton id={String(item.id)} />
+              <BookmarkButton
+                id={String(item.id)}
+                borderColor="#e5e7eb"
+                backgroundColor="#ffffff"
+                savedBackgroundColor="#fef2f2"
+                iconColor="#4b5563"
+                savedIconColor="#6f42c2"
+                dataType={dataType as "news" | "article"}
+              />
+              <ShareButton item={item} linkBase={linkBase} />
+              <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer group">
+                <FiChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </div>
+
+            {/* Date */}
+            <div className="text-xs sm:text-sm text-gray-500">
+              <DateBadge date={item.created_at} formatDate={customFormatDate} />
+            </div>
+          </div>
+
+        </div>
+      </Link>
+    </SwiperSlide>
+  ))}
+</Swiper>
+
+
 
               {/* ✅ Desktop Navigation Buttons */}
               {!isMobile && (

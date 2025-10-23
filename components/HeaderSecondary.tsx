@@ -74,7 +74,14 @@ const HeaderSecondary: React.FC = () => {
       href: "/socialmedia",
       icon: Share2,
       active: pathname.startsWith("/socialmedia"),
-    }
+    },
+     {
+      name: "Jobs",
+      href: "/jobs",
+      icon: FiPlayCircle,
+      active: pathname.startsWith("/jobs"),
+    },
+  
   ];
 
   const newsCategories = [

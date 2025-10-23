@@ -2,42 +2,67 @@
 
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { getAllNews } from "@/lib/getData";
+import { getAllArticles, getArticleSubcategories } from "@/lib/getData";
 import ViewAllGrid from "@/components/Common/ViewAllGrid";
-import { FiArrowLeft, FiGrid, FiLayers, FiMenu } from "react-icons/fi";
+import { FiArrowLeft, FiGrid, FiChevronRight, FiLayers, FiMenu } from "react-icons/fi";
 
-export default function AllNewsPage() {
+export default function AllArticlesPage() {
   const router = useRouter();
-  const allNews = getAllNews();
+  const allArticles = getAllArticles();
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string>("all");
   const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState<boolean>(false);
-  const linkBase = "/news";
+  const linkBase = "/articles";
 
-  // Get unique categories from news
+  // Get unique categories from articles
   const categories = useMemo(() => {
     const uniqueCategories = new Set<string>();
-    allNews.forEach(item => {
+    allArticles.forEach(item => {
       if (item.category) {
         uniqueCategories.add(item.category);
       }
     });
     return Array.from(uniqueCategories).sort();
-  }, [allNews]);
+  }, [allArticles]);
 
-  // Filter news based on selected category
-  const filteredNews = useMemo(() => {
-    if (selectedCategory === "all") {
-      return allNews;
+  // Get subcategories for selected category
+  const subcategories = useMemo(() => {
+    if (selectedCategory === "all") return [];
+    return getArticleSubcategories(selectedCategory);
+  }, [selectedCategory]);
+
+  // Filter articles based on selected category and subcategory
+  const filteredArticles = useMemo(() => {
+    let filtered = allArticles;
+
+    if (selectedCategory !== "all") {
+      filtered = filtered.filter(item =>
+        item.category?.toLowerCase() === selectedCategory.toLowerCase()
+      );
     }
-    return allNews.filter(item => item.category?.toLowerCase() === selectedCategory.toLowerCase());
-  }, [allNews, selectedCategory]);
+
+    if (selectedSubcategory !== "all" && selectedCategory !== "all") {
+      filtered = filtered.filter(item =>
+        item.subcategory?.toLowerCase() === selectedSubcategory.toLowerCase()
+      );
+    }
+
+    return filtered;
+  }, [allArticles, selectedCategory, selectedSubcategory]);
+
+  // Handle category selection
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setSelectedSubcategory("all"); // Reset subcategory when category changes
+    setIsCategoryMenuOpen(false); // Close mobile menu after selection
+  };
 
   // Get category display name
   const getCategoryDisplayName = (category: string) => {
-    const newsItem = allNews.find(item =>
+    const article = allArticles.find(item =>
       item.category?.toLowerCase() === category.toLowerCase()
     );
-    return newsItem?.tname || category;
+    return article?.tname || category;
   };
 
   return (
@@ -57,12 +82,12 @@ export default function AllNewsPage() {
 
               <div>
                 <h1 className="text-xl sm:text-2xl font-bold text-gray-900">
-                  All News
+                  All Articles
                 </h1>
                 <div className="flex items-center gap-1.5 text-gray-600 text-xs sm:text-sm">
                   <FiGrid className="w-3 h-3" />
                   <span>
-                    {filteredNews.length} {filteredNews.length === 1 ? 'article' : 'articles'}
+                    {filteredArticles.length} {filteredArticles.length === 1 ? 'article' : 'articles'}
                     {selectedCategory !== "all" && (
                       <span className="ml-1 font-semibold text-[var(--secondary)]">
                         in {getCategoryDisplayName(selectedCategory)}
@@ -114,12 +139,9 @@ export default function AllNewsPage() {
                 </div>
 
                 <div className="p-3 max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent hover:scrollbar-thumb-white/40">
-                  {/* All News Option */}
+                  {/* All Articles Option */}
                   <button
-                    onClick={() => {
-                      setSelectedCategory("all");
-                      setIsCategoryMenuOpen(false);
-                    }}
+                    onClick={() => handleCategorySelect("all")}
                     className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center justify-between group mb-2 ${
                       selectedCategory === "all"
                         ? "bg-white text-[var(--primary)] shadow-lg scale-105"
@@ -128,32 +150,30 @@ export default function AllNewsPage() {
                   >
                     <span className="flex items-center gap-2.5">
                       <FiGrid className="w-4 h-4" />
-                      All News
+                      All Articles
                     </span>
                     <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
                       selectedCategory === "all"
                         ? "bg-gradient-to-r from-[var(--primary)] to-blue-600 text-white"
                         : "bg-white/20 text-white group-hover:bg-white/30"
                     }`}>
-                      {allNews.length}
+                      {allArticles.length}
                     </span>
                   </button>
 
                   {/* Category List */}
                   <div className="space-y-1.5">
                     {categories.map((category) => {
-                      const count = allNews.filter(item =>
+                      const count = allArticles.filter(item =>
                         item.category?.toLowerCase() === category.toLowerCase()
                       ).length;
                       const displayName = getCategoryDisplayName(category);
+                      const hasSubcategories = getArticleSubcategories(category).length > 0;
 
                       return (
                         <button
                           key={category}
-                          onClick={() => {
-                            setSelectedCategory(category);
-                            setIsCategoryMenuOpen(false);
-                          }}
+                          onClick={() => handleCategorySelect(category)}
                           className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center justify-between group ${
                             selectedCategory === category
                               ? "bg-white text-[var(--primary)] shadow-lg scale-105"
@@ -162,6 +182,11 @@ export default function AllNewsPage() {
                         >
                           <span className="flex items-center gap-2 flex-1 min-w-0">
                             <span className="truncate">{displayName}</span>
+                            {hasSubcategories && (
+                              <FiChevronRight className={`w-3.5 h-3.5 flex-shrink-0 transition-transform ${
+                                selectedCategory === category ? "rotate-90" : ""
+                              }`} />
+                            )}
                           </span>
                           <span className={`px-2.5 py-1 rounded-full text-xs font-bold flex-shrink-0 ml-2 ${
                             selectedCategory === category
@@ -205,10 +230,7 @@ export default function AllNewsPage() {
                 {/* Mobile Category List */}
                 <div className="p-3 overflow-y-auto max-h-[calc(70vh-60px)] scrollbar-thin scrollbar-thumb-white/30 scrollbar-track-transparent">
                   <button
-                    onClick={() => {
-                      setSelectedCategory("all");
-                      setIsCategoryMenuOpen(false);
-                    }}
+                    onClick={() => handleCategorySelect("all")}
                     className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center justify-between mb-2 ${
                       selectedCategory === "all"
                         ? "bg-white text-[var(--primary)] shadow-lg"
@@ -217,31 +239,29 @@ export default function AllNewsPage() {
                   >
                     <span className="flex items-center gap-2.5">
                       <FiGrid className="w-4 h-4" />
-                      All News
+                      All Articles
                     </span>
                     <span className={`px-2.5 py-1 rounded-full text-xs font-bold ${
                       selectedCategory === "all"
                         ? "bg-gradient-to-r from-[var(--primary)] to-blue-600 text-white"
                         : "bg-white/20 text-white"
                     }`}>
-                      {allNews.length}
+                      {allArticles.length}
                     </span>
                   </button>
 
                   <div className="space-y-1.5">
                     {categories.map((category) => {
-                      const count = allNews.filter(item =>
+                      const count = allArticles.filter(item =>
                         item.category?.toLowerCase() === category.toLowerCase()
                       ).length;
                       const displayName = getCategoryDisplayName(category);
+                      const hasSubcategories = getArticleSubcategories(category).length > 0;
 
                       return (
                         <button
                           key={category}
-                          onClick={() => {
-                            setSelectedCategory(category);
-                            setIsCategoryMenuOpen(false);
-                          }}
+                          onClick={() => handleCategorySelect(category)}
                           className={`w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300 flex items-center justify-between ${
                             selectedCategory === category
                               ? "bg-white text-[var(--primary)] shadow-lg"
@@ -250,6 +270,11 @@ export default function AllNewsPage() {
                         >
                           <span className="flex items-center gap-2 flex-1 min-w-0">
                             <span className="truncate">{displayName}</span>
+                            {hasSubcategories && (
+                              <FiChevronRight className={`w-3.5 h-3.5 flex-shrink-0 transition-transform ${
+                                selectedCategory === category ? "rotate-90" : ""
+                              }`} />
+                            )}
                           </span>
                           <span className={`px-2.5 py-1 rounded-full text-xs font-bold flex-shrink-0 ml-2 ${
                             selectedCategory === category
@@ -269,9 +294,9 @@ export default function AllNewsPage() {
 
           {/* Main Content Area */}
           <div className="flex-1 min-w-0">
-            {filteredNews.length > 0 ? (
+            {filteredArticles.length > 0 ? (
               <ViewAllGrid
-                items={filteredNews}
+                items={filteredArticles}
                 linkBase={linkBase}
                 initialVisibleCount={9}
                 loadMoreIncrement={9}
@@ -281,10 +306,84 @@ export default function AllNewsPage() {
               />
             ) : (
               <div className="text-center py-12 bg-white rounded-lg shadow-sm">
-                <p className="text-gray-600 text-lg">No news found in this category.</p>
+                <p className="text-gray-600 text-lg">No articles found in this category.</p>
               </div>
             )}
           </div>
+
+          {/* Right Sidebar - Subcategories */}
+          {selectedCategory !== "all" && subcategories.length > 0 && (
+            <aside className="w-full lg:w-64 xl:w-72 flex-shrink-0">
+              <div className="sticky top-24">
+                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                  <div className="bg-gradient-to-r from-purple-500 to-pink-500 px-4 py-3">
+                    <h2 className="text-white font-bold text-sm flex items-center gap-2">
+                      <FiChevronRight className="w-4 h-4" />
+                      Subcategories
+                    </h2>
+                  </div>
+
+                  <div className="p-2 max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent">
+                    {/* All Subcategories Option */}
+                    <button
+                      onClick={() => setSelectedSubcategory("all")}
+                      className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-between group ${
+                        selectedSubcategory === "all"
+                          ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md"
+                          : "text-gray-700 hover:bg-pink-50 hover:text-purple-600"
+                      }`}
+                    >
+                      <span>All</span>
+                      <span className={`px-2 py-0.5 rounded-full text-xs font-bold ${
+                        selectedSubcategory === "all"
+                          ? "bg-white/20"
+                          : "bg-gray-200 text-gray-600 group-hover:bg-pink-200"
+                      }`}>
+                        {allArticles.filter(item =>
+                          item.category?.toLowerCase() === selectedCategory.toLowerCase()
+                        ).length}
+                      </span>
+                    </button>
+
+                    {/* Subcategory List */}
+                    <div className="mt-2 space-y-1">
+                      {subcategories.map((sub) => {
+                        const count = allArticles.filter(item =>
+                          item.category?.toLowerCase() === selectedCategory.toLowerCase() &&
+                          item.subcategory?.toLowerCase() === sub.subcategory.toLowerCase()
+                        ).length;
+
+                        return (
+                          <button
+                            key={sub.subcategory}
+                            onClick={() => {
+                              setSelectedSubcategory(sub.subcategory);
+                              // Navigate to the subcategory page
+                              router.push(`/articles/category/${selectedCategory}/${sub.subcategory}`);
+                            }}
+                            className={`w-full text-left px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-300 flex items-center justify-between group hover:translate-x-1 ${
+                              selectedSubcategory === sub.subcategory
+                                ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md"
+                                : "text-gray-700 hover:bg-pink-50 hover:text-purple-600"
+                            }`}
+                          >
+                            <span className="truncate">{sub.subcategory}</span>
+                            <span className={`px-2 py-0.5 rounded-full text-xs font-bold flex-shrink-0 ml-2 ${
+                              selectedSubcategory === sub.subcategory
+                                ? "bg-white/20"
+                                : "bg-gray-200 text-gray-600 group-hover:bg-pink-200"
+                            }`}>
+                              {count}
+                            </span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          )}
         </div>
       </div>
     </main>

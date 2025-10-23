@@ -279,6 +279,27 @@ export const getArticleSubcategories = (
   return subcategories;
 };
 
+// ✅ Get subcategories with item counts for a given category (for news)
+export const getNewsSubcategoriesWithCount = (
+  category: string
+): { subcategory: string; count: number }[] => {
+  const all = (news as NewsItem[]).filter(
+    (n) => n.category.toLowerCase() === category.toLowerCase() && n.subcategory
+  );
+
+  const counts: Record<string, number> = {};
+  all.forEach((item) => {
+    const sub = item.subcategory!;
+    counts[sub] = (counts[sub] || 0) + 1;
+  });
+
+  return Object.entries(counts).map(([subcategory, count]) => ({
+    subcategory,
+    count,
+  }));
+};
+
+
 // ✅ Get unique sub-subcategories for a given subcategory
 export const getArticleSubsubcategories = (
   subcategory: string
