@@ -16,17 +16,10 @@ export default function NewsPage() {
     <main className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
       <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 ">
 
-        {/* Hero Banner Section with Large Carousel (8 cols) + Ad (4 cols) */}
-        <section className="mb-12 lg:mb-16">
-          <TrendingCards
-            title="Breaking News"
-            items={news.slice(0, 8)}
-            linkBase="/news"
-          />
-        </section>
+  
 
             {/* 📰 Popular Section */}
-        <section className="mb-10 lg:mb-16">
+        <section className="mb-10 mt-10 lg:mb-16">
           <SectionHeader
             subtitle="Happening Now"
             title="Fresh Updates"
