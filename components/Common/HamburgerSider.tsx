@@ -25,6 +25,9 @@ interface HamburgerSiderProps {
     active: boolean;
   }[];
   pathname: string;
+  newsCategories: { name: string; href: string }[];
+  isMobileNewsExpanded: boolean;
+  toggleNewsExpanded: () => void;
 }
 
 const HamburgerSider: React.FC<HamburgerSiderProps> = ({
@@ -32,130 +35,329 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
   onClose,
   mainNavigation,
   pathname,
+  newsCategories,
+  isMobileNewsExpanded,
+  toggleNewsExpanded,
 }) => {
+
   if (!isOpen) return null;
 
   return (
     <div
-   className="xl:hidden fixed inset-0 z-[9999] transition-all duration-300"
-  onClick={onClose}
+      className="xl:hidden fixed inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/40 backdrop-blur-md z-[9999] transition-all duration-300"
+      onClick={onClose}
     >
       {/* Sidebar */}
-    <div
-  className={`relative bg-white text-black w-80 h-full transform transition-all duration-300 ease-out overflow-y-auto z-[10000] shadow-2xl ${
-    isOpen ? "translate-x-0" : "-translate-x-full"
-  }`}
-  onClick={(e) => e.stopPropagation()}
->
-
+      <div
+        className={`relative bg-gradient-to-b from-white to-gray-50 w-80 h-full transform transition-all duration-300 ease-out overflow-y-auto z-[10000] shadow-2xl ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
-        <div className="p-5 border-b border-[var(--secondarylight)] flex items-center justify-between sticky top-0 bg-[var(--background)] z-20 shadow-sm">
+        <div className="p-5 border-b-2 border-[#2ecc71] flex items-center justify-between sticky top-0 bg-gradient-to-r from-white to-gray-50 z-20 shadow-sm">
           <Image
             src={logo}
             alt="Arivom Logo"
-            width={130}
-            height={50}
+            width={140}
+            height={56}
             className="object-contain"
           />
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-[var(--secondarylight)] transition-all duration-200 group"
+            className="p-2.5 rounded-xl hover:bg-gradient-to-br hover:from-red-50 hover:to-red-100 transition-all duration-200 hover:shadow-md group"
           >
-            <FaTimes
-              size={18}
-              className="text-[var(--foreground)] group-hover:text-[var(--secondary)]"
-            />
+            <FaTimes size={20} className="text-gray-600 group-hover:text-red-600 transition-colors duration-200" />
           </button>
         </div>
 
         {/* Search Bar */}
-        <div className="p-4 mb-3">
-          <div className="flex items-center bg-gray-50 dark:bg-[#1a1a1a] rounded-2xl px-4 py-2.5 border border-gray-200 dark:border-gray-700 focus-within:border-[var(--primary)] transition-all duration-300">
-            <FaSearch className="w-4 h-4 text-gray-400 mr-2" />
+        <div className="p-4 mb-4">
+          <div className="flex items-center bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl px-5 py-3 border-2 border-gray-200 focus-within:bg-white focus-within:border-[#2ecc71] focus-within:shadow-lg transition-all duration-300">
+            <FaSearch className="w-3.5 h-3.5 text-gray-400 mr-3 transition-colors focus-within:text-[#2ecc71]" />
             <input
               type="text"
               placeholder="Search news, articles..."
-              className="bg-transparent border-none outline-none text-sm w-full placeholder-gray-400 text-[var(--foreground)]"
+              className="bg-transparent border-none outline-none text-xs w-full placeholder-gray-400 text-gray-700 font-medium"
             />
           </div>
         </div>
 
         {/* Navigation */}
-        <nav className="px-4 space-y-1.5 mb-8">
-          <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider px-4 mb-2 flex items-center gap-2">
-            <span className="w-1 h-3 bg-[var(--tertiary)] rounded-full"></span>
-            Main Navigation
+        <nav className="px-4 space-y-1.5 mb-6">
+          <div className="text-[9px] font-bold text-gray-500 uppercase tracking-wider px-4 mb-2 flex items-center gap-2">
+            <span className="w-1 h-3 bg-[#2ecc71] rounded-full"></span>
+            Navigation
           </div>
-
           {mainNavigation
-            .filter(
-              (item) =>
-                item.name !== "News" &&
-                item.name !== "Articles" &&
-                item.name !== "Tags"
-            )
+            .filter((item) => item.name !== "News" && item.name !== "Articles" && item.name !== "Tags")
             .map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={onClose}
-                className={`flex items-center gap-3 px-3 py-2.5 text-sm font-semibold rounded-xl border-l-4 transition-all duration-200 ${
+                className={`flex items-center gap-2.5 px-3 py-2.5 text-[13px] font-semibold rounded-xl border-l-4 transition-all duration-200 ${
                   item.active
-                    ? "text-[var(--tertiary)] bg-emerald-50 dark:bg-[#162c1f] border-[var(--tertiary)]"
-                    : "text-gray-700 dark:text-gray-300 hover:text-[var(--tertiary)] hover:bg-emerald-50 dark:hover:bg-[#1b2f24] border-transparent hover:border-[var(--tertiary)]"
+                    ? "text-[#1a8f52] bg-gradient-to-r from-emerald-50 to-green-50 border-[#2ecc71] shadow-sm"
+                    : "text-gray-700 hover:text-[#1a8f52] hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 border-transparent hover:border-[#2ecc71] hover:shadow-sm"
                 }`}
               >
-                <div
-                  className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
-                    item.active
-                      ? "bg-[var(--tertiary)] text-white shadow-md"
-                      : "bg-gray-100 dark:bg-[#2a2a2a] text-gray-600 dark:text-gray-300"
-                  }`}
-                >
+                <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
+                  item.active
+                    ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md text-white"
+                    : "bg-gray-100 text-gray-600 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60] group-hover:text-white"
+                }`}>
                   <item.icon size={14} />
                 </div>
                 {item.name}
               </Link>
             ))}
+
+          {/* NEWS SECTION */}
+          {/* <div className="border-t border-gray-100 mt-4">
+            <button
+              onClick={toggleNewsExpanded}
+              className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium border-l-4 transition-all ${
+                pathname.startsWith("/news")
+                  ? "text-[#1a8f52] bg-emerald-50 border-[#2ecc71]"
+                  : "text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <FaRegNewspaper size={16} />
+                News
+              </div>
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-300 ${
+                  isMobileNewsExpanded ? "rotate-180 text-[#1a8f52]" : ""
+                }`}
+              />
+            </button>
+
+            {isMobileNewsExpanded && (
+              <div className="pl-8 py-2 space-y-1">
+                {newsCategories.map((cat) => (
+                  <Link
+                    key={cat.name}
+                    href={cat.href}
+                    onClick={onClose}
+                    className={`block text-sm px-3 py-2 rounded-md ${
+                      pathname === cat.href
+                        ? "bg-green-50 text-green-700"
+                        : "text-gray-600 hover:text-green-600 hover:bg-green-50"
+                    }`}
+                  >
+                    {cat.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div> */}
+
+          {/* ARTICLES SECTION */}
+          {/* <div className="border-t border-gray-100 mt-4">
+            <button
+              onClick={() => setIsArticleExpanded(!isArticleExpanded)}
+              className={`w-full flex items-center justify-between px-4 py-3 text-base font-medium border-l-4 transition-all ${
+                pathname.startsWith("/articles")
+                  ? "text-[#1a8f52] bg-emerald-50 border-[#2ecc71]"
+                  : "text-gray-700 hover:text-[#2ecc71] hover:bg-emerald-50 border-transparent hover:border-[#2ecc71]"
+              }`}
+            >
+              <div className="flex items-center gap-3">
+                <BookOpen size={16} />
+                Articles
+              </div>
+              <ChevronDown
+                className={`w-4 h-4 transition-transform duration-300 ${
+                  isArticleExpanded ? "rotate-180 text-[#1a8f52]" : ""
+                }`}
+              />
+            </button>
+
+            {isArticleExpanded && (
+              <div className="pl-4 pr-2 py-2 max-h-[65vh] overflow-y-auto custom-scrollbar">
+                {categories.map((cat) => {
+                  const subcategories = getArticleSubcategories(cat.category);
+                  const hasSubcategories = subcategories.length > 0;
+
+                  return (
+                    <div key={cat.category} className="group">
+                      <div className="flex items-center justify-between p-2 rounded-md hover:bg-green-50 transition-all">
+                        {hasSubcategories ? (
+                          <button
+                            onClick={() => toggleCategory(cat.category)}
+                            className="flex-1 text-left text-sm text-gray-800 flex items-center gap-2 font-medium"
+                          >
+                            {activeCategory === cat.category ? (
+                              <FolderOpen className="w-4 h-4 text-green-600" />
+                            ) : (
+                              <Folder className="w-4 h-4 text-gray-400" />
+                            )}
+                            {cat.tname || cat.category}
+                            <ChevronDown
+                              className={`w-3 h-3 ml-auto transition-transform ${
+                                activeCategory === cat.category
+                                  ? "rotate-180 text-green-600"
+                                  : "text-gray-400"
+                              }`}
+                            />
+                          </button>
+                        ) : (
+                          <Link
+                            href={`/articles/category/${cat.category}`}
+                            onClick={onClose}
+                            className="flex-1 flex items-center gap-2 text-sm text-gray-800 hover:text-green-700"
+                          >
+                            <FileText className="w-4 h-4 text-gray-400" />
+                            {cat.tname || cat.category}
+                            <ChevronRight className="w-3 h-3 ml-auto text-gray-400" />
+                          </Link>
+                        )}
+                      </div>
+
+                     
+                      {activeCategory === cat.category && hasSubcategories && (
+                        <div className="ml-4 pl-3 border-l-2 border-green-200 space-y-1 animate-in fade-in duration-200">
+                          {subcategories.map((subcat) => {
+                            const subsubcategories =
+                              getArticleSubsubcategories(subcat.subcategory);
+                            const hasSubsubcategories =
+                              subsubcategories.length > 0;
+
+                            return (
+                              <div key={subcat.subcategory}>
+                                <div className="flex items-center justify-between p-1.5 rounded-md hover:bg-green-25">
+                                  {hasSubsubcategories ? (
+                                    <button
+                                      onClick={() =>
+                                        toggleSubcategory(subcat.subcategory)
+                                      }
+                                      className="flex-1 text-left text-xs text-gray-700 font-medium flex items-center gap-2"
+                                    >
+                                      <Folder className="w-3 h-3 text-gray-400" />
+                                      {subcat.subcategory}
+                                      <ChevronDown
+                                        className={`w-3 h-3 ml-auto transition-transform ${
+                                          activeSubcategory ===
+                                          subcat.subcategory
+                                            ? "rotate-180 text-green-600"
+                                            : "text-gray-400"
+                                        }`}
+                                      />
+                                    </button>
+                                  ) : (
+                                    <Link
+                                      href={`/articles/category/${cat.category}/${subcat.subcategory}`}
+                                      onClick={onClose}
+                                      className="flex-1 text-xs text-gray-700 hover:text-green-700 flex items-center gap-2"
+                                    >
+                                      <FileText className="w-3 h-3 text-gray-400" />
+                                      {subcat.subcategory}
+                                      <ChevronRight className="w-3 h-3 ml-auto text-gray-400" />
+                                    </Link>
+                                  )}
+                                </div>
+
+                            
+                                {activeSubcategory === subcat.subcategory &&
+                                  hasSubsubcategories && (
+                                    <div className="ml-3 pl-3 border-l-2 border-gray-200 space-y-0.5">
+                                      {subsubcategories.map((subsubcat) => (
+                                        <Link
+                                          key={subsubcat.subsubcategory}
+                                          href={`/articles/category/${cat.category}/${subcat.subcategory}/${subsubcat.subsubcategory}`}
+                                          onClick={onClose}
+                                          className="block py-1 text-xs text-gray-600 hover:text-green-600 hover:bg-green-25 rounded-md px-2"
+                                        >
+                                          <FileText className="w-2.5 h-2.5 inline text-gray-400 mr-2" />
+                                          {subsubcat.subsubcategory}
+                                        </Link>
+                                      ))}
+                                    </div>
+                                  )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div> */}
         </nav>
 
         {/* Media Section */}
-        <div className="border-t border-gray-100 dark:border-gray-800 mt-4 px-4 pb-28">
-          <div className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider px-4 mb-2 mt-4 flex items-center gap-2">
-            <span className="w-1 h-3 bg-[var(--tertiary)] rounded-full"></span>
+        <div className="border-t border-gray-100 mt-4 px-4">
+          <div className="text-[9px] font-bold text-gray-500 uppercase tracking-wider px-4 mb-2 mt-4 flex items-center gap-2">
+            <span className="w-1 h-3 bg-[#2ecc71] rounded-full"></span>
             Media
           </div>
 
-          {[
-            { name: "Videos", icon: FaVideo, href: "/videos" },
-            { name: "Shorts", icon: FaFilm, href: "/shorts" },
-            { name: "Gallery", icon: FaImages, href: "/gallery" },
-          ].map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              onClick={onClose}
-              className={`flex items-center gap-3 px-3 py-2.5 text-sm font-semibold rounded-xl border-l-4 transition-all duration-200 ${
-                pathname === link.href
-                  ? "text-[var(--tertiary)] bg-emerald-50 dark:bg-[#162c1f] border-[var(--tertiary)]"
-                  : "text-gray-700 dark:text-gray-300 hover:text-[var(--tertiary)] hover:bg-emerald-50 dark:hover:bg-[#1b2f24] border-transparent hover:border-[var(--tertiary)]"
-              }`}
-            >
-              <div
-                className={`w-7 h-7 rounded-lg flex items-center justify-center ${
-                  pathname === link.href
-                    ? "bg-[var(--tertiary)] text-white"
-                    : "bg-gray-100 dark:bg-[#2a2a2a] text-gray-600 dark:text-gray-300"
-                }`}
-              >
-                <link.icon size={14} />
-              </div>
-              {link.name}
-            </Link>
-          ))}
+          {/* Videos */}
+          <Link
+            href="/videos"
+            onClick={onClose}
+            className={`flex items-center gap-2.5 px-3 py-2.5 text-[13px] font-semibold rounded-xl border-l-4 transition-all duration-200 ${
+              pathname === "/videos"
+                ? "text-[#1a8f52] bg-gradient-to-r from-emerald-50 to-green-50 border-[#2ecc71] shadow-sm"
+                : "text-gray-700 hover:text-[#1a8f52] hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 border-transparent hover:border-[#2ecc71] hover:shadow-sm"
+            }`}
+          >
+            <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
+              pathname === "/videos"
+                ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md"
+                : "bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+            }`}>
+              <FaVideo size={14} className={pathname === "/videos" ? "text-white" : "text-gray-600"} />
+            </div>
+            Videos
+          </Link>
+
+          {/* Shorts */}
+          <Link
+            href="/shorts"
+            onClick={onClose}
+            className={`flex items-center gap-2.5 px-3 py-2.5 text-[13px] font-semibold rounded-xl border-l-4 transition-all duration-200 ${
+              pathname === "/shorts"
+                ? "text-[#1a8f52] bg-gradient-to-r from-emerald-50 to-green-50 border-[#2ecc71] shadow-sm"
+                : "text-gray-700 hover:text-[#1a8f52] hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 border-transparent hover:border-[#2ecc71] hover:shadow-sm"
+            }`}
+          >
+            <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
+              pathname === "/shorts"
+                ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md"
+                : "bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+            }`}>
+              <FaFilm size={14} className={pathname === "/shorts" ? "text-white" : "text-gray-600"} />
+            </div>
+            Shorts
+          </Link>
+
+          {/* Gallery */}
+          <Link
+            href="/gallery"
+            onClick={onClose}
+            className={`flex items-center gap-2.5 px-3 py-2.5 text-[13px] font-semibold rounded-xl border-l-4 transition-all duration-200 ${
+              pathname === "/gallery"
+                ? "text-[#1a8f52] bg-gradient-to-r from-emerald-50 to-green-50 border-[#2ecc71] shadow-sm"
+                : "text-gray-700 hover:text-[#1a8f52] hover:bg-gradient-to-r hover:from-emerald-50 hover:to-green-50 border-transparent hover:border-[#2ecc71] hover:shadow-sm"
+            }`}
+          >
+            <div className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all duration-200 ${
+              pathname === "/gallery"
+                ? "bg-gradient-to-br from-[#2ecc71] to-[#27ae60] shadow-md"
+                : "bg-gray-100 group-hover:bg-gradient-to-br group-hover:from-[#2ecc71] group-hover:to-[#27ae60]"
+            }`}>
+              <FaImages size={14} className={pathname === "/gallery" ? "text-white" : "text-gray-600"} />
+            </div>
+            Gallery
+          </Link>
         </div>
 
-        {/* Footer */}
+            {/* Footer */}
         <div className="fixed bottom-0 left-0 w-80 bg-[var(--foreground)] text-[var(--background)] dark:bg-black dark:text-white border-t border-[var(--tertiary)]/30">
           {/* Social Icons */}
           <div className="px-4 pt-4 pb-3 border-b border-white/10 flex justify-center gap-4">
@@ -221,23 +423,34 @@ const HamburgerSider: React.FC<HamburgerSiderProps> = ({
             </p>
           </div>
         </div>
-
-        {/* Custom Scrollbar */}
-        <style jsx>{`
-          ::-webkit-scrollbar {
-            width: 4px;
-          }
-          ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 2px;
-          }
-          @media (prefers-color-scheme: dark) {
-            ::-webkit-scrollbar-thumb {
-              background: #444;
-            }
-          }
-        `}</style>
       </div>
+
+      {/* Scrollbar Styles */}
+      <style jsx>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: #cbd5e1;
+          border-radius: 2px;
+        }
+        .hover\\:bg-green-25:hover {
+          background-color: #f0fdf4;
+        }
+        .animate-in {
+          animation: animateIn 0.2s ease-out;
+        }
+        @keyframes animateIn {
+          from {
+            opacity: 0;
+            transform: translateY(-3px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
     </div>
   );
 };
