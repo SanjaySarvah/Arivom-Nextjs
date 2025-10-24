@@ -50,28 +50,24 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
     contentType && router.push(`/${contentType}`);
 
   return (
-    <div className={`sticky top-0 z-50 transition-all duration-300 ${
-      isScrolled
+    <div className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled
         ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200'
         : 'bg-white border-b border-gray-200'
-    }`}>
-      {/* === TOP HEADER === Desktop Only */}
-      <div className={`hidden md:block max-w-[1320px] mx-auto px-3 sm:px-4 relative transition-all duration-300 ${
-        isScrolled ? 'h-12' : 'h-14'
       }`}>
+      {/* === TOP HEADER === Desktop Only */}
+      <div className={`hidden md:block max-w-[1320px] mx-auto px-3 sm:px-4 relative transition-all duration-300 ${isScrolled ? 'h-12' : 'h-14'
+        }`}>
         <div className="flex items-center h-full">
           {/* Back Button */}
           <button
             onClick={() => router.back()}
-            className={`p-1.5 rounded-lg transition-all duration-300 z-10 ${
-              isScrolled
+            className={`p-1.5 rounded-lg transition-all duration-300 z-10 ${isScrolled
                 ? 'bg-emerald-50 hover:bg-emerald-100 shadow-sm'
                 : 'hover:bg-emerald-50'
-            }`}
+              }`}
           >
-            <FaArrowLeft className={`w-4 h-4 transition-colors duration-300 ${
-              isScrolled ? 'text-emerald-600' : 'text-gray-600'
-            }`} />
+            <FaArrowLeft className={`w-4 h-4 transition-colors duration-300 ${isScrolled ? 'text-emerald-600' : 'text-gray-600'
+              }`} />
           </button>
 
           {/* Centered Logo */}
@@ -87,9 +83,9 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
             </Link>
           </div>
 
-        {/* Profile Dropdown */}
-        <div className="ml-auto z-10" ref={dropdownRef}>
-          {/* <button
+          {/* Profile Dropdown */}
+          <div className="ml-auto z-10" ref={dropdownRef}>
+            {/* <button
             onClick={() => setIsDropdownOpen((prev) => !prev)}
             className={`flex items-center gap-2 px-2 py-1.5 rounded-lg transition-all duration-300 group ${
               isScrolled
@@ -121,66 +117,62 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
             />
           </button> */}
 
-          {isDropdownOpen && (
-            <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-[100] animate-fadeIn">
-              <div className="px-3 py-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border-b border-gray-100">
-                <p className="text-sm font-semibold text-gray-800">Arivom</p>
-                <p className="text-xs text-gray-600">Admin</p>
-                <p className="text-xs text-gray-500 mt-0.5">
-                  arivom@mail.com
-                </p>
-              </div>
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-[100] animate-fadeIn">
+                <div className="px-3 py-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border-b border-gray-100">
+                  <p className="text-sm font-semibold text-gray-800">Arivom</p>
+                  <p className="text-xs text-gray-600">Admin</p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    arivom@mail.com
+                  </p>
+                </div>
 
-              <div className="py-1.5">
-                <Link
-                  href="/signin"
-                  className="flex items-center gap-2.5 px-3 py-1.5 text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
-                >
-                  <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
-                    <FaUser className="w-2.5 h-2.5 text-white" />
-                  </span>
-                  <span className="font-medium text-sm">Sign In</span>
-                </Link>
+                <div className="py-1.5">
+                  <Link
+                    href="/signin"
+                    className="flex items-center gap-2.5 px-3 py-1.5 text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                  >
+                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
+                      <FaUser className="w-2.5 h-2.5 text-white" />
+                    </span>
+                    <span className="font-medium text-sm">Sign In</span>
+                  </Link>
 
-                <Link
-                  href="/signup"
-                  className="flex items-center gap-2.5 px-3 py-1.5 text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
-                >
-                  <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
-                    <FaUserPlus className="w-2.5 h-2.5 text-white" />
-                  </span>
-                  <span className="font-medium text-sm">Sign Up</span>
-                </Link>
+                  <Link
+                    href="/signup"
+                    className="flex items-center gap-2.5 px-3 py-1.5 text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                  >
+                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
+                      <FaUserPlus className="w-2.5 h-2.5 text-white" />
+                    </span>
+                    <span className="font-medium text-sm">Sign Up</span>
+                  </Link>
+                </div>
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* === MOBILE: Back Button + Breadcrumb on Same Line === */}
       <div className="md:hidden">
         {(currentTitle || actions) && (
-          <div className={`border-t border-gray-100 transition-all duration-300 ${
-            isScrolled
+          <div className={`border-t border-gray-100 transition-all duration-300 ${isScrolled
               ? 'bg-gradient-to-r from-gray-50 to-white shadow-md'
               : 'bg-white/95 shadow-sm backdrop-blur-sm'
-          }`}>
-            <div className={`max-w-7xl mx-auto px-4 flex items-start gap-3 transition-all duration-300 ${
-              isScrolled ? 'py-2' : 'py-3'
             }`}>
+            <div className={`max-w-7xl mx-auto px-4 flex items-start gap-3 transition-all duration-300 ${isScrolled ? 'py-2' : 'py-2'
+              }`}>
               {/* Back Button on Mobile */}
               <button
                 onClick={() => router.back()}
-                className={`p-1.5 rounded-lg transition-all duration-300 flex-shrink-0 mt-0.5 ${
-                  isScrolled
+                className={`p-1.5 rounded-lg transition-all duration-300 flex-shrink-0 mt-0.5 ${isScrolled
                     ? 'bg-emerald-50 hover:bg-emerald-100 shadow-sm'
                     : 'hover:bg-emerald-50'
-                }`}
+                  }`}
               >
-                <FaArrowLeft className={`w-4 h-4 transition-colors duration-300 ${
-                  isScrolled ? 'text-emerald-600' : 'text-gray-600'
-                }`} />
+                <FaArrowLeft className={`w-4 h-4 transition-colors duration-300 ${isScrolled ? 'text-emerald-600' : 'text-gray-600'
+                  }`} />
               </button>
 
               {/* Breadcrumb on Mobile */}
@@ -205,10 +197,10 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
                     </span>
                   </div>
 
-                  {/* Title - Up to 3 lines */}
-                  <h6 className="text-sm font-medium text-gray-900 leading-snug line-clamp-3">
+                  <span className="!text-[14px] text-gray-600 leading-snug line-clamp-3">
                     {currentTitle}
-                  </h6>
+                  </span>
+
                 </div>
               )}
             </div>
@@ -218,14 +210,12 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
 
       {/* === BREADCRUMB + ACTIONS SINGLE ROW === Desktop Only */}
       {(currentTitle || actions) && (
-        <div className={`hidden md:block border-t border-gray-100 transition-all duration-300 ${
-          isScrolled
+        <div className={`hidden md:block border-t border-gray-100 transition-all duration-300 ${isScrolled
             ? 'bg-gradient-to-r from-gray-50 to-white shadow-md'
             : 'bg-white/95 shadow-sm backdrop-blur-sm'
-        }`}>
-          <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300 ${
-            isScrolled ? 'h-10' : 'h-11'
           }`}>
+          <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300 ${isScrolled ? 'h-10' : 'h-11'
+            }`}>
             {/* Breadcrumb */}
             {currentTitle && contentType && (
               <div className="flex items-center text-sm text-gray-600 overflow-x-auto whitespace-nowrap">

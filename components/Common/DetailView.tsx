@@ -483,6 +483,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
             </div>
           </div>
         </div>
+        <div className="mb-10 mt-10">
            <section className="mb-10 lg:mb-16">
           <SectionHeader
             subtitle="Editorials"
@@ -493,6 +494,7 @@ export default function DetailView({ data, contentType = 'news' }: DetailViewPro
           />
          <CardView/>
         </section>
+        </div>
       </div>
       {/* ---------------- RELATED POSTS SECTION (2 Columns with Load More) ---------------- */}
     

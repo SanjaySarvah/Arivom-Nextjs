@@ -49,7 +49,7 @@ export default function HomePage() {
   // ---- PAGINATION ----
   const indexOfLastJob = page * jobsPerPage;
   const indexOfFirstJob = indexOfLastJob - jobsPerPage;
-  const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob);
+  const currentJobs = jobs.slice(0, indexOfLastJob); // Important: allow cumulative jobs for mobile
   const totalPages = Math.ceil(jobs.length / jobsPerPage);
 
   const handlePageChange = (newPage: number) => {
@@ -58,17 +58,12 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen ">
-      {/* Header */}
-
-
       {/* HERO SEARCH */}
-     <section
-  className="py-12 text-center"
-  style={{ backgroundColor: "var(--secondary)" }}
->
+      <section
+        className="py-12 text-center"
+        style={{ backgroundColor: "var(--secondary)" }}
+      >
         <div className="max-w-5xl mx-auto px-4">
-     
-
           {/* Search Bar */}
           <div className="bg-white rounded-lg shadow-lg p-2 mb-6">
             <div className="flex flex-col md:flex-row gap-2">
@@ -109,24 +104,6 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Quick Filters */}
-          <div className="flex flex-wrap justify-center gap-3">
-            <span className="text-white text-sm">Popular:</span>
-            {["Software Engineer", "React Developer", "Full Stack", "Frontend", "Backend"].map(
-              (tag) => (
-                <button
-                  key={tag}
-                  onClick={() => {
-                    setSearch(tag);
-                    handleFilter();
-                  }}
-                  className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm hover:bg-blue-400"
-                >
-                  {tag}
-                </button>
-              )
-            )}
-          </div>
         </div>
       </section>
 
@@ -232,7 +209,9 @@ export default function HomePage() {
                               {job.title}
                             </h3>
                             <div className="flex items-center gap-2 mt-1">
-                              <span className="text-gray-700">{job.company}</span>
+                              <span className="text-gray-700">
+                                {job.company}
+                              </span>
                               <div className="flex items-center gap-1">
                                 {[1, 2, 3, 4, 5].map((star) => (
                                   <Star
@@ -241,7 +220,9 @@ export default function HomePage() {
                                     className="text-yellow-400 fill-current"
                                   />
                                 ))}
-                                <span className="text-gray-500 text-sm">(4.2)</span>
+                                <span className="text-gray-500 text-sm">
+                                  (4.2)
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -264,10 +245,13 @@ export default function HomePage() {
                           </span>
                           <span className="flex items-center gap-1">
                             <Clock size={16} className="text-gray-400" />
-                            {new Date(job.postedDate).toLocaleDateString("en-IN", {
-                              day: "numeric",
-                              month: "short",
-                            })}
+                            {new Date(job.postedDate).toLocaleDateString(
+                              "en-IN",
+                              {
+                                day: "numeric",
+                                month: "short",
+                              }
+                            )}
                           </span>
                         </div>
 
@@ -324,40 +308,57 @@ export default function HomePage() {
             </div>
           )}
 
-          {/* Pagination */}
+          {/* Pagination & Load More */}
           {jobs.length > jobsPerPage && (
-            <div className="flex justify-center mt-8 gap-2">
-              <button
-                onClick={() => handlePageChange(page - 1)}
-                className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50"
-              >
-                Previous
-              </button>
-              {Array.from({ length: totalPages }, (_, i) => (
+            <>
+              {/* Desktop Pagination */}
+              <div className="hidden md:flex justify-center mt-8 gap-2">
                 <button
-                  key={i}
-                  onClick={() => handlePageChange(i + 1)}
-                  className={`px-4 py-2 border rounded-lg ${
-                    page === i + 1
-                      ? "bg-blue-600 text-white border-blue-600"
-                      : "border-gray-300 text-gray-600 hover:bg-gray-50"
-                  }`}
+                  onClick={() => handlePageChange(page - 1)}
+                  className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50"
                 >
-                  {i + 1}
+                  Previous
                 </button>
-              ))}
-              <button
-                onClick={() => handlePageChange(page + 1)}
-                className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50"
-              >
-                Next
-              </button>
-            </div>
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handlePageChange(i + 1)}
+                    className={`px-4 py-2 border rounded-lg ${
+                      page === i + 1
+                        ? "bg-blue-600 text-white border-blue-600"
+                        : "border-gray-300 text-gray-600 hover:bg-gray-50"
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() => handlePageChange(page + 1)}
+                  className="px-4 py-2 border rounded-lg text-gray-600 hover:bg-gray-50"
+                >
+                  Next
+                </button>
+              </div>
+
+              {/* Mobile Load More */}
+              <div className="md:hidden flex justify-center mt-6">
+                {indexOfLastJob < jobs.length ? (
+                  <button
+                    onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
+                    className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 active:scale-95 transition"
+                  >
+                    Load More
+                  </button>
+                ) : (
+                  <p className="text-gray-500 text-sm mt-2">
+                    No more jobs to load
+                  </p>
+                )}
+              </div>
+            </>
           )}
         </section>
       </main>
-
-
     </div>
   );
 }
