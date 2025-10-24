@@ -74,14 +74,14 @@ const MobileHeader: React.FC = () => {
                                 <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 z-[100] animate-fadeIn">
                                     <div className="px-3 py-2.5 bg-gradient-to-r from-emerald-50 to-green-50 border-b border-gray-100">
                                         <p className="text-sm font-semibold text-gray-800">Arivom</p>
-                                        <p className="text-[8px] text-gray-600">Admin</p>
-                                        <p className="text-[8px] text-gray-500 mt-0.5">arivom@mail.com</p>
+                                        <p className="text-xs text-gray-600">Admin</p>
+                                        <p className="text-xs text-gray-500 mt-0.5">arivom@mail.com</p>
                                     </div>
 
                                     <div className="py-1.5">
                                         <Link
                                             href="/signin"
-                                            className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                                            className="flex items-center gap-2.5 px-3 py-1.5 text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
                                             onClick={() => setIsProfileDropdownOpen(false)}
                                         >
                                             <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">
@@ -92,7 +92,7 @@ const MobileHeader: React.FC = () => {
 
                                         <Link
                                             href="/signup"
-                                            className="flex items-center gap-2.5 px-3 py-1.5 text-xs text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
+                                            className="flex items-center gap-2.5 px-3 py-1.5 text-gray-700 hover:bg-emerald-50 hover:text-[#1a8f52] transition-colors"
                                             onClick={() => setIsProfileDropdownOpen(false)}
                                         >
                                             <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center">

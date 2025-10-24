@@ -48,15 +48,12 @@ export default function MobileCategoryTabs({
           className="flex-1 flex overflow-x-auto overflow-y-hidden scrollbar-hide scroll-smooth"
         >
           <div className="flex min-w-max">
-            {categories.map(({ category, tname }, idx) => {
+            {categories.map(({ category, tname }) => {
+              // Only mark as active if pathname explicitly includes the category
+              // Don't default to first category - let Trending be default instead
               const isActive =
                 pathname !== baseLink &&
-                pathname.toLowerCase().includes(category.toLowerCase())
-                  ? true
-                  : idx === 0 &&
-                    !categories.some((c) =>
-                      pathname.toLowerCase().includes(c.category.toLowerCase())
-                    );
+                pathname.toLowerCase().includes(category.toLowerCase());
 
               return (
                 <Link
@@ -84,7 +81,14 @@ export default function MobileCategoryTabs({
             })}
 
             {specialTabs.map(({ label, href, icon: Icon }) => {
-              const isActive = pathname === href;
+              // Make Trending active by default when on home page or no specific category selected
+              const isActive = label === "Trending"
+                ? (pathname === href ||
+                   (pathname === baseLink && !categories.some((c) =>
+                      pathname.toLowerCase().includes(c.category.toLowerCase())
+                    )))
+                : pathname === href;
+
               return (
                 <Link
                   key={label}

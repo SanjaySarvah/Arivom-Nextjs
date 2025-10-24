@@ -35,13 +35,13 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
 
   return (
     <footer className="xl:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-[0_-2px_6px_rgba(0,0,0,0.05)] z-40">
-      {authorName && (
+      {/* {authorName && (
         <div className="absolute -top-8 left-0">
           <div className="bg-white text-gray-700 px-3 py-1.5 rounded-r-lg rounded-t-lg shadow-sm border border-gray-200">
             <span className="text-xs font-semibold whitespace-nowrap">By {authorName}</span>
           </div>
         </div>
-      )}
+      )} */}
 
       <div className="flex justify-around items-center py-3 px-4 max-w-screen-xl mx-auto text-gray-700 font-medium">
         {/* View */}

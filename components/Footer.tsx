@@ -100,13 +100,13 @@ const TrendingFooter = () => {
             {/* Contact Info */}
             <div className="space-y-3">
               <a href="mailto:info@arivom.com" className="flex items-center gap-3 text-white/90 hover:text-emerald-400 transition-colors group">
-                <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-emerald-500/20 transition-all duration-300 border border-white/10">
+                <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-emerald-500/20 transition-all duration-300 border border-white/10">
                   <FaEnvelope className="text-emerald-400" />
                 </div>
                 <span className="text-sm font-medium">info@arivom.com</span>
               </a>
               <a href="tel:+1234567890" className="flex items-center gap-3 text-white/90 hover:text-emerald-400 transition-colors group">
-                <div className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-emerald-500/20 transition-all duration-300 border border-white/10">
+                <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-emerald-500/20 transition-all duration-300 border border-white/10">
                   <FaPhone className="text-emerald-400" />
                 </div>
                 <span className="text-sm font-medium">+123 456 7890</span>
