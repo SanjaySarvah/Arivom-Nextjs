@@ -72,14 +72,18 @@ const CompactAdList: FC = () => {
       />
 
       <div
-        className="flex flex-col gap-6 max-h-[450px] overflow-y-auto pr-2
-  [&::-webkit-scrollbar]:w-1.5
-  [&::-webkit-scrollbar-track]:bg-transparent
-  [&::-webkit-scrollbar-thumb]:bg-gray-300
-  [&::-webkit-scrollbar-thumb]:rounded-full
-  hover:[&::-webkit-scrollbar-thumb]:bg-gray-400
-  transition-all"
-      >
+  className="flex flex-col gap-6
+    max-h-[450px] sm:max-h-[none] 
+    overflow-y-auto sm:overflow-y-visible
+    pr-2
+    [&::-webkit-scrollbar]:w-1.5
+    [&::-webkit-scrollbar-track]:bg-transparent
+    [&::-webkit-scrollbar-thumb]:bg-gray-300
+    [&::-webkit-scrollbar-thumb]:rounded-full
+    hover:[&::-webkit-scrollbar-thumb]:bg-gray-400
+    transition-all"
+>
+
 
         {compactAds.map((ad) => (
           <Link
