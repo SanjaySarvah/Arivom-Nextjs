@@ -95,7 +95,7 @@ const TrendingCards: FC<Props> = ({ title, items, linkBase }) => {
               title="Arivom Today"
               showButton={false}
               buttonText="View All"
-              buttonUrl="/news"
+              buttonUrl="/news/category/all"
             />
 
             <div className="relative h-[350px] sm:h-[200px] lg:h-[450px] ">

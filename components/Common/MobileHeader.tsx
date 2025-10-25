@@ -4,9 +4,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import {
-    FaBars, FaUserCircle, FaHome, FaBookOpen, FaTags, FaRegNewspaper, FaSearch,
-    FaUser,FaUserPlus,} from "react-icons/fa";
-    
+    FaBars, FaUserCircle, FaHome, FaBookOpen, FaTags, FaRegNewspaper,
+    FaUser, FaUserPlus
+} from "react-icons/fa";
+
 import HamburgerSider from "../Common/HamburgerSider";
 import logo from "@/public/assets/arivom-logo-latest.png";
 import MobileCategoryTabs from "@/components/Common/MobileCategoryTabs";
@@ -17,6 +18,7 @@ const MobileHeader: React.FC = () => {
     const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const pathname = usePathname();
+
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -46,7 +48,6 @@ const MobileHeader: React.FC = () => {
 
     return (
         <>
-
             <div className="xl:hidden fixed top-0 left-0 w-full z-[101]">
                 <header className="w-full bg-white border-b border-gray-200 shadow-sm">
                     <div className="flex items-center justify-between px-4 py-3">
@@ -56,12 +57,19 @@ const MobileHeader: React.FC = () => {
                             <FaBars size={22} className="text-gray-800" />
                         </button>
                         <div className="flex-shrink-0">
-                            <Image src={logo} alt="Arivom Logo" width={120} height={40} className="object-contain mx-auto" />
+                            <Image
+                                src={logo}
+                                alt="Arivom Logo"
+                                width={120}
+                                height={40}
+                                className="object-contain mx-auto"
+                            />
                         </div>
                         <div className="relative" ref={dropdownRef}>
                             <button
                                 onClick={() => setIsProfileDropdownOpen(!isProfileDropdownOpen)}
-                                className="flex items-center gap-2 px-2 py-1.5 hover:bg-emerald-50 rounded-lg transition-all duration-300">
+                                className="flex items-center gap-2 px-2 py-1.5 hover:bg-emerald-50 rounded-lg transition-all duration-300"
+                            >
                                 <div className="relative">
                                     <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#2ecc71] to-[#27ae60] flex items-center justify-center text-white font-semibold shadow-md transition-all duration-300">
                                         <FaUserCircle className="w-5 h-5" />
@@ -106,9 +114,23 @@ const MobileHeader: React.FC = () => {
                         </div>
                     </div>
                 </header>
-                <MobileCategoryTabs items={[]} baseLink={""} />
+
+{pathname !== "/socialmedia" && pathname !== "/jobs" && (
+  <div className="xl:hidden">
+    <MobileCategoryTabs items={[]} baseLink={""} />
+    {/* Spacer only when tabs are visible */}
+    <div className="h-[108px]" />
+  </div>
+)}
+
+
+
             </div>
+
+            {/* Spacer for header */}
             <div className="h-[108px] xl:hidden" />
+
+            {/* Hamburger Sider */}
             <HamburgerSider
                 isOpen={isMenuOpen}
                 onClose={() => setIsMenuOpen(false)}

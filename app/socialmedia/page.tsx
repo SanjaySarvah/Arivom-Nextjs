@@ -19,12 +19,12 @@ export default function SocialMediaPage() {
   // For ascending (oldest first): combinedItems.sort((a, b) => a.id - b.id);
 
   return (
-    <div className="container mx-auto px-4 py-10">
-   
-      <SocialTabs activeTab={activeTab} onChange={setActiveTab} />
+   <div className="container mx-auto px-4 -mt-5 sm:mt-0">
+  <SocialTabs activeTab={activeTab} onChange={setActiveTab} />
 
-      {/* ✅ Single grid for all items */}
-      <TrendGrid items={combinedItems} sectionTitle="🔥 Trending Now" />
-    </div>
+  {/* ✅ Single grid for all items */}
+  <TrendGrid items={combinedItems} sectionTitle="🔥 Trending Now" />
+</div>
+
   );
 }

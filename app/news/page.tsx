@@ -25,7 +25,7 @@ export default function NewsPage() {
             title="Fresh Updates"
             showButton={true}
             buttonText="View All"
-            buttonUrl="/news/all"
+            buttonUrl="/news/category/all"
           />
 
 

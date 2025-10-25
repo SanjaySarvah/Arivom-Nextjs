@@ -79,6 +79,13 @@ const DetailFooter: React.FC<DetailFooterProps> = ({
           <Wallet size={20} strokeWidth={1.8} />
           <span className="text-[11px] font-medium">Earn</span>
         </Link>
+           <Link
+          href="/jobs"
+          className="flex flex-col items-center gap-1 transition-colors text-gray-500 hover:text-[#2ecc71]"
+        >
+          <Wallet size={20} strokeWidth={1.8} />
+          <span className="text-[11px] font-medium">jobs</span>
+        </Link>
       </div>
     </footer>
   );

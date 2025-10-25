@@ -103,13 +103,13 @@ const TrendingFooter = () => {
                 <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-emerald-500/20 transition-all duration-300 border border-white/10">
                   <FaEnvelope className="text-emerald-400" />
                 </div>
-                <span className="text-sm font-medium">info@arivom.com</span>
+                <p className="text-sm font-medium mt-3!">info@arivom.com</p>
               </a>
               <a href="tel:+1234567890" className="flex items-center gap-3 text-white/90 hover:text-emerald-400 transition-colors group">
                 <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center group-hover:bg-emerald-500/20 transition-all duration-300 border border-white/10">
                   <FaPhone className="text-emerald-400" />
                 </div>
-                <span className="text-sm font-medium">+123 456 7890</span>
+                <p className="text-sm font-medium mt-3!">+91 1234567890</p>
               </a>
             </div>
           </div>
@@ -178,7 +178,7 @@ const TrendingFooter = () => {
                       <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-teal-500/20 transition-all duration-300 border border-white/10">
                         <item.icon className="text-xs text-teal-400" />
                       </div>
-                      <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300">{item.name}</span>
+                      <span className="text-sm font-medium group-hover:translate-x-1 transition-transform duration-300 ">{item.name}</span>
                     </Link>
                   </li>
                 ))}
@@ -192,7 +192,7 @@ const TrendingFooter = () => {
 
         {/* Social Media Section */}
         <div className="mb-6">
-          <h3 className="text-center text-base font-bold mb-5 text-white">Connect With Us</h3>
+          <h3 className="text-center text-base font-bold mb-5 text-white!">Connect With Us</h3>
           <div className="flex flex-wrap items-center justify-center gap-4">
             {socialLinks.map((social, index) => (
               <a

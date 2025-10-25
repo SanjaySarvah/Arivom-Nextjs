@@ -65,7 +65,7 @@ export default function NewsPortalLayout() {
           title="The Pulse of Today"
           showButton={true}
           buttonText="View All"
-          buttonUrl="/news"
+          buttonUrl="/news/category/all"
         />
       </div>
 

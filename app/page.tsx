@@ -30,7 +30,7 @@ export default function Home() {
               title="முக்கிய செய்திகள்"
               items={related}
               linkBase="/news"
-              viewAllLink="/news"
+              viewAllLink="/news/category/all"
             />
           </div>
 
@@ -47,7 +47,7 @@ export default function Home() {
             title="Fresh Updates"
             showButton={true}
             buttonText="View All"
-            buttonUrl="/news/all"
+            buttonUrl="/news/category/all"
           />
           
 
@@ -60,7 +60,7 @@ export default function Home() {
                 title="பிரிவு வாரியாக முக்கிய செய்திகள்"
                 subtitle="ஒவ்வொரு பிரிவிலும் இருந்து தேர்ந்தெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
                 categoryLabel="தமிழகம்"
-                viewAllLink="/news"
+                viewAllLink="/news/category/all"
               />
             </div>
 
@@ -81,7 +81,7 @@ export default function Home() {
             title="Recent Articles"
             showButton={true}
             buttonText="View All"
-            buttonUrl="/articles/all"
+            buttonUrl="/news/category/all"
           />
          <CardView/>
         </section>

@@ -72,7 +72,7 @@ export default function TrendGrid({
             </div>
 
     
-            <div className="p-4">
+            <div className="p-4 gb-white">
             <div className="flex justify-between items-center mb-2">
   <TaggingBadge tag={item.category} />
   <span className="flex items-center gap-1 text-xs bg-indigo-100 text-indigo-700 font-medium px-2 py-1 rounded-md">
