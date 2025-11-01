@@ -1,4 +1,3 @@
-// components/Common/AppClientLayout.tsx
 'use client'
 
 import { usePathname } from 'next/navigation'
@@ -17,16 +16,14 @@ export default function AppClientLayout({ children }: { children: React.ReactNod
 
   const showNewsTab =
     !isDetailPage &&
-    (pathname === '/' ||
-      pathname === '/news' ||
-      pathname.startsWith('/news/category'))
+    pathname !== '/' && // 👈 Hide on root
+    (pathname === '/news' || pathname.startsWith('/news/category'))
 
   const showArticlesTab =
     !isDetailPage &&
-    (pathname === '/articles' ||
-      pathname.startsWith('/articles/category'))
+    pathname !== '/' && // 👈 Hide on root
+    (pathname === '/articles' || pathname.startsWith('/articles/category'))
 
-  // ✅ These functions just return static data, fine to call client-side too
   const news = getAllNews()
   const articles = getAllArticles()
 
@@ -40,20 +37,11 @@ export default function AppClientLayout({ children }: { children: React.ReactNod
           <Header />
           <div className="sticky top-0 z-50 bg-white shadow-md">
             <HeaderSecondary />
-            {(showNewsTab || showArticlesTab) && (
-              <div className="bg-white/95 backdrop-blur-sm border-t border-gray-200">
-                {showNewsTab && (
-                  <CategoryTabs items={news} baseLink="/news" label="NEWS" />
-                )}
-                {showArticlesTab && (
-                  <CategoryTabs
-                    items={articles}
-                    baseLink="/articles"
-                    label="ARTICLES"
+             <CategoryTabs
+                 
+                    baseLink="/news"
+                    label="NEWS"
                   />
-                )}
-              </div>
-            )}
           </div>
         </>
       )}

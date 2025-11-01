@@ -38,7 +38,7 @@ export default function CategoryTabs({ baseLink, label }: CategoryTabsProps) {
   const [isMobile, setIsMobile] = useState(false)
   const [isSticky, setIsSticky] = useState(false)
 
-  // 🔹 Fetch categories
+  // 🔥 Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -57,13 +57,13 @@ export default function CategoryTabs({ baseLink, label }: CategoryTabsProps) {
     fetchCategories()
   }, [])
 
-  // 🔸 Handle category click
+  // 🧩 Handle category click → fetch subcategories + update URL
   const handleCategoryClick = async (category: CategoryItem) => {
     setActiveCategory(category.id)
     setSubcategories([])
 
-  // 👉 Navigate to category slug page (subcategories will link to slug + subId)
-  router.push(`${baseLink}/category/${encodeURIComponent(category.slug.toLowerCase())}`)
+    // 👇 Navigate to category route
+    router.push(`${baseLink}/category/${encodeURIComponent(category.slug.toLowerCase())}`)
 
     try {
       const res = await fetch('http://localhost/newsapi/news/get/get_subcategories.php', {
@@ -83,11 +83,12 @@ export default function CategoryTabs({ baseLink, label }: CategoryTabsProps) {
     }
   }
 
-  // 🔹 Handle mobile & sticky
+  // 📱 Handle resize & sticky state
   useEffect(() => {
     if (typeof window === 'undefined') return
     const mq = window.matchMedia('(max-width: 639px)')
-    const onMqChange = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(Boolean(e.matches))
+    const onMqChange = (e: MediaQueryListEvent | MediaQueryList) =>
+      setIsMobile(Boolean(e.matches))
     if ('addEventListener' in mq) {
       mq.addEventListener('change', onMqChange as EventListener)
     } else {
@@ -108,11 +109,11 @@ export default function CategoryTabs({ baseLink, label }: CategoryTabsProps) {
     }
   }, [])
 
-  // 🔹 Scroll
+  // 🔄 Scroll
   const scrollLeft = () => containerRef.current?.scrollBy({ left: -250, behavior: 'smooth' })
   const scrollRight = () => containerRef.current?.scrollBy({ left: 250, behavior: 'smooth' })
 
-  // 🔹 Helpers
+  // ✂️ Helpers
   const truncateByWords = (s: string) => {
     const words = s.trim().split(/\s+/)
     return words.length <= MAX_WORDS ? s : words.slice(0, MAX_WORDS).join(' ') + '...'

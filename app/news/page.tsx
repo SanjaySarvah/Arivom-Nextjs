@@ -33,12 +33,7 @@ export default function NewsPage() {
             {/* Left Column */}
             <div className="lg:col-span-8">
               <SectionwiseImportantNews
-                items={news}
-                linkBase="/news"
-                title="பிரிவு வாரியாக முக்கிய செய்திகள்"
-                subtitle="ஒவ்வொரு பிரிவிலும் இருந்து தேர்ந்தெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
-                categoryLabel="தமிழகம்"
-                viewAllLink="/news/all"
+          
               />
             </div>
 
@@ -64,13 +59,7 @@ export default function NewsPage() {
 
           <div className="mt-8">
             <ViewAllGrid
-              items={news}
-              linkBase={linkBase}
-              initialVisibleCount={9}
-              loadMoreIncrement={9}
-              showInteractiveButtons={false}
-              showTaggingBadge={false}
-              showPopularTag={true}
+         
             />
           </div>
         </section>

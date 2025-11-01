@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 
 interface LikeButtonProps {
   id: string | number;
-  onToggle?: (isLiked: boolean, newsId: string | number) => void;
+  onToggle?: (isLiked: boolean) => void;
   size?: number;
   borderColor?: string;
   iconColor?: string;
@@ -18,33 +18,27 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   id,
   onToggle,
   size = 20,
-  borderColor = "#e5e7eb",
-  iconColor = "#4b5563",
-  likedIconColor = "#ef4444",
-  backgroundColor = "#ffffff",
+  borderColor = "#e5e7eb", // gray-200
+  iconColor = "#4b5563", // gray-600
+  likedIconColor = "#ef4444", // red-500
+  backgroundColor = "#ffffff", // white
 }) => {
   const [likedItems, setLikedItems] = useState<Set<string>>(new Set());
   const [isClient, setIsClient] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  // ✅ Load liked items + check login
   useEffect(() => {
     setIsClient(true);
     try {
       const stored = localStorage.getItem("likedNews");
-      const userId = localStorage.getItem("user_id");
-      setIsLoggedIn(!!userId); // user logged in?
-
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed)) setLikedItems(new Set(parsed.map(String)));
+        if (Array.isArray(parsed)) setLikedItems(new Set(parsed));
       }
     } catch (err) {
       console.error("Error reading localStorage:", err);
     }
   }, []);
 
-  // ✅ Save liked items to localStorage
   useEffect(() => {
     if (!isClient) return;
     try {
@@ -54,41 +48,21 @@ const LikeButton: React.FC<LikeButtonProps> = ({
     }
   }, [likedItems, isClient]);
 
-  // ✅ Handle like toggle
-  const toggleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const toggleLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
-    if (!isLoggedIn) {
-      alert("Please sign in to like this post.");
-      return;
-    }
-
-    const key = String(id);
-    const userId = localStorage.getItem("user_id") || "0";
-
     setLikedItems((prev) => {
       const newSet = new Set(prev);
-      const isLiked = !newSet.has(key);
+      const key = String(id);
 
-      if (isLiked) newSet.add(key);
-      else newSet.delete(key);
-
-      onToggle?.(isLiked, id);
-
-      // ✅ Send API request
-      fetch("http://localhost/newsapi/news/active.php", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          news_id: Number(id),
-          user_id: Number(userId),
-          like_status: isLiked ? 1 : 0,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => console.log("✅ Like API Response:", data))
-        .catch((err) => console.error("❌ Like API Error:", err));
+      if (newSet.has(key)) {
+        newSet.delete(key);
+        onToggle?.(false);
+      } else {
+        newSet.add(key);
+        onToggle?.(true);
+      }
 
       return newSet;
     });
@@ -101,15 +75,12 @@ const LikeButton: React.FC<LikeButtonProps> = ({
   return (
     <button
       onClick={toggleLike}
-      disabled={!isLoggedIn}
-      className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full transition-all duration-300 
-        ${!isLoggedIn ? "opacity-50 blur-[1px] cursor-not-allowed" : ""}
-      `}
+      className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full transition-all duration-300`}
       style={{
         borderWidth: "0.5px",
         borderStyle: "solid",
         borderColor: isLiked ? likedIconColor : borderColor,
-        backgroundColor,
+        backgroundColor: backgroundColor, // ✅ Always white background
       }}
     >
       <Heart
@@ -119,7 +90,7 @@ const LikeButton: React.FC<LikeButtonProps> = ({
           stroke: isLiked ? likedIconColor : iconColor,
           fill: isLiked ? likedIconColor : "none",
         }}
-        strokeWidth={1.5}
+        strokeWidth={1.5} // ✅ Softer stroke
       />
     </button>
   );

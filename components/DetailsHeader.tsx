@@ -85,7 +85,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
 
           {/* Profile Dropdown */}
           <div className="ml-auto z-10" ref={dropdownRef}>
-            {/* <button
+            <button
             onClick={() => setIsDropdownOpen((prev) => !prev)}
             className={`flex items-center gap-2 px-2 py-1.5 rounded-lg transition-all duration-300 group ${
               isScrolled
@@ -115,7 +115,7 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
                 isDropdownOpen ? "rotate-180" : ""
               }`}
             />
-          </button> */}
+          </button>
 
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-52 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden z-[100] animate-fadeIn">
@@ -180,24 +180,24 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
                 <div className="flex flex-col gap-1 flex-1 min-w-0">
                   {/* Navigation Path */}
                   <div className="flex items-center text-xs text-gray-600 whitespace-nowrap">
-                    <span
+                    {/* <span
                       onClick={handleNavigateHome}
                       className="hover:text-[#017BFF] cursor-pointer transition-colors duration-200"
                     >
                       Home
-                    </span>
+                    </span> */}
 
-                    <ChevronRight className="w-3 h-3 mx-1 text-gray-400 flex-shrink-0" />
+                    {/* <ChevronRight className="w-3 h-3 mx-1 text-gray-400 flex-shrink-0" /> */}
 
-                    <span
+                    {/* <span
                       onClick={handleNavigateToSection}
                       className="hover:text-[#017BFF] cursor-pointer transition-colors duration-200"
                     >
                       {contentType === "news" ? "News" : "Articles"}
-                    </span>
+                    </span> */}
                   </div>
 
-                  <span className="!text-[14px] text-gray-600 leading-snug line-clamp-3">
+                  <span className="!text-[14px] text-gray-600 leading-snug line-clamp-2">
                     {currentTitle}
                   </span>
 
@@ -237,9 +237,14 @@ const DetailsHeader: React.FC<DetailsHeaderProps> = ({
 
                 <ChevronRight className="w-4 h-4 mx-2 text-gray-400 flex-shrink-0" />
 
-                <span className="text-gray-900 font-medium truncate max-w-[160px] sm:max-w-none">
-                  {currentTitle}
-                </span>
+<div className="flex items-center gap-2 min-w-0">
+  {/* other flex siblings */}
+  <span className="text-gray-900 font-medium truncate whitespace-nowrap overflow-hidden">
+    {currentTitle}
+  </span>
+</div>
+
+
               </div>
             )}
 

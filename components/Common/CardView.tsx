@@ -1,140 +1,173 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { FiTrendingUp, FiChevronRight } from "react-icons/fi";
-import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
-
-import { getLatestArticles } from "@/lib/getData"; // ✅ switched to articles
-  import ShareButton from './Badges/ShareButton';
-  import BookmarkButton  from "@/components/Common/Badges/BookmarkButton";
-  import LikeButton from "@/components/Common/Badges/LikeButton";
-import TrendingBadge from "@/components/Common/Badges/TrendingBadge"
-import TaggingBadge from "./Badges/TaggingBadge";
-import { FiClock } from "react-icons/fi";
-import { FaRegNewspaper } from "react-icons/fa";
 import { User } from "lucide-react";
+import { FaRegNewspaper } from "react-icons/fa";
+import CategoryBadge from "@/components/Common/Badges/CategoryBadge";
+import PopularTag from "@/components/Common/Badges/PopularTag";
+
+// 👇 Direct API base URL
+const BASE_URL = "http://localhost/newsapi";
+
+interface NewsItem {
+  id: string;
+  category_id: string;
+  title: string;
+  excerpt: string;
+  image: string;
+  author: string;
+  created_at: string;
+  tname?: string;
+}
+
+interface CategoryItem {
+  id: string;
+  name: string;
+  tname: string;
+  slug: string;
+  created_at: string;
+}
 
 const CardView: React.FC = () => {
-  const allArticles = getLatestArticles(); // get all
-  const [visibleCount, setVisibleCount] = useState(6); // show first 6
-   const linkBase = "/articles";
+  const [allNews, setAllNews] = useState<NewsItem[]>([]);
+  const [visibleCount, setVisibleCount] = useState(6); // 👈 initially show 6
+  const [categories, setCategories] = useState<Record<string, CategoryItem>>({});
+  const [loading, setLoading] = useState(true);
 
-  // Slice to only show currently visible items
-  const visibleArticles = allArticles.slice(0, visibleCount);
+  // ✅ Fetch News + Category Data
+  useEffect(() => {
+    const loadNews = async () => {
+      try {
+        const res = await fetch(`${BASE_URL}/news/get.php`, { cache: "no-store" });
+        const data = await res.json();
 
+        if (data.status === "success" && Array.isArray(data.news)) {
+          // Sort by date (latest first)
+          const sortedNews: NewsItem[] = [...data.news].sort(
+            (a: NewsItem, b: NewsItem) =>
+              new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+          );
+
+          setAllNews(sortedNews);
+
+          // Extract unique category IDs
+          const uniqueCategoryIds = [...new Set(sortedNews.map((n) => n.category_id))];
+          await loadCategories(uniqueCategoryIds);
+        } else {
+          console.error("Invalid API format:", data);
+          setAllNews([]);
+        }
+      } catch (error) {
+        console.error("Error fetching news:", error);
+        setAllNews([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const loadCategories = async (categoryIds: string[]) => {
+      const categoryMap: Record<string, CategoryItem> = {};
+
+      for (const id of categoryIds) {
+        try {
+          const res = await fetch(`${BASE_URL}/categories/get.php?category_id=${id}`, {
+            cache: "no-store",
+          });
+          const data = await res.json();
+
+          if (data.status === "success" && data.category) {
+            categoryMap[id] = data.category;
+          }
+        } catch (err) {
+          console.error("Error loading category:", id, err);
+        }
+      }
+
+      setCategories(categoryMap);
+    };
+
+    loadNews();
+  }, []);
+
+  // ✅ Handle Load More
   const handleLoadMore = () => {
-    setVisibleCount((prev) => Math.min(prev + 3, allArticles.length));
+    setVisibleCount((prev) => prev + 4);
   };
 
+  const news = allNews.slice(0, visibleCount);
+
+  if (loading) return <p className="text-center py-10">Loading latest news...</p>;
+  if (!news.length) return <p className="text-center py-10">No recent news available.</p>;
+
   return (
-    <div className="flex flex-col items-center">
-      {/* Grid Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-        {visibleArticles.map((item) => (
-       <Link
-  key={item.id}
-  href={`/articles/${item.id}`}
-  className="bg-white rounded-lg shadow hover:shadow-md overflow-hidden transition group block relative"
->
-  {/* 🔹 Image with Overlay Badges */}
-  <div className="relative">
-    <img
-      src={item.image}
-      alt={item.title}
-      className="h-48 w-full object-cover group-hover:scale-110 transition-transform duration-500"
-    />
+    <section>
+      {/* ✅ News Grid */}
+      <div className="grid gap-5 sm:gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2">
+        {news.map((item) => {
+          const category = categories[item.category_id];
+          return (
+            <article
+              key={item.id}
+              className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300 group"
+            >
+              {/* Image */}
+              <Link href={`/news/${item.id}`} className="block relative overflow-hidden">
+                <img
+                  src={`${BASE_URL}/${item.image}`}
+                  alt={item.title}
+                  className="h-48 sm:h-96 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "/fallback.jpg";
+                  }}
+                />
+                <div className="absolute top-2 left-2">
+                  <PopularTag label="popular" />
+                </div>
+              </Link>
 
-    {/* 🔸 Trending Badge (Top Left Overlay) */}
-    <div className="absolute top-2 left-2 z-10">
-      <TrendingBadge />
-    </div>
+              {/* Content */}
+              <div className="p-4 flex flex-col justify-between">
+                {/* Title + Description */}
+                <Link href={`/news/${item.id}`}>
+                  <h3 className="text-base font-semibold text-gray-900 leading-snug group-hover:text-blue-600 transition-colors line-clamp-2">
+                    {item.title}
+                  </h3>
+                  {item.excerpt && (
+                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">{item.excerpt}</p>
+                  )}
+                </Link>
 
-    {/* 🔸 Tagging Badge (Top Right Overlay) */}
+                {/* Footer */}
+                <div className="flex items-center justify-between mt-4 text-xs text-gray-500">
+                  <div className="flex items-center gap-1">
+                    <User className="w-3.5 h-3.5" />
+                    <span>{item.author || "ARIVOM Desk"}</span>
+                  </div>
 
-  
-   
-  </div>
-
-  {/* 🔹 Content Section */}
-  <div className="p-4">
-    <div className="flex justify-between items-center mb-2">
-          <TaggingBadge
-        tag="Summary"
-    
-      />
-      <CategoryBadge
-        category={item.category}
-        icon={<FaRegNewspaper className="text-white w-3 h-3" />}
-      />
-    </div>
-
-    <h3 className="font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600">
-      {item.title}
-    </h3>
-    <p className="text-gray-600 text-sm mt-2 line-clamp-2">{item.excerpt}</p>
-   <div className="flex justify-between items-center text-gray-600 text-sm mt-2">
-  {/* Left: Author */}
-  <div className="flex items-center gap-1">
-    <User className="w-4 h-4" />
-    <span>{item.author || "ARIVOM Desk"}</span>
-  </div>
-
-  {/* Right: Date */}
-  <div className="flex items-center gap-1">
-    <FiClock className="w-4 h-4" />
-    <span>
-      {new Date(item.created_at).toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-      })}
-    </span>
-  </div>
-</div>
-
-
-    {/* Footer Actions */}
-    <div className="flex items-center justify-between mt-4 pt-3 border-t border-gray-100">
-      {/* Left Side: Like / Bookmark / Share */}
-      <div
-        className="flex items-center gap-3"
-        onClick={(e) => e.preventDefault()}
-      >
-        <LikeButton id={String(item.id)} />
-        <BookmarkButton
-          id={String(item.id)}
-          borderColor="#767676ff"
-          backgroundColor="#ffffffff"
-          savedBackgroundColor="#ffffffff"
-          iconColor="#767676ff"
-          savedIconColor="#6f42c2"
-        />
-        <ShareButton item={item} linkBase={linkBase} />
+                  <CategoryBadge
+                    category={category ? category.tname : "—"}
+                    icon={<FaRegNewspaper className="text-white w-3 h-3" />}
+                  />
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
 
-      {/* Right Side: Read More */}
-      <span className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#a78bfa] text-white hover:bg-[#7c3aed] transition-all duration-300 cursor-pointer group">
-        <FiChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
-      </span>
-    </div>
-  </div>
-</Link>
-
-        ))}
-      </div>
-
-      {/* Load More Button */}
-      {visibleCount < allArticles.length && (
-        <button
-          onClick={handleLoadMore}
-        className="mt-8 mb-20 sm:mb-0 px-6 py-2 text-white font-semibold rounded-full transition-all hover:scale-105"
-
-          style={{ backgroundColor: "var(--tertiary)" }}
-        >
-          Load More
-        </button>
+      {/* ✅ Load More Button */}
+      {visibleCount < allNews.length && (
+        <div className="flex justify-center mt-10">
+          <button
+            onClick={handleLoadMore}
+            className="px-6 py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-all duration-300"
+          >
+            Load More
+          </button>
+        </div>
       )}
-    </div>
+    </section>
   );
 };
 

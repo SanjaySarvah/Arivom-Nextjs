@@ -10,7 +10,7 @@ import MagazineLayout from "@/components/News/MagazineLayout";
 import TrendingCards from "@/components/Common/TrendingCards";
 import Popular from "@/components/Common/Sidebar/Popular";
 import SectionHeader from "@/components/Common/SectionHeader";
-
+import Testing from "@/components/News/Testing";
 import related from "@/data/RelatedSlider.json";
 import CardView from "@/components/Common/CardView";
 
@@ -23,14 +23,10 @@ export default function Home() {
       <div className="max-w-[90rem] mx-auto px-4 sm:px-8 lg:px-12 py-0">
         {/* 🔥 Trending + Top Sliders */}
         <section className="mb-10 lg:mb-16">
-          <TrendingCards title="Trending News" items={related} linkBase="/news" />
-
+          <TrendingCards  />
           <div className="mt-8">
             <RelatedSlider
-              title="முக்கிய செய்திகள்"
-              items={related}
-              linkBase="/news"
-              viewAllLink="/news/category/all"
+             
             />
           </div>
 
@@ -55,12 +51,7 @@ export default function Home() {
             {/* Left Column */}
             <div className="lg:col-span-8">
               <SectionwiseImportantNews
-                items={news}
-                linkBase="/news"
-                title="பிரிவு வாரியாக முக்கிய செய்திகள்"
-                subtitle="ஒவ்வொரு பிரிவிலும் இருந்து தேர்ந்தெடுக்கப்பட்ட முக்கிய அப்டேட்கள்"
-                categoryLabel="தமிழகம்"
-                viewAllLink="/news/category/all"
+          
               />
             </div>
 
