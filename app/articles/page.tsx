@@ -1,7 +1,7 @@
 "use client";
 
 import { getAllNews } from "@/lib/getData";
-import TrendingCards from "@/app/news/Components/TrendingCards";
+import TrendingCards from "@/app/news/components/TrendingCards";
 import SectionHeader from "@/components/Common/SectionHeader";
 import Popular from "@/components/Common/Sidebar/Popular";
 import SectionwiseImportantNews from "@/components/Common/SectionwiseImportantNews";

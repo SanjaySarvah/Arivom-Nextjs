@@ -19,6 +19,9 @@ interface NewsItem {
   author: string;
   created_at: string;
   tname?: string;
+  slug?: string;
+  highlights?: string;
+  tags?: string;
 }
 
 interface CategoryItem {
@@ -112,7 +115,7 @@ const CardView: React.FC = () => {
               className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-all duration-300 group"
             >
               {/* Image */}
-              <Link href={`/news/${item.id}`} className="block relative overflow-hidden">
+              <Link href={`/news/${item.slug}`} className="block relative overflow-hidden">
                 <img
                   src={`${BASE_URL}/${item.image}`}
                   alt={item.title}

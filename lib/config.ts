@@ -1,4 +1,2 @@
-// Centralized configuration file
-const BASE_URL = "http://localhost/newsapi";
-
-export default BASE_URL;
+// lib/config.ts
+export const BASE_URL = 'http://localhost/newsapi'

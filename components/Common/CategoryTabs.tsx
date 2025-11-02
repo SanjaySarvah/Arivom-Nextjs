@@ -62,8 +62,10 @@ export default function CategoryTabs({ baseLink, label }: CategoryTabsProps) {
     setActiveCategory(category.id)
     setSubcategories([])
 
-  // 👉 Navigate to category slug page (subcategories will link to slug + subId)
-  router.push(`${baseLink}/category/${encodeURIComponent(category.slug.toLowerCase())}`)
+    // 👉 Navigate to category slug + categoryid page
+    router.push(
+      `${baseLink}/category/${encodeURIComponent(category.slug.toLowerCase())}/${category.id}`
+    )
 
     try {
       const res = await fetch('http://localhost/newsapi/news/get/get_subcategories.php', {
@@ -83,20 +85,25 @@ export default function CategoryTabs({ baseLink, label }: CategoryTabsProps) {
     }
   }
 
-  // 🔹 Handle mobile & sticky
+  // 🔹 Handle mobile & sticky behavior
   useEffect(() => {
     if (typeof window === 'undefined') return
+
     const mq = window.matchMedia('(max-width: 639px)')
     const onMqChange = (e: MediaQueryListEvent | MediaQueryList) => setIsMobile(Boolean(e.matches))
+
     if ('addEventListener' in mq) {
       mq.addEventListener('change', onMqChange as EventListener)
     } else {
       // @ts-ignore
       mq.addListener(onMqChange)
     }
+
     setIsMobile(mq.matches)
+
     const onScroll = () => setIsSticky(window.scrollY > 80)
     window.addEventListener('scroll', onScroll)
+
     return () => {
       if ('removeEventListener' in mq) {
         mq.removeEventListener('change', onMqChange as EventListener)
@@ -108,16 +115,19 @@ export default function CategoryTabs({ baseLink, label }: CategoryTabsProps) {
     }
   }, [])
 
-  // 🔹 Scroll
+  // 🔹 Horizontal scroll
   const scrollLeft = () => containerRef.current?.scrollBy({ left: -250, behavior: 'smooth' })
   const scrollRight = () => containerRef.current?.scrollBy({ left: 250, behavior: 'smooth' })
 
-  // 🔹 Helpers
+  // 🔹 Text truncation helpers
   const truncateByWords = (s: string) => {
     const words = s.trim().split(/\s+/)
     return words.length <= MAX_WORDS ? s : words.slice(0, MAX_WORDS).join(' ') + '...'
   }
-  const truncateByChars = (s: string) => (s.length <= MAX_CHARS ? s : s.slice(0, MAX_CHARS) + '...')
+
+  const truncateByChars = (s: string) =>
+    s.length <= MAX_CHARS ? s : s.slice(0, MAX_CHARS) + '...'
+
   const formatDisplayName = (fullName: string) => {
     if (!isMobile) return fullName
     return TRUNCATE_BY_CHARS ? truncateByChars(fullName) : truncateByWords(fullName)
@@ -195,7 +205,7 @@ export default function CategoryTabs({ baseLink, label }: CategoryTabsProps) {
                 key={sub.id}
                 href={`${baseLink}/category/${encodeURIComponent(
                   categories.find((c) => c.id === activeCategory)?.slug || ''
-                )}/${sub.id}`}
+                )}/${activeCategory}/${sub.id}`}
                 className="text-sm text-gray-700 bg-gray-100 hover:bg-[#017BFF] hover:text-white px-3 py-1 rounded-lg transition-all"
               >
                 {sub.tname || sub.name}
