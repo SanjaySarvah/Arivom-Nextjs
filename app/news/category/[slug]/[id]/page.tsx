@@ -7,7 +7,7 @@ import { User } from 'lucide-react'
 import { FaRegNewspaper } from 'react-icons/fa'
 import CategoryBadge from '@/components/Common/Badges/CategoryBadge'
 import PopularTag from '@/components/Common/Badges/PopularTag'
-
+import TaggingBadgetesting from '@/components/News/Common/Badges/TaggingBadgetesting'
 import { BASE_URL } from '@/lib/config'  
 
 /** --- Types --- **/
@@ -271,7 +271,10 @@ export default function CategoryPage() {
 
                       {/* Tag Rotator (shows one tag at a time, rotates every 5s) */}
                       <div className="ml-auto">
-                        <TagRotator tagsRaw={(item as any).tags} intervalMs={5000} />
+                        {/* <TagRotator tagsRaw={(item as any).tags} intervalMs={5000} /> */}
+                        <TaggingBadgetesting tag={(item as any).tags} intervalMs={2000} />
+
+
                       </div>
                     </div>
                   </div>
